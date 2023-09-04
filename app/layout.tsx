@@ -1,6 +1,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Footer from '@/app/Footer/Footer'
+import NavBar from '@/app/Navbar/Navbar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +18,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+
+      <head>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpH2-Av-Vx28bMqZaTA0VTTy7j1ffRvR0&libraries=places,geocoder"></script>
+      </head>
+      <NavBar/>
+        <body className={inter.className}>{children}</body>
+      <Footer/>
     </html>
   )
 }

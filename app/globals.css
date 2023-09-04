@@ -105,3 +105,26 @@ a {
     color-scheme: dark;
   }
 }
+  
+hr {
+  opacity: 1 !important;
+}
+  
+ul {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+li {
+  margin-left: -5px;
+  text-align: left;
+}
+
+li a {
+  text-decoration: none;
+  color: #151515;
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+@import "~bootstrap/dist/css/bootstrap.min.css";

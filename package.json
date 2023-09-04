@@ -12,9 +12,16 @@
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
+    "bootstrap": "^5.3.1",
     "next": "13.4.19",
     "react": "18.2.0",
+    "react-bootstrap": "^2.8.0",
     "react-dom": "18.2.0",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "use-places-autocomplete": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/google.maps": "^3.54.0",
+    "sass": "^1.66.1"
   }
 }
