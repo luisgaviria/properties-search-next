@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import styles from "./Footer.module.scss";
 import React, { useState, useEffect } from "react";
 
@@ -68,12 +68,15 @@ const Footer = () => {
           <div id="block-9" className={styles["menu widget_block"]}>
             <div className={styles["menu-title-phone"]}>Phone Number</div>
             <div className={styles["wp-widget-group__inner-blocks"]}>
-              <a href="tel:+1(978)-319-8751" className={styles["text-footer-links"]}>
+              <a
+                href="tel:+1(508)-762-7639"
+                className={styles["text-footer-links"]}
+              >
                 305-462-4463
               </a>
               <br />
               <a
-                href="mailto: HarwoodHouses@gmail.com"
+                href="mailto: luis.aptx@gmail.com"
                 style={{ color: "#151515" }}
               >
                 Email
