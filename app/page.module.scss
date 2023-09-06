@@ -1,20 +1,24 @@
 .row-wrapper {
-    padding-top: 1rem;
-    text-align: left;
+  padding-top: 1rem;
+  text-align: left;
+}
+
+.title-wrapper {
+  margin: 0 auto;
+  max-width: 1545px;
+  text-align: left;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  h2 {
+    font-family: "tenon", Arial, Helvetica, sans-serif;
+    padding-bottom: 4rem;
+    font-size: 48px;
+    font-weight: bold;
+    line-height: 1.08;
+    color: #000000;
   }
-  
-  .title-wrapper {
-    margin: 0 auto;
-    max-width: 1545px;
-    text-align: left;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    h2 {
-      padding-bottom: 4rem;
-      font-size: 50px;
-      font-weight: bold;
-      line-height: 1.08;
-      color: #000000;
-    }
-  }
-  
+}
+
+.title {
+  font-family: "tenon", Arial, Helvetica, sans-serif;
+}

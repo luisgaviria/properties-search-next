@@ -1,8 +1,8 @@
 "use client";
 
-import { Container } from "react-bootstrap";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import { Container } from "@/node_modules/react-bootstrap/esm/index";
+import { Nav } from "@/node_modules/react-bootstrap/esm/index";
+import { Navbar } from "@/node_modules/react-bootstrap/esm/index";
 import styles from "./Navbar.module.scss";
 
 const NavBar = (props: any) => {
@@ -20,7 +20,7 @@ const NavBar = (props: any) => {
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className={styles["nav-link-items"]}>
             <Nav.Link href="/home">Home</Nav.Link>
             <Nav.Link href="/buy">Search</Nav.Link>
             {/* <Nav.Link href={localStorage.getItem("token") ? "/form" : "/login"}>
