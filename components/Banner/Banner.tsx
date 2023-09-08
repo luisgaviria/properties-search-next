@@ -1,7 +1,7 @@
 import styles from "./Banner.module.scss";
 
-import Container from "@/app/client-react-boostrap";
-import Form from "./Form/form";
+import {Container} from "@/app/client-react-boostrap";
+import Form from "./Form/Form";
 
 const Banner = () => {
   return (

@@ -28,7 +28,7 @@ const NavBar = (props: any) => {
                 </Nav.Link> */}
           </Nav>
         </Navbar.Collapse>
-        {localStorage.getItem("token") ? (
+        {/* {localStorage.getItem("token") ? (
           <Navbar.Collapse className="justify-content-end">
             <Nav>
               <p
@@ -49,7 +49,7 @@ const NavBar = (props: any) => {
               <Nav.Link href="/login">Login</Nav.Link>
             </Nav>
           </Navbar.Collapse>
-        )}
+        )} */}
       </Container>
     </Navbar>
   );

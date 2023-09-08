@@ -1,5 +1,5 @@
 import styles from "./ImageCards.module.scss";
-import Container from "@/app/client-react-boostrap";
+import {Container} from "@/app/client-react-boostrap";
 
 const ImageCards = () => {
   return (
