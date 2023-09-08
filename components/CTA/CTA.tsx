@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 
 import Container from "@/node_modules/react-bootstrap/esm/Container";

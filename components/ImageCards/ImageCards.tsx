@@ -1,5 +1,5 @@
 import styles from "./ImageCards.module.scss";
-import Container from "@/node_modules/react-bootstrap/esm/Container";
+import Container from "@/app/client-react-boostrap";
 
 const ImageCards = () => {
   return (
@@ -19,9 +19,9 @@ const ImageCards = () => {
             <div className={styles["apply-btn"]}>
               <div
                 className={styles["btn-cards"]}
-                onClick={() => {
-                  // return navigate("/buy");
-                }}
+                // onClick={() => {
+                //   // return navigate("/buy");
+                // }}
               >
                 <span>ADVANCED SEARCH</span>
               </div>

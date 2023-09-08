@@ -1,9 +1,7 @@
-"use client";
-
 import Image from "@/node_modules/next/image";
 import styles from "./page.module.scss";
 import Banner from "@/components/Banner/Banner";
-import Container from "@/node_modules/react-bootstrap/esm/Container";
+import Container from "./client-react-boostrap";
 import ImageCards from "@/components/ImageCards/ImageCards";
 import CTA from "@/components/CTA/CTA";
 
