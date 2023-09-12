@@ -1,11 +1,19 @@
 import styles from "./ImageCards.module.scss";
-import {Container} from "@/app/client-react-boostrap";
+import { Container } from "@/app/client-react-boostrap";
+import Image from "@/node_modules/next/image";
 
 const ImageCards = () => {
   return (
     <Container>
       <div className={styles["flex-container"]}>
         <div className={styles["card-home-one"]}>
+          <Image
+            className={styles["card-image"]}
+            width={500}
+            height={300}
+            src="/house29.webp"
+            alt="house icon"
+          />
           <div className={styles["card-info-wrapper"]}>
             <div className={styles["title-wrapper-cards"]}>
               <h2>Search Massachusetts Homes!</h2>
@@ -29,6 +37,13 @@ const ImageCards = () => {
           </div>
         </div>
         <div className={styles["card-home-two"]}>
+          <Image
+            className={styles["card-image"]}
+            width={500}
+            height={300}
+            src="/house28-v1.webp"
+            alt="house icon"
+          />
           <div className={styles["card-info-wrapper"]}>
             <div className={styles["title-wrapper-cards"]}>
               <h2>List Your Home!</h2>
@@ -44,6 +59,13 @@ const ImageCards = () => {
           </div>
         </div>
         <div className={styles["card-home-three"]}>
+          <Image
+            className={styles["card-image"]}
+            width={500}
+            height={300}
+            src="/house32.webp"
+            alt="house icon"
+          />
           <div className={styles["card-info-wrapper"]}>
             <div className={styles["title-wrapper-cards"]}>
               <h2>We're Hiring!</h2>

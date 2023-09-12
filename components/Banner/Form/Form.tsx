@@ -9,7 +9,9 @@ import usePlacesAutocomplete, {
 import Image from "@/node_modules/next/image";
 import styles from "./Form.module.scss";
 
-import magGlass from "../images/mag-glass.png";
+import magGlass from "../../../public/mag-glass.png";
+
+import { Container } from "@/app/client-react-boostrap";
 
 export default function Form() {
   const [activeButtons, setActiveButtons] = useState<string[]>([]);
@@ -104,75 +106,77 @@ export default function Form() {
     ));
 
   return (
-    <div className={styles["the-form"]}>
-      {/* <div className="form-title">
+    <Container>
+      <div className={styles["the-form"]}>
+        {/* <div className="form-title">
       <h4>Quick Search</h4>
     </div> */}
 
-      <div className={styles["btn-wrapper-search"]}>
-        <div
-          // onClick={() => {
-          //   onSelectClick("Buy");
-          // }}
-          className={
-            styles[
-              "btn-search-banner"
-              // `btn-search-banner ${
-              //   activeButtons.includes("Buy") ? "active" : ""
-              // }`
-            ]
-          }
-        >
-          <span>BUY</span>
+        <div className={styles["btn-wrapper-search"]}>
+          <div
+            // onClick={() => {
+            //   onSelectClick("Buy");
+            // }}
+            className={
+              styles[
+                "btn-search-banner"
+                // `btn-search-banner ${
+                //   activeButtons.includes("Buy") ? "active" : ""
+                // }`
+              ]
+            }
+          >
+            <span>BUY</span>
+          </div>
+          <div
+            // onClick={() => {
+            //   onSelectClick("Rent");
+            // }}
+            className={
+              styles[
+                "btn-search-banner"
+                // `btn-search-banner ${
+                //   activeButtons.includes("Rent") ? "active" : ""
+                // }`
+              ]
+            }
+          >
+            <span>RENT</span>
+          </div>
         </div>
-        <div
-          // onClick={() => {
-          //   onSelectClick("Rent");
-          // }}
-          className={
-            styles[
-              "btn-search-banner"
-              // `btn-search-banner ${
-              //   activeButtons.includes("Rent") ? "active" : ""
-              // }`
-            ]
-          }
-        >
-          <span>RENT</span>
-        </div>
-      </div>
 
-      <div className={styles["form-wrapper"]}>
-        <div className={styles["mktFormCol"]}>
-          <div className={styles["mktFieldWrap"]}>
-            <input
-              autoComplete="off"
-              name="Location"
-              id="Location"
-              placeholder="Enter a city, an address, a neighborhood or a ZIP code"
-              className={styles["mktInputText"]}
-              // onChange={onInputAddressChange}
-              // value={value} // Use the autocomplete value
-              // onKeyDown={(e) => {
-              //   if (e.key === "Enter") {
-              //     // submitInput(); // Call the submitInput function when Enter key is pressed
-              //   }
-              // }}
-            />
-            <Image
-              className={styles["icon-mag"]}
-              src={magGlass}
-              // onClick={submitInput}
-              alt="magnifying glass icon"
-            />
-            {/* {status === "OK" && (
+        <div className={styles["form-wrapper"]}>
+          <div className={styles["mktFormCol"]}>
+            <div className={styles["mktFieldWrap"]}>
+              <input
+                autoComplete="off"
+                name="Location"
+                id="Location"
+                placeholder="Enter a city, an address, a neighborhood or a ZIP code"
+                className={styles["mktInputText"]}
+                // onChange={onInputAddressChange}
+                // value={value} // Use the autocomplete value
+                // onKeyDown={(e) => {
+                //   if (e.key === "Enter") {
+                //     // submitInput(); // Call the submitInput function when Enter key is pressed
+                //   }
+                // }}
+              />
+              <Image
+                className={styles["icon-mag"]}
+                src={magGlass}
+                // onClick={submitInput}
+                alt="magnifying glass icon"
+              />
+              {/* {status === "OK" && (
           <div className={styles["autocomplete-suggestions"]}>
             {renderAutocompleteSuggestions()}
           </div>
         )} */}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 }

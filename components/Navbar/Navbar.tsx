@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "@/node_modules/next/link";
 import { Container } from "@/node_modules/react-bootstrap/esm/index";
 import { Nav } from "@/node_modules/react-bootstrap/esm/index";
 import { Navbar } from "@/node_modules/react-bootstrap/esm/index";
@@ -21,8 +22,10 @@ const NavBar = (props: any) => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className={styles["nav-link-items"]}>
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/search">Search</Nav.Link>
+            {/* <Nav.Link href="/">Home</Nav.Link> */}
+            <Link href="/">Home</Link>
+            {/* <Nav.Link href="/search">Search</Nav.Link> */}
+            <Link href="/search">Search</Link>
             {/* <Nav.Link href={localStorage.getItem("token") ? "/form" : "/login"}>
                   Manage Listings
                 </Nav.Link> */}

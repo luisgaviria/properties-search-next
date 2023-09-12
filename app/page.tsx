@@ -1,7 +1,7 @@
 import Image from "@/node_modules/next/image";
 import styles from "./page.module.scss";
 import Banner from "@/components/Banner/Banner";
-import {Container} from "./client-react-boostrap";
+import { Container } from "./client-react-boostrap";
 import ImageCards from "@/components/ImageCards/ImageCards";
 import CTA from "@/components/CTA/CTA";
 

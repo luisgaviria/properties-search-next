@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 
-import Container from "@/node_modules/react-bootstrap/esm/Container";
+import { Container } from "@/app/client-react-boostrap";
+
+import Image from "@/node_modules/next/image";
 
 import "./CTA.scss";
 
@@ -35,6 +37,13 @@ const CTA = () => {
   return (
     <Container>
       <div className={`cta-component ${isHovered ? "hovered" : ""}`}>
+        <Image
+          width={1272}
+          height={400}
+          alt="Blue skye background"
+          src={"/house28.webp"}
+          className="cta-image"
+        />
         <div className="content-wrapper">
           <h2>Your Perfect Home Awaits</h2>
           <span className="cta-span">

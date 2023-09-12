@@ -1,158 +1,480 @@
 .filter-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
-  
-    /* Add some margin to separate the filter wrappers when stacked */
-    margin-bottom: 20px;
-    gap: 5px;
-    max-width: 250px;
-  
-    @media (max-width: 768px) {
-      /* Reset the margin on mobile screens */
-      margin-bottom: 4rem;
-    }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+
+  /* Add some margin to separate the filter wrappers when stacked */
+  margin-bottom: 20px;
+  gap: 5px;
+  max-width: 250px;
+
+  @media (max-width: 768px) {
+    /* Reset the margin on mobile screens */
+    margin-bottom: 4rem;
+  }
 }
 .type-icon {
-    height: 50px;
-    width: auto;
+  height: 50px;
+  width: auto;
 }
 
 .toggle-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
 }
 
 .label_filters {
-    font-weight: 500;
-    margin-bottom: 2rem;
-    font-size: 22px;
-    @media (max-width: 1068px) {
-      font-size: 20px;
-    }
+  font-weight: 500;
+  margin-bottom: 2rem;
+  font-size: 22px;
+  @media (max-width: 1068px) {
+    font-size: 20px;
+  }
 }
 
 .property-type-form {
-    position: absolute;
-    top: 295px; /* Adjust the value to position vertically */
-    // right: 20px; /* Adjust the value to position horizontally */
-    z-index: 100; /* Adjust the value to ensure the element is above other content */
-    background-color: white; /* Set a background color for the form */
+  position: absolute;
+  top: 305px; /* Adjust the value to position vertically */
+  // right: 20px; /* Adjust the value to position horizontally */
+  z-index: 100; /* Adjust the value to ensure the element is above other content */
+  background-color: white; /* Set a background color for the form */
+  padding: 10px;
+  @media (max-width: 1200px) {
+    position: static;
+    z-index: 100;
+    background-color: white;
     padding: 10px;
-    @media (max-width: 1200px) {
-      position: static;
-      z-index: 100;
-      background-color: white;
-      padding: 10px;
-    }
+  }
 }
 
 .propType_filter {
-    padding: 0.5rem;
+  padding: 0.5rem;
 }
 .property-search {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    padding-top: 4.5rem;
-    padding-bottom: 20rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    @media (max-width: 1100px) {
-      /* Change the flex direction to column on screens smaller than 768px */
-      flex-direction: column;
-      align-items: center;
-      padding-bottom: 0rem;
-    }
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding-top: 4.5rem;
+  padding-bottom: 20rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 1rem;
+  @media (max-width: 1100px) {
+    /* Change the flex direction to column on screens smaller than 768px */
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0rem;
+  }
 }
-  
+
 .location-icon {
-    height: 50px;
-    width: auto;
-  }
-  
-  .price-icon {
-    height: 50px;
-    width: auto;
-  }
-  
-  .subtype-icon {
-    height: 50px;
-    width: auto;
-  }
+  height: 50px;
+  width: auto;
+}
 
-  .property-subtype-form {
-    position: absolute;
-    top: 295px; /* Adjust the value to position vertically */
-    // right: 20px; /* Adjust the value to position horizontally */
-    z-index: 100; /* Adjust the value to ensure the element is above other content */
-    background-color: white; /* Set a background color for the form */
-  
+.price-icon {
+  height: 50px;
+  width: auto;
+}
+
+.subtype-icon {
+  height: 50px;
+  width: auto;
+}
+
+.property-subtype-form {
+  position: absolute;
+  top: 305px; /* Adjust the value to position vertically */
+  // right: 20px; /* Adjust the value to position horizontally */
+  z-index: 100; /* Adjust the value to ensure the element is above other content */
+  background-color: white; /* Set a background color for the form */
+
+  padding: 10px;
+  @media (max-width: 1200px) {
+    position: static;
+    z-index: 100;
+    background-color: white;
     padding: 10px;
-    @media (max-width: 1200px) {
-      position: static;
-      z-index: 100;
-      background-color: white;
-      padding: 10px;
-    }
   }
+}
 
-  .label_filters {
+.label_filters {
+  font-weight: 500;
+  margin-bottom: 2rem;
+  font-size: 22px;
+  @media (max-width: 1068px) {
+    font-size: 20px;
+  }
+}
+.price-input-wrapper {
+  position: absolute;
+  top: 300px; /* Adjust the value to position vertically */
+  // right: 20px; /* Adjust the value to position horizontally */
+  z-index: 100; /* Adjust the value to ensure the element is above other content */
+  background-color: white; /* Set a background color for the form */
+
+  padding: 10px;
+  @media (max-width: 1200px) {
+    position: static;
+    z-index: 100;
+    background-color: white;
+    padding: 10px;
+  }
+}
+
+.range-slider-price {
+  padding-top: 2rem;
+  max-width: 240px;
+  margin: 0 auto;
+}
+
+#Location .form-control {
+  position: absolute;
+  top: 333px; /* Adjust the value to position vertically */
+  // right: 20px; /* Adjust the value to position horizontally */
+  z-index: 100; /* Adjust the value to ensure the element is above other content */
+  background-color: white; /* Set a background color for the form */
+  padding: 10px;
+  @media (max-width: 1200px) {
+    position: static;
+    z-index: 100;
+    background-color: white;
+    padding: 10px;
+  }
+}
+
+.bed-baths-icon-wrapper {
+  display: inline-block;
+  .beds-icon {
+    height: 40px;
+    width: auto;
+    margin-right: 15px;
+    margin-bottom: -15px;
+  }
+  .baths-icon {
+    height: 50px;
+    width: auto;
+  }
+}
+
+.beds-label {
+  text-align: left;
+}
+
+.baths-label {
+  padding-top: 1.39rem;
+  text-align: left;
+}
+
+.price-label {
+  text-align: left;
+}
+.sort-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: -4rem;
+
+  position: absolute;
+  left: 20px;
+  // padding: 10px; /* Adjust padding as needed */
+  // display: flex;
+  z-index: 1;
+}
+
+.sort-select {
+  margin-right: 1rem;
+  background-color: #f8f9fa;
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  border: 0.5px solid rgba(44, 41, 41, 0.8588235294) !important;
+  border-radius: 8px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  appearance: none;
+  box-shadow: 0 0 4px rgba(53, 50, 50, 0.2);
+}
+
+.order-select {
+  background-color: #f8f9fa;
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  border: 0.3px solid rgba(44, 41, 41, 0.8588235294) !important;
+  border-radius: 8px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  appearance: none;
+  box-shadow: 0 0 4px rgba(53, 50, 50, 0.2);
+}
+
+.span-price {
+  font-size: 24px;
+  font-weight: 400;
+  padding-bottom: 2rem;
+}
+
+.form-label {
+  font-size: 20px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.city_label {
+  padding-top: 2rem !important;
+  margin-left: 1.76rem;
+  .form-label {
+    font-size: 18px;
     font-weight: 500;
-    margin-bottom: 2rem;
-    font-size: 22px;
-    @media (max-width: 1068px) {
-      font-size: 20px;
-    }
   }
-  .price-input-wrapper {
-    position: absolute;
-    top: 300px; /* Adjust the value to position vertically */
-    // right: 20px; /* Adjust the value to position horizontally */
-    z-index: 100; /* Adjust the value to ensure the element is above other content */
-    background-color: white; /* Set a background color for the form */
-  
-    padding: 10px;
-    @media (max-width: 1200px) {
-      position: static;
-      z-index: 100;
-      background-color: white;
-      padding: 10px;
-    }
-    .price-label {
-      // text-align: left !important;
-      // padding-top: 1rem;
-      // font-size: 22px;
-      // display: flex;
-      // align-items: center;
-      // max-width: 380px;
-      > * {
-        // margin-right: 10px;
-        margin-left: 5px;
-      }
-      .form-label {
-        font-size: 20px;
-        font-weight: 500;
-      }
-      .form-control {
-        background-color: #f8f9fa;
-        background-repeat: no-repeat;
-        background-position: right 0.75rem center;
-        border: 1px solid rgba(44, 41, 41, 0.8588235294) !important;
-        border-radius: 8px;
-        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        appearance: none;
-        box-shadow: 0 0 4px rgba(53, 50, 50, 0.2);
-      }
-    }
+}
+
+.form-price {
+  padding-top: 1rem;
+  // padding-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-check {
+  text-align: left;
+  font-size: 50px;
+  @media (max-width: 1080px) {
+    font-size: 22px;
+  }
+}
+
+.form-check-label {
+  margin-left: 20px;
+  font-weight: 500;
+}
+
+// .form-select {
+//   background-color: #f8f9fa; /* Change background color */
+//   background-repeat: no-repeat;
+//   background-position: right 0.75rem center;
+//   // background-size: 20px 33px;
+//   border: 1px solid #2c2929db !important; /* Adjust border width and color */
+//   border-radius: 8px; /* Adjust border radius */
+//   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+//   appearance: none;
+//   box-shadow: 0 0 4px rgba(53, 50, 50, 0.2); /* Add box-shadow */
+// }
+
+// .form-select:focus {
+//   outline: none; /* Remove default focus outline */
+//   border-color: #a8a6a65d !important; /* Custom border color on focus */
+//   box-shadow: 0 0 0 0.2rem rgba(66, 135, 245, 0.616) !important; /* Custom box-shadow on focus (blue tone) */
+// }
+
+.city_label {
+  padding-top: 2rem;
+  text-align: left;
+  max-width: 275px;
+
+  // .form-control {
+  //   background-color: #f8f9fa;
+  //   background-repeat: no-repeat;
+  //   background-position: right 0.75rem center;
+  //   background-size: 35px 56px;
+  //   border: 1px solid rgba(44, 41, 41, 0.8588235294) !important;
+  //   border-radius: 8px;
+  //   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  //   appearance: none;
+  //   box-shadow: 0 0 4px rgba(53, 50, 50, 0.2);
+  // }
+}
+
+.label_filters {
+  font-weight: 500;
+  margin-bottom: 2rem;
+  font-size: 22px;
+  @media (max-width: 1068px) {
+    font-size: 20px;
+  }
+}
+
+.input-form-wrapper {
+  position: absolute;
+  top: 333px; /* Adjust the value to position vertically */
+  // right: 20px; /* Adjust the value to position horizontally */
+  z-index: 100; /* Adjust the value to ensure the element is above other content */
+  background-color: white; /* Set a background color for the form */
+  padding: 5px 0 10px;
+  max-width: 275px;
+  @media (max-width: 1200px) {
+    position: static;
+    z-index: 100;
+    background-color: white;
+    padding-top: 35px;
+  }
+}
+
+.mktFormColBuy {
+  display: flex;
+  align-items: center; /* Vertically center elements */
+  margin-left: 0 !important;
+  width: 100%;
+  margin: 0;
+  float: left;
+  position: relative;
+  min-height: 2em;
+
+  .mktoFormCheckBox {
+    padding-top: 5px;
   }
 
-  .range-slider-price {
-    padding-top: 2rem;
-    max-width: 240px;
-    margin: 0 auto;
+  .mktFieldWrap {
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+    float: left;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    padding-right: 2px;
   }
+  input[type="checkbox"] {
+    margin-right: 10px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+  }
+
+  input[type="checkbox"]::before {
+    font-weight: bolder;
+  }
+  .inputText {
+    padding: 5px 5px 5px 8px;
+    max-width: 100%;
+    width: 100% !important;
+    // font-family: "Tenon", arial;
+    box-shadow: 0 0 0 50px transparent inset;
+    -webkit-box-shadow: 0 0 0 50px transparent inset;
+    border: 1px solid black;
+    background-color: #ffffff;
+    height: 40px;
+    font-size: 16px;
+    margin: 0;
+    outline: none;
+    width: 100%;
+    cursor: text;
+    -webkit-box-shadow: none;
+    box-shadow: 0 0 4px rgba(53, 50, 50, 0.2);
+    border-radius: 7px;
+    color: #484747;
+    position: relative;
+    z-index: 1;
+    font-weight: 600;
+    // padding-left: 10px;
+    z-index: 1;
+    margin-bottom: 1rem;
+  }
+
+  .disabled {
+    padding: 5px 5px 5px 8px;
+    max-width: 100%;
+    width: 100% !important;
+    // font-family: "Tenon", arial;
+    box-shadow: 0 0 0 50px transparent inset;
+    -webkit-box-shadow: 0 0 0 50px transparent inset;
+    border: 1px solid black;
+    background-color: #efeeee;
+    height: 40px;
+    font-size: 16px;
+    margin: 0;
+    outline: none;
+    width: 100%;
+    cursor: not-allowed;
+    -webkit-box-shadow: none;
+    box-shadow: 0 0 4px rgba(53, 50, 50, 0.2);
+    border-radius: 7px;
+    color: #484747;
+    position: relative;
+    z-index: 1;
+    font-weight: 600;
+    // padding-left: 10px;
+    z-index: 1;
+    margin-bottom: 1rem;
+  }
+
+  .icon-mag-buy {
+    position: absolute;
+    max-width: 30px;
+    top: 37%;
+    right: 12px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 2;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .mktFormRow {
+    grid-template-columns: 1fr;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 0;
+  }
+  .mktFormCol {
+    padding-bottom: 10px;
+  }
+}
+
+.mktForm {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  // color: rgb(51, 51, 51);
+  margin-top: 10px;
+  width: 100% !important;
+  text-align: left;
+}
+
+.mktFormRow {
+  width: 100%;
+  // padding-left: 50px;
+  padding-right: 50px;
+  margin-top: 10px;
+  clear: both;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+}
+
+@media screen and (max-width: 680px) {
+  .mktFormRow {
+    grid-template-columns: 1fr;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 0;
+  }
+  .mktFormCol {
+    padding-bottom: 10px;
+  }
+}
+
+.input-form {
+  left: 10px;
+}
+
+.beds-baths-form {
+  position: absolute;
+  top: 300px; /* Adjust the value to position vertically */
+  z-index: 100; /* Adjust the value to ensure the element is above other content */
+  background-color: white; /* Set a background color for the form */
+  width: 200px;
+  padding: 10px;
+  @media (max-width: 1200px) {
+    position: static;
+    z-index: 100;
+    background-color: white;
+    padding: 10px;
+  }
+}
+
+.min-wrapper {
+  padding-bottom: 1.49rem;
+}

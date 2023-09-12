@@ -1,12 +1,21 @@
+.container {
+  @media screen and (max-width: 780px) {
+    padding: 0;
+  }
+}
+
 .cta-component {
   margin: 0 auto;
   display: grid;
   place-items: center;
-  max-width: 1545px;
-  background-image: url("./images/house28.webp");
+  // max-width: 1545px;
+  // background-image: url("../../public/house28.webp");
+  position: relative;
+
+  height: 440px;
   background-size: cover;
   background-position-x: center;
-  background-position-y: 20%;
+
   transition: transform 0.3s ease-in;
   border-radius: 25px;
   padding-bottom: 2rem;
@@ -60,6 +69,21 @@
     transition: transform 0.4s ease-out;
   }
 
+  .cta-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    transition: transform 0.3s ease-in;
+    border-radius: 35px;
+    background-position-y: 50%; /* Adjust this value as needed */
+    margin-top: 0px;
+  }
+
   .content-wrapper {
     display: flex;
     -ms-flex-wrap: wrap;
@@ -82,6 +106,10 @@
     -webkit-transition: all 0.4s ease-in-out;
     -o-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
+
+    @media screen and (max-width: 780px) {
+      padding: 85px 20px 50px;
+    }
   }
 
   h2 {
@@ -90,6 +118,9 @@
     margin: 0;
     padding-bottom: 20px;
     font-size: 50px;
+    @media screen and (max-width: 780px) {
+      font-size: 30px;
+    }
   }
 
   .cta-span {
@@ -99,7 +130,19 @@
     max-width: 1200px;
     text-align: center;
     color: #ffffff;
+    @media screen and (max-width: 780px) {
+      font-size: 18px;
+    }
   }
+
+  .row-wrapper {
+    @media screen and (max-width: 780px) {
+      display: grid;
+      place-items: center;
+      gap: 1rem;
+    }
+  }
+
   .btn-cta {
     font-weight: 500;
     -webkit-transition: all 0.3s ease-in-out;
