@@ -1,8 +1,9 @@
 import "./globals.scss";
-import type { Metadata } from "/next";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/Navbar/Navbar";
+import { ReactQueryProvider } from "./ReactQueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,12 +19,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <NavBar />
-        {children}
-        <Footer />
-      </body>
-    </html>
+    <ReactQueryProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <NavBar />
+          {children}
+          <Footer />
+        </body>
+      </html>
+    </ReactQueryProvider>
   );
 }
