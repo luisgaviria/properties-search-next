@@ -182,9 +182,5 @@ export async function GET(
                 message: "error"
             }); 
           }
-        // return res.status(200).json({
-        //     message:  "Hello"
-        // });
     }
-
 }
