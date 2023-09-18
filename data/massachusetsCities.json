@@ -1,0 +1,2817 @@
+[
+  {
+    "Name": "Any",
+    "Type": "Town",
+    "County": "Any",
+    "Population": "15,985",
+    "Year": 1712
+  },
+  {
+    "Name": "Abington",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "15,985",
+    "Year": 1712
+  },
+  {
+    "Name": "Acton",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "21,924",
+    "Year": 1735
+  },
+  {
+    "Name": "Acushnet",
+    "Type": "Town",
+    "County": "Bristol",
+    "Form of government": "Open town meeting",
+    "Population": "10,303",
+    "Year": 1860
+  },
+  {
+    "Name": "Adams",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Representative town meeting",
+    "Population": "8,485",
+    "Year": 1778
+  },
+  {
+    "Name": "Agawam",
+    "Type": "City",
+    "County": "Hampden",
+    "Form of government": "Mayor-council",
+    "Population": "28,438",
+    "Year": 1855
+  },
+  {
+    "Name": "Alford",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": 494,
+    "Year": 1773
+  },
+  {
+    "Name": "Amesbury",
+    "Type": "City",
+    "County": "Essex",
+    "Form of government": "Mayor-council",
+    "Population": "16,283",
+    "Year": 1668
+  },
+  {
+    "Name": "Amherst",
+    "Type": "Town",
+    "County": "Hampshire",
+    "Form of government": "Representative town meeting",
+    "Population": "37,819",
+    "Year": 1775
+  },
+  {
+    "Name": "Andover",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "33,201",
+    "Year": 1646
+  },
+  {
+    "Name": "Aquinnah",
+    "Type": "Town",
+    "County": "Dukes",
+    "Form of government": "Open town meeting",
+    "Population": 311,
+    "Year": 1870
+  },
+  {
+    "Name": "Arlington",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Representative town meeting",
+    "Population": "42,844",
+    "Year": 1807
+  },
+  {
+    "Name": "Ashburnham",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "6,081",
+    "Year": 1765
+  },
+  {
+    "Name": "Ashby",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "3,074",
+    "Year": 1767
+  },
+  {
+    "Name": "Ashfield",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": "1,737",
+    "Year": 1765
+  },
+  {
+    "Name": "Ashland",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "16,593",
+    "Year": 1846
+  },
+  {
+    "Name": "Athol",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "11,584",
+    "Year": 1762
+  },
+  {
+    "Name": "Attleboro",
+    "Type": "City",
+    "County": "Bristol",
+    "Form of government": "Mayor-council",
+    "Population": "43,593",
+    "Year": 1694
+  },
+  {
+    "Name": "Auburn",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Representative town meeting",
+    "Population": "16,188",
+    "Year": 1778
+  },
+  {
+    "Name": "Avon",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Open town meeting",
+    "Population": "4,356",
+    "Year": 1888
+  },
+  {
+    "Name": "Ayer",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "7,427",
+    "Year": 1871
+  },
+  {
+    "Name": "Barnstable",
+    "Type": "City",
+    "County": "Barnstable",
+    "Form of government": "Council-manager",
+    "Population": "45,193",
+    "Year": 1638
+  },
+  {
+    "Name": "Barre",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "5,398",
+    "Year": 1774
+  },
+  {
+    "Name": "Becket",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": "1,779",
+    "Year": 1765
+  },
+  {
+    "Name": "Bedford",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "13,320",
+    "Year": 1729
+  },
+  {
+    "Name": "Belchertown",
+    "Type": "Town",
+    "County": "Hampshire",
+    "Form of government": "Open town meeting",
+    "Population": "14,649",
+    "Year": 1761
+  },
+  {
+    "Name": "Bellingham",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Open town meeting",
+    "Population": "16,332",
+    "Year": 1719
+  },
+  {
+    "Name": "Belmont",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Representative town meeting",
+    "Population": "24,729",
+    "Year": 1859
+  },
+  {
+    "Name": "Berkley",
+    "Type": "Town",
+    "County": "Bristol",
+    "Form of government": "Open town meeting",
+    "Population": "6,411",
+    "Year": 1735
+  },
+  {
+    "Name": "Berlin",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "2,866",
+    "Year": 1812
+  },
+  {
+    "Name": "Bernardston",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": "2,129",
+    "Year": 1762
+  },
+  {
+    "Name": "Beverly",
+    "Type": "City",
+    "County": "Essex",
+    "Form of government": "Mayor-council",
+    "Population": "39,502",
+    "Year": 1668
+  },
+  {
+    "Name": "Billerica",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Representative town meeting",
+    "Population": "40,243",
+    "Year": 1655
+  },
+  {
+    "Name": "Blackstone",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "9,026",
+    "Year": 1845
+  },
+  {
+    "Name": "Blandford",
+    "Type": "Town",
+    "County": "Hampden",
+    "Form of government": "Open town meeting",
+    "Population": "1,233",
+    "Year": 1741
+  },
+  {
+    "Name": "Bolton",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "4,897",
+    "Year": 1738
+  },
+  {
+    "Name": "Boston",
+    "Type": "City",
+    "County": "Suffolk",
+    "Form of government": "Mayor-council",
+    "Population": "6,17,594",
+    "Year": 1630
+  },
+  {
+    "Name": "Bourne",
+    "Type": "Town",
+    "County": "Barnstable",
+    "Form of government": "Open town meeting",
+    "Population": "19,754",
+    "Year": 1884
+  },
+  {
+    "Name": "Boxborough",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "4,996",
+    "Year": 1835
+  },
+  {
+    "Name": "Boxford",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "7,965",
+    "Year": 1685
+  },
+  {
+    "Name": "Boylston",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "4,355",
+    "Year": 1785
+  },
+  {
+    "Name": "Braintree",
+    "Type": "City",
+    "County": "Norfolk",
+    "Form of government": "Mayor-council",
+    "Population": "35,744",
+    "Year": 1640
+  },
+  {
+    "Name": "Brewster",
+    "Type": "Town",
+    "County": "Barnstable",
+    "Form of government": "Open town meeting",
+    "Population": "9,820",
+    "Year": 1803
+  },
+  {
+    "Name": "Bridgewater",
+    "Type": "City",
+    "County": "Plymouth",
+    "Form of government": "Council-manager",
+    "Population": "26,563",
+    "Year": 1656
+  },
+  {
+    "Name": "Brimfield",
+    "Type": "Town",
+    "County": "Hampden",
+    "Form of government": "Open town meeting",
+    "Population": "3,609",
+    "Year": 1731
+  },
+  {
+    "Name": "Brockton",
+    "Type": "City",
+    "County": "Plymouth",
+    "Form of government": "Mayor-council",
+    "Population": "93,810",
+    "Year": 1821
+  },
+  {
+    "Name": "Brookfield",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "3,390",
+    "Year": 1718
+  },
+  {
+    "Name": "Brookline",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Representative town meeting",
+    "Population": "58,732",
+    "Year": 1705
+  },
+  {
+    "Name": "Buckland",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": "1,902",
+    "Year": 1779
+  },
+  {
+    "Name": "Burlington",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Representative town meeting",
+    "Population": "24,498",
+    "Year": 1799
+  },
+  {
+    "Name": "Cambridge",
+    "Type": "City",
+    "County": "Middlesex",
+    "Form of government": "Mayor-manager-council",
+    "Population": "1,05,162",
+    "Year": 1636
+  },
+  {
+    "Name": "Canton",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Open town meeting",
+    "Population": "21,561",
+    "Year": 1797
+  },
+  {
+    "Name": "Carlisle",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "4,852",
+    "Year": 1780
+  },
+  {
+    "Name": "Carver",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "11,509",
+    "Year": 1790
+  },
+  {
+    "Name": "Charlemont",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": "1,266",
+    "Year": 1765
+  },
+  {
+    "Name": "Charlton",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "12,981",
+    "Year": 1775
+  },
+  {
+    "Name": "Chatham",
+    "Type": "Town",
+    "County": "Barnstable",
+    "Form of government": "Open town meeting",
+    "Population": "6,125",
+    "Year": 1712
+  },
+  {
+    "Name": "Chelmsford",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Representative town meeting",
+    "Population": "33,802",
+    "Year": 1655
+  },
+  {
+    "Name": "Chelsea",
+    "Type": "City",
+    "County": "Suffolk",
+    "Form of government": "Council-manager",
+    "Population": "35,177",
+    "Year": 1739
+  },
+  {
+    "Name": "Cheshire",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": "3,235",
+    "Year": 1793
+  },
+  {
+    "Name": "Chester",
+    "Type": "Town",
+    "County": "Hampden",
+    "Form of government": "Open town meeting",
+    "Population": "1,337",
+    "Year": 1765
+  },
+  {
+    "Name": "Chesterfield",
+    "Type": "Town",
+    "County": "Hampshire",
+    "Form of government": "Open town meeting",
+    "Population": "1,222",
+    "Year": 1762
+  },
+  {
+    "Name": "Chicopee",
+    "Type": "City",
+    "County": "Hampden",
+    "Form of government": "Mayor-aldermen",
+    "Population": "55,298",
+    "Year": 1848
+  },
+  {
+    "Name": "Chilmark",
+    "Type": "Town",
+    "County": "Dukes",
+    "Form of government": "Open town meeting",
+    "Population": 866,
+    "Year": 1714
+  },
+  {
+    "Name": "Clarksburg",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": "1,702",
+    "Year": 1798
+  },
+  {
+    "Name": "Clinton",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "13,606",
+    "Year": 1850
+  },
+  {
+    "Name": "Cohasset",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Open town meeting",
+    "Population": "7,542",
+    "Year": 1775
+  },
+  {
+    "Name": "Colrain",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": "1,671",
+    "Year": 1761
+  },
+  {
+    "Name": "Concord",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "17,668",
+    "Year": 1635
+  },
+  {
+    "Name": "Conway",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": "1,897",
+    "Year": 1775
+  },
+  {
+    "Name": "Cummington",
+    "Type": "Town",
+    "County": "Hampshire",
+    "Form of government": "Open town meeting",
+    "Population": 872,
+    "Year": 1779
+  },
+  {
+    "Name": "Dalton",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": "6,756",
+    "Year": 1784
+  },
+  {
+    "Name": "Danvers",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Representative town meeting",
+    "Population": "26,493",
+    "Year": 1775
+  },
+  {
+    "Name": "Dartmouth",
+    "Type": "Town",
+    "County": "Bristol",
+    "Form of government": "Representative town meeting",
+    "Population": "34,032",
+    "Year": 1664
+  },
+  {
+    "Name": "Dedham",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Representative town meeting",
+    "Population": "24,729",
+    "Year": 1636
+  },
+  {
+    "Name": "Deerfield",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": "5,125",
+    "Year": 1677
+  },
+  {
+    "Name": "Dennis",
+    "Type": "Town",
+    "County": "Barnstable",
+    "Form of government": "Open town meeting",
+    "Population": "14,207",
+    "Year": 1793
+  },
+  {
+    "Name": "Dighton",
+    "Type": "Town",
+    "County": "Bristol",
+    "Form of government": "Open town meeting",
+    "Population": "7,086",
+    "Year": 1712
+  },
+  {
+    "Name": "Douglas",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "8,471",
+    "Year": 1775
+  },
+  {
+    "Name": "Dover",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Open town meeting",
+    "Population": "5,589",
+    "Year": 1836
+  },
+  {
+    "Name": "Dracut",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "29,457",
+    "Year": 1701
+  },
+  {
+    "Name": "Dudley",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "11,390",
+    "Year": 1732
+  },
+  {
+    "Name": "Dunstable",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "3,179",
+    "Year": 1673
+  },
+  {
+    "Name": "Duxbury",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "15,059",
+    "Year": 1637
+  },
+  {
+    "Name": "East Bridgewater",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "13,794",
+    "Year": 1823
+  },
+  {
+    "Name": "East Brookfield",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "2,183",
+    "Year": 1920
+  },
+  {
+    "Name": "East Longmeadow",
+    "Type": "Town",
+    "County": "Hampden",
+    "Form of government": "Open town meeting",
+    "Population": "15,720",
+    "Year": 1894
+  },
+  {
+    "Name": "Eastham",
+    "Type": "Town",
+    "County": "Barnstable",
+    "Form of government": "Open town meeting",
+    "Population": "4,956",
+    "Year": 1646
+  },
+  {
+    "Name": "Easthampton",
+    "Type": "City",
+    "County": "Hampshire",
+    "Form of government": "Mayor-council",
+    "Population": "16,053",
+    "Year": 1809
+  },
+  {
+    "Name": "Easton",
+    "Type": "Town",
+    "County": "Bristol",
+    "Form of government": "Open town meeting",
+    "Population": "23,112",
+    "Year": 1725
+  },
+  {
+    "Name": "Edgartown",
+    "Type": "Town",
+    "County": "Dukes",
+    "Form of government": "Open town meeting",
+    "Population": "4,067",
+    "Year": 1671
+  },
+  {
+    "Name": "Egremont",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": "1,225",
+    "Year": 1775
+  },
+  {
+    "Name": "Erving",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": "1,800",
+    "Year": 1838
+  },
+  {
+    "Name": "Essex",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "3,504",
+    "Year": 1819
+  },
+  {
+    "Name": "Everett",
+    "Type": "City",
+    "County": "Middlesex",
+    "Form of government": "Mayor-council-aldermen",
+    "Population": "41,667",
+    "Year": 1870
+  },
+  {
+    "Name": "Fairhaven",
+    "Type": "Town",
+    "County": "Bristol",
+    "Form of government": "Representative town meeting",
+    "Population": "15,873",
+    "Year": 1812
+  },
+  {
+    "Name": "Fall River",
+    "Type": "City",
+    "County": "Bristol",
+    "Form of government": "Mayor-council",
+    "Population": "88,857",
+    "Year": 1803
+  },
+  {
+    "Name": "Falmouth",
+    "Type": "Town",
+    "County": "Barnstable",
+    "Form of government": "Representative town meeting",
+    "Population": "31,531",
+    "Year": 1686
+  },
+  {
+    "Name": "Fitchburg",
+    "Type": "City",
+    "County": "Worcester",
+    "Form of government": "Mayor-council",
+    "Population": "40,318",
+    "Year": 1764
+  },
+  {
+    "Name": "Florida",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": 752,
+    "Year": 1805
+  },
+  {
+    "Name": "Foxborough",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Open town meeting",
+    "Population": "16,865",
+    "Year": 1778
+  },
+  {
+    "Name": "Framingham",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Representative town meeting",
+    "Population": "68,318",
+    "Year": 1700
+  },
+  {
+    "Name": "Franklin",
+    "Type": "City",
+    "County": "Norfolk",
+    "Form of government": "Council-administrator",
+    "Population": "31,635",
+    "Year": 1778
+  },
+  {
+    "Name": "Freetown",
+    "Type": "Town",
+    "County": "Bristol",
+    "Form of government": "Open town meeting",
+    "Population": "8,870",
+    "Year": 1683
+  },
+  {
+    "Name": "Gardner",
+    "Type": "City",
+    "County": "Worcester",
+    "Form of government": "Mayor-council",
+    "Population": "20,228",
+    "Year": 1785
+  },
+  {
+    "Name": "Georgetown",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "8,183",
+    "Year": 1838
+  },
+  {
+    "Name": "Gill",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": "1,500",
+    "Year": 1793
+  },
+  {
+    "Name": "Gloucester",
+    "Type": "City",
+    "County": "Essex",
+    "Form of government": "Mayor-council",
+    "Population": "28,789",
+    "Year": 1642
+  },
+  {
+    "Name": "Goshen",
+    "Type": "Town",
+    "County": "Hampshire",
+    "Form of government": "Open town meeting",
+    "Population": "1,054",
+    "Year": 1781
+  },
+  {
+    "Name": "Gosnold",
+    "Type": "Town",
+    "County": "Dukes",
+    "Form of government": "Open town meeting",
+    "Population": 75,
+    "Year": 1864
+  },
+  {
+    "Name": "Grafton",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "17,765",
+    "Year": 1735
+  },
+  {
+    "Name": "Granby",
+    "Type": "Town",
+    "County": "Hampshire",
+    "Form of government": "Open town meeting",
+    "Population": "6,240",
+    "Year": 1768
+  },
+  {
+    "Name": "Granville",
+    "Type": "Town",
+    "County": "Hampden",
+    "Form of government": "Open town meeting",
+    "Population": "1,566",
+    "Year": 1775
+  },
+  {
+    "Name": "Great Barrington",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": "7,104",
+    "Year": 1761
+  },
+  {
+    "Name": "Greenfield",
+    "Type": "City",
+    "County": "Franklin",
+    "Form of government": "Mayor-council",
+    "Population": "17,456",
+    "Year": 1775
+  },
+  {
+    "Name": "Groton",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "10,646",
+    "Year": 1655
+  },
+  {
+    "Name": "Groveland",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "6,459",
+    "Year": 1850
+  },
+  {
+    "Name": "Hadley",
+    "Type": "Town",
+    "County": "Hampshire",
+    "Form of government": "Open town meeting",
+    "Population": "5,250",
+    "Year": 1661
+  },
+  {
+    "Name": "Halifax",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "7,518",
+    "Year": 1734
+  },
+  {
+    "Name": "Hamilton",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "7,764",
+    "Year": 1793
+  },
+  {
+    "Name": "Hampden",
+    "Type": "Town",
+    "County": "Hampden",
+    "Form of government": "Open town meeting",
+    "Population": "5,139",
+    "Year": 1878
+  },
+  {
+    "Name": "Hancock",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": 717,
+    "Year": 1776
+  },
+  {
+    "Name": "Hanover",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "13,879",
+    "Year": 1727
+  },
+  {
+    "Name": "Hanson",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "10,209",
+    "Year": 1820
+  },
+  {
+    "Name": "Hardwick",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "2,990",
+    "Year": 1739
+  },
+  {
+    "Name": "Harvard",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "6,520",
+    "Year": 1732
+  },
+  {
+    "Name": "Harwich",
+    "Type": "Town",
+    "County": "Barnstable",
+    "Form of government": "Open town meeting",
+    "Population": "12,243",
+    "Year": 1694
+  },
+  {
+    "Name": "Hatfield",
+    "Type": "Town",
+    "County": "Hampshire",
+    "Form of government": "Open town meeting",
+    "Population": "3,279",
+    "Year": 1670
+  },
+  {
+    "Name": "Haverhill",
+    "Type": "City",
+    "County": "Essex",
+    "Form of government": "Mayor-council",
+    "Population": "60,879",
+    "Year": 1641
+  },
+  {
+    "Name": "Hawley",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": 337,
+    "Year": 1792
+  },
+  {
+    "Name": "Heath",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": 706,
+    "Year": 1785
+  },
+  {
+    "Name": "Hingham",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "22,157",
+    "Year": 1635
+  },
+  {
+    "Name": "Hinsdale",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": "2,032",
+    "Year": 1804
+  },
+  {
+    "Name": "Holbrook",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Representative town meeting",
+    "Population": "10,791",
+    "Year": 1872
+  },
+  {
+    "Name": "Holden",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "17,346",
+    "Year": 1741
+  },
+  {
+    "Name": "Holland",
+    "Type": "Town",
+    "County": "Hampden",
+    "Form of government": "Open town meeting",
+    "Population": "2,481",
+    "Year": 1835
+  },
+  {
+    "Name": "Holliston",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "13,547",
+    "Year": 1724
+  },
+  {
+    "Name": "Holyoke",
+    "Type": "City",
+    "County": "Hampden",
+    "Form of government": "Mayor-council",
+    "Population": "39,880",
+    "Year": 1850
+  },
+  {
+    "Name": "Hopedale",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "5,911",
+    "Year": 1886
+  },
+  {
+    "Name": "Hopkinton",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "14,925",
+    "Year": 1715
+  },
+  {
+    "Name": "Hubbardston",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "4,382",
+    "Year": 1775
+  },
+  {
+    "Name": "Hudson",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "19,063",
+    "Year": 1866
+  },
+  {
+    "Name": "Hull",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "10,293",
+    "Year": 1644
+  },
+  {
+    "Name": "Huntington",
+    "Type": "Town",
+    "County": "Hampshire",
+    "Form of government": "Open town meeting",
+    "Population": "2,180",
+    "Year": 1775
+  },
+  {
+    "Name": "Ipswich",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "13,175",
+    "Year": 1634
+  },
+  {
+    "Name": "Kingston",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "12,629",
+    "Year": 1726
+  },
+  {
+    "Name": "Lakeville",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "10,602",
+    "Year": 1853
+  },
+  {
+    "Name": "Lancaster",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "8,055",
+    "Year": 1653
+  },
+  {
+    "Name": "Lanesborough",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": "3,091",
+    "Year": 1765
+  },
+  {
+    "Name": "Lawrence",
+    "Type": "City",
+    "County": "Essex",
+    "Form of government": "Mayor-council",
+    "Population": "76,377",
+    "Year": 1847
+  },
+  {
+    "Name": "Lee",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Representative town meeting",
+    "Population": "5,943",
+    "Year": 1777
+  },
+  {
+    "Name": "Leicester",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "10,970",
+    "Year": 1714
+  },
+  {
+    "Name": "Lenox",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": "5,025",
+    "Year": 1775
+  },
+  {
+    "Name": "Leominster",
+    "Type": "City",
+    "County": "Worcester",
+    "Form of government": "Mayor-council",
+    "Population": "40,759",
+    "Year": 1740
+  },
+  {
+    "Name": "Leverett",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": "1,851",
+    "Year": 1774
+  },
+  {
+    "Name": "Lexington",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Representative town meeting",
+    "Population": "31,394",
+    "Year": 1713
+  },
+  {
+    "Name": "Leyden",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": 711,
+    "Year": 1809
+  },
+  {
+    "Name": "Lincoln",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "6,362",
+    "Year": 1754
+  },
+  {
+    "Name": "Littleton",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "8,924",
+    "Year": 1715
+  },
+  {
+    "Name": "Longmeadow",
+    "Type": "Town",
+    "County": "Hampden",
+    "Form of government": "Open town meeting",
+    "Population": "15,784",
+    "Year": 1783
+  },
+  {
+    "Name": "Lowell",
+    "Type": "City",
+    "County": "Middlesex",
+    "Form of government": "Mayor-manager-council",
+    "Population": "1,06,519",
+    "Year": 1826
+  },
+  {
+    "Name": "Ludlow",
+    "Type": "Town",
+    "County": "Hampden",
+    "Form of government": "Representative town meeting",
+    "Population": "21,103",
+    "Year": 1775
+  },
+  {
+    "Name": "Lunenburg",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "10,086",
+    "Year": 1728
+  },
+  {
+    "Name": "Lynn",
+    "Type": "City",
+    "County": "Essex",
+    "Form of government": "Mayor-council",
+    "Population": "90,329",
+    "Year": 1629
+  },
+  {
+    "Name": "Lynnfield",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "11,596",
+    "Year": 1814
+  },
+  {
+    "Name": "Malden",
+    "Type": "City",
+    "County": "Middlesex",
+    "Form of government": "Mayor-council",
+    "Population": "59,450",
+    "Year": 1649
+  },
+  {
+    "Name": "Manchester-by-the-Sea",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "5,136",
+    "Year": 1645
+  },
+  {
+    "Name": "Mansfield",
+    "Type": "Town",
+    "County": "Bristol",
+    "Form of government": "Open town meeting",
+    "Population": "23,184",
+    "Year": 1775
+  },
+  {
+    "Name": "Marblehead",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "19,808",
+    "Year": 1649
+  },
+  {
+    "Name": "Marion",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "4,907",
+    "Year": 1852
+  },
+  {
+    "Name": "Marlborough",
+    "Type": "City",
+    "County": "Middlesex",
+    "Form of government": "Mayor-council",
+    "Population": "38,499",
+    "Year": 1660
+  },
+  {
+    "Name": "Marshfield",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "25,132",
+    "Year": 1640
+  },
+  {
+    "Name": "Mashpee",
+    "Type": "Town",
+    "County": "Barnstable",
+    "Form of government": "Open town meeting",
+    "Population": "14,006",
+    "Year": 1870
+  },
+  {
+    "Name": "Mattapoisett",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "6,045",
+    "Year": 1857
+  },
+  {
+    "Name": "Maynard",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "10,106",
+    "Year": 1871
+  },
+  {
+    "Name": "Medfield",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Open town meeting",
+    "Population": "12,024",
+    "Year": 1651
+  },
+  {
+    "Name": "Medford",
+    "Type": "City",
+    "County": "Middlesex",
+    "Form of government": "Mayor-council",
+    "Population": "56,173",
+    "Year": 1630
+  },
+  {
+    "Name": "Medway",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Open town meeting",
+    "Population": "12,752",
+    "Year": 1713
+  },
+  {
+    "Name": "Melrose",
+    "Type": "City",
+    "County": "Middlesex",
+    "Form of government": "Mayor-aldermen",
+    "Population": "26,983",
+    "Year": 1850
+  },
+  {
+    "Name": "Mendon",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "5,839",
+    "Year": 1667
+  },
+  {
+    "Name": "Merrimac",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "6,338",
+    "Year": 1876
+  },
+  {
+    "Name": "Methuen",
+    "Type": "City",
+    "County": "Essex",
+    "Form of government": "Mayor-council",
+    "Population": "47,255",
+    "Year": 1725
+  },
+  {
+    "Name": "Middleborough",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "23,116",
+    "Year": 1669
+  },
+  {
+    "Name": "Middlefield",
+    "Type": "Town",
+    "County": "Hampshire",
+    "Form of government": "Open town meeting",
+    "Population": 521,
+    "Year": 1783
+  },
+  {
+    "Name": "Middleton",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "8,987",
+    "Year": 1728
+  },
+  {
+    "Name": "Milford",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Representative town meeting",
+    "Population": "27,999",
+    "Year": 1780
+  },
+  {
+    "Name": "Millbury",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "13,261",
+    "Year": 1813
+  },
+  {
+    "Name": "Millis",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Open town meeting",
+    "Population": "7,891",
+    "Year": 1885
+  },
+  {
+    "Name": "Millville",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "3,190",
+    "Year": 1916
+  },
+  {
+    "Name": "Milton",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Representative town meeting",
+    "Population": "27,003",
+    "Year": 1662
+  },
+  {
+    "Name": "Monroe",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": 121,
+    "Year": 1822
+  },
+  {
+    "Name": "Monson",
+    "Type": "Town",
+    "County": "Hampden",
+    "Form of government": "Open town meeting",
+    "Population": "8,560",
+    "Year": 1775
+  },
+  {
+    "Name": "Montague",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Representative town meeting",
+    "Population": "8,437",
+    "Year": 1775
+  },
+  {
+    "Name": "Monterey",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": 961,
+    "Year": 1847
+  },
+  {
+    "Name": "Montgomery",
+    "Type": "Town",
+    "County": "Hampden",
+    "Form of government": "Open town meeting",
+    "Population": 838,
+    "Year": 1780
+  },
+  {
+    "Name": "Mount Washington",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": 167,
+    "Year": 1779
+  },
+  {
+    "Name": "Nahant",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "3,410",
+    "Year": 1853
+  },
+  {
+    "Name": "Nantucket",
+    "Type": "Town",
+    "County": "Nantucket",
+    "Form of government": "Open town meeting",
+    "Population": "10,172",
+    "Year": 1671
+  },
+  {
+    "Name": "Natick",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Representative town meeting",
+    "Population": "33,006",
+    "Year": 1781
+  },
+  {
+    "Name": "Needham",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Representative town meeting",
+    "Population": "28,886",
+    "Year": 1711
+  },
+  {
+    "Name": "New Ashford",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": 228,
+    "Year": 1835
+  },
+  {
+    "Name": "New Bedford",
+    "Type": "City",
+    "County": "Bristol",
+    "Form of government": "Mayor-council",
+    "Population": "95,072",
+    "Year": 1787
+  },
+  {
+    "Name": "New Braintree",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": 999,
+    "Year": 1775
+  },
+  {
+    "Name": "New Marlborough",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": "1,509",
+    "Year": 1775
+  },
+  {
+    "Name": "New Salem",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": 990,
+    "Year": 1775
+  },
+  {
+    "Name": "Newbury",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "6,666",
+    "Year": 1635
+  },
+  {
+    "Name": "Newburyport",
+    "Type": "City",
+    "County": "Essex",
+    "Form of government": "Mayor-council",
+    "Population": "17,416",
+    "Year": 1764
+  },
+  {
+    "Name": "Newton",
+    "Type": "City",
+    "County": "Middlesex",
+    "Form of government": "Mayor-aldermen",
+    "Population": "85,146",
+    "Year": 1688
+  },
+  {
+    "Name": "Norfolk",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Open town meeting",
+    "Population": "11,227",
+    "Year": 1870
+  },
+  {
+    "Name": "North Adams",
+    "Type": "City",
+    "County": "Berkshire",
+    "Form of government": "Mayor-council",
+    "Population": "13,708",
+    "Year": 1878
+  },
+  {
+    "Name": "North Andover",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "28,352",
+    "Year": 1855
+  },
+  {
+    "Name": "North Attleborough",
+    "Type": "Town",
+    "County": "Bristol",
+    "Form of government": "Representative town meeting",
+    "Population": "28,712",
+    "Year": 1887
+  },
+  {
+    "Name": "North Brookfield",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "4,680",
+    "Year": 1812
+  },
+  {
+    "Name": "North Reading",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "14,892",
+    "Year": 1853
+  },
+  {
+    "Name": "Northampton",
+    "Type": "City",
+    "County": "Hampshire",
+    "Form of government": "Mayor-council",
+    "Population": "28,549",
+    "Year": 1656
+  },
+  {
+    "Name": "Northborough",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "14,155",
+    "Year": 1775
+  },
+  {
+    "Name": "Northbridge",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "15,707",
+    "Year": 1775
+  },
+  {
+    "Name": "Northfield",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": "3,032",
+    "Year": 1723
+  },
+  {
+    "Name": "Norton",
+    "Type": "Town",
+    "County": "Bristol",
+    "Form of government": "Open town meeting",
+    "Population": "19,031",
+    "Year": 1711
+  },
+  {
+    "Name": "Norwell",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "10,506",
+    "Year": 1849
+  },
+  {
+    "Name": "Norwood",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Representative town meeting",
+    "Population": "28,602",
+    "Year": 1872
+  },
+  {
+    "Name": "Oak Bluffs",
+    "Type": "Town",
+    "County": "Dukes",
+    "Form of government": "Open town meeting",
+    "Population": "4,527",
+    "Year": 1880
+  },
+  {
+    "Name": "Oakham",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "1,902",
+    "Year": 1775
+  },
+  {
+    "Name": "Orange",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": "7,839",
+    "Year": 1810
+  },
+  {
+    "Name": "Orleans",
+    "Type": "Town",
+    "County": "Barnstable",
+    "Form of government": "Open town meeting",
+    "Population": "5,890",
+    "Year": 1797
+  },
+  {
+    "Name": "Otis",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": "1,612",
+    "Year": 1773
+  },
+  {
+    "Name": "Oxford",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "13,709",
+    "Year": 1713
+  },
+  {
+    "Name": "Palmer",
+    "Type": "City",
+    "County": "Hampden",
+    "Form of government": "Council-manager",
+    "Population": "12,140",
+    "Year": 1775
+  },
+  {
+    "Name": "Paxton",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "4,806",
+    "Year": 1775
+  },
+  {
+    "Name": "Peabody",
+    "Type": "City",
+    "County": "Essex",
+    "Form of government": "Mayor-council",
+    "Population": "51,251",
+    "Year": 1868
+  },
+  {
+    "Name": "Pelham",
+    "Type": "Town",
+    "County": "Hampshire",
+    "Form of government": "Open town meeting",
+    "Population": "1,321",
+    "Year": 1743
+  },
+  {
+    "Name": "Pembroke",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "17,837",
+    "Year": 1712
+  },
+  {
+    "Name": "Pepperell",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "11,497",
+    "Year": 1775
+  },
+  {
+    "Name": "Peru",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": 847,
+    "Year": 1771
+  },
+  {
+    "Name": "Petersham",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "1,234",
+    "Year": 1754
+  },
+  {
+    "Name": "Phillipston",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "1,682",
+    "Year": 1786
+  },
+  {
+    "Name": "Pittsfield",
+    "Type": "City",
+    "County": "Berkshire",
+    "Form of government": "Mayor-council",
+    "Population": "44,737",
+    "Year": 1761
+  },
+  {
+    "Name": "Plainfield",
+    "Type": "Town",
+    "County": "Hampshire",
+    "Form of government": "Open town meeting",
+    "Population": 648,
+    "Year": 1807
+  },
+  {
+    "Name": "Plainville",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Open town meeting",
+    "Population": "8,264",
+    "Year": 1905
+  },
+  {
+    "Name": "Plymouth",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Representative town meeting",
+    "Population": "56,468",
+    "Year": 1620
+  },
+  {
+    "Name": "Plympton",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "2,820",
+    "Year": 1707
+  },
+  {
+    "Name": "Princeton",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "3,413",
+    "Year": 1771
+  },
+  {
+    "Name": "Provincetown",
+    "Type": "Town",
+    "County": "Barnstable",
+    "Form of government": "Open town meeting",
+    "Population": "2,942",
+    "Year": 1727
+  },
+  {
+    "Name": "Quincy",
+    "Type": "City",
+    "County": "Norfolk",
+    "Form of government": "Mayor-council",
+    "Population": "92,271",
+    "Year": 1792
+  },
+  {
+    "Name": "Randolph",
+    "Type": "City",
+    "County": "Norfolk",
+    "Form of government": "Council-manager",
+    "Population": "32,112",
+    "Year": 1793
+  },
+  {
+    "Name": "Raynham",
+    "Type": "Town",
+    "County": "Bristol",
+    "Form of government": "Open town meeting",
+    "Population": "13,383",
+    "Year": 1731
+  },
+  {
+    "Name": "Reading",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Representative town meeting",
+    "Population": "24,747",
+    "Year": 1644
+  },
+  {
+    "Name": "Rehoboth",
+    "Type": "Town",
+    "County": "Bristol",
+    "Form of government": "Open town meeting",
+    "Population": "11,608",
+    "Year": 1645
+  },
+  {
+    "Name": "Revere",
+    "Type": "City",
+    "County": "Suffolk",
+    "Form of government": "Mayor-council",
+    "Population": "51,755",
+    "Year": 1846
+  },
+  {
+    "Name": "Richmond",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": "1,475",
+    "Year": 1765
+  },
+  {
+    "Name": "Rochester",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "5,232",
+    "Year": 1686
+  },
+  {
+    "Name": "Rockland",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "17,489",
+    "Year": 1874
+  },
+  {
+    "Name": "Rockport",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "6,952",
+    "Year": 1840
+  },
+  {
+    "Name": "Rowe",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": 393,
+    "Year": 1785
+  },
+  {
+    "Name": "Rowley",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "5,856",
+    "Year": 1639
+  },
+  {
+    "Name": "Royalston",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "1,258",
+    "Year": 1765
+  },
+  {
+    "Name": "Russell",
+    "Type": "Town",
+    "County": "Hampden",
+    "Form of government": "Open town meeting",
+    "Population": "1,775",
+    "Year": 1792
+  },
+  {
+    "Name": "Rutland",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "7,973",
+    "Year": 1713
+  },
+  {
+    "Name": "Salem",
+    "Type": "City",
+    "County": "Essex",
+    "Form of government": "Mayor-council",
+    "Population": "41,340",
+    "Year": 1626
+  },
+  {
+    "Name": "Salisbury",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "8,283",
+    "Year": 1639
+  },
+  {
+    "Name": "Sandisfield",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": 915,
+    "Year": 1762
+  },
+  {
+    "Name": "Sandwich",
+    "Type": "Town",
+    "County": "Barnstable",
+    "Form of government": "Open town meeting",
+    "Population": "20,675",
+    "Year": 1639
+  },
+  {
+    "Name": "Saugus",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Representative town meeting",
+    "Population": "26,628",
+    "Year": 1815
+  },
+  {
+    "Name": "Savoy",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": 692,
+    "Year": 1797
+  },
+  {
+    "Name": "Scituate",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "18,133",
+    "Year": 1636
+  },
+  {
+    "Name": "Seekonk",
+    "Type": "Town",
+    "County": "Bristol",
+    "Form of government": "Open town meeting",
+    "Population": "13,722",
+    "Year": 1812
+  },
+  {
+    "Name": "Sharon",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Open town meeting",
+    "Population": "17,612",
+    "Year": 1775
+  },
+  {
+    "Name": "Sheffield",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": "3,257",
+    "Year": 1733
+  },
+  {
+    "Name": "Shelburne",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": "1,893",
+    "Year": 1775
+  },
+  {
+    "Name": "Sherborn",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "4,119",
+    "Year": 1674
+  },
+  {
+    "Name": "Shirley",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "7,211",
+    "Year": 1775
+  },
+  {
+    "Name": "Shrewsbury",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Representative town meeting",
+    "Population": "35,608",
+    "Year": 1727
+  },
+  {
+    "Name": "Shutesbury",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": "1,771",
+    "Year": 1761
+  },
+  {
+    "Name": "Somerset",
+    "Type": "Town",
+    "County": "Bristol",
+    "Form of government": "Open town meeting",
+    "Population": "18,165",
+    "Year": 1790
+  },
+  {
+    "Name": "Somerville",
+    "Type": "City",
+    "County": "Middlesex",
+    "Form of government": "Mayor-aldermen",
+    "Population": "75,754",
+    "Year": 1842
+  },
+  {
+    "Name": "South Hadley",
+    "Type": "Town",
+    "County": "Hampshire",
+    "Form of government": "Representative town meeting",
+    "Population": "17,514",
+    "Year": 1775
+  },
+  {
+    "Name": "Southampton",
+    "Type": "Town",
+    "County": "Hampshire",
+    "Form of government": "Open town meeting",
+    "Population": "5,792",
+    "Year": 1775
+  },
+  {
+    "Name": "Southborough",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "9,767",
+    "Year": 1727
+  },
+  {
+    "Name": "Southbridge",
+    "Type": "City",
+    "County": "Worcester",
+    "Form of government": "Council-manager",
+    "Population": "16,719",
+    "Year": 1816
+  },
+  {
+    "Name": "Southwick",
+    "Type": "Town",
+    "County": "Hampden",
+    "Form of government": "Open town meeting",
+    "Population": "9,502",
+    "Year": 1775
+  },
+  {
+    "Name": "Spencer",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "11,688",
+    "Year": 1775
+  },
+  {
+    "Name": "Springfield",
+    "Type": "City",
+    "County": "Hampden",
+    "Form of government": "Mayor-council",
+    "Population": "1,53,060",
+    "Year": 1636
+  },
+  {
+    "Name": "Sterling",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "7,808",
+    "Year": 1781
+  },
+  {
+    "Name": "Stockbridge",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": "1,947",
+    "Year": 1739
+  },
+  {
+    "Name": "Stoneham",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "21,437",
+    "Year": 1725
+  },
+  {
+    "Name": "Stoughton",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Representative town meeting",
+    "Population": "26,962",
+    "Year": 1726
+  },
+  {
+    "Name": "Stow",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "6,590",
+    "Year": 1683
+  },
+  {
+    "Name": "Sturbridge",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "9,268",
+    "Year": 1738
+  },
+  {
+    "Name": "Sudbury",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "17,659",
+    "Year": 1639
+  },
+  {
+    "Name": "Sunderland",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": "3,684",
+    "Year": 1714
+  },
+  {
+    "Name": "Sutton",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "8,963",
+    "Year": 1714
+  },
+  {
+    "Name": "Swampscott",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Representative town meeting",
+    "Population": "13,787",
+    "Year": 1852
+  },
+  {
+    "Name": "Swansea",
+    "Type": "Town",
+    "County": "Bristol",
+    "Form of government": "Open town meeting",
+    "Population": "15,865",
+    "Year": 1667
+  },
+  {
+    "Name": "Taunton",
+    "Type": "City",
+    "County": "Bristol",
+    "Form of government": "Mayor-council",
+    "Population": "55,874",
+    "Year": 1639
+  },
+  {
+    "Name": "Templeton",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "8,013",
+    "Year": 1762
+  },
+  {
+    "Name": "Tewksbury",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "28,961",
+    "Year": 1734
+  },
+  {
+    "Name": "Tisbury",
+    "Type": "Town",
+    "County": "Dukes",
+    "Form of government": "Open town meeting",
+    "Population": "3,949",
+    "Year": 1671
+  },
+  {
+    "Name": "Tolland",
+    "Type": "Town",
+    "County": "Hampden",
+    "Form of government": "Open town meeting",
+    "Population": 485,
+    "Year": 1810
+  },
+  {
+    "Name": "Topsfield",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "6,085",
+    "Year": 1650
+  },
+  {
+    "Name": "Townsend",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "8,926",
+    "Year": 1732
+  },
+  {
+    "Name": "Truro",
+    "Type": "Town",
+    "County": "Barnstable",
+    "Form of government": "Open town meeting",
+    "Population": "2,003",
+    "Year": 1709
+  },
+  {
+    "Name": "Tyngsborough",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "11,292",
+    "Year": 1809
+  },
+  {
+    "Name": "Tyringham",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": 327,
+    "Year": 1762
+  },
+  {
+    "Name": "Upton",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "7,542",
+    "Year": 1735
+  },
+  {
+    "Name": "Uxbridge",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "13,457",
+    "Year": 1727
+  },
+  {
+    "Name": "Wakefield",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "24,932",
+    "Year": 1812
+  },
+  {
+    "Name": "Wales",
+    "Type": "Town",
+    "County": "Hampden",
+    "Form of government": "Open town meeting",
+    "Population": "1,838",
+    "Year": 1775
+  },
+  {
+    "Name": "Walpole",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Representative town meeting",
+    "Population": "24,070",
+    "Year": 1724
+  },
+  {
+    "Name": "Waltham",
+    "Type": "City",
+    "County": "Middlesex",
+    "Form of government": "Mayor-council",
+    "Population": "60,632",
+    "Year": 1738
+  },
+  {
+    "Name": "Ware",
+    "Type": "Town",
+    "County": "Hampshire",
+    "Form of government": "Open town meeting",
+    "Population": "9,872",
+    "Year": 1775
+  },
+  {
+    "Name": "Wareham",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "21,822",
+    "Year": 1739
+  },
+  {
+    "Name": "Warren",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "5,135",
+    "Year": 1742
+  },
+  {
+    "Name": "Warwick",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": 780,
+    "Year": 1763
+  },
+  {
+    "Name": "Washington",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": 538,
+    "Year": 1777
+  },
+  {
+    "Name": "Watertown",
+    "Type": "City",
+    "County": "Middlesex",
+    "Form of government": "Council-manager",
+    "Population": "31,915",
+    "Year": 1630
+  },
+  {
+    "Name": "Wayland",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "12,994",
+    "Year": 1780
+  },
+  {
+    "Name": "Webster",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "16,767",
+    "Year": 1832
+  },
+  {
+    "Name": "Wellesley",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Representative town meeting",
+    "Population": "27,982",
+    "Year": 1881
+  },
+  {
+    "Name": "Wellfleet",
+    "Type": "Town",
+    "County": "Barnstable",
+    "Form of government": "Open town meeting",
+    "Population": "2,750",
+    "Year": 1775
+  },
+  {
+    "Name": "Wendell",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": 848,
+    "Year": 1781
+  },
+  {
+    "Name": "Wenham",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "4,875",
+    "Year": 1643
+  },
+  {
+    "Name": "West Boylston",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "7,669",
+    "Year": 1808
+  },
+  {
+    "Name": "West Bridgewater",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "6,916",
+    "Year": 1822
+  },
+  {
+    "Name": "West Brookfield",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "3,701",
+    "Year": 1848
+  },
+  {
+    "Name": "West Newbury",
+    "Type": "Town",
+    "County": "Essex",
+    "Form of government": "Open town meeting",
+    "Population": "4,235",
+    "Year": 1819
+  },
+  {
+    "Name": "West Springfield",
+    "Type": "City",
+    "County": "Hampden",
+    "Form of government": "Mayor-council",
+    "Population": "28,391",
+    "Year": 1774
+  },
+  {
+    "Name": "West Stockbridge",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": "1,306",
+    "Year": 1775
+  },
+  {
+    "Name": "West Tisbury",
+    "Type": "Town",
+    "County": "Dukes",
+    "Form of government": "Open town meeting",
+    "Population": "2,740",
+    "Year": 1892
+  },
+  {
+    "Name": "Westborough",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "18,272",
+    "Year": 1717
+  },
+  {
+    "Name": "Westfield",
+    "Type": "City",
+    "County": "Hampden",
+    "Form of government": "Mayor-council",
+    "Population": "41,094",
+    "Year": 1669
+  },
+  {
+    "Name": "Westford",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "21,951",
+    "Year": 1729
+  },
+  {
+    "Name": "Westhampton",
+    "Type": "Town",
+    "County": "Hampshire",
+    "Form of government": "Open town meeting",
+    "Population": "1,607",
+    "Year": 1778
+  },
+  {
+    "Name": "Westminster",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "7,277",
+    "Year": 1770
+  },
+  {
+    "Name": "Weston",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "11,261",
+    "Year": 1713
+  },
+  {
+    "Name": "Westport",
+    "Type": "Town",
+    "County": "Bristol",
+    "Form of government": "Open town meeting",
+    "Population": "15,532",
+    "Year": 1787
+  },
+  {
+    "Name": "Westwood",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Open town meeting",
+    "Population": "14,618",
+    "Year": 1897
+  },
+  {
+    "Name": "Weymouth",
+    "Type": "City",
+    "County": "Norfolk",
+    "Form of government": "Mayor-council",
+    "Population": "53,743",
+    "Year": 1635
+  },
+  {
+    "Name": "Whately",
+    "Type": "Town",
+    "County": "Franklin",
+    "Form of government": "Open town meeting",
+    "Population": "1,496",
+    "Year": 1771
+  },
+  {
+    "Name": "Whitman",
+    "Type": "Town",
+    "County": "Plymouth",
+    "Form of government": "Open town meeting",
+    "Population": "14,489",
+    "Year": 1875
+  },
+  {
+    "Name": "Wilbraham",
+    "Type": "Town",
+    "County": "Hampden",
+    "Form of government": "Open town meeting",
+    "Population": "14,219",
+    "Year": 1763
+  },
+  {
+    "Name": "Williamsburg",
+    "Type": "Town",
+    "County": "Hampshire",
+    "Form of government": "Open town meeting",
+    "Population": "2,482",
+    "Year": 1775
+  },
+  {
+    "Name": "Williamstown",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": "7,754",
+    "Year": 1765
+  },
+  {
+    "Name": "Wilmington",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Open town meeting",
+    "Population": "22,325",
+    "Year": 1730
+  },
+  {
+    "Name": "Winchendon",
+    "Type": "Town",
+    "County": "Worcester",
+    "Form of government": "Open town meeting",
+    "Population": "10,300",
+    "Year": 1764
+  },
+  {
+    "Name": "Winchester",
+    "Type": "Town",
+    "County": "Middlesex",
+    "Form of government": "Representative town meeting",
+    "Population": "21,374",
+    "Year": 1850
+  },
+  {
+    "Name": "Windsor",
+    "Type": "Town",
+    "County": "Berkshire",
+    "Form of government": "Open town meeting",
+    "Population": 899,
+    "Year": 1771
+  },
+  {
+    "Name": "Winthrop",
+    "Type": "City",
+    "County": "Suffolk",
+    "Form of government": "Council-manager",
+    "Population": "17,497",
+    "Year": 1852
+  },
+  {
+    "Name": "Woburn",
+    "Type": "City",
+    "County": "Middlesex",
+    "Form of government": "Mayor-aldermen",
+    "Population": "38,120",
+    "Year": 1642
+  },
+  {
+    "Name": "Worcester",
+    "Type": "City",
+    "County": "Worcester",
+    "Form of government": "Mayor-manager-council",
+    "Population": "1,81,045",
+    "Year": 1684
+  },
+  {
+    "Name": "Worthington",
+    "Type": "Town",
+    "County": "Hampshire",
+    "Form of government": "Open town meeting",
+    "Population": "1,156",
+    "Year": 1768
+  },
+  {
+    "Name": "Wrentham",
+    "Type": "Town",
+    "County": "Norfolk",
+    "Form of government": "Open town meeting",
+    "Population": "10,955",
+    "Year": 1673
+  },
+  {
+    "Name": "Yarmouth",
+    "Type": "Town",
+    "County": "Barnstable",
+    "Form of government": "Open town meeting",
+    "Population": "23,793",
+    "Year": 1639
+  }
+]

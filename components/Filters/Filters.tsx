@@ -3,14 +3,28 @@ import { useState, ChangeEvent } from "react";
 import Image from "@/node_modules/next/image";
 import { Form } from "@/app/client-react-boostrap";
 import styles from "./Filters.module.scss";
+import cities from "../../data/massachusetsCities.json";
+// import PropertySearchTile from "../PropertySearchTile/PropertySearchTile";
 
 import Slider from "@/node_modules/rc-slider/lib/Slider";
 
 import "rc-slider/assets/index.css";
 
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+
+
 // interface FiltersProps {
 //   changeFilter: (filter: FilterState) => void;
 // }
+
+interface stateInterface {
+  formVisible: FormVisibleState;
+  filter: FilterState;
+  enableSearching: boolean;
+}
 
 interface FormVisibleState {
   propertyType: boolean;
@@ -57,10 +71,8 @@ const formatPrice = (price: number): string => {
 // };
 
 export default function Filters() {
-  const [state, setState] = useState<{
-    formVisible: FormVisibleState;
-    filter: FilterState;
-  }>({
+  const [searchCounter, setSearchCounter] = useState(0);
+  const [state, setState] = useState<stateInterface>({
     formVisible: {
       propertyType: true,
       propertySubType: true,
@@ -82,7 +94,64 @@ export default function Filters() {
       sortBy: "ListPrice",
       order: "desc",
     },
+    enableSearching: true,
   });
+
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      /* Define search scope here */
+    },
+    debounce: 300,
+  });
+
+  const onInputAddressChange = (e: any) => {
+    // Update the autocomplete input value
+    // props.changeInput(e.target.value);
+    setValue(e.target.value);
+  };
+
+  const onSelectSuggestion = (suggestion: any) => () => {
+    // When user selects a suggestion, update the input value and clear suggestions
+    // props.changeInput(suggestion.description);
+    setValue(suggestion.description, false);
+    clearSuggestions();
+
+    // Get latitude and longitude via utility functions
+    getGeocode({ address: suggestion.description }).then((results) => {
+      const { lat, lng } = getLatLng(results[0]);
+      // Update your state with lat and lng
+    });
+  };
+
+  const onCheckEnablingSearching = () => {
+    // props.changeEnableSearching(!state.enableSearching);
+    setState((prevState) => {
+      const newState = {
+        ...prevState,
+        enableSearching: !prevState.enableSearching,
+      };
+      return newState;
+    });
+  };
+  
+  const renderAutocompleteSuggestions = () =>
+  data.map((suggestion) => (
+    <p
+      key={suggestion.place_id}
+      style={{ border: "1px solid black" }}
+      onClick={onSelectSuggestion(suggestion)}
+    >
+      <strong>{suggestion.structured_formatting.main_text}</strong>{" "}
+      <small>{suggestion.structured_formatting.secondary_text}</small>
+    </p>
+  ));
+
 
   const onChangeSelect = (event: any) => {
     const filter = { ...state.filter, [event.target.name]: event.target.value };
@@ -180,6 +249,7 @@ export default function Filters() {
   };
 
   return (
+    <>
     <div className={styles["property-search"]}>
       <div className={styles["filter-wrapper"]}>
         <Image
@@ -624,54 +694,37 @@ export default function Filters() {
             <Form.Group className={styles["input-form"]}>
               <div className={styles["mktFormColBuy"]}>
                 <Form.Check
-                  // checked={state.enableSearching}
+                  checked={state.enableSearching}
                   type="checkbox"
-                  // onChange={onCheckEnablingSearching}
+                  onChange={onCheckEnablingSearching}
                   className={styles["mktoFormCheckBox"]}
                 />
                 <div className={styles["mktFieldWrap"]}>
-                  {/*         
-                  <input       
-                  // disabled={!state.enableSearching}
-                  // autoComplete="off"
-                  // name="Location"
-                  // id="Location"
-                  // placeholder={
-                  //   state.enableSearching
-                  //     ? "Enter a Location"
-                  //     : "Enter a Location"
-                  // }
-                  // className={state.enableSearching ? "inputText" : "disabled"}
-                  // onChange={onInputAddressChange}
-                  // onSubmit={() => getData(1)}
-                  // value={value} 
-                  />
-                 */}
-
+                          
                   <Form.Control
                     name="Location"
                     id="Location"
                     autoComplete="off"
                     type="text"
                     placeholder="Enter a Location"
-                    // className={state.enableSearching ? "inputText" : "disabled"}
-                    // onChange={onInputAddressChange}
+                    className={state.enableSearching ? styles["inputText"] : styles["disabled"]}
+                    onChange={onInputAddressChange}
                     // onSubmit={() => getData(1)}
-                    // value={value}
+                    value={value}
                   />
-                  {/* {state.enableSearching && (
+                  {state.enableSearching && (
                       <img
-                        className="icon-mag-buy"
-                        src={magGlass}
-                        onClick={() => getData(1)}
+                        className={styles["icon-mag-buy"]}
+                        // src={magGlass}
+                        // onClick={() => getData(1)}
                       />
-                    )} */}
+                    )}
 
-                  {/* {status === "OK" && (
-                    <div className="autocomplete-suggestions">
+                  {status === "OK" && (
+                    <div className={styles["autocomplete-suggestions"]}>
                       {renderAutocompleteSuggestions()}
                     </div>
-                  )} */}
+                  )}
                 </div>
               </div>
               <div className={styles["city_label"]}>
@@ -690,13 +743,13 @@ export default function Filters() {
                   name="City"
                   onChange={onChangeSelect}
                 >
-                  {/* {cities.map((city, index) => {
+                  {cities.map((city, index) => {
                     return (
                       <option key={index} value={city.Name}>
                         {city.Name}
                       </option>
                     );
-                  })} */}
+                  })}
                 </Form.Select>
               </div>
             </Form.Group>
@@ -784,5 +837,15 @@ export default function Filters() {
         )}
       </div>
     </div>
+
+    <div className={styles["search-btn"]}>
+        <div className={styles["btn-cta" ]}
+        // onClick={() => getData(1)}
+        >
+          <span>SEARCH HOMES</span>
+        </div>
+      </div>
+      {/* <PropertySearchTile data={{StreetNumber: 10,LivingArea: 10,StreetName: "hello",City: "Test", ListPrice: "Hello",LivingArea: "10200", BedroomsTotal: 10,BathroomsTotalDecimal: 12.3,MLSAreaMajor: "HELLo"}}/> */}
+    </>
   );
 }

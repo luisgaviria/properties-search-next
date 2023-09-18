@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/Navbar/Navbar";
 import { ReactQueryProvider } from "./ReactQueryProvider";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,9 @@ export default function RootLayout({
   return (
     <ReactQueryProvider>
       <html lang="en">
+        <head>
+          <Script src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_API_KEY}&libraries=places,geocoder`}/>
+        </head>
         <body className={inter.className}>
           <NavBar />
           {children}
