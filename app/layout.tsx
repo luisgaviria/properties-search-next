@@ -5,6 +5,7 @@ import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/Navbar/Navbar";
 import { ReactQueryProvider } from "./ReactQueryProvider";
 import Script from "next/script";
+import Provider from "./client-exports";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,16 +22,22 @@ export default function RootLayout({
 }) {
   return (
     <ReactQueryProvider>
-      <html lang="en">
-        <head>
-          <Script src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_API_KEY}&libraries=places,geocoder`}/>
-        </head>
-        <body className={inter.className}>
-          <NavBar />
-          {children}
-          <Footer />
-        </body>
-      </html>
+      <Provider>
+        <html lang="en">
+          <body className={inter.className}>
+            <NavBar />
+            {children}
+            <Footer />
+            <Script
+              defer
+              id="googlemaps"
+              src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_API_KEY}&libraries=places,geocoder`}
+              strategy="afterInteractive"
+              type="text/javascript"
+            />
+          </body>
+        </html>
+      </Provider>
     </ReactQueryProvider>
   );
 }

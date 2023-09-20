@@ -3,11 +3,6 @@ import styles from "./Banner.module.scss";
 import { Container } from "@/app/client-react-boostrap";
 import Form from "./Form/Form";
 import Image from "./Banner-Image/Image";
-import dynamic from "@/node_modules/next/dynamic";
-
-// const Form = dynamic(() => import("./Form/Form"), {
-//   ssr: false,
-// });
 
 const Banner = () => {
   return (
