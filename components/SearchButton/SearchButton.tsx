@@ -1,11 +1,11 @@
 import styles from "./SearchButton.module.scss";
 
-export default function SearchButton() {
+export default function SearchButton(props: {onClick: ()=>{}}) {
   return (
     <div className={styles["search-btn"]}>
       <div
         className={styles["btn-cta"]}
-        // onClick={() => getData(1)}
+        onClick={props.onClick}
       >
         <span>SEARCH HOMES</span>
       </div>

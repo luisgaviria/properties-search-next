@@ -27,6 +27,7 @@ const nextConfig = {
     }
     return config;
   },
+  transpilePackages: ['jotai-devtools']
 };
 
 module.export = nextConfig;

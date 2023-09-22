@@ -1,4 +1,5 @@
 "use client";
-import { Provider } from "jotai";
+import { Provider} from "jotai";
 
-export default Provider;
+export {Provider};
+ 

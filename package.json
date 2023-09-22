@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
     "@types/geoip-lite": "^1.4.1",
     "@types/google-map-react": "^2.1.7",
     "@types/node": "20.5.9",
@@ -20,6 +21,7 @@
     "geoip-lite": "^1.4.7",
     "google-map-react": "^2.2.1",
     "jotai": "^2.4.2",
+    "jotai-devtools": "^0.6.2",
     "next": "13.4.19",
     "qs": "^6.11.2",
     "rc-slider": "^10.2.1",

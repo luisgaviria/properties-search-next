@@ -2,11 +2,13 @@
 // import { useState, ChangeEvent } from "react";
 import { atom, useAtom } from "jotai";
 import { useHydrateAtoms } from "jotai/utils";
+import {QueryFunctionContext, useQuery} from "react-query";
 
 import Image from "@/node_modules/next/image";
 import { Form } from "@/app/client-react-boostrap";
 import styles from "./Filters.module.scss";
 import cities from "../../data/massachusetsCities.json";
+import { ChangeEvent } from "react";
 // import PropertySearchTile from "../PropertySearchTile/PropertySearchTile";
 
 import Slider from "@/node_modules/rc-slider/lib/Slider";
@@ -82,7 +84,9 @@ const formVisibleAtom = atom({
   bedBaths: true,
   map: false,
   sortBy: true,
-});
+}); 
+
+formVisibleAtom.debugLabel = "Form Visibility";
 
 const filterAtom = atom<FilterState>({
   // Add the types here
@@ -95,44 +99,46 @@ const filterAtom = atom<FilterState>({
   BathroomsTotal: 0,
   BedroomsTotal: 0,
   sortBy: "ListPrice",
-  order: "desc",
+  order: "desc",  
 });
+ 
+filterAtom.debugLabel = "Filters";
 
-const enableSearchingAtom = atom({
-  enableSearching: true,
-});
+const enableSearchingAtom = atom(true);
+
+enableSearchingAtom.debugLabel = "Enable Searching"
+ 
+const searchInputAtom = atom("");
+
+searchInputAtom.debugLabel = "Search Input";
+
+const pagesAtom = atom(1);
+
+pagesAtom.debugLabel = "Pages";
 
 export default function Filters() {
   // const [searchCounter, setSearchCounter] = useState(0);
+  const getData = async(page_num: number)=>{
+    console.log(page_num);
+    setPageNumber((prevState)=>++prevState); // add fetch logic
+  };
+  
+  const [pageNumber,setPageNumber] = useAtom(pagesAtom);
+
+  const properties_ = useQuery({queryKey: ['getPropertiesData',pageNumber],
+    queryFn: ()=>getData(pageNumber),
+    enabled: false
+  });
+   
+  const onClickSearchHomes = ()=>{
+    properties_.refetch();
+  };
+
 
   const [formVisible, setFormVisible] = useAtom(formVisibleAtom);
   const [filter, setFilter] = useAtom(filterAtom);
   const [enableSearching, setEnableSearching] = useAtom(enableSearchingAtom);
-
-  // const [state, setState] = useState<stateInterface>({
-  //   formVisible: {
-  //     propertyType: true,
-  //     propertySubType: true,
-  //     price: true,
-  //     city: true,
-  //     bedBaths: true,
-  //     map: false,
-  //     sortBy: true,
-  //   },
-  //   filter: {
-  //     ListPriceFrom: 0,
-  //     ListPriceTo: 0,
-  //     City: "Any",
-  //     PropertyType: [],
-  //     PropertySubType: [],
-  //     NumberOfUnitsTotal: null,
-  //     BathroomsTotal: 0,
-  //     BedroomsTotal: 0,
-  //     sortBy: "ListPrice",
-  //     order: "desc",
-  //   },
-  //   enableSearching: true,
-  // });
+  const [searchInput,setSearchInput] = useAtom(searchInputAtom);
 
   const {
     ready,
@@ -150,6 +156,7 @@ export default function Filters() {
   const onInputAddressChange = (e: any) => {
     // Update the autocomplete input value
     // props.changeInput(e.target.value);
+    setSearchInput(e.target.value);
     setValue(e.target.value);
   };
 
@@ -158,6 +165,8 @@ export default function Filters() {
     // props.changeInput(suggestion.description);
     setValue(suggestion.description, false);
     clearSuggestions();
+    
+    setSearchInput(suggestion.description);
 
     // Get latitude and longitude via utility functions
     getGeocode({ address: suggestion.description }).then((results) => {
@@ -168,10 +177,7 @@ export default function Filters() {
 
   //Jotai
   const onCheckEnablingSearching = () => {
-    setEnableSearching((prevSeach) => ({
-      ...prevSeach,
-      enableSearching: !prevSeach.enableSearching,
-    }));
+    setEnableSearching((prevState) => (!prevState));
   };
 
   //State
@@ -206,6 +212,8 @@ export default function Filters() {
       [name]: value,
     }));
   };
+
+
 
   //useState
   // const onChangeSelect = (event: any) => {
@@ -820,10 +828,11 @@ export default function Filters() {
               <div className={styles["range-slider-price"]}>
                 <Slider
                   range
+                  className="t-slider"
                   step={1000}
                   min={0}
                   max={10000000}
-                  value={(filter.ListPriceFrom, filter.ListPriceTo)}
+                  value={[filter.ListPriceFrom, filter.ListPriceTo]}
                   //[state.filter.ListPriceFrom, state.filter.ListPriceTo]
                   // onInput={onChangeSlider}
                   onChange={onChangeSlider}
@@ -872,7 +881,7 @@ export default function Filters() {
               <Form.Group className={styles["input-form"]}>
                 <div className={styles["mktFormColBuy"]}>
                   <Form.Check
-                    checked={!!enableSearching}
+                    checked={enableSearching}
                     type="checkbox"
                     onChange={onCheckEnablingSearching}
                     className={styles["mktoFormCheckBox"]}
@@ -890,8 +899,9 @@ export default function Filters() {
                           : styles["disabled"]
                       }
                       onChange={onInputAddressChange}
+                      disabled={!enableSearching}
                       // onSubmit={() => getData(1)}
-                      value={value}
+                      value={searchInput}
                     />
                     {enableSearching && (
                       <img
@@ -1023,7 +1033,7 @@ export default function Filters() {
           )}
         </div>
       </div>
-      <SearchButton />
+      <SearchButton onClick={onClickSearchHomes} />
 
       <div className={formVisible["map"] ? "search-container" : ""}>
         <div className="properties-grid-filter">
