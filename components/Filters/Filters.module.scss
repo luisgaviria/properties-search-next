@@ -735,3 +735,31 @@
   appearance: none;
   box-shadow: 0 0 4px rgba(53, 50, 50, 0.2);
 }
+
+.properties_grid {
+  // Map view 3 cards on left
+  // display: grid;
+  // left: 10%;
+  // grid-template-columns: repeat(3, 1fr);
+  // grid-gap: 1px;
+  // gap: 10px;
+  // padding-left: 1rem;
+  // padding-right: 1rem;
+  // max-height: 1115px;
+  // overflow-y: auto;
+  // scroll-padding-top: 1rem;
+
+  //styles for full width of the properties grid
+  grid-template-columns: repeat(auto-fill, minmax(425px, 1fr));
+  grid-gap: 1px;
+  display: grid;
+  gap: 1px;
+  padding-bottom: 6rem;
+
+  // Original layout with no map view
+  // grid-template-columns: repeat(auto-fill, minmax(425px, 3fr));
+  // display: grid;
+  // grid-gap: 1px;
+  // gap: 1px;
+  // padding-bottom: 6rem;
+}
