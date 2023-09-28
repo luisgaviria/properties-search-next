@@ -67,7 +67,7 @@ export async function GET(
     if(req.method == "GET"){ 
         const __query__ = (req.url?.split("?") as string[])[1];
         const queryurl =  qs.parse(__query__);
-        const page = queryurl.page - 1;
+        const page: number = Number(queryurl.page) - 1; //ignore;
         const queryObj = {
             sortBy: queryurl.sortBy,
             order: queryurl.order,

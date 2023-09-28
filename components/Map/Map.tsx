@@ -4,16 +4,8 @@ import React, { Component, ReactElement } from "react";
 import GoogleMapReact from "google-map-react";
 // import MarkerClusterer from "@google/markerclusterer";
 import mapStyles from "./mapStyles";
-
-interface Property {
-  Latitude: number;
-  Longitude: number;
-  Media: { MediaURL: string }[];
-  StreetNumber: string;
-  StreetName: string;
-  City: string;
-  ListingId: number;
-}
+import { Property } from "../definitions/Property";
+import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
 interface GoogleMapContainerProps {
   properties?: Property[];
@@ -43,7 +35,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
       // Create markers and info windows
       const markersWithInfoWindows: MarkerWithInfoWindow[] = (
         this.props.properties || []
-      ).map((property) => {
+      ).map((property: Property) => {
         const imgUrl = property.Media?.[0]?.MediaURL; // Use optional chaining
 
         if (!imgUrl) {
@@ -60,7 +52,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
 
       // Load info windows asynchronously
       const loadedInfoWindows = await Promise.all(
-        (this.props.properties || []).map(async (property, index) => {
+        (this.props.properties || []).map(async (property: Property, index: number) => {
           const imgUrl = property.Media?.[0]?.MediaURL; // Use optional chaining
 
           if (!imgUrl) {
@@ -104,6 +96,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
         }
       });
 
+      new MarkerClusterer({map: this.googleMapRef,markers: this.markersWithInfoWindows.map(x=>x.marker)},);
       // new MarkerClusterer(
       //   this.googleMapRef,
       //   markersWithInfoWindows.map((x) => x.marker),
@@ -117,10 +110,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
       // );
 
       // Store the markers and info windows for later use
-      this.markersWithInfoWindows = markersWithInfoWindows;
-
-      // Clean up
-      markersWithInfoWindows.length = 0;
+      this.markersWithInfoWindows = [];
     }, 1000);
   }
 
@@ -156,6 +146,8 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
       });
     });
 
+    new MarkerClusterer({map: this.googleMapRef,markers: this.markersWithInfoWindows.map(x=>x.marker)});
+
     // Handle clustering
     // new MarkerClusterer(
     //   this.googleMapRef,
@@ -168,6 +160,9 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
     //     textColor: "transparent",
     //   }
     // );
+    // this.markersWithInfoWindows = null;
+    this.markersWithInfoWindows = [];
+
   };
   render(): ReactElement {
     const defaultCenter = this.props.properties?.length

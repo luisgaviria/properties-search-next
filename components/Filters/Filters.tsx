@@ -16,6 +16,8 @@ import Map from "@/components/Map/Map";
 import PropertySearchTile from "../PropertySearchTile/PropertySearchTile";
 
 import "rc-slider/assets/index.css";
+import { Property } from "../definitions/Property";
+import { response,mapResponse,FormVisibleState,FilterState,strOrNumber } from "../definitions/Filters";
 
 import usePlacesAutocomplete, {
   getGeocode,
@@ -29,78 +31,6 @@ import { createPagination } from "@/utils/createPagination";
 //   changeFilter: (filter: FilterState) => void;
 // }
 
-type strOrNumber = string | number;
-
-interface stateInterface {
-  formVisible: FormVisibleState;
-  filter: FilterState;
-  enableSearching: boolean;
-}
-
-interface response {
-  message: string;
-  pages: number; 
-  properties: Property[];
-}
-
-interface Property {
-  id: string;
-  StreetName:                  string;
-  LivingArea:                  number;
-  BedroomsTotal:               number;
-  BridgeModificationTimestamp: Date;
-  StateOrProvince:             string;
-  Media:                       Media[];
-  Latitude:                    number;
-  BathroomsTotalDecimal:       number;
-  City:                        string;
-  ListPrice:                   number;
-  Longitude:                   number;
-  NumberOfUnitsTotal:          number;
-  MLSAreaMajor:                string;
-  StreetNumber:                string;
-  ListingId:                   string;
-  ListingKey:                  string;
-  distanceFrom:                number;
-  FeedTypes:                   any[];
-  url:                         string;
-}
-
-interface Media{
-  Order:             number;
-  MediaKey:          string;
-  MediaURL:          string;
-  ResourceRecordKey: string;
-  ResourceName:      string;
-  ClassName:         string;
-  MediaCategory:     string;
-  MimeType:          string;
-  MediaObjectID:     string;
-  ShortDescription:  string;
-}
-
-interface FormVisibleState {
-  propertyType: boolean;
-  price: boolean;
-  city: boolean;
-  bedBaths: boolean;
-  propertySubType: boolean;
-  map: boolean;
-  sortBy: boolean;
-}
-
-interface FilterState {
-  ListPriceFrom: number;
-  ListPriceTo: number;
-  City: string;
-  PropertyType: string[];
-  PropertySubType: string[];
-  NumberOfUnitsTotal: number | null;
-  BathroomsTotal: number;
-  BedroomsTotal: number;
-  sortBy: string;
-  order: string;
-}
 
 const formatPrice = (price: number): string => {
   return new Intl.NumberFormat("en-US", {
@@ -109,19 +39,6 @@ const formatPrice = (price: number): string => {
     minimumFractionDigits: 0,
   }).format(price);
 };
-
-// const checkNumberNine = (number: any) => {
-//     const digitCount = Array.from(String(number)).reduce((count: any, digit: any) => {
-//       count[digit] = (count[digit] || 0) + 1;
-//       return count;
-//     }, {});
-
-//     if (digitCount["9"] === String(number).length) {
-//       return null;
-//     }
-
-//     return number;
-// };
 
 const formVisibleAtom = atom({
   propertyType: true,
@@ -154,6 +71,10 @@ filterAtom.debugLabel = "Filters";
 const propertiesAtom = atom<Property[]>([]);
 
 propertiesAtom.debugLabel = "Properties";
+
+const mapPropertiesAtom = atom<Property[]>([]);
+
+mapPropertiesAtom.debugLabel="Map Properties";
 
 const enableSearchingAtom = atom(true);
 
@@ -220,35 +141,96 @@ export default function Filters() {
     }
 
     // const res = await fetch('/api/search/');
+ 
+    const res: mapResponse = await fetch(`/api/search/map?${query}`,{cache: 'no-store'}).then(res=>res.json());
+    
+    console.log(res.properties);
+    
+    setMapProperties(res.properties);
 
     // use also no pages later for google map 
 
     const res2: response =  await fetch(`/api/search?${query}&page=${page_num}`,{cache: 'no-store'}).then(res=>res.json());
     
     setPageObj({actualPage: page_num,pages: res2.pages});
-    // add handling pagination
-
-    // console.log(res2.properties);
 
     setProperties(res2.properties); 
 
-
-// This request should be refetched on every request.
-  // Similar to `getServerSideProps`.
-  // const dynamicData = await fetch(`https://...`, { cache: 'no-store' })
-
-    
-    // setPageNumber((prevState)=>++prevState); // add fetch logic
   };
+
+  const onMoveMap = async(event: {center: {lat: number,lng: number}})=>{
+    const data = await getDataDynamically(event.center);
+    console.log("map data:", data); // debugger 
+    const temp = mapProperties;
+    data.map((property: Property)=>{
+      if(!temp.includes(property)){
+        temp.push(property);
+      }
+    });
+    setMapProperties(temp);
+  };
+
+  const getDataDynamically = async(center: {lat: number,lng: number})=>{
+    try{
+      let query = "";
+      const keys = Object.keys(filter) as Array<keyof typeof filter>;
+      keys.map(key=>{
+        if(key === "City" && value){
+          return;
+        }
+        if(Array.isArray(filter[key]) &&  (filter[key] as string[]).length){ 
+          query+= query.length ? `&${key}=` : `${key}=`;
+          (filter[key] as string[]).map((item: string)=>{
+            query+= `${item},`; 
+          });
+        } else if(filter[key]){
+          if(key === "BedroomsTotal" &&(typeof filter[key] === 'string')){
+            if(filter[key] as strOrNumber !== 'Any'){
+              if(filter[key] as strOrNumber === '5+'){
+                query+= query.length ? "&BedroomsTotal=5%2B" : "BedroomsTotal=5%2B";
+              }
+              else {
+                query+= query.length ? `&${key}=${filter[key]}`
+                : `${key}=${filter[key]}`;
+              }
+            }
+          } else if(key === "BathroomsTotal" && (typeof filter[key]=== 'string')){
+            if(filter[key] as strOrNumber !== 'Any'){
+              if(filter[key] as strOrNumber === '3+'){
+                query += query.length ? `&${key}DecimalFrom=3`
+                : `${key}DecimalFrom=3`;
+              } else {
+                query+= query.length ?  `&${key}DecimalTo=${filter[key]}`
+                : `${key}DecimalTo=${filter[key]}`;
+              }
+            }
+          } else {
+            if(filter[key] && !Array.isArray(filter[key])){
+              query += query.length
+                ? `&${key}=${filter[key]}`
+                : `${key}=${filter[key]}`;
+            }
+          }
+        }
+      });
+      const res: mapResponse = await fetch(`/api/search/map?${query}&Lat=${center.lat}&Lng=${center.lng}`).then(res=>res.json());
+      return res.properties;
+    }
+    catch(err){
+      console.error("Error while fetching properties:", err);
+      throw err;
+    }
+  }
   
   const [pageObj,setPageObj] = useAtom(pagesAtom);
 
   const properties_ = useQuery({queryKey: ['getPropertiesData',pageObj.actualPage],
-    queryFn: ()=>getData(pageObj.actualPage),
+    queryFn: ()=>getData(1),
     enabled: false
   });
    
   const onClickSearchHomes = ()=>{
+    // setPageObj({actualPage: 1,pages: });
     properties_.refetch();
   };
 
@@ -258,6 +240,7 @@ export default function Filters() {
   const [enableSearching, setEnableSearching] = useAtom(enableSearchingAtom);
   const [searchInput,setSearchInput] = useAtom(searchInputAtom);
   const [properties,setProperties] = useAtom(propertiesAtom);
+  const [mapProperties,setMapProperties] = useAtom(mapPropertiesAtom);
 
   const {
     ready,
@@ -1190,6 +1173,18 @@ export default function Filters() {
             </div>
           </div>
 
+          <div className={styles["properties_grid"]}>
+      {properties.map((property: Property,index: number)=>{ // 
+          return (
+            <PropertySearchTile
+            key={property.id || index}
+            onClick={() => {}}
+            data={property}
+          />
+          )
+        })}
+      </div>
+
           <div className={styles["btn-map-wrapper"]}>
             <div className={styles["btn-filters-vis"]}>
               <span>{"MORE FILTERS"}</span>
@@ -1206,8 +1201,8 @@ export default function Filters() {
             {formVisible.map && (
               <div className={styles["grid-prop-map"]}>
                 <Map
-                // properties={state.mapProperties}
-                // onMoveMap={onMoveMap}
+                  properties={mapProperties}
+                onMoveMap={onMoveMap}
                 />
               </div>
             )}
@@ -1215,17 +1210,7 @@ export default function Filters() {
         </div>
       </div>
       
-      <div className={styles["properties_grid"]}>
-      {properties.map((property: Property,index: number)=>{ // 
-          return (
-            <PropertySearchTile
-            key={property.id || index}
-            onClick={() => {}}
-            data={property}
-          />
-          )
-        })}
-      </div>
+
 
       <div className="pagination-wrapper">
             <Pagination>{createPagination(pageObj.pages,pageObj.actualPage,getData)}</Pagination>
