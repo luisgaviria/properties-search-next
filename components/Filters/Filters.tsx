@@ -2,10 +2,10 @@
 // import { useState, ChangeEvent } from "react";
 import { atom, useAtom } from "jotai";
 import { useHydrateAtoms } from "jotai/utils";
-import {QueryFunctionContext, useQuery} from "react-query";
+import { QueryFunctionContext, useQuery } from "react-query";
 
 import Image from "@/node_modules/next/image";
-import { Form,Pagination } from "@/app/client-react-boostrap";
+import { Form, Pagination } from "@/app/client-react-boostrap";
 import styles from "./Filters.module.scss";
 import cities from "../../data/massachusetsCities.json";
 import { ChangeEvent } from "react";
@@ -17,7 +17,13 @@ import PropertySearchTile from "../PropertySearchTile/PropertySearchTile";
 
 import "rc-slider/assets/index.css";
 import { Property } from "../definitions/Property";
-import { response,mapResponse,FormVisibleState,FilterState,strOrNumber } from "../definitions/Filters";
+import {
+  response,
+  mapResponse,
+  FormVisibleState,
+  FilterState,
+  strOrNumber,
+} from "../definitions/Filters";
 
 import usePlacesAutocomplete, {
   getGeocode,
@@ -26,11 +32,6 @@ import usePlacesAutocomplete, {
 import SearchButton from "../SearchButton/SearchButton";
 
 import { createPagination } from "@/utils/createPagination";
-
-// interface FiltersProps {
-//   changeFilter: (filter: FilterState) => void;
-// }
-
 
 const formatPrice = (price: number): string => {
   return new Intl.NumberFormat("en-US", {
@@ -48,7 +49,7 @@ const formVisibleAtom = atom({
   bedBaths: true,
   map: false,
   sortBy: true,
-}); 
+});
 
 formVisibleAtom.debugLabel = "Form Visibility";
 
@@ -63,8 +64,8 @@ const filterAtom = atom<FilterState>({
   BathroomsTotal: 0,
   BedroomsTotal: 0,
   sortBy: "ListPrice",
-  order: "desc",  
-}); 
+  order: "desc",
+});
 
 filterAtom.debugLabel = "Filters";
 
@@ -74,57 +75,66 @@ propertiesAtom.debugLabel = "Properties";
 
 const mapPropertiesAtom = atom<Property[]>([]);
 
-mapPropertiesAtom.debugLabel="Map Properties";
+mapPropertiesAtom.debugLabel = "Map Properties";
 
 const enableSearchingAtom = atom(true);
 
-enableSearchingAtom.debugLabel = "Enable Searching"
- 
+enableSearchingAtom.debugLabel = "Enable Searching";
+
 const searchInputAtom = atom("");
 
 searchInputAtom.debugLabel = "Search Input";
 
 const pagesAtom = atom({
-   actualPage: 1,
-   pages: 0
+  actualPage: 1,
+  pages: 0,
 });
 
 pagesAtom.debugLabel = "Pages";
 
 export default function Filters() {
   // const [searchCounter, setSearchCounter] = useState(0);
-  const getData = async(page_num: number)=>{
+  const getData = async (page_num: number) => {
     let query = "";
     const keys = Object.keys(filter) as Array<keyof typeof filter>;
-    keys.map(key=>{
-      if(Array.isArray(filter[key]) &&  (filter[key] as string[]).length){ 
-        query+= query.length ? `&${key}=` : `${key}=`;
-        (filter[key] as string[]).map((item: string)=>{
-          query+= `${item},`; 
+    keys.map((keyAsString) => {
+      // Explicitly convert key to a string
+      const key = String(keyAsString);
+      if (Array.isArray(filter[key]) && (filter[key] as string[]).length) {
+        query += query.length ? `&${key}=` : `${key}=`;
+        (filter[key] as string[]).map((item: string) => {
+          query += `${item},`;
         });
-      } else if(filter[key]){
-        if(key === "BedroomsTotal" &&(typeof filter[key] === 'string')){
-          if(filter[key] as strOrNumber !== 'Any'){
-            if(filter[key] as strOrNumber === '5+'){
-              query+= query.length ? "&BedroomsTotal=5%2B" : "BedroomsTotal=5%2B";
-            }
-            else {
-              query+= query.length ? `&${key}=${filter[key]}`
-              : `${key}=${filter[key]}`;
+      } else if (filter[key]) {
+        if (key === "BedroomsTotal" && typeof filter[key] === "string") {
+          if ((filter[key] as strOrNumber) !== "Any") {
+            if ((filter[key] as strOrNumber) === "5+") {
+              query += query.length
+                ? "&BedroomsTotal=5%2B"
+                : "BedroomsTotal=5%2B";
+            } else {
+              query += query.length
+                ? `&${key}=${filter[key]}`
+                : `${key}=${filter[key]}`;
             }
           }
-        } else if(key === "BathroomsTotal" && (typeof filter[key]=== 'string')){
-          if(filter[key] as strOrNumber !== 'Any'){
-            if(filter[key] as strOrNumber === '3+'){
-              query += query.length ? `&${key}DecimalFrom=3`
-              : `${key}DecimalFrom=3`;
+        } else if (
+          key === "BathroomsTotal" &&
+          typeof filter[key] === "string"
+        ) {
+          if ((filter[key] as strOrNumber) !== "Any") {
+            if ((filter[key] as strOrNumber) === "3+") {
+              query += query.length
+                ? `&${key}DecimalFrom=3`
+                : `${key}DecimalFrom=3`;
             } else {
-              query+= query.length ?  `&${key}DecimalTo=${filter[key]}`
-              : `${key}DecimalTo=${filter[key]}`;
+              query += query.length
+                ? `&${key}DecimalTo=${filter[key]}`
+                : `${key}DecimalTo=${filter[key]}`;
             }
           }
         } else {
-          if(filter[key] && !Array.isArray(filter[key])){
+          if (filter[key] && !Array.isArray(filter[key])) {
             query += query.length
               ? `&${key}=${filter[key]}`
               : `${key}=${filter[key]}`;
@@ -132,80 +142,92 @@ export default function Filters() {
         }
       }
     });
-  
+
     const radiusVal = "1mi";
 
-    if(enableSearching && value){
+    if (enableSearching && value) {
       query += `&near=${value}`;
       query += `&radius=${radiusVal}`;
     }
 
     // const res = await fetch('/api/search/');
- 
-    const res: mapResponse = await fetch(`/api/search/map?${query}`,{cache: 'no-store'}).then(res=>res.json());
-    
+
+    const res: mapResponse = await fetch(`/api/search/map?${query}`, {
+      cache: "no-store",
+    }).then((res) => res.json());
+
     console.log(res.properties);
-    
+
     setMapProperties(res.properties);
 
-    // use also no pages later for google map 
+    // use also no pages later for google map
 
-    const res2: response =  await fetch(`/api/search?${query}&page=${page_num}`,{cache: 'no-store'}).then(res=>res.json());
-    
-    setPageObj({actualPage: page_num,pages: res2.pages});
+    const res2: response = await fetch(
+      `/api/search?${query}&page=${page_num}`,
+      { cache: "no-store" }
+    ).then((res) => res.json());
 
-    setProperties(res2.properties); 
+    setPageObj({ actualPage: page_num, pages: res2.pages });
 
+    setProperties(res2.properties);
   };
 
-  const onMoveMap = async(event: {center: {lat: number,lng: number}})=>{
+  const onMoveMap = async (event: { center: { lat: number; lng: number } }) => {
     const data = await getDataDynamically(event.center);
-    console.log("map data:", data); // debugger 
+    console.log("map data:", data); // debugger
     const temp = mapProperties;
-    data.map((property: Property)=>{
-      if(!temp.includes(property)){
+    data.map((property: Property) => {
+      if (!temp.includes(property)) {
         temp.push(property);
       }
     });
     setMapProperties(temp);
   };
 
-  const getDataDynamically = async(center: {lat: number,lng: number})=>{
-    try{
+  const getDataDynamically = async (center: { lat: number; lng: number }) => {
+    try {
       let query = "";
       const keys = Object.keys(filter) as Array<keyof typeof filter>;
-      keys.map(key=>{
-        if(key === "City" && value){
+      keys.map((keyAsString) => {
+        const key = String(keyAsString);
+        if (key === "City" && value) {
           return;
         }
-        if(Array.isArray(filter[key]) &&  (filter[key] as string[]).length){ 
-          query+= query.length ? `&${key}=` : `${key}=`;
-          (filter[key] as string[]).map((item: string)=>{
-            query+= `${item},`; 
+        if (Array.isArray(filter[key]) && (filter[key] as string[]).length) {
+          query += query.length ? `&${key}=` : `${key}=`;
+          (filter[key] as string[]).map((item: string) => {
+            query += `${item},`;
           });
-        } else if(filter[key]){
-          if(key === "BedroomsTotal" &&(typeof filter[key] === 'string')){
-            if(filter[key] as strOrNumber !== 'Any'){
-              if(filter[key] as strOrNumber === '5+'){
-                query+= query.length ? "&BedroomsTotal=5%2B" : "BedroomsTotal=5%2B";
-              }
-              else {
-                query+= query.length ? `&${key}=${filter[key]}`
-                : `${key}=${filter[key]}`;
+        } else if (filter[key]) {
+          if (key === "BedroomsTotal" && typeof filter[key] === "string") {
+            if ((filter[key] as strOrNumber) !== "Any") {
+              if ((filter[key] as strOrNumber) === "5+") {
+                query += query.length
+                  ? "&BedroomsTotal=5%2B"
+                  : "BedroomsTotal=5%2B";
+              } else {
+                query += query.length
+                  ? `&${key}=${filter[key]}`
+                  : `${key}=${filter[key]}`;
               }
             }
-          } else if(key === "BathroomsTotal" && (typeof filter[key]=== 'string')){
-            if(filter[key] as strOrNumber !== 'Any'){
-              if(filter[key] as strOrNumber === '3+'){
-                query += query.length ? `&${key}DecimalFrom=3`
-                : `${key}DecimalFrom=3`;
+          } else if (
+            key === "BathroomsTotal" &&
+            typeof filter[key] === "string"
+          ) {
+            if ((filter[key] as strOrNumber) !== "Any") {
+              if ((filter[key] as strOrNumber) === "3+") {
+                query += query.length
+                  ? `&${key}DecimalFrom=3`
+                  : `${key}DecimalFrom=3`;
               } else {
-                query+= query.length ?  `&${key}DecimalTo=${filter[key]}`
-                : `${key}DecimalTo=${filter[key]}`;
+                query += query.length
+                  ? `&${key}DecimalTo=${filter[key]}`
+                  : `${key}DecimalTo=${filter[key]}`;
               }
             }
           } else {
-            if(filter[key] && !Array.isArray(filter[key])){
+            if (filter[key] && !Array.isArray(filter[key])) {
               query += query.length
                 ? `&${key}=${filter[key]}`
                 : `${key}=${filter[key]}`;
@@ -213,34 +235,35 @@ export default function Filters() {
           }
         }
       });
-      const res: mapResponse = await fetch(`/api/search/map?${query}&Lat=${center.lat}&Lng=${center.lng}`).then(res=>res.json());
+      const res: mapResponse = await fetch(
+        `/api/search/map?${query}&Lat=${center.lat}&Lng=${center.lng}`
+      ).then((res) => res.json());
       return res.properties;
-    }
-    catch(err){
+    } catch (err) {
       console.error("Error while fetching properties:", err);
       throw err;
     }
-  }
-  
-  const [pageObj,setPageObj] = useAtom(pagesAtom);
+  };
 
-  const properties_ = useQuery({queryKey: ['getPropertiesData',pageObj.actualPage],
-    queryFn: ()=>getData(1),
-    enabled: false
+  const [pageObj, setPageObj] = useAtom(pagesAtom);
+
+  const properties_ = useQuery({
+    queryKey: ["getPropertiesData", pageObj.actualPage],
+    queryFn: () => getData(1),
+    enabled: false,
   });
-   
-  const onClickSearchHomes = ()=>{
+
+  const onClickSearchHomes = () => {
     // setPageObj({actualPage: 1,pages: });
     properties_.refetch();
   };
 
-
   const [formVisible, setFormVisible] = useAtom(formVisibleAtom);
   const [filter, setFilter] = useAtom(filterAtom);
   const [enableSearching, setEnableSearching] = useAtom(enableSearchingAtom);
-  const [searchInput,setSearchInput] = useAtom(searchInputAtom);
-  const [properties,setProperties] = useAtom(propertiesAtom);
-  const [mapProperties,setMapProperties] = useAtom(mapPropertiesAtom);
+  const [searchInput, setSearchInput] = useAtom(searchInputAtom);
+  const [properties, setProperties] = useAtom(propertiesAtom);
+  const [mapProperties, setMapProperties] = useAtom(mapPropertiesAtom);
 
   const {
     ready,
@@ -267,7 +290,7 @@ export default function Filters() {
     // props.changeInput(suggestion.description);
     setValue(suggestion.description, false);
     clearSuggestions();
-    
+
     setSearchInput(suggestion.description);
 
     // Get latitude and longitude via utility functions
@@ -279,20 +302,8 @@ export default function Filters() {
 
   //Jotai
   const onCheckEnablingSearching = () => {
-    setEnableSearching((prevState) => (!prevState));
+    setEnableSearching((prevState: boolean) => !prevState);
   };
-
-  //State
-  // const onCheckEnablingSearching = () => {
-  //   // props.changeEnableSearching(!state.enableSearching);
-  //   setState((prevState) => {
-  //     const newState = {
-  //       ...prevState,
-  //       enableSearching: !prevState.enableSearching,
-  //     };
-  //     return newState;
-  //   });
-  // };
 
   const renderAutocompleteSuggestions = () =>
     data.map((suggestion) => (
@@ -307,29 +318,17 @@ export default function Filters() {
     ));
 
   // Jotai state
-  const onChangeSelect = (event: any) => {
+  const onChangeSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
-    setFilter((prevSeach) => ({
-      ...prevSeach,
+    setFilter((prevSearch: FilterState) => ({
+      ...prevSearch,
       [name]: value,
     }));
   };
 
-
-
-  //useState
-  // const onChangeSelect = (event: any) => {
-  //   const filter = { ...state.filter, [event.target.name]: event.target.value };
-  //   // changeFilter(filter);
-  //   setState((prevState) => ({
-  //     ...prevState,
-  //     filter,
-  //   }));
-  // };
-
   //Jotai
   const onChangeSlider = (values: any) => {
-    setFilter((prevFilter) => ({
+    setFilter((prevFilter: FilterState) => ({
       ...prevFilter,
       ListPriceFrom: values[0],
       ListPriceTo: values[1],
@@ -354,7 +353,7 @@ export default function Filters() {
   const onChangePropertyTypeCheckbox = (
     event: ChangeEvent<HTMLInputElement>
   ) => {
-    setFilter((prevFilter) => {
+    setFilter((prevFilter: FilterState) => {
       let PropertyTypes = Array.isArray(prevFilter.PropertyType)
         ? [...prevFilter.PropertyType]
         : [];
@@ -374,31 +373,6 @@ export default function Filters() {
     });
   };
 
-  //State
-  // const onChangePropertyTypeCheckbox = (event: any) => {
-  //   let PropertyTypes = Array.isArray(state.filter.PropertyType)
-  //     ? state.filter.PropertyType
-  //     : [];
-
-  //   if (event.target.checked) {
-  //     PropertyTypes.push(event.target.value);
-  //   } else {
-  //     PropertyTypes = PropertyTypes.filter((item) => {
-  //       return item !== event.target.value;
-  //     });
-  //   }
-
-  //   setState((prevState) => {
-  //     return {
-  //       ...prevState,
-  //       filter: {
-  //         ...prevState.filter,
-  //         PropertyType: PropertyTypes,
-  //       },
-  //     };
-  //   });
-  // };
-
   //Jotai
   const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -410,48 +384,14 @@ export default function Filters() {
     const filteredValue = Math.max(0, Math.min(100000000, numericValue));
 
     // Update the filter state using setFilter
-    setFilter((prevFilter) => ({
+    setFilter((prevFilter: FilterState) => ({
       ...prevFilter,
       [name]: filteredValue,
     }));
   };
 
-  //State
-  // const onChangeInput = (event: any) => {
-  //   const { name, value } = event.target;
-
-  //   // Remove any non-numeric characters from the input value
-  //   const numericValue = Number(value.replace(/[^0-9]/g, ""));
-
-  //   // Make sure the numeric value is within the valid range
-  //   const filteredValue = Math.max(0, Math.min(100000000, numericValue));
-
-  //   // Update the state and the slider based on the input change
-  //   setState((prevState) => ({
-  //     ...prevState,
-  //     filter: {
-  //       ...prevState.filter,
-  //       [name]: filteredValue,
-  //     },
-  //   }));
-  // };
-
-  // const toggleMapVisibility = (formType: keyof FormVisibleState) => {
-  //   //
-  //   //  "save global state"
-  //   // saveGlobalStateToLocalStorage();
-  //   //
-  //   setState((prevState) => ({
-  //     ...prevState,
-  //     formVisible: {
-  //       ...prevState.formVisible,
-  //       [formType]: !prevState.formVisible[formType],
-  //     },
-  //   }));
-  // };
-
   const toggleMapVisibility = (formType: keyof FormVisibleState) => {
-    setFormVisible((prevFormVisible) => ({
+    setFormVisible((prevFormVisible: FormVisibleState) => ({
       ...prevFormVisible,
       [formType]: !prevFormVisible[formType],
     }));
@@ -461,7 +401,7 @@ export default function Filters() {
   const onChangePropertySubTypeCheckbox = (
     event: ChangeEvent<HTMLInputElement>
   ) => {
-    setFilter((prevFilter) => {
+    setFilter((prevFilter: FilterState) => {
       const PropertySubTypes = prevFilter.PropertySubType || [];
       const { value, checked } = event.target;
 
@@ -481,45 +421,13 @@ export default function Filters() {
     });
   };
 
-  //State
-  // const onChangePropertySubTypeCheckbox = (event: any) => {
-  //   let PropertySubTypes = state.filter.PropertySubType;
-  //   if (event.target.checked) {
-  //     PropertySubTypes.push(event.target.value);
-  //   } else {
-  //     PropertySubTypes = PropertySubTypes.filter((item) => {
-  //       return item !== event.target.value;
-  //     });
-  //   }
-  //   setState((state) => {
-  //     return {
-  //       ...state,
-  //       filter: {
-  //         ...state.filter,
-  //         PropertySubType: PropertySubTypes,
-  //       },
-  //     };
-  //   });
-  // };
-
   //Jotai
   const toggleFormVisibility = (formType: keyof FormVisibleState) => {
-    setFormVisible((prevFormVisible) => ({
+    setFormVisible((prevFormVisible: FormVisibleState) => ({
       ...prevFormVisible,
       [formType]: !prevFormVisible[formType],
     }));
   };
-
-  //State
-  // const toggleFormVisibility = (formType: keyof FormVisibleState) => {
-  //   setState((prevState) => ({
-  //     ...prevState,
-  //     formVisible: {
-  //       ...prevState.formVisible,
-  //       [formType]: !prevState.formVisible[formType],
-  //     },
-  //   }));
-  // };
 
   return (
     <>
@@ -749,7 +657,7 @@ export default function Filters() {
                     value={2}
                     checked={filter.NumberOfUnitsTotal === 2}
                     onChange={() => {
-                      setFilter((prevFilter) => ({
+                      setFilter((prevFilter: FilterState) => ({
                         ...prevFilter,
                         NumberOfUnitsTotal:
                           prevFilter.NumberOfUnitsTotal === 2 ? 0 : 2,
@@ -1174,16 +1082,17 @@ export default function Filters() {
           </div>
 
           <div className={styles["properties_grid"]}>
-      {properties.map((property: Property,index: number)=>{ // 
-          return (
-            <PropertySearchTile
-            key={property.id || index}
-            onClick={() => {}}
-            data={property}
-          />
-          )
-        })}
-      </div>
+            {properties.map((property: Property, index: number) => {
+              //
+              return (
+                <PropertySearchTile
+                  key={property.id || index}
+                  onClick={() => {}}
+                  data={property}
+                />
+              );
+            })}
+          </div>
 
           <div className={styles["btn-map-wrapper"]}>
             <div className={styles["btn-filters-vis"]}>
@@ -1200,22 +1109,18 @@ export default function Filters() {
           <div className={styles["map-wrapper"]}>
             {formVisible.map && (
               <div className={styles["grid-prop-map"]}>
-                <Map
-                  properties={mapProperties}
-                onMoveMap={onMoveMap}
-                />
+                <Map properties={mapProperties} onMoveMap={onMoveMap} />
               </div>
             )}
           </div>
         </div>
       </div>
-      
-
 
       <div className="pagination-wrapper">
-            <Pagination>{createPagination(pageObj.pages,pageObj.actualPage,getData)}</Pagination>
+        <Pagination>
+          {createPagination(pageObj.pages, pageObj.actualPage, getData)}
+        </Pagination>
       </div>
-
 
       {/* <PropertySearchTile data={{StreetNumber: 10,LivingArea: 10,StreetName: "hello",City: "Test", ListPrice: "Hello",LivingArea: "10200", BedroomsTotal: 10,BathroomsTotalDecimal: 12.3,MLSAreaMajor: "HELLo"}}/> */}
     </>
