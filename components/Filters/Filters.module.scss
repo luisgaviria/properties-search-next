@@ -176,9 +176,9 @@
 .sort-container {
   display: flex;
   justify-content: flex-start;
-  margin-top: -4rem;
+  margin-bottom: 2rem;
 
-  position: absolute;
+  position: relative;
   left: 20px;
   // padding: 10px; /* Adjust padding as needed */
   // display: flex;
@@ -558,21 +558,17 @@
   margin: 0 auto;
   border-radius: 10px;
   overflow: hidden;
-  padding-bottom: 4rem;
+  padding-bottom: 5rem;
   border-radius: 10px;
-  padding-top: 7.6rem;
+  padding-top: 4.6rem;
 }
 
 .btn-map-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-right: 8rem;
-  padding-left: 8rem;
-  margin-top: -3rem;
+  position: absolute; /* Fixed position */
+  right: 50px; /* Adjust right distance as needed */
+  z-index: 999;
 
   .btn-map {
-    position: fixed;
     font-weight: 500;
     -webkit-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
@@ -594,7 +590,7 @@
     font-family: tenon, sans-serif;
     transition: box-shadow 0.3s ease-in-out;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-    margin-bottom: -12rem;
+    margin-top: -3rem;
 
     cursor: pointer;
 
@@ -662,6 +658,20 @@
     flex: 1;
     width: 1125px;
     max-width: 73vw;
+
+    .properties_grid_map_view {
+      display: grid;
+      left: 10%;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 1px;
+      gap: 10px;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      max-height: 1115px;
+      overflow-y: auto;
+      scroll-padding-top: 1rem;
+    }
+
     @media (min-width: 280px) and (max-width: 1299px) {
       width: 100%; /* Adjust the width for medium-sized screens */
       flex: none;
@@ -701,17 +711,17 @@
   width: 100%;
 }
 
-.sort-container {
-  display: flex;
-  justify-content: flex-start;
-  margin-top: 6rem;
+// .sort-container {
+//   display: flex;
+//   justify-content: flex-start;
+//   margin-top: 6rem;
 
-  position: absolute;
-  left: 20px;
-  // padding: 10px; /* Adjust padding as needed */
-  // display: flex;
-  z-index: 1;
-}
+//   position: absolute;
+//   left: 20px;
+//   // padding: 10px; /* Adjust padding as needed */
+//   // display: flex;
+//   z-index: 1;
+// }
 
 .sort-select {
   margin-right: 1rem;

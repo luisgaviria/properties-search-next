@@ -1,0 +1,45 @@
+.properties_grid_map_view {
+  display: grid;
+  left: 10%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1px;
+  gap: 10px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-height: 1115px;
+  overflow-y: auto;
+  scroll-padding-top: 1rem;
+
+  @media (min-width: 280px) and (max-width: 1299px) {
+    width: 100%; /* Adjust the width for medium-sized screens */
+    flex: none;
+    max-width: none;
+    .properties_grid_map_view {
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      grid-gap: 1px;
+      display: grid;
+      gap: 10px;
+      padding-bottom: 6rem;
+      max-height: none;
+      overflow-y: none;
+      scroll-padding-top: none;
+    }
+  }
+
+  @media (min-width: 1301px) and (max-width: 1480px) {
+    width: 975px; /* Adjust the width for medium-sized screens */
+  }
+
+  @media (min-width: 1481px) and (max-width: 1980px) {
+    width: 1165px; /* Adjust the width for medium-sized screens */
+  }
+  @media (min-width: 1981px) and (max-width: 2380px) {
+    width: 1475px; /* Adjust the width for medium-sized screens */
+  }
+  @media (min-width: 2381px) and (max-width: 2780px) {
+    width: 1475px; /* Adjust the width for medium-sized screens */
+  }
+  @media (min-width: 2781px) {
+    width: 1775px; /* Adjust the width for medium-sized screens */
+  }
+}

@@ -52,18 +52,19 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
 
       // Load info windows asynchronously
       const loadedInfoWindows = await Promise.all(
-        (this.props.properties || []).map(async (property: Property, index: number) => {
-          const imgUrl = property.Media?.[0]?.MediaURL; // Use optional chaining
+        (this.props.properties || []).map(
+          async (property: Property, index: number) => {
+            const imgUrl = property.Media?.[0]?.MediaURL; // Use optional chaining
 
-          if (!imgUrl) {
-            return null; // Skip properties without images
-          }
+            if (!imgUrl) {
+              return null; // Skip properties without images
+            }
 
-          try {
-            // const imgElement = await loadImage(imgUrl);
+            try {
+              // const imgElement = await loadImage(imgUrl);
 
-            const infoWindow = new this.googleRef.InfoWindow({
-              content: `
+              const infoWindow = new this.googleRef.InfoWindow({
+                content: `
                 <a href="/buy/${property.ListingId}">
                   <img height="220px" src="${imgUrl}" alt="Property" />
                   <br />
@@ -72,14 +73,15 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
                   </div>
                 </a>
               `,
-            });
+              });
 
-            return infoWindow;
-          } catch (error) {
-            console.error("Error loading image:", error);
-            return null; // Skip properties with loading errors
+              return infoWindow;
+            } catch (error) {
+              console.error("Error loading image:", error);
+              return null; // Skip properties with loading errors
+            }
           }
-        })
+        )
       );
 
       // Attach click listeners and handle clustering
@@ -96,7 +98,10 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
         }
       });
 
-      new MarkerClusterer({map: this.googleMapRef,markers: this.markersWithInfoWindows.map(x=>x.marker)},);
+      new MarkerClusterer({
+        map: this.googleMapRef,
+        markers: this.markersWithInfoWindows.map((x) => x.marker),
+      });
       // new MarkerClusterer(
       //   this.googleMapRef,
       //   markersWithInfoWindows.map((x) => x.marker),
@@ -146,7 +151,10 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
       });
     });
 
-    new MarkerClusterer({map: this.googleMapRef,markers: this.markersWithInfoWindows.map(x=>x.marker)});
+    new MarkerClusterer({
+      map: this.googleMapRef,
+      markers: this.markersWithInfoWindows.map((x) => x.marker),
+    });
 
     // Handle clustering
     // new MarkerClusterer(
@@ -162,7 +170,6 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
     // );
     // this.markersWithInfoWindows = null;
     this.markersWithInfoWindows = [];
-
   };
   render(): ReactElement {
     const defaultCenter = this.props.properties?.length

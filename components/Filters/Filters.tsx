@@ -32,6 +32,7 @@ import usePlacesAutocomplete, {
 import SearchButton from "../SearchButton/SearchButton";
 
 import { createPagination } from "@/utils/createPagination";
+import PropertySeachList from "../PropertySearchList/PropertySearchList";
 
 const formatPrice = (price: number): string => {
   return new Intl.NumberFormat("en-US", {
@@ -1045,11 +1046,22 @@ export default function Filters() {
       </div>
       <SearchButton onClick={onClickSearchHomes} />
 
-      <div className={formVisible["map"] ? "search-container" : ""}>
-        <div className="properties-grid-filter">
+      <div className={formVisible["map"] ? styles["search-container"] : ""}>
+        <div className={styles["properties-grid-filter"]}>
           {/* <div className="pagination-wrapper">
             <Pagination>{items}</Pagination>
           </div> */}
+          <div className={styles["btn-map-wrapper"]}>
+            <div className={styles["btn-filters-vis"]}>
+              <span>{"MORE FILTERS"}</span>
+            </div>
+            <div
+              className={styles["btn-map"]}
+              onClick={() => toggleMapVisibility("map")}
+            >
+              <span>{formVisible.map ? "HIDE MAP" : "VIEW MAP"}</span>
+            </div>
+          </div>
 
           <div className={styles["sort-container"]}>
             <div className={styles["sort-select"]}>
@@ -1081,9 +1093,15 @@ export default function Filters() {
             </div>
           </div>
 
-          <div className={styles["properties_grid"]}>
+          {/* <PropertySeachList properties={properties} /> */}
+          <div
+            className={
+              formVisible["map"]
+                ? styles["properties_grid_map_view"]
+                : styles["properties_grid"]
+            }
+          >
             {properties.map((property: Property, index: number) => {
-              //
               return (
                 <PropertySearchTile
                   key={property.id || index}
@@ -1094,35 +1112,20 @@ export default function Filters() {
             })}
           </div>
 
-          <div className={styles["btn-map-wrapper"]}>
-            <div className={styles["btn-filters-vis"]}>
-              <span>{"MORE FILTERS"}</span>
-            </div>
-            <div
-              className={styles["btn-map"]}
-              onClick={() => toggleMapVisibility("map")}
-            >
-              <span>{formVisible.map ? "HIDE MAP" : "VIEW MAP"}</span>
-            </div>
-          </div>
-
-          <div className={styles["map-wrapper"]}>
-            {formVisible.map && (
-              <div className={styles["grid-prop-map"]}>
-                <Map properties={mapProperties} onMoveMap={onMoveMap} />
-              </div>
-            )}
+          <div className="pagination-wrapper">
+            <Pagination>
+              {createPagination(pageObj.pages, pageObj.actualPage, getData)}
+            </Pagination>
           </div>
         </div>
+        <div className={styles["map-wrapper"]}>
+          {formVisible.map && (
+            <div className={styles["grid-prop-map"]}>
+              <Map properties={mapProperties} onMoveMap={onMoveMap} />
+            </div>
+          )}
+        </div>
       </div>
-
-      <div className="pagination-wrapper">
-        <Pagination>
-          {createPagination(pageObj.pages, pageObj.actualPage, getData)}
-        </Pagination>
-      </div>
-
-      {/* <PropertySearchTile data={{StreetNumber: 10,LivingArea: 10,StreetName: "hello",City: "Test", ListPrice: "Hello",LivingArea: "10200", BedroomsTotal: 10,BathroomsTotalDecimal: 12.3,MLSAreaMajor: "HELLo"}}/> */}
     </>
   );
 }

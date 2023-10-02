@@ -1,6 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "dvvjkgh94f2v6.cloudfront.net",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+    // domains: ["**.cloudfront.net", "localhost"],
+
+    formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
   },
   experimental: {
@@ -25,9 +36,10 @@ const nextConfig = {
       config.optimization.concatenateModules = true;
       config.optimization.usedExports = true;
     }
+    console.log("Images here:", images);
     return config;
   },
-  transpilePackages: ['jotai-devtools']
+  transpilePackages: ["jotai-devtools"],
 };
 
 module.export = nextConfig;
