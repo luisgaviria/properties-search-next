@@ -1,6 +1,8 @@
 import React from "react";
+import { useRouter } from "next/navigation";
 import styles from "./PropertySearchTile.module.scss";
 import { Carousel } from "react-bootstrap";
+import Image from "next/image"; 
 // import { formatPrice } from "../../utils/formatPrice";
 const formatPrice = (price: any) => {
   return new Intl.NumberFormat("en-US", {
@@ -10,10 +12,20 @@ const formatPrice = (price: any) => {
   }).format(price);
 };
 
+const loader = (props: {src: string}) =>{
+  return `${props.src}`;
+};
+
 export default function PropertySearchTile({ data }: any) {
+  const router = useRouter();
+  const parentClick = () =>{ 
+    router.push("/search/"+data.ListingId);
+  }
   // const parentClick = () => {
   //     navigate(`/buy/${data.ListingId}`);
   //   };
+   
+  
 
   const childrenClick = (event: any) => {
     event.stopPropagation();
@@ -33,7 +45,8 @@ export default function PropertySearchTile({ data }: any) {
 
   return (
     <div
-    // onClick={parentClick}
+    onClick={parentClick}
+
     >
       <div className={styles[`properties_grid_element_buy`]}>
         <Carousel
@@ -51,35 +64,28 @@ export default function PropertySearchTile({ data }: any) {
                   className={styles["img-wrap-buytile"]}
                 >
                   {
-                    //We should use Image tag here
-                    /* <Image
+                    <Image
                     // type="image/webp"
                     className={styles["img-carousel-tile"]}
-                    // src={media.MediaURL}
+                    loader={loader}
+                    placeholder="blur"
                     src={
-                      "https://dvvjkgh94f2v6.cloudfront.net/6a24dcf8/73135979/83dcefb7.jpeg) "
+                      media.MediaURL
                     }
+                    blurDataURL="blur.jpg"
                     key={index}
-                    // onClick={parentClick}
+                    onClick={parentClick}
                     alt="property main image"
                     width={50}
                     height={50}
-                  /> */
-                  }
-
-                  <img
-                    // type="image/webp"
-                    className={styles["img-carousel-tile"]}
-                    src={media.MediaURL}
-                    key={index}
-                    alt="property main image"
-                    // onClick={parentClick}
                   />
+                  }
                 </Carousel.Item>
               );
             }
           })}
         </Carousel>
+
         <div style={{ cursor: "pointer" }}>
           <div className={styles["tile-city"]}>
             {`${data.StreetNumber} ${data.StreetName} - ${data.City}`}

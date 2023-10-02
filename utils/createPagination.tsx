@@ -1,7 +1,7 @@
 "use client"
 import {Pagination} from "../app/client-react-boostrap";
 
-const findBordersBy9 = (number: number) => {
+export const findBordersBy9 = (number: number) => {
   // algorithm for finding correct borders
   const uniqueBorders: number[] = [];
   if (number % 9 == 0) {

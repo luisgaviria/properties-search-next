@@ -1,15 +1,12 @@
 import styles from "./PropertySearchList.module.scss";
 import PropertySearchTile from "../PropertySearchTile/PropertySearchTile";
+import { Property } from "../definitions/Property";
+import { Suspense } from "react"; 
+import Loading from "./loading";
 
-export default function PropertySeachList() {
+export default function PropertySeachList({properties}: {properties: Property[]}) {
   return (
-    <div
-      className={
-        formVisible["map"]
-          ? styles["properties_grid_map_view"]
-          : styles["properties_grid"]
-      }
-    >
+    <Suspense fallback={<Loading/>}> 
       {properties.map((property: Property, index: number) => {
         return (
           <PropertySearchTile
@@ -19,6 +16,6 @@ export default function PropertySeachList() {
           />
         );
       })}
-    </div>
+    </Suspense>
   );
 }

@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   images: {
     remotePatterns: [
       {
@@ -9,6 +10,7 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
+    domains: ["dvvjkgh94f2v6.cloudfront.net"],
     // domains: ["**.cloudfront.net", "localhost"],
 
     formats: ["image/avif", "image/webp"],

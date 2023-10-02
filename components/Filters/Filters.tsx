@@ -1101,7 +1101,8 @@ export default function Filters() {
                 : styles["properties_grid"]
             }
           >
-            {properties.map((property: Property, index: number) => {
+            <PropertySeachList properties={properties}/>
+            {/* {properties.map((property: Property, index: number) => {
               return (
                 <PropertySearchTile
                   key={property.id || index}
@@ -1109,7 +1110,7 @@ export default function Filters() {
                   data={property}
                 />
               );
-            })}
+            })} */}
           </div>
 
           <div className="pagination-wrapper">
