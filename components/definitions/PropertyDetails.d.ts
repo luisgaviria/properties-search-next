@@ -57,7 +57,7 @@ export interface PropertyDetails{
     CarportYN: string;
     SecurityFeatures: string;
     InteriorFeatures: string;
-    MainLevelBedrooms: string;
+    MainLevelBedrooms: number;
     RoomMasterBedroomFeatures: string;
     RoomLivingRoomFeatures: string;
     SpaFeatures: string;
@@ -76,4 +76,8 @@ export interface PropertyDetails{
     Disclosures: string;
     Latitude: number; 
     Longitude: number;
+    detailsVisible: {
+        details: boolean;
+        loan: boolean;
+    };
 }

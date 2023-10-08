@@ -131,14 +131,8 @@
     }
   }
   
-  p {
+  .p  {
     text-align: left;
-  }
-  
-  .single-property-details {
-  }
-  
-  .single-property-contact-info {
   }
   
   .single-prop-container {
@@ -230,7 +224,7 @@
     padding-bottom: 2rem;
   }
   
-  table {
+  .table {
     border-width: 1px !important;
     border-style: solid !important;
     border-color: rgba(138, 138, 138, 0.716) !important;
@@ -242,8 +236,8 @@
   .table-responsive {
     border-radius: 2px 2px 2px 2px !important;
   }
-  
-  hr {
+
+  .hr {
     max-width: 1600px;
     margin: 0 auto !important;
     padding-bottom: 2rem;
