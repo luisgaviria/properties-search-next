@@ -13,7 +13,7 @@ export const formatPrice = (price: number) => {
     }, {});
   
     if (digitCount["9"] === String(number).length) {
-      return null;
+      return 0;
     }
   
     return number;

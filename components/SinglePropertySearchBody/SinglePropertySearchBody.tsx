@@ -1,0 +1,918 @@
+"use client"
+import { formatPrice,checkNumberNine } from "@/utils/formatPrice";
+import { Metadata, ResolvingMetadata } from "next";
+import { atom, useAtom } from "jotai";
+import { PropertyDetails } from "@/components/definitions/PropertyDetails";
+import { useEffect } from "react";
+import { usePathname,useSearchParams } from "next/navigation";
+import { useQuery } from "react-query";
+import { Carousel } from "react-bootstrap";
+import styles from "./SinglePropertySearchBody.module.scss";
+import { MdOutlineAttachMoney, MdHouse, MdBedroomParent } from "react-icons/md";
+import { FaRestroom } from "react-icons/fa";
+import {AiOutlineAreaChart} from "react-icons/ai";
+import {BsFillPhoneVibrateFill} from "react-icons/bs";
+import Table from "react-bootstrap/Table";
+import GoogleMapReact from "google-map-react";
+import mapStyles from "./mapStyles";
+import { LoanCalculator } from "@/components/LoanCalculator/LoanCalculator";
+import CTA from "@/components/CTA/CTA";
+import {useRouter} from "next/navigation";
+
+const Marker = ({ text }:{text: string;lat: number;lng:number}) => <MdHouse size={25} />;
+
+const stateAtom = atom<PropertyDetails>({
+  Media: [],
+  LivingArea: "",
+  StreetNumber: "",
+  StreetName: "", 
+  City: "", 
+  StateOrProvince: "",
+  ListPrice: 0,
+  PublicRemarks: "",
+  BedroomsTotal: 0,
+  BathroomsTotalDecimal: 0,
+  MlsStatus: "",
+  OnMarketDate: new Date(),
+  MLSPIN_MARKET_TIME: "",
+  OriginalListPrice: 0,
+  BathroomsHalf: 0,
+  RoomsTotal: 0,
+  MLSAreaMajor: "",
+  CountyOrParish: "",
+  BuildingAreaTotal: "",
+  LotSizeArea: "",
+  LotFeatures: "",
+  LotSizeSquareFeet: "",
+  PropertyType: "",
+  PropertySubType: "",
+  StructureType: "",
+  BuildingName: "",
+  BusinessName: "",
+  NumberOfUnitsTotal: 0,
+  InsuranceExpense: 0,
+  AssociationYN: "",
+  AssociationFee: 0,
+  AssociationName: "",
+  AssociationFeeFrequency: "",
+  AssociationFeeIncludes: "",
+  AssociationAmenities: "",
+  CommunityFeatures: "",
+  AccessibilityFeatures: "",
+  Utilities: "",
+  TenantPays: "",
+  Heating: "",
+  MLSPIN_HEAT_ZONES: "",
+  Cooling: "", 
+  LaundryFeatures: "",
+  WindowFeatures: "",
+  Flooring: "",
+  Appliances: "",
+  FireplacesTotal: 0,
+  FireplaceFeatures: "",
+  WaterfrontFeatures: "",
+  PoolFeatures: "",
+  GarageYN: "",
+  GarageSpaces: "",
+  ParkingFeatures: "",
+  CarportYN: "",
+  SecurityFeatures: "",
+  InteriorFeatures: "",
+  MainLevelBedrooms: 0,
+  RoomMasterBedroomFeatures: "",
+  RoomLivingRoomFeatures: "",
+  SpaFeatures: "",
+  PatioAndPorchFeatures: "",
+  WaterSource: "",
+  Sewer: "",
+  YearBuilt: "",
+  YearBuiltSource: "",
+  TaxAssessedValue: 0, 
+  TaxAnnualAmount: 0,
+  PetsAllowed: "",
+  MLSPIN_MANAGEMENT: "",
+  ListingTerms: "",
+  SeniorCommunityYN: "",
+  MLSPIN_LEAD_PAINT: "",
+  Disclosures: "",
+  Latitude: 0, 
+  Longitude: 0,
+  detailsVisible:{
+    details: false,
+    loan: false
+  },
+});
+
+stateAtom.debugLabel="PropertyDetails";
+
+const generateTitle = (state : PropertyDetails) => {
+    const livingArea =
+      state.LivingArea !== null
+        ? state.LivingArea?.toLocaleString()
+        : null;
+
+    return `Property Listing: ${state.StreetNumber} ${state.StreetName}, ${
+      state.City
+    }, ${state.StateOrProvince} - ${formatPrice(state.ListPrice)} - ${
+      livingArea !== null ? livingArea + " sqft" : ""
+    }`;
+  };
+
+  function truncateStringWithEllipsis(str: string) {
+    const maxLength = 157;
+
+    if (typeof str !== "string") {
+      throw new Error("Input must be a string.");
+    }
+
+    if (!str || str.trim() === "") {
+      return "";
+    }
+
+    if (str.length <= maxLength) {
+      return str;
+    }
+
+    return str.substring(0, maxLength - 3) + "...";
+  }
+
+
+  const defaultProps = {
+    center: {
+      lat: 10.99835602,
+      lng: 77.01502627,
+    },
+    zoom: 16,
+  };
+
+  const options = {
+    styles: mapStyles,
+    zoomControl: true,
+  };
+
+
+
+
+export default function SinglePropertyBuy(){ 
+  const router = useRouter();
+  const pathName = usePathname();
+  const [state,setState] = useAtom(stateAtom);
+  const data = useQuery({
+    queryKey: ["getPropertyData"],
+    queryFn: ()=>getData(),
+    enabled: true
+  })
+
+  const handleGoBack = ()=>{
+    router.back(); 
+  };
+
+  const getData =async ()=>{
+    // get Property Id from url
+    const id = pathName.split("/search/")[1];
+    // const {id} = params.get("");
+    const data: {property: PropertyDetails,message: string} = await fetch(`/api/search/${id}`,{cache: "no-store"}).then((res)=>res.json())
+    setState((prevState)=>({
+      ...prevState,
+      ...data.property
+    }));
+  };  
+
+  const toggleVisibility = (details: "loan" | "details") => {
+    setState((prevState) => ({
+      ...prevState,
+      detailsVisible: {
+        ...prevState.detailsVisible,
+        [details]: !prevState.detailsVisible[details],
+      },
+    }));
+  };
+
+  
+    function truncateStringWithEllipsis(str: string) {
+        const maxLength = 157;
+    
+        if (typeof str !== "string") {
+          throw new Error("Input must be a string.");
+        }
+    
+        if (!str || str.trim() === "") {
+          return "";
+        }
+    
+        if (str.length <= maxLength) {
+          return str;
+        }
+    
+        return str.substring(0, maxLength - 3) + "...";
+      }
+
+      const imageUrls = state.Media?.map((img) => img.MediaURL) || [];
+      const filteredImageUrls = imageUrls.filter(
+        (url) => url && typeof url === "string"
+      );
+
+       
+    return (
+        <>
+          {/* <title>{generateTitle(state)}</title>
+          <meta
+            name="description"
+            content={truncateStringWithEllipsis(state.PublicRemarks ?? "")}
+          /> */}
+          {/* <link rel="canonical" href={`/buy/${params.id}`} /> */}
+          {/* <meta property="og:title" content={generateTitle(state)} />
+          <meta
+            property="og:description"
+            content={truncateStringWithEllipsis(state.PublicRemarks ?? "")}
+          /> */}
+          {/* <meta property="og:image" content={filteredImageUrls[0] || ""} />; */}
+          {/* <meta property="og:url" content={`/buy/${params.id}`} /> */}
+          {/* <meta property="og:type" content="product" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={generateTitle(state)} />
+          <meta
+            name="twitter:description"
+            content={truncateStringWithEllipsis(state.PublicRemarks ?? "")}
+          /> */}
+          {/* <meta name="twitter:image" content={filteredImageUrls[0] || ""} /> */}
+          {/* <meta name="twitter:url" content={`/buy/${params.id}`} /> */}
+          <script type="application/ld+json">
+            {
+            state.StreetNumber ? 
+            `
+      {
+        "@context": "https://schema.org",
+        "@type": "RealEstateListing",
+        "name": "${generateTitle(state)}",
+        "description": "${truncateStringWithEllipsis(
+          state.PublicRemarks ?? ""
+        )}",
+        "image": "${filteredImageUrls[0] || ""}",
+        "url": "/buy/${pathName.split("/search/")[1]}",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "${state.StreetNumber} ${state.StreetName}",
+          "addressLocality": "${state.City}",
+          "addressRegion": "${state.StateOrProvince}",
+          "postalCode": "",
+          "addressCountry": "USA"
+        },
+        "price": "${formatPrice(state.ListPrice)}",
+        "numberOfBedrooms": "${state.BedroomsTotal}",
+        "numberOfBathrooms": "${state.BathroomsTotalDecimal}",
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": ${
+            state.LivingArea !== undefined && state.LivingArea !== ""
+              ? `"${state.LivingArea?.toLocaleString()}"`
+              : null
+          },
+          "unitCode": "SQFT"
+        }
+      }
+    ` : null}
+          </script>
+          <Carousel className={styles["single-carousel"]} >
+          {state.Media?.map((obj, index) => {
+            return (
+              <Carousel.Item key={index}>
+                <div className={styles["show-page-image"]}>
+                  <img
+                    alt={`Property image carousel item ${index}`}
+                    src={obj.MediaURL}
+                    key={index}
+                  />
+                </div>
+              </Carousel.Item>
+            );
+          })}
+        </Carousel>
+        <div className={styles["prop-tile-address"]}>
+          <h1>
+            {state.StreetNumber} {state.StreetName} {state.City},{" "}
+            {state.StateOrProvince}
+          </h1>
+        </div>
+        <div className={styles["single-property-details"]}>
+          <div className={styles["show-page-details-icons"]}>
+            <div className={styles["icon-item"]}>
+              <MdBedroomParent size={50} />
+              <span>{state.BedroomsTotal} Bedrooms</span>
+            </div>
+            <div className={styles["icon-item"]}>
+              <FaRestroom size={50} />
+              <span>{state.BathroomsTotalDecimal} Bathrooms</span>
+            </div>
+            {state.LivingArea ? (
+              <div className={styles["icon-item"]}>
+                <AiOutlineAreaChart size={50} />
+                <span>
+                  <span>
+                    {state.LivingArea !== undefined && state.LivingArea !== ""
+                      ? ` ${state.LivingArea?.toLocaleString()} sqft`
+                      : null}
+                  </span>
+                </span>
+              </div>
+            ) : null}
+            {/* <div className="icon-item" onClick={() => {
+                setState((prevState) => {
+                  return {
+                    ...prevState,
+                    PreviewMode: true,
+                  };
+                });
+              }} style={{cursor: 'pointer'}}>
+            
+                    <MdOutlineSlowMotionVideo size={50} /> 
+                    <span> Video</span>
+            
+                </div> */}
+            <div className={styles["icon-item"]}>
+              <MdOutlineAttachMoney size={50} />
+              <span>{formatPrice(state.ListPrice)}</span>
+            </div>
+            <div className={styles["icon-item"]}>
+              <BsFillPhoneVibrateFill size={50} />
+              <span>305-462-4463</span>
+            </div>
+          </div>
+        </div> 
+        <br/> 
+        <div className={styles["single-prop-container"]}>
+          <p className={styles["single-prop-description-text"]}>
+            <strong>Description:</strong> {state.PublicRemarks ?? ""}
+          </p>
+        </div>
+        <div
+          onClick={() => toggleVisibility("details")}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            cursor: "pointer",
+          }}
+        >
+          {state.detailsVisible.details ? (
+            <>
+              <div className={styles["property-detail-table-title"]}>
+                <span>View Property Details</span>
+              </div>
+              <div className={styles["arrow-wrapper"]}>
+                <img src="/arrow-up.svg" alt="Up Arrow" />
+              </div>
+            </>
+          ) : (
+            <>
+              <div className={styles["property-details"]}>
+                <div className={styles["property-detail-table-title"]}>
+                  <span>Property Details</span>
+                </div>
+                <img className={styles["arrow-wrapper"]} src="/arrow-down.svg" alt="Down Arrow" />
+              </div>
+            </>
+          )}
+        </div>
+            
+        {!state.detailsVisible.details ? ( // Add this conditional block
+          <div className={styles["property-detail-table"]}>
+            <Table bordered hover responsive>
+              <tbody>
+                {state.MlsStatus ? (
+                  <tr key="status">
+                    <td>Listing Status:</td>
+                    <td>{state.MlsStatus}</td>
+                  </tr>
+                ) : null}
+                {state.OnMarketDate ? (
+                  <tr key="OnMarketDate">
+                    <td>Dated Listed:</td>
+                    <td>{state.OnMarketDate.toDateString()}</td>
+                  </tr>
+                ) : null}
+
+                {state.MLSPIN_MARKET_TIME ? (
+                  <tr key="DaysOnMarket">
+                    <td>Days On Market:</td>
+                    <td>{state.MLSPIN_MARKET_TIME}</td>
+                  </tr>
+                ) : null}
+                {state.ListPrice > 0 ? (
+                  <>
+                    <tr key="ListPrice">
+                      <td>Listing Price:</td>
+                      <td>{formatPrice(state.ListPrice)}</td>
+                    </tr>
+                    {state.OriginalListPrice !== state.ListPrice ? (
+                      <tr key="OriginalListPrice">
+                        <td>Original Price:</td>
+                        <td>{formatPrice(state.OriginalListPrice)}</td>
+                      </tr>
+                    ) : null}
+                  </>
+                ) : null}
+
+                {state.BedroomsTotal ? (
+                  <tr key="BedroomsTotal">
+                    <td>Number of Bedrooms:</td>
+                    <td>{state.BedroomsTotal}</td>
+                  </tr>
+                ) : null}
+
+                {state.BathroomsTotalDecimal ? (
+                  <tr key="BathroomsTotalDecimal">
+                    <td>Bathrooms:</td>
+                    <td>{state.BathroomsTotalDecimal}</td>
+                    {state.BathroomsHalf && state.BathroomsHalf > 0 ? (
+                      <tr key="BathroomsHalf">
+                        <td>Bathrooms Half:</td>
+                        <td>{state.BathroomsHalf}</td>
+                      </tr>
+                    ) : null}
+                  </tr>
+                ) : null}
+
+                {state.RoomsTotal && state.RoomsTotal > 0 ? (
+                  <tr key="RoomsTotal">
+                    <td>Rooms Total:</td>
+                    <td>{state.RoomsTotal}</td>
+                  </tr>
+                ) : null}
+
+                {state.MLSAreaMajor ? (
+                  <tr key="MLSAreaMajor">
+                    <td>Neighborhood:</td>
+                    <td>{state.MLSAreaMajor}</td>
+                  </tr>
+                ) : null}
+
+                {state.CountyOrParish ? (
+                  <tr key="CountyOrParish">
+                    <td>County:</td>
+                    <td>{state.CountyOrParish}</td>
+                  </tr>
+                ) : null}
+
+                {state.LivingArea !== undefined && state.LivingArea !== null ? (
+                  <tr key="LivingArea">
+                    <td>Living Area:</td>
+                    <td>
+                      {`${state.LivingArea?.toLocaleString()} sqft`}
+                    </td>
+                  </tr>
+                ) : null}
+
+                {state.BuildingAreaTotal &&
+                parseInt(state.BuildingAreaTotal) > 0 &&
+                state.BuildingAreaTotal !== state.LivingArea ? (
+                  <tr key="BuildingAreaTotal">
+                    <td>Building Area:</td>
+                    <td>
+                      {state.BuildingAreaTotal?.toLocaleString()} sqft
+                    </td>
+                  </tr>
+                ) : null}
+
+                {state.LotSizeArea ? (
+                  <tr key="LotSizeArea">
+                    <td>Lot Size Area:</td>
+                    <td>{state.LotSizeArea} acres</td>
+                  </tr>
+                ) : null}
+
+                {state.LotFeatures && state.LotFeatures.length ? (
+                  <tr key="LotFeatures">
+                    <td>Lot Features:</td>
+                    <td>{(state.LotFeatures as any).join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.LotSizeSquareFeet ? (
+                  <tr key="LotSizeSquareFeet">
+                    <td>Lot Size Square Feet:</td>
+                    <td>
+                      {state.LotSizeSquareFeet?.toLocaleString()} sqft
+                    </td>
+                  </tr>
+                ) : null}
+
+                {state.PropertyType && state.PropertyType.length > 0 ? (
+                  <tr key="PropertyType">
+                    <td>Property Type:</td>
+                    <td>{state.PropertyType}</td>
+                  </tr>
+                ) : null}
+
+                {state.PropertySubType ? (
+                  <tr key="PropertySubType">
+                    <td>Property Sub Type:</td>
+                    <td>{state.PropertySubType}</td>
+                  </tr>
+                ) : null}
+
+                {state.StructureType && state.StructureType.length > 0 ? (
+                  <tr key="StructureType">
+                    <td>Structure Type:</td>
+                    <td>{state.StructureType}</td>
+                  </tr>
+                ) : null}
+
+                {state.BuildingName && state.BuildingName.length > 0 ? (
+                  <tr key="BuildingName">
+                    <td>Building Name:</td>
+                    <td>{state.BuildingName}</td>
+                  </tr>
+                ) : null}
+
+                {state.BusinessName && state.BusinessName.length > 0 ? (
+                  <tr key="BusinessName">
+                    <td>Business Name:</td>
+                    <td>{state.BusinessName}</td>
+                  </tr>
+                ) : null}
+
+                {state.NumberOfUnitsTotal > 0 ? (
+                  <tr key="NumberOfUnitsTotal">
+                    <td>Number Of Units Total:</td>
+                    <td>{state.NumberOfUnitsTotal}</td>
+                  </tr>
+                ) : null}
+
+                {state.InsuranceExpense ? (
+                  <tr key="NumberOfUnitsTotal">
+                    <td>Insurance: </td>
+                    <td>{state.InsuranceExpense}</td>
+                  </tr>
+                ) : null}
+
+                {state.AssociationYN ? (
+                  <tr key="AssociationYN">
+                    <td>Association:</td>
+                    <td>Yes</td>
+                  </tr>
+                ) : null}
+
+                {state.AssociationFee ? (
+                  <tr>
+                    <td>Association Fee:</td>
+                    <td>${state.AssociationFee?.toLocaleString("en-us")}</td>
+                  </tr>
+                ) : null}
+
+                {state.AssociationName ? (
+                  <tr key="AssociationName">
+                    <td>Association Name:</td>
+                    <td>{state.AssociationName}</td>
+                  </tr>
+                ) : null}
+
+                {state.AssociationFeeFrequency ? (
+                  <tr key="AssociationFeeFrequency">
+                    <td>Association Fee Frequency:</td>
+                    <td>{state.AssociationFeeFrequency}</td>
+                  </tr>
+                ) : null}
+
+                {state.AssociationFeeIncludes &&
+                state.AssociationFeeIncludes.length > 0 ? (
+                  <tr key="AssociationFeeIncludes">
+                    <td>Association Fee Includes:</td>
+                    <td>{state.AssociationFeeIncludes.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.AssociationAmenities &&
+                state.AssociationAmenities.length > 0 ? (
+                  <tr key="AssociationAmenities">
+                    <td>Association Amenities:</td>
+                    <td>{state.AssociationAmenities.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.CommunityFeatures && state.CommunityFeatures.length ? (
+                  <tr key="CommunityFeatures">
+                    <td>Community Features:</td>
+                    <td>{state.CommunityFeatures.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.AccessibilityFeatures &&
+                state.AccessibilityFeatures.length ? (
+                  <tr key="AccessibilityFeatures">
+                    <td>Accessibility Features:</td>
+                    <td>{state.AccessibilityFeatures.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.Utilities && state.Utilities.length > 0 ? (
+                  <tr key="Utilities">
+                    <td>Utilities:</td>
+                    <td>{state.Utilities.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.TenantPays && state.TenantPays.length > 0 ? (
+                  <tr key="TenantPays">
+                    <td>Tenant Pays:</td>
+                    <td>{state.TenantPays.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.Heating && state.Heating.length > 0 ? (
+                  <tr key="Heating">
+                    <td>Heating:</td>
+                    <td>{state.Heating.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.MLSPIN_HEAT_ZONES &&
+                state.MLSPIN_HEAT_ZONES.length > 0 &&
+                state.MLSPIN_HEAT_ZONES !== state.Heating ? (
+                  <tr key="MLSPIN_HEAT_ZONES">
+                    <td>Heating Zones:</td>
+                    <td>{state.MLSPIN_HEAT_ZONES.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.Coolin && state.Cooling.length > 0 ? (
+                  <tr key="Coolin">
+                    <td>Cooling:</td>
+                    <td>{state.Cooling.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.LaundryFeatures && state.LaundryFeatures.length > 0 ? (
+                  <tr key="LaundryFeatures">
+                    <td>Laundry Features:</td>
+                    <td>{state.LaundryFeatures.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.WindowFeatures && state.WindowFeatures.length > 0 ? (
+                  <tr key="WindowFeatures">
+                    <td>Window Features:</td>
+                    <td>{state.WindowFeatures.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.Flooring && state.Flooring.length > 0 ? (
+                  <tr key="Flooring">
+                    <td>Flooring:</td>
+
+                    <td>{state.Flooring.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.Appliances && state.Appliances.length > 0 ? (
+                  <tr key="Appliances">
+                    <td>Appliances Features:</td>
+                    <td>{state.Appliances.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.FireplacesTotal > 0 ? (
+                  <>
+                    <tr key="YearBuilt">
+                      <td>Fireplaces:</td>
+                      <td>{state.FireplacesTotal}</td>
+                    </tr>
+                    {state.FireplaceFeatures &&
+                    state.FireplaceFeatures.length > 0 ? (
+                      <tr key="YearBuiltSource">
+                        <td>Fireplace Features:</td>
+                        <td>{state.FireplaceFeatures.join(", ")}</td>
+                      </tr>
+                    ) : null}
+                  </>
+                ) : null}
+
+                {state.WaterfrontFeatures &&
+                state.WaterfrontFeatures.length > 0 ? (
+                  <tr key="WaterfrontFeatures">
+                    <td>Waterfront Features:</td>
+                    <td>{state.WaterfrontFeatures.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.PoolFeatures && state.PoolFeatures.length > 0 ? (
+                  <tr key="PoolFeatures">
+                    <td>Pool Features:</td>
+                    <td>{state.PoolFeatures.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.GarageYN && (
+                  <>
+                    <tr key="GarageYN">
+                      <td>Garage Available:</td>
+                      <td>Yes</td>
+                    </tr>
+                    {state.GarageSpaces ? (
+                      <tr key="GarageSpaces">
+                        <td>Garage Spaces:</td>
+                        <td>{state.GarageSpaces}</td>
+                      </tr>
+                    ) : null}
+                  </>
+                )}
+
+                {state.ParkingFeatures && state.ParkingFeatures.length > 0 ? (
+                  <tr key="ParkingFeatures">
+                    <td>Parking Features:</td>
+                    <td>{state.ParkingFeatures.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.CarportYN ? (
+                  <tr key="CarportYN">
+                    <td>Carport:</td>
+                    <td>Yes</td>
+                  </tr>
+                ) : null}
+
+                {state.SecurityFeatures && state.SecurityFeatures.length > 0 ? (
+                  <tr key="SecurityFeatures">
+                    <td>Security Features:</td>
+                    <td>{state.SecurityFeatures.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.InteriorFeatures && state.InteriorFeatures.length > 0 ? (
+                  <tr key="InteriorFeatures">
+                    <td>Interior Features:</td>
+                    <td>{state.InteriorFeatures.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.MainLevelBedrooms && state.MainLevelBedrooms > 0 ? (
+                  <tr key="MainLevelBedrooms">
+                    <td>Main Level Bedrooms:</td>
+                    <td>{state.MainLevelBedrooms}</td>
+                  </tr>
+                ) : null}
+
+                {state.RoomMasterBedroomFeatures &&
+                state.RoomMasterBedroomFeatures.length > 0 ? (
+                  <tr key="RoomMasterBedroomFeatures">
+                    <td>Master Bedroom Features:</td>
+                    <td>{state.RoomMasterBedroomFeatures.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.RoomLivingRoomFeatures &&
+                state.RoomLivingRoomFeatures.length > 0 ? (
+                  <tr key="RoomLivingRoomFeatures">
+                    <td>Living Room Features:</td>
+                    <td>{state.RoomLivingRoomFeatures.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.SpaFeatures && state.SpaFeatures.length > 0 ? (
+                  <tr key="SpaFeatures">
+                    <td>Spa Features:</td>
+                    <td>{state.SpaFeatures.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.PatioAndPorchFeatures &&
+                state.PatioAndPorchFeatures.length > 0 ? (
+                  <tr key="PatioAndPorchFeatures">
+                    <td>Patio or Porch Features:</td>
+                    <td>{state.PatioAndPorchFeatures.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.WaterSource && state.WaterSource.length > 0 ? (
+                  <tr key="WaterSource">
+                    <td>Water Source:</td>
+                    <td>{state.WaterSource.join(", ")}</td>
+                  </tr>
+                ) : null}
+
+                {state.Sewer && state.Sewer.length > 0 ? (
+                  <tr key="Sewer">
+                    <td>Sewer:</td>
+                    <td>{state.Sewer}</td>
+                  </tr>
+                ) : null}
+
+                {state.YearBuilt && state.YearBuilt.length > 0 ? (
+                  <tr key="YearBuilt">
+                    <td>Year Built:</td>
+                    <td>{state.YearBuilt}</td>
+                    {state.YearBuiltSource &&
+                    state.YearBuiltSource.length > 0 ? (
+                      <tr key="YearBuiltSource">
+                        <td>Year Built Source:</td>
+                        <td>{state.YearBuiltSource}</td>
+                      </tr>
+                    ) : null}
+                  </tr>
+                ) : null}
+
+                {checkNumberNine(state.TaxAssessedValue) ? (
+                  <tr key="TaxAssessedValue">
+                    <td>Tax Assessed Value:</td>
+                    <td>{formatPrice(state.TaxAssessedValue)}</td>
+                  </tr>
+                ) : null}
+
+                {checkNumberNine(state.TaxAssessedValue) ? (
+                  <tr key="TaxAnnualAmount">
+                    <td>Yearly Taxes:</td>
+                    <td>{formatPrice(state.TaxAnnualAmount)}</td>
+                  </tr>
+                ) : null}
+
+                {state.PetsAllowed && state.PetsAllowed.length > 0 ? (
+                  <tr key="PetsAllowed">
+                    <td>Pets Allowed:</td>
+                    <td>{state.PetsAllowed}</td>
+                  </tr>
+                ) : null}
+
+                {state.MLSPIN_MANAGEMENT &&
+                state.MLSPIN_MANAGEMENT.length > 0 ? (
+                  <tr key="MLSPIN_MANAGEMENT">
+                    <td>Management:</td>
+                    <td>{state.MLSPIN_MANAGEMENT}</td>
+                  </tr>
+                ) : null}
+
+                {state.ListingTerms && state.ListingTerms.length > 0 ? (
+                  <tr key="ListingTerms">
+                    <td>Listing Terms:</td>
+                    <td>{state.ListingTerms}</td>
+                  </tr>
+                ) : null}
+
+                {state.SeniorCommunityYN ? (
+                  <tr key="SeniorCommunityYN">
+                    <td>Senior Community:</td>
+                    <td>Yes</td>
+                  </tr>
+                ) : null}
+
+                {state.MLSPIN_LEAD_PAINT &&
+                state.MLSPIN_LEAD_PAINT.length > 0 ? (
+                  <tr key="MLSPIN_LEAD_PAINT">
+                    <td>Lead Paint:</td>
+                    <td>{state.MLSPIN_LEAD_PAINT}</td>
+                  </tr>
+                ) : null}
+
+                {state.Disclosures && state.Disclosures.length > 0 ? (
+                  <tr key="Disclosures">
+                    <td>Disclosures:</td>
+                    <td>{state.Disclosures}</td>
+                  </tr>
+                ) : null}
+              </tbody>
+            </Table>
+          </div>
+        ) : null}
+
+        <hr />
+        <div className={styles["single-prop-map"]}>
+          <GoogleMapReact
+            bootstrapURLKeys={{
+              key: "AIzaSyDpH2-Av-Vx28bMqZaTA0VTTy7j1ffRvR0",
+            }}
+            center={{
+              lat: state?.Latitude ? state.Latitude : 10.99835602,
+              lng: state?.Longitude ? state.Longitude : 77.01502627,
+            }}
+            defaultZoom={defaultProps.zoom}
+            yesIWantToUseGoogleMapApiInternals
+            options={options}
+          >
+            <Marker
+              lat={state.Latitude}
+              lng={state.Longitude}
+              text="My Marker"
+            />
+          </GoogleMapReact>
+        </div>
+        <hr/>
+        {state.ListPrice > 100000 ? (
+          <>
+            <LoanCalculator
+              initialAmount={state.ListPrice}
+              associationFee={state.AssociationFee}
+              yearlyTaxes={checkNumberNine(state.TaxAnnualAmount)}
+            />
+          </>
+        ) : null}
+        <hr />
+        <div className={styles["single-prop-buttons"]}>
+          <div onClick={handleGoBack} className={styles["btn-cta"]}>
+            <span>GO BACK</span>
+          </div>
+          {/* <Button onClick={handleGoBack}>Go back</Button> */}
+        </div>
+        <CTA pageName="singlePage" />
+        </>
+    )
+    
+};

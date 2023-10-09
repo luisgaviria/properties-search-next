@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@dazlab-team/loan-calc": "^0.1.5",
     "@emotion/react": "^11.11.1",
     "@googlemaps/markerclusterer": "^2.5.0",
     "@types/geoip-lite": "^1.4.1",

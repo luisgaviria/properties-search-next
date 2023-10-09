@@ -23,7 +23,7 @@ export default function Home() {
             {/* <NewListings /> */}
           </div>
           <hr />
-          <CTA />
+          <CTA pageName={"test"}/>
         </Container>
       </main>
     </>

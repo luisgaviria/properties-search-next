@@ -8,7 +8,7 @@ import Image from "@/node_modules/next/image";
 
 import "./CTA.scss";
 
-const CTA = () => {
+const CTA = ({pageName}: {pageName: string}) => {
   const [isHovered, setIsHovered] = useState(false);
   // let buttonTextOne = "";
   // let buttonTextTwo = "";
