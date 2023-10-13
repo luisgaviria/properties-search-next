@@ -183,6 +183,9 @@
   // padding: 10px; /* Adjust padding as needed */
   // display: flex;
   z-index: 1;
+  @media (max-width: 480px) {
+    left: 0px;
+  }
 }
 
 .sort-select {
@@ -706,6 +709,14 @@
     }
   }
 }
+
+.pagination-wrapper {
+  display: grid;
+  padding-bottom: 2rem;
+  padding-top: 2rem;
+  place-items: center;
+}
+
 .map-wrapper {
   flex: 3;
   width: 100%;
@@ -772,4 +783,8 @@
   // grid-gap: 1px;
   // gap: 1px;
   // padding-bottom: 6rem;
+
+  @media (max-width: 380px) {
+    display: block;
+  }
 }

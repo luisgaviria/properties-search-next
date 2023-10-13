@@ -915,9 +915,12 @@ export default function Filters() {
                       value={searchInput}
                     />
                     {enableSearching && (
-                      <img
+                      <Image
                         className={styles["icon-mag-buy"]}
-                        // src={magGlass}
+                        src="/mag-glass.png"
+                        height={25}
+                        width={25}
+                        alt="magnifiying glass icon"
                         // onClick={() => getData(1)}
                       />
                     )}
@@ -988,7 +991,7 @@ export default function Filters() {
               <Image
                 width={40}
                 height={40}
-                src="/arrow-up.svg"
+                src={"/arrow-up.svg"}
                 alt="Up Arrow"
               />
             ) : (
@@ -1101,7 +1104,7 @@ export default function Filters() {
                 : styles["properties_grid"]
             }
           >
-            <PropertySeachList properties={properties}/>
+            <PropertySeachList properties={properties} />
             {/* {properties.map((property: Property, index: number) => {
               return (
                 <PropertySearchTile
@@ -1113,7 +1116,7 @@ export default function Filters() {
             })} */}
           </div>
 
-          <div className="pagination-wrapper">
+          <div className={styles["pagination-wrapper"]}>
             <Pagination>
               {createPagination(pageObj.pages, pageObj.actualPage, getData)}
             </Pagination>
