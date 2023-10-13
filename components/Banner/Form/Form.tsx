@@ -12,6 +12,7 @@ import Image from "@/node_modules/next/image";
 import styles from "./Form.module.scss";
 
 import magGlass from "../../../public/mag-glass.png";
+import { useRouter } from "next/navigation";
 
 import { Container } from "@/app/client-react-boostrap";
 import Script from "next/script";
@@ -24,6 +25,7 @@ const stateAtom = atom<{ selectOption: string; input: string }>({
 });
 
 export default function Form() {
+  const router = useRouter();
   //State
   // const [activeButtons, setActiveButtons] = useState<string[]>([]);
 
@@ -45,7 +47,6 @@ export default function Form() {
 
   const onInputAddressChange = (e: any) => {
     // Update the autocomplete input value
-    // changeInput(e.target.value); localstorage
     setValue(e.target.value);
   };
 
@@ -104,6 +105,22 @@ export default function Form() {
     }));
   };
 
+  const submitInput = async()=>{ 
+    let BuyOrRent = "";
+    if(state.selectOption == "Buy"){
+      BuyOrRent = "Residential,Residential Income";
+    }
+    else if(state.selectOption == "Rent"){
+      BuyOrRent = "Residential Lease";
+    }
+    let query = `page=1&near=${value}`;
+    if (BuyOrRent) {
+      query += `&PropertyType=${BuyOrRent}`;
+    }
+
+    router.push(`/search?${query}`);
+  };
+
   const renderAutocompleteSuggestions = () =>
     data.map((suggestion) => (
       <p
@@ -126,30 +143,28 @@ export default function Form() {
 
           <div className={styles["btn-wrapper-search"]}>
             <div
-              // onClick={() => {
-              //   onSelectClick("Buy");
-              // }}
+              onClick={() => {
+                onSelectClick("Buy");
+              }}
               className={
                 styles[
-                  "btn-search-banner"
-                  // `btn-search-banner ${
-                  //   activeButtons.includes("Buy") ? "active" : ""
-                  // }`
+                  `btn-search-banner ${
+                    activeButtons.includes("Buy") ? "active" : ""
+                  }`
                 ]
               }
             >
               <span>BUY</span>
             </div>
             <div
-              // onClick={() => {
-              //   onSelectClick("Rent");
-              // }}
+              onClick={() => {
+                onSelectClick("Rent");
+              }}
               className={
                 styles[
-                  "btn-search-banner"
-                  // `btn-search-banner ${
-                  //   activeButtons.includes("Rent") ? "active" : ""
-                  // }`
+                  `btn-search-banner ${
+                    activeButtons.includes("Rent") ? "active" : ""
+                  }`
                 ]
               }
             >
@@ -166,25 +181,25 @@ export default function Form() {
                   id="Location"
                   placeholder="Enter a city, an address, a neighborhood or a ZIP code"
                   className={styles["mktInputText"]}
-                  // onChange={onInputAddressChange}
-                  // value={value} // Use the autocomplete value
-                  // onKeyDown={(e) => {
-                  //   if (e.key === "Enter") {
-                  //     // submitInput(); // Call the submitInput function when Enter key is pressed
-                  //   }
-                  // }}
+                  onChange={onInputAddressChange}
+                  value={value} // Use the autocomplete value
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      submitInput(); // Call the submitInput function when Enter key is pressed
+                    }
+                  }}
                 />
                 <Image
                   className={styles["icon-mag"]}
                   src={magGlass}
-                  // onClick={submitInput}
+                  onClick={submitInput}
                   alt="magnifying glass icon"
                 />
-                {/* {status === "OK" && (
+                {status === "OK" && (
           <div className={styles["autocomplete-suggestions"]}>
             {renderAutocompleteSuggestions()}
           </div>
-        )} */}
+        )}
               </div>
             </div>
           </div>

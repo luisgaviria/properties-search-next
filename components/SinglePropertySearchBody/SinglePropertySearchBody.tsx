@@ -1,9 +1,9 @@
 "use client";
 import { formatPrice, checkNumberNine } from "@/utils/formatPrice";
 import { Metadata, ResolvingMetadata } from "next";
+import Image from "next/image";
 import { atom, useAtom } from "jotai";
 import { PropertyDetails } from "@/components/definitions/PropertyDetails";
-import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useQuery } from "react-query";
 import { Carousel } from "react-bootstrap";
@@ -18,6 +18,7 @@ import mapStyles from "./mapStyles";
 import { LoanCalculator } from "@/components/LoanCalculator/LoanCalculator";
 import CTA from "@/components/CTA/CTA";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Marker = ({ text }: { text: string; lat: number; lng: number }) => (
   <MdHouse size={25} />
@@ -107,6 +108,10 @@ const stateAtom = atom<PropertyDetails>({
 
 stateAtom.debugLabel = "PropertyDetails";
 
+const loader = (props: {src: string}) =>{
+  return `${props.src}`;
+};
+
 const generateTitle = (state: PropertyDetails) => {
   const livingArea =
     state.LivingArea !== null ? state.LivingArea?.toLocaleString() : null;
@@ -150,7 +155,6 @@ const options = {
 };
 
 export default function SinglePropertyBuy() {
-  const router = useRouter();
   const pathName = usePathname();
   const [state, setState] = useAtom(stateAtom);
   const data = useQuery({
@@ -159,9 +163,6 @@ export default function SinglePropertyBuy() {
     enabled: true,
   });
 
-  const handleGoBack = () => {
-    router.back();
-  };
 
   const getData = async () => {
     // get Property Id from url
@@ -275,10 +276,12 @@ export default function SinglePropertyBuy() {
           return (
             <Carousel.Item key={index}>
               <div className={styles["show-page-image"]}>
-                <img
+                <Image
+                  loader={loader}
                   alt={`Property image carousel item ${index}`}
                   src={obj.MediaURL}
                   key={index}
+                  fill={true}
                 />
               </div>
             </Carousel.Item>
@@ -893,12 +896,14 @@ export default function SinglePropertyBuy() {
         </>
       ) : null}
       <hr />
-      <div className={styles["single-prop-buttons"]}>
-        <div onClick={handleGoBack} className={styles["btn-cta"]}>
-          <span>GO BACK</span>
+        <div className={styles["single-prop-buttons"]} >
+      <Link href="/search" className={styles["btn-cta"]}>
+            <span>GO BACK</span>
+      </Link>
+
+          {/* <Button onClick={handleGoBack}>Go back</Button> */}
         </div>
-        {/* <Button onClick={handleGoBack}>Go back</Button> */}
-      </div>
+     
       <CTA pageName="singlePage" />
     </>
   );

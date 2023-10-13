@@ -30,7 +30,7 @@ interface loanProps {
 
 export const LoanCalculator = ({ initialAmount, associationFee, yearlyTaxes}:loanProps ) =>{
     yearlyTaxes = yearlyTaxes / 12;
-    const [state,setState] = useAtom({...stateAtom,amount: initialAmount});
+    const [state,setState] = useAtom(stateAtom);
 
     const onChange = (event:React.ChangeEvent<HTMLInputElement> )=>{ 
         const {name,value} = event.target;
@@ -63,6 +63,15 @@ export const LoanCalculator = ({ initialAmount, associationFee, yearlyTaxes}:loa
     };
 
     useEffect(()=>{
+      if(!state.amount){
+        setState(prevState=>{
+          return {
+            ...prevState,
+            amount: initialAmount
+          }
+        });
+      }
+      else{
         const calculateLoan = async()=>{
             if (state.amount && state.termYears && state.rate) {
                 try {
@@ -86,8 +95,9 @@ export const LoanCalculator = ({ initialAmount, associationFee, yearlyTaxes}:loa
                 }
               }
         }; 
-        
-        calculateLoan();
+      calculateLoan();
+
+      }
     },[state.amount,state.rate,state.termYears]);
 
     const toggleCalculatorVisibility = ()=>{ 

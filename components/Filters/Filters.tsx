@@ -3,6 +3,9 @@
 import { atom, useAtom } from "jotai";
 import { useHydrateAtoms } from "jotai/utils";
 import { QueryFunctionContext, useQuery } from "react-query";
+import { useRouter,useSearchParams} from "next/navigation";
+
+import { useEffect } from "react";
 
 import Image from "@/node_modules/next/image";
 import { Form, Pagination } from "@/app/client-react-boostrap";
@@ -32,7 +35,7 @@ import usePlacesAutocomplete, {
 import SearchButton from "../SearchButton/SearchButton";
 
 import { createPagination } from "@/utils/createPagination";
-import PropertySeachList from "../PropertySearchList/PropertySearchList";
+import PropertySearchList from "../PropertySearchList/PropertySearchList";
 
 const formatPrice = (price: number): string => {
   return new Intl.NumberFormat("en-US", {
@@ -94,6 +97,8 @@ const pagesAtom = atom({
 pagesAtom.debugLabel = "Pages";
 
 export default function Filters() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   // const [searchCounter, setSearchCounter] = useState(0);
   const getData = async (page_num: number) => {
     let query = "";
@@ -171,6 +176,10 @@ export default function Filters() {
     setPageObj({ actualPage: page_num, pages: res2.pages });
 
     setProperties(res2.properties);
+  };
+
+  const onPropertyClick = (data: Property)=>{
+    router.push("/search/"+data.ListingId);
   };
 
   const onMoveMap = async (event: { center: { lat: number; lng: number } }) => {
@@ -278,6 +287,29 @@ export default function Filters() {
     },
     debounce: 300,
   });
+
+  useEffect(()=>{
+    if(searchParams.get("near")){
+      const page = parseInt(searchParams.get("page") as string);
+      setPageObj((prevPageObj)=>{
+        return{
+          ...prevPageObj,
+          actualPage: page
+        }
+      });
+      const near = searchParams.get("near") as string;
+      setSearchInput(near);
+      getData(page);
+    }
+    // if(searchParams.get("page") || searchParams.get("near")){
+    //   setFilter(prevFilter=>{
+    //     return {
+    //       ...prevFilter,
+          
+    //     }
+    //   });       
+    // }
+  },[]);
 
   const onInputAddressChange = (e: any) => {
     // Update the autocomplete input value
@@ -1104,7 +1136,7 @@ export default function Filters() {
                 : styles["properties_grid"]
             }
           >
-            <PropertySeachList properties={properties} />
+            <PropertySearchList properties={properties} onClick={onPropertyClick} />
             {/* {properties.map((property: Property, index: number) => {
               return (
                 <PropertySearchTile

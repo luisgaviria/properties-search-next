@@ -16,11 +16,11 @@ const loader = (props: {src: string}) =>{
   return `${props.src}`;
 };
 
-export default function PropertySearchTile({ data }: any) {
-  const router = useRouter();
-  const parentClick = () =>{ 
-    router.push("/search/"+data.ListingId);
-  }
+export default function PropertySearchTile({ data,onClick }: any) {
+  // const router = useRouter();
+  // const parentClick = () =>{ 
+  //   router.push("/search/"+data.ListingId);
+  // }
   // const parentClick = () => {
   //     navigate(`/buy/${data.ListingId}`);
   //   };
@@ -45,7 +45,7 @@ export default function PropertySearchTile({ data }: any) {
 
   return (
     <div
-    onClick={parentClick}
+    onClick={onClick}
 
     >
       <div className={styles[`properties_grid_element_buy`]}>
@@ -74,7 +74,7 @@ export default function PropertySearchTile({ data }: any) {
                     }
                     blurDataURL="blur.jpg"
                     key={index}
-                    onClick={parentClick}
+                    onClick={onClick}
                     alt="property main image"
                     width={50}
                     height={50}
