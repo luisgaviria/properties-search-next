@@ -1,9 +1,9 @@
 "use client";
 // import { useState, ChangeEvent } from "react";
 import { atom, useAtom } from "jotai";
-import { useHydrateAtoms } from "jotai/utils";
-import { QueryFunctionContext, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { useRouter,useSearchParams} from "next/navigation";
+// import { useRouter } from "next/router";
 
 import { useEffect } from "react";
 
@@ -100,6 +100,38 @@ export default function Filters() {
   const router = useRouter();
   const searchParams = useSearchParams();
   // const [searchCounter, setSearchCounter] = useState(0);
+  const getDataCity = async(city: string) =>{ 
+    let query = "";
+    query+=`City=${city}`;
+
+    const radiusVal = "1mi";
+
+    if (enableSearching && value) {
+      query += `&near=${value}`;
+      query += `&radius=${radiusVal}`;
+    }
+
+    // const res = await fetch('/api/search/');
+
+    const res: mapResponse = await fetch(`/api/search/map?${query}`, {
+      cache: "no-store",
+    }).then((res) => res.json());
+
+    console.log(res.properties);
+
+    setMapProperties(res.properties);
+
+    // use also no pages later for google map
+
+    const res2: response = await fetch(
+      `/api/search?${query}&page=1`,
+      { cache: "no-store" }
+    ).then((res) => res.json());
+
+    setPageObj({ actualPage: 1, pages: res2.pages });
+
+    setProperties(res2.properties);
+  }
   const getData = async (page_num: number) => {
     let query = "";
     const keys = Object.keys(filter) as Array<keyof typeof filter>;
@@ -300,6 +332,17 @@ export default function Filters() {
       const near = searchParams.get("near") as string;
       setSearchInput(near);
       getData(page);
+    }
+    else if(window.location.href.split('/')[5]){
+      const city = window.location.href.split('/')[5];
+      let modStr =city[0].toUpperCase() + city.slice(1);
+      setFilter((prevState)=>{
+        return { 
+          ...prevState,
+          City: modStr
+        }
+      });
+      getDataCity(modStr);
     }
     // if(searchParams.get("page") || searchParams.get("near")){
     //   setFilter(prevFilter=>{

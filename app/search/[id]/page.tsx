@@ -1,5 +1,6 @@
 import { PropertyDetails } from "@/components/definitions/PropertyDetails";
 import { formatPrice,checkNumberNine } from "@/utils/formatPrice";
+import { Metadata } from "next";
 import SinglePropertyBuy from "@/components/SinglePropertySearchBody/SinglePropertySearchBody";
 const generateTitle = (state : PropertyDetails) => {
   const livingArea =
