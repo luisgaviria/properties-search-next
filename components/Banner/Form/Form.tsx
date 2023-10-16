@@ -105,12 +105,11 @@ export default function Form() {
     }));
   };
 
-  const submitInput = async()=>{ 
+  const submitInput = async () => {
     let BuyOrRent = "";
-    if(state.selectOption == "Buy"){
+    if (state.selectOption == "Buy") {
       BuyOrRent = "Residential,Residential Income";
-    }
-    else if(state.selectOption == "Rent"){
+    } else if (state.selectOption == "Rent") {
       BuyOrRent = "Residential Lease";
     }
     let query = `page=1&near=${value}`;
@@ -146,13 +145,10 @@ export default function Form() {
               onClick={() => {
                 onSelectClick("Buy");
               }}
-              className={
-                styles[
-                  `btn-search-banner ${
-                    activeButtons.includes("Buy") ? "active" : ""
-                  }`
-                ]
-              }
+              className={`
+              ${styles["btn-search-banner"]} ${
+                activeButtons.includes("Buy") ? styles["active"] : ""
+              }`}
             >
               <span>BUY</span>
             </div>
@@ -160,13 +156,10 @@ export default function Form() {
               onClick={() => {
                 onSelectClick("Rent");
               }}
-              className={
-                styles[
-                  `btn-search-banner ${
-                    activeButtons.includes("Rent") ? "active" : ""
-                  }`
-                ]
-              }
+              className={`
+                  ${styles["btn-search-banner"]} ${
+                activeButtons.includes("Rent") ? styles["active"] : ""
+              }`}
             >
               <span>RENT</span>
             </div>
@@ -196,10 +189,10 @@ export default function Form() {
                   alt="magnifying glass icon"
                 />
                 {status === "OK" && (
-          <div className={styles["autocomplete-suggestions"]}>
-            {renderAutocompleteSuggestions()}
-          </div>
-        )}
+                  <div className={styles["autocomplete-suggestions"]}>
+                    {renderAutocompleteSuggestions()}
+                  </div>
+                )}
               </div>
             </div>
           </div>
