@@ -2,10 +2,10 @@
 // import { useState, ChangeEvent } from "react";
 import { atom, useAtom } from "jotai";
 import { useQuery } from "react-query";
-import { useRouter,useSearchParams} from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 // import { useRouter } from "next/router";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 
 import Image from "@/node_modules/next/image";
 import { Form, Pagination } from "@/app/client-react-boostrap";
@@ -36,6 +36,7 @@ import SearchButton from "../SearchButton/SearchButton";
 
 import { createPagination } from "@/utils/createPagination";
 import PropertySearchList from "../PropertySearchList/PropertySearchList";
+import Loading from "./loading";
 
 const formatPrice = (price: number): string => {
   return new Intl.NumberFormat("en-US", {
@@ -100,9 +101,9 @@ export default function Filters() {
   const router = useRouter();
   const searchParams = useSearchParams();
   // const [searchCounter, setSearchCounter] = useState(0);
-  const getDataCity = async(city: string) =>{ 
+  const getDataCity = async (city: string) => {
     let query = "";
-    query+=`City=${city}`;
+    query += `City=${city}`;
 
     const radiusVal = "1mi";
 
@@ -123,15 +124,14 @@ export default function Filters() {
 
     // use also no pages later for google map
 
-    const res2: response = await fetch(
-      `/api/search?${query}&page=1`,
-      { cache: "no-store" }
-    ).then((res) => res.json());
+    const res2: response = await fetch(`/api/search?${query}&page=1`, {
+      cache: "no-store",
+    }).then((res) => res.json());
 
     setPageObj({ actualPage: 1, pages: res2.pages });
 
     setProperties(res2.properties);
-  }
+  };
   const getData = async (page_num: number) => {
     let query = "";
     const keys = Object.keys(filter) as Array<keyof typeof filter>;
@@ -210,8 +210,8 @@ export default function Filters() {
     setProperties(res2.properties);
   };
 
-  const onPropertyClick = (data: Property)=>{
-    router.push("/search/"+data.ListingId);
+  const onPropertyClick = (data: Property) => {
+    router.push("/search/" + data.ListingId);
   };
 
   const onMoveMap = async (event: { center: { lat: number; lng: number } }) => {
@@ -320,27 +320,26 @@ export default function Filters() {
     debounce: 300,
   });
 
-  useEffect(()=>{
-    if(searchParams.get("near")){
+  useEffect(() => {
+    if (searchParams.get("near")) {
       const page = parseInt(searchParams.get("page") as string);
-      setPageObj((prevPageObj)=>{
-        return{
+      setPageObj((prevPageObj) => {
+        return {
           ...prevPageObj,
-          actualPage: page
-        }
+          actualPage: page,
+        };
       });
       const near = searchParams.get("near") as string;
       setSearchInput(near);
       getData(page);
-    }
-    else if(window.location.href.split('/')[5]){
-      const city = window.location.href.split('/')[5];
-      let modStr =city[0].toUpperCase() + city.slice(1);
-      setFilter((prevState)=>{
-        return { 
+    } else if (window.location.href.split("/")[5]) {
+      const city = window.location.href.split("/")[5];
+      let modStr = city[0].toUpperCase() + city.slice(1);
+      setFilter((prevState) => {
+        return {
           ...prevState,
-          City: modStr
-        }
+          City: modStr,
+        };
       });
       getDataCity(modStr);
     }
@@ -348,11 +347,11 @@ export default function Filters() {
     //   setFilter(prevFilter=>{
     //     return {
     //       ...prevFilter,
-          
+
     //     }
-    //   });       
+    //   });
     // }
-  },[]);
+  }, []);
 
   const onInputAddressChange = (e: any) => {
     // Update the autocomplete input value
@@ -1179,7 +1178,12 @@ export default function Filters() {
                 : styles["properties_grid"]
             }
           >
-            <PropertySearchList properties={properties} onClick={onPropertyClick} />
+            <Suspense fallback={<Loading />}>
+              <PropertySearchList
+                properties={properties}
+                onClick={onPropertyClick}
+              />
+            </Suspense>
             {/* {properties.map((property: Property, index: number) => {
               return (
                 <PropertySearchTile
@@ -1192,15 +1196,19 @@ export default function Filters() {
           </div>
 
           <div className={styles["pagination-wrapper"]}>
-            <Pagination>
-              {createPagination(pageObj.pages, pageObj.actualPage, getData)}
-            </Pagination>
+            <Suspense fallback={<Loading />}>
+              <Pagination>
+                {createPagination(pageObj.pages, pageObj.actualPage, getData)}
+              </Pagination>
+            </Suspense>
           </div>
         </div>
         <div className={styles["map-wrapper"]}>
           {formVisible.map && (
             <div className={styles["grid-prop-map"]}>
-              <Map properties={mapProperties} onMoveMap={onMoveMap} />
+              <Suspense fallback={<Loading />}>
+                <Map properties={mapProperties} onMoveMap={onMoveMap} />
+              </Suspense>
             </div>
           )}
         </div>

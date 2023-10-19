@@ -6,6 +6,8 @@ import ImageCards from "@/components/ImageCards/ImageCards";
 import CTA from "@/components/CTA/CTA";
 import LatestListings from "@/components/LatestListings/LatestListings";
 import WaterFrontListings from "@/components/WaterFrontListings/WaterFrontListings";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export default function Home() {
   return (
@@ -17,16 +19,19 @@ export default function Home() {
           <ImageCards />
           <div className={styles["title-wrapper"]}>
             <h2>Latest</h2>
-            <LatestListings/>
+            <Suspense fallback={<Loading />}>
+              <LatestListings />
+            </Suspense>
           </div>
           <hr />
           <div className={styles["title-wrapper"]}>
             <h2 className={styles["title"]}>By the Water</h2>
-            <WaterFrontListings/>
-            {/* <NewListings /> */}
+            <Suspense fallback={<Loading />}>
+              <WaterFrontListings />
+            </Suspense>
           </div>
           <hr />
-          <CTA pageName={"test"}/>
+          <CTA pageName={"test"} />
         </Container>
       </main>
     </>

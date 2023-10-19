@@ -3,6 +3,8 @@ import styles from "./Banner.module.scss";
 import { Container } from "@/app/client-react-boostrap";
 import Form from "./Form/Form";
 import Image from "./Banner-Image/Image";
+import { Suspense } from "react";
+import Loading from "@/app/loading";
 
 const Banner = () => {
   return (
@@ -20,7 +22,9 @@ const Banner = () => {
           <div className={styles["home-title-wrapper"]}>
             <h1>Harmony Homes</h1>
             <h2>Unlock the Door to Your Future Home</h2>
-            <Form />
+            <Suspense fallback={<Loading />}>
+              <Form />
+            </Suspense>
           </div>
         </Container>
       </div>

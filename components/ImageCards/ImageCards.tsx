@@ -1,6 +1,7 @@
 import styles from "./ImageCards.module.scss";
 import { Container } from "@/app/client-react-boostrap";
 import Image from "@/node_modules/next/image";
+import Link from "@/node_modules/next/link";
 
 const ImageCards = () => {
   return (
@@ -25,14 +26,16 @@ const ImageCards = () => {
           Random new text added when hovering on card
         </span> */}
             <div className={styles["apply-btn"]}>
-              <div
-                className={styles["btn-cards"]}
-                // onClick={() => {
-                //   // return navigate("/buy");
-                // }}
-              >
-                <span>ADVANCED SEARCH</span>
-              </div>
+              <Link href={"/search"}>
+                <div
+                  className={styles["btn-cards"]}
+                  // onClick={() => {
+                  //   // return navigate("/buy");
+                  // }}
+                >
+                  <span>ADVANCED SEARCH</span>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
