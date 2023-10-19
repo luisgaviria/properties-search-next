@@ -12,6 +12,7 @@
     "@dazlab-team/loan-calc": "^0.1.5",
     "@emotion/react": "^11.11.1",
     "@googlemaps/markerclusterer": "^2.5.0",
+    "@prisma/client": "^5.4.2",
     "@types/geoip-lite": "^1.4.1",
     "@types/google-map-react": "^2.1.8",
     "@types/node": "20.5.9",
@@ -20,12 +21,14 @@
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "axios": "^1.5.0",
+    "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.1",
     "geoip-lite": "^1.4.7",
     "google-map-react": "^2.2.1",
     "jotai": "^2.4.2",
     "jotai-devtools": "^0.6.2",
     "next": "13.4.19",
+    "next-auth": "^4.24.3",
     "qs": "^6.11.2",
     "rc-slider": "^10.2.1",
     "react": "18.2.0",
@@ -37,7 +40,9 @@
     "use-places-autocomplete": "^4.0.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.1",
     "@types/google.maps": "^3.54.2",
+    "prisma": "^5.4.2",
     "sass": "^1.66.1"
   }
 }

@@ -111,6 +111,7 @@ export default function Filters() {
       query += `&near=${value}`;
       query += `&radius=${radiusVal}`;
     }
+    query+=`&PropertyType=Residential,Residential Income`;
 
     // const res = await fetch('/api/search/');
 
@@ -130,6 +131,39 @@ export default function Filters() {
 
     setPageObj({ actualPage: 1, pages: res2.pages });
 
+    setProperties(res2.properties);
+  };
+
+  const getDataFromHome = async(page_num: number,input: string,propertyType:string[] = [])=> {
+    let query = "";
+    const radiusVal = "1mi";
+
+
+    
+    query += `&PropertyType=${propertyType.toString()}`; 
+
+    query += `&near=${input}`;
+    query += `&radius=${radiusVal}`;
+
+    // const res = await fetch('/api/search/');
+
+    const res: mapResponse = await fetch(`/api/search/map?${query}`, {
+      cache: "no-store",
+    }).then((res) => res.json());
+
+    console.log(res.properties);
+
+    setMapProperties(res.properties);
+
+    // use also no pages later for google map
+
+    const res2: response = await fetch(
+      `/api/search?${query}&page=${page_num}`,
+      { cache: "no-store" }
+    ).then((res) => res.json());
+
+    setPageObj({ actualPage: page_num, pages: res2.pages });
+    setEnableSearching(true);
     setProperties(res2.properties);
   };
   const getData = async (page_num: number) => {
@@ -321,7 +355,8 @@ export default function Filters() {
   });
 
   useEffect(() => {
-    if (searchParams.get("near")) {
+    if (searchParams.get("near")){
+      console.log(searchParams.get("near"));
       const page = parseInt(searchParams.get("page") as string);
       setPageObj((prevPageObj) => {
         return {
@@ -330,8 +365,31 @@ export default function Filters() {
         };
       });
       const near = searchParams.get("near") as string;
-      setSearchInput(near);
-      getData(page);
+      let propertyType = (searchParams.get("PropertyType"))?.split(",");
+      console.log(propertyType)
+      if(typeof propertyType != 'undefined' && propertyType.length){
+        setFilter((prevState)=>{
+          return {
+            ...prevState,
+            PropertyType: propertyType
+          }
+        });
+        setSearchInput(near);
+        getDataFromHome(page,near,propertyType);
+      }
+      else {
+        propertyType = ["Residential Lease","Residential,Residential Income"];
+        setFilter((prevState)=>{
+          return {
+            ...prevState,
+            PropertyType: propertyType
+          }
+        });
+        setSearchInput(near);
+        getDataFromHome(page,near,propertyType);
+      }
+     
+      // getData(page);
     } else if (window.location.href.split("/")[5]) {
       const city = window.location.href.split("/")[5];
       let modStr = city[0].toUpperCase() + city.slice(1);
@@ -339,6 +397,7 @@ export default function Filters() {
         return {
           ...prevState,
           City: modStr,
+          PropertyType: ["Residential,Residential Income"]
         };
       });
       getDataCity(modStr);
