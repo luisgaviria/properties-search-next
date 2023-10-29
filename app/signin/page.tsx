@@ -1,8 +1,9 @@
 "use client";
 import { atom, useAtom } from "jotai";
-import { signIn,useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { Form,Button } from "react-bootstrap";
 import styles from "./page.module.scss";
+import { useRouter } from "next/navigation";
 
 const emailAtom = atom<string>('');
 emailAtom.debugLabel = "email";
@@ -10,25 +11,20 @@ const passwordAtom = atom<string>('');
 passwordAtom.debugLabel = "password";
 
 export default function SignIn(props: any){
+    const router = useRouter();
     const [email,setEmail] = useAtom(emailAtom);
     const [password,setPassword] = useAtom(passwordAtom);
-
-    const { data: session } = useSession();
-    console.log('Session: ', session);
-    
 
     const handleSignIn = async(e: React.SyntheticEvent)=>{
         e.preventDefault();
 
-        await signIn('credentials',{
-            redirect: false,
-            email,
-            password
-        }).then(res=>{
-            console.log(res);
-        }).catch(err=>{
-            console.log(err);
-        })
+        signIn('credentials',{
+          email: email, 
+          password: password,
+          redirect: false,
+        });
+
+        router.push("/dashboard");
     };
 
     const handleInput = async(e: React.ChangeEvent<HTMLInputElement>)=>{

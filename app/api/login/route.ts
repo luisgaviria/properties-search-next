@@ -6,7 +6,7 @@ export async function POST(
     req: NextApiRequest,
     res: NextApiResponse
 ){
-    await prisma.user.create({
+    await prisma.User.create({
         data: {
             email: "test@test.com",
             username: "Test",
@@ -14,6 +14,6 @@ export async function POST(
         }
     });
     return NextResponse.json({
-        message: "Succesfully created User "
+        message: "Succesfully created User"
     }); 
 }

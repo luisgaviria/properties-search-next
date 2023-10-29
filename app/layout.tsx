@@ -8,10 +8,8 @@ import { ReactQueryProvider } from "./ReactQueryProvider";
 import Script from "@/node_modules/next/script";
 import { Provider } from "./client-exports";
 import DevTools from "./client-exports-jotai";
-import { Session } from 'next-auth';
-import AuthContext from "@/components/AuthContext/AuthContext";
 import { ReactNode } from 'react';
-
+import AuthProvider from "./AuthProvider";
 
 export interface RootLayoutProps {
   children: ReactNode;
@@ -24,28 +22,16 @@ export const metadata: Metadata = {
     "Search MLS Listings for Houses in Massachusetts - Build Your Real Estate Portfolio with Us. Property sales, connect with agents, find a buyers agent, and start selling your house or finding your dream home today.",
 };
 
-async function getSession(cookie: string): Promise<Session> {
-  const response = await fetch('http://localhost:3000/api/auth/session', {
-    headers: {
-      cookie
-    }
-  });
-
-  const session = await response.json();
-
-  return Object.keys(session).length > 0 ? session : null;
-}
 
 
 export default async function RootLayout({ children }: RootLayoutProps){
-  const session = await getSession(headers().get('cookie') ?? '');
   return (
       <ReactQueryProvider>
         <Provider>
+          <AuthProvider>
           <html lang="en">
             <body className={inter.className}>
 
-              <AuthContext session={session}>
               <DevTools />
                 <NavBar />
                 {children}
@@ -57,10 +43,10 @@ export default async function RootLayout({ children }: RootLayoutProps){
                   strategy="afterInteractive"
                   type="text/javascript"
                 />
-              </AuthContext>
 
             </body>
           </html>
+          </AuthProvider>
         </Provider>
       </ReactQueryProvider>
   );
