@@ -8,24 +8,26 @@ export const options: NextAuthOptions = {
         CredentialsProvider({
             name: "Credentials",
             credentials: {
-                username: {
-                    label: "Username:",
-                    type: "text",
-                    placeholder: "your-cool-username"
-                },
+                // username: {
+                //     label: "Username:",
+                //     type: "text",
+                //     placeholder: "your-cool-username"
+                // },
                 password: {
                     label: "Password:",
                     type: "password",
                     placeholder: "your-awesome-password"
                 }
             },
+            //@ts-ignore
             async authorize(credentials: {email: string; password: string}) {
                 
                 const user = await prisma.user.findUnique({
                     where: { 
                         email: credentials.email
                     }
-                })
+                });
+
                 if(!user){ 
                     return null;
                 }
@@ -36,13 +38,28 @@ export const options: NextAuthOptions = {
                 } 
                 
                 return {
-                    email: user.email,
-                    username: user.username,
-                    phoneNumber: user.phoneNumber
+                    user: {
+                        id: user.id,
+                        email: user.email,
+                        username: user.username,
+                        phoneNumber: user.phoneNumber
+                    }
                 };
              
             },
-        })
-        
+        }),
+
+
     ],
+    callbacks: {
+            async jwt({token,user}){
+                // console.log(user,token);
+                return  {...token,...user};
+            },
+            async session({ session, user, token }){
+                // console.log(user);
+                session.user = token.user; 
+                return session;
+            }
+    }
 }
