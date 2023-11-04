@@ -35,10 +35,10 @@ export async function POST(
         };
     }
 
-
     await prisma.user.create({
         data: data
     });
+
     return NextResponse.json({
         message: "Succesfully created User"
     }); 

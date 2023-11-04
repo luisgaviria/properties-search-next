@@ -1,12 +1,26 @@
 "use client";
-
 import Link from "@/node_modules/next/link";
 import { Container } from "@/node_modules/react-bootstrap/esm/index";
 import { Nav } from "@/node_modules/react-bootstrap/esm/index";
 import { Navbar } from "@/node_modules/react-bootstrap/esm/index";
 import styles from "./Navbar.module.scss";
+import { Button } from "react-bootstrap";
+import { useSession,signOut } from "next-auth/react";
 
 const NavBar = (props: any) => {
+  const {data,status}: {data: {
+    user: { 
+      id: number; 
+      email: string;
+      username: string;
+      phoneNumber: string;
+  }
+  },status: string} = useSession();
+
+  const handleLogOut =async()=>{
+    await signOut();
+  }; 
+  
   return (
     <Navbar
       className={styles["navbar-properties"]}
@@ -53,6 +67,16 @@ const NavBar = (props: any) => {
             </Nav>
           </Navbar.Collapse>
         )} */}
+        {
+          data?.user.email.length ?         
+        <Button
+          variant="black"
+          onClick={handleLogOut}
+        >
+          Log Out
+        </Button> : null
+        }
+
       </Container>
     </Navbar>
   );

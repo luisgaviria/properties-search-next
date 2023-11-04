@@ -9,22 +9,30 @@ const emailAtom = atom<string>('');
 emailAtom.debugLabel = "email";
 const passwordAtom = atom<string>('');
 passwordAtom.debugLabel = "password";
+const errorAtom = atom<string>('');
+errorAtom.debugLabel = "error";
 
-export default function SignIn(props: any){
+export default function Login(props: any){
     const router = useRouter();
     const [email,setEmail] = useAtom(emailAtom);
     const [password,setPassword] = useAtom(passwordAtom);
+    const [error,setError] = useAtom(errorAtom);
 
     const handleSignIn = async(e: React.SyntheticEvent)=>{
         e.preventDefault();
-
-        signIn('credentials',{
+        const res = await signIn('credentials',{
           email: email, 
           password: password,
           redirect: false,
         });
 
-        router.push("/dashboard");
+        if(res?.error){
+          setError("Wrong Credentials");
+        }
+        else { 
+          router.push("/profile");
+        }
+  
     };
 
     const handleInput = async(e: React.ChangeEvent<HTMLInputElement>)=>{
@@ -39,7 +47,7 @@ export default function SignIn(props: any){
     return (
         <>
         <h2>
-          No tienes una cuenta? Registrate <a href="/register">Registrate</a>
+          No tienes una cuenta? Registrate <a href="/auth/register">Registrate</a>
         </h2>
         <Form className={styles["form_login"]}>
           <Form.Group className={styles["form_field"]}>
@@ -68,7 +76,8 @@ export default function SignIn(props: any){
           >
             Ingresar
           </Button>
+          <h2 style={{color: 'red'}}>{error}</h2>
         </Form>
       </>
     )
-};
+};  
