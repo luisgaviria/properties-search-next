@@ -2,6 +2,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import qs from "qs";
 import axios from "axios";
 import { NextResponse } from 'next/server';
+import getSession from '@/utils/getSession';
+import {prisma} from "@/lib/prisma";
 
 export interface SearchResponse {
     properties?: Property[];
@@ -57,13 +59,14 @@ const calculatePages = (total: number, pageLimit: number) => {
     pages++;
   }
   return pages;
-};
+}; 
 
 export async function GET(
     req: NextApiRequest,
     res: NextApiResponse<SearchResponse>
     // res: any
 ){
+    let searchInput: string = "";
     if(req.method == "GET"){ 
         const __query__ = (req.url?.split("?") as string[])[1];
         const queryurl =  qs.parse(__query__);
@@ -170,6 +173,17 @@ export async function GET(
             const response = await axios.get(
                 `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&offset=${toSkip}&limit=${limit}&StandardStatus=Active&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,NumberOfUnitsTotal,Latitude,Longitude${query}`
               );
+              searchInput = queryurl.near as string;
+              const session = await getSession() as any;
+              if(session){
+                await prisma.search.create({
+                    data: {
+                        data: searchInput,
+                        userId: session?.user.id,
+                        createdAt: new Date().toISOString()
+                    }
+                  });
+              }
               const pages = calculatePages(response.data.total, limit);
               return NextResponse.json({
                 properties: response.data.bundle,

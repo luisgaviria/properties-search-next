@@ -1,8 +1,20 @@
 "use client"
 import { useEffect } from "react"
 import { useSession } from "next-auth/react"
+import {atom,useAtom} from "jotai";
+import { useQuery } from "react-query";
+
+// const searchAtom = atom<string[]>([]);
+
+// searchAtom.debugLabel = "Search History";
 
 export default function ProfileComponent(){
+    const searchHistory = useQuery({
+        queryKey: "getSearchHistory",
+        queryFn: ()=>getSearchHistory(), 
+        enabled: true
+    });
+    // const [searchHistory,setSearchHistory] = useAtom(searchAtom); 
     const {data,status}: {data:{
     user: { 
         id: number; 
@@ -11,11 +23,20 @@ export default function ProfileComponent(){
         phoneNumber: string;
     }
     },status: string} = useSession();
+    
+    const getSearchHistory = async()=>{
+        const response = await fetch("/api/search_history",{
+            cache: 'no-store'
+        }).then(res=>res.json());
 
-    useEffect(()=>{
-        console.log(data?.user);
-        console.log(status);
-    });
+
+        if(response.searchHistory){
+            return response.searchHistory;
+        }
+        else {
+            return null;
+        }
+    };
 
     return ( 
         <div>
@@ -24,6 +45,11 @@ export default function ProfileComponent(){
             <h1>{data?.user.id}</h1>
             <h1>{data?.user.username}</h1> 
             <h1>{data?.user.phoneNumber}</h1>
+            {
+                searchHistory.data?.map((row: any)=>{ 
+                    return (<h2>{row.data} {(new Date(row.createdAt)).toLocaleString('us')}</h2>)
+                })
+            }
         </div>
     )
 }

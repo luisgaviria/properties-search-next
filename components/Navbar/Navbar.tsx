@@ -74,7 +74,12 @@ const NavBar = (props: any) => {
           onClick={handleLogOut}
         >
           Log Out
-        </Button> : null
+        </Button> :  <Navbar.Collapse className="justify-content-end">
+            <Nav>
+              <Nav.Link href="/auth/register">Register</Nav.Link>
+              <Nav.Link href="/auth/login">Login</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
         }
 
       </Container>
