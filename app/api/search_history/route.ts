@@ -8,7 +8,12 @@ export async function GET(req: NextApiRequest,res: NextApiResponse) {
     if(session){
         const searches = await prisma.search.findMany({where: {
             userId: session.user.userId 
-        }});
+        },
+        orderBy: {
+            createdAt: 'desc'
+        },
+        take: 12
+    })
         return NextResponse.json({
             searchHistory: searches
         });

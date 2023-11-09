@@ -137,15 +137,13 @@ export default function Filters() {
   const getDataFromHome = async(page_num: number,input: string,propertyType:string[] = [])=> {
     let query = "";
     const radiusVal = "1mi";
-
-
     
     query += `&PropertyType=${propertyType.toString()}`; 
 
     query += `&near=${input}`;
-    query += `&radius=${radiusVal}`;
+    query += `&radius=${radiusVal}`; 
 
-    // const res = await fetch('/api/search/');
+     // here connect bathrooms bedrooms and so on from prisma database
 
     const res: mapResponse = await fetch(`/api/search/map?${query}`, {
       cache: "no-store",
@@ -173,10 +171,10 @@ export default function Filters() {
       // Explicitly convert key to a string
       const key = String(keyAsString);
       if (Array.isArray(filter[key]) && (filter[key] as string[]).length) {
-        query += query.length ? `&${key}=` : `${key}=`;
-        (filter[key] as string[]).map((item: string) => {
-          query += `${item},`;
-        });
+          query += query.length ? `&${key}=` : `${key}=`;
+          (filter[key] as string[]).map((item: string) => {
+            query += `${item},`;
+          });
       } else if (filter[key]) {
         if (key === "BedroomsTotal" && typeof filter[key] === "string") {
           if ((filter[key] as strOrNumber) !== "Any") {

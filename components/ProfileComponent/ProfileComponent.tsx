@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import { useSession } from "next-auth/react"
 import {atom,useAtom} from "jotai";
 import { useQuery } from "react-query";
+import Link from "@/node_modules/next/link";
 
 // const searchAtom = atom<string[]>([]);
 
@@ -46,8 +47,10 @@ export default function ProfileComponent(){
             <h1>{data?.user.username}</h1> 
             <h1>{data?.user.phoneNumber}</h1>
             {
-                searchHistory.data?.map((row: any)=>{ 
-                    return (<h2>{row.data} {(new Date(row.createdAt)).toLocaleString('us')}</h2>)
+                searchHistory.data?.map((row: any)=>{  // here connect bathrooms bedrooms and so on from prisma database
+                    return (<h2> 
+                            <Link href={`/search?page=1&near=${row.near}`}>{row.data} {(new Date(row.createdAt)).toLocaleString('us')}</Link>
+                        </h2>)
                 })
             }
         </div>

@@ -75,7 +75,7 @@ export async function GET(
             sortBy: queryurl.sortBy,
             order: queryurl.order,
             near: queryurl.near,
-            radius: queryurl.radius,
+            radius: queryurl.radius,    
             NumberOfUnitsTotal: queryurl.NumberOfUnitsTotal,
             City: queryurl.City, // City :
             ListPrice:
@@ -146,6 +146,7 @@ export async function GET(
               queryObj.near !== undefined &&
               queryObj.near !== "" // Skip "City" if "near" is present and not empty
             ) {
+              delete queryObj.City;
               continue;
             }
         
@@ -167,22 +168,34 @@ export async function GET(
           }
           
           const toSkip = page*limit;
-          console.log(query);
 
           try {
             const response = await axios.get(
                 `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&offset=${toSkip}&limit=${limit}&StandardStatus=Active&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,NumberOfUnitsTotal,Latitude,Longitude${query}`
               );
-              searchInput = queryurl.near as string;
+              searchInput = queryObj.near as string;
               const session = await getSession() as any;
               if(session){
+                const data: any = {
+                    userId: session?.user.id
+                };
+                const keys = Object.keys(queryurl);
+                
+                keys.map(key=>{
+                    data[key] = queryurl[key];
+                });
+                    
+                delete data.radius;
+                delete data.page;
+                delete data.sortBy;
+                delete data.order;
+                if(queryObj.near && queryObj.City == 'Any'){
+                    delete data.City;
+                }
+
                 await prisma.search.create({
-                    data: {
-                        data: searchInput,
-                        userId: session?.user.id,
-                        createdAt: new Date().toISOString()
-                    }
-                  });
+                    data: data
+                });
               }
               const pages = calculatePages(response.data.total, limit);
               return NextResponse.json({
