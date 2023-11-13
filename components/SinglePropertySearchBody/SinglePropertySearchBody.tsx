@@ -24,8 +24,8 @@ const Marker = ({ text }: { text: string; lat: number; lng: number }) => (
   <MdHouse size={25} />
 );
 
-const stateAtom = atom<PropertyDetails>({
-  Media: [],
+const stateAtom = atom({
+  Media: [] as any,
   LivingArea: "",
   StreetNumber: "",
   StreetName: "",
@@ -57,36 +57,36 @@ const stateAtom = atom<PropertyDetails>({
   AssociationYN: "",
   AssociationFee: 0,
   AssociationName: "",
-  AssociationFeeFrequency: "",
-  AssociationFeeIncludes: "",
-  AssociationAmenities: "",
-  CommunityFeatures: "",
-  AccessibilityFeatures: "",
-  Utilities: "",
-  TenantPays: "",
-  Heating: "",
-  MLSPIN_HEAT_ZONES: "",
-  Cooling: "",
-  LaundryFeatures: "",
-  WindowFeatures: "",
-  Flooring: "",
-  Appliances: "",
+  AssociationFeeFrequency: [""] as string[],
+  AssociationFeeIncludes: [""] as string[],
+  AssociationAmenities: [""]as string[],
+  CommunityFeatures: [""]as string[],
+  AccessibilityFeatures: [""]as string[],
+  Utilities: [""]as string[],
+  TenantPays: [""]as string[],
+  Heating: [""]as string[],
+  MLSPIN_HEAT_ZONES: [""]as string[],
+  Cooling: [""]as string[],
+  LaundryFeatures: [""]as string[],
+  WindowFeatures: [""]as string[],
+  Flooring: [""]as string[],
+  Appliances: [""]as string[],
   FireplacesTotal: 0,
-  FireplaceFeatures: "",
-  WaterfrontFeatures: "",
-  PoolFeatures: "",
+  FireplaceFeatures: [""]as string[],
+  WaterfrontFeatures: [""]as string[],
+  PoolFeatures: [""]as string[],
   GarageYN: "",
-  GarageSpaces: "",
-  ParkingFeatures: "",
+  GarageSpaces: [""]as string[],
+  ParkingFeatures: [""]as string[],
   CarportYN: "",
-  SecurityFeatures: "",
-  InteriorFeatures: "",
+  SecurityFeatures: [""]as string[],
+  InteriorFeatures: [""]as string[],
   MainLevelBedrooms: 0,
-  RoomMasterBedroomFeatures: "",
-  RoomLivingRoomFeatures: "",
-  SpaFeatures: "",
-  PatioAndPorchFeatures: "",
-  WaterSource: "",
+  RoomMasterBedroomFeatures: [""]as string[],
+  RoomLivingRoomFeatures: [""]as string[],
+  SpaFeatures: [""]as string[],
+  PatioAndPorchFeatures: [""]as string[],
+  WaterSource: [""] as string[],
   Sewer: "",
   YearBuilt: "",
   YearBuiltSource: "",
@@ -112,7 +112,7 @@ const loader = (props: {src: string}) =>{
   return `${props.src}`;
 };
 
-const generateTitle = (state: PropertyDetails) => {
+const generateTitle = (state: any) => {
   const livingArea =
     state.LivingArea !== null ? state.LivingArea?.toLocaleString() : null;
 
@@ -172,14 +172,14 @@ export default function SinglePropertyBuy() {
       `/api/search/${id}`,
       { cache: "no-store" }
     ).then((res) => res.json());
-    setState((prevState) => ({
+    setState((prevState: any) => ({
       ...prevState,
       ...data.property,
     }));
   };
 
   const toggleVisibility = (details: "loan" | "details") => {
-    setState((prevState) => ({
+    setState((prevState: any) => ({
       ...prevState,
       detailsVisible: {
         ...prevState.detailsVisible,
@@ -206,9 +206,9 @@ export default function SinglePropertyBuy() {
     return str.substring(0, maxLength - 3) + "...";
   }
 
-  const imageUrls = state.Media?.map((img) => img.MediaURL) || [];
+  const imageUrls = state.Media?.map((img: any) => img.MediaURL) || [];
   const filteredImageUrls = imageUrls.filter(
-    (url) => url && typeof url === "string"
+    (url: any) => url && typeof url === "string"
   );
 
   return (
@@ -272,7 +272,7 @@ export default function SinglePropertyBuy() {
           : null}
       </script>
       <Carousel className={styles["single-carousel"]}>
-        {state.Media?.map((obj, index) => {
+        {state.Media?.map((obj: any, index: any) => {
           return (
             <Carousel.Item key={index}>
               <div className={styles["show-page-image"]}>
@@ -633,7 +633,7 @@ export default function SinglePropertyBuy() {
                 </tr>
               ) : null}
 
-              {state.Coolin && state.Cooling.length > 0 ? (
+              {state.Cooling && state.Cooling.length > 0 ? (
                 <tr key="Coolin">
                   <td>Cooling:</td>
                   <td>{state.Cooling.join(", ")}</td>

@@ -1,5 +1,5 @@
 import type { NextApiRequest,NextApiResponse } from "next"; 
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import axios from "axios";
 
 export interface SearchResponse {
@@ -46,8 +46,8 @@ interface Media {
 
 
 export async function GET(
-    req: NextApiRequest,
-    res: NextApiResponse<SearchResponse>
+    req: NextRequest,
+    res: NextResponse<SearchResponse>
     ){
         try{
             const response = await axios.get(

@@ -12,7 +12,7 @@ interface reqBody {
 
 export async function POST( 
     req: Request,
-    res: NextApiResponse
+    res: NextResponse
 ){
     const body: reqBody = await req.json();
 
@@ -36,7 +36,7 @@ export async function POST(
     }
 
     await prisma.user.create({
-        data: data
+        data: data as any 
     });
 
     return NextResponse.json({

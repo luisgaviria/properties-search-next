@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 import qs from "qs";
 
@@ -45,8 +45,8 @@ interface Media {
     ShortDescription:  null;
 }
 export async function GET(
-    req: NextApiRequest,
-    res: NextApiResponse<SearchResponse>
+    req: NextRequest,
+    res: NextResponse<SearchResponse>
 ){ 
     const __query__ = (req.url?.split("?") as string[])[1];
     const queryurl =  qs.parse(__query__);

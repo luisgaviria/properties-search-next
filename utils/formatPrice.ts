@@ -7,7 +7,7 @@ export const formatPrice = (price: number) => {
   };
   
   export const checkNumberNine = (number: number) => {
-    const digitCount = Array.from(String(number)).reduce((count, digit)=> {
+    const digitCount = Array.from(String(number)).reduce((count: any, digit)=> {
       count[digit] = (count[digit] || 0) + 1;
       return count;
     }, {});

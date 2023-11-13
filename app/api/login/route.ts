@@ -1,12 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST( 
-    req: NextApiRequest,
-    res: NextApiResponse
+    req: NextRequest,
+    res: NextResponse
 ){
-    await prisma.User.create({
+
+    await prisma.user.create({
         data: {
             email: "test@test.com",
             username: "Test",

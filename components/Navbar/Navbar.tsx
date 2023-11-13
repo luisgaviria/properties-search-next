@@ -8,14 +8,7 @@ import { Button } from "react-bootstrap";
 import { useSession,signOut } from "next-auth/react";
 
 const NavBar = (props: any) => {
-  const {data,status}: {data: {
-    user: { 
-      id: number; 
-      email: string;
-      username: string;
-      phoneNumber: string;
-  }
-  },status: string} = useSession();
+  const {data,status}: {data: any;status: any} = useSession();
 
   const handleLogOut =async()=>{
     await signOut();

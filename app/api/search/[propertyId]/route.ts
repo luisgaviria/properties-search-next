@@ -1,6 +1,6 @@
 import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export interface PropertyResponse {
     property?: Property;
@@ -407,14 +407,14 @@ export interface Media {
 }
 
 export async function GET(    
-    req: NextApiRequest,
+    req: NextRequest,
     {params}: {params: {propertyId: string}},
-    res: NextApiResponse<PropertyResponse>
+    res: NextResponse
     ){
         const propertyId : string = params.propertyId
         if(!propertyId){
-            return res.status(404).json({
-                message: "Missing id"
+            return NextResponse.json({
+                message: "No property"
             });
         }
 

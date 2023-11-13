@@ -172,12 +172,12 @@ export default function Filters() {
     keys.map((keyAsString) => {
       // Explicitly convert key to a string
       const key = String(keyAsString);
-      if (Array.isArray(filter[key]) && (filter[key] as string[]).length) {
+      if (Array.isArray(filter[key as keyof typeof filter])  && (filter[key as keyof typeof filter] as string[]).length) {
           query += query.length ? `&${key}=` : `${key}=`;
-          (filter[key] as string[]).map((item: string) => {
+          (filter[key as keyof typeof filter] as string[]).map((item: string) => {
             query += `${item},`;
           });
-      } else if (filter[key]) {
+      } else if (filter[key as keyof typeof filter]) {
         if (key === "BedroomsTotal" && typeof filter[key] === "string") {
           if ((filter[key] as strOrNumber) !== "Any") {
             if ((filter[key] as strOrNumber) === "5+") {
@@ -206,10 +206,10 @@ export default function Filters() {
             }
           }
         } else {
-          if (filter[key] && !Array.isArray(filter[key])) {
+          if (filter[key as keyof typeof filter] && !Array.isArray(filter[key as keyof typeof filter])) {
             query += query.length
-              ? `&${key}=${filter[key]}`
-              : `${key}=${filter[key]}`;
+              ? `&${key}=${filter[key as keyof typeof filter]}`
+              : `${key}=${filter[key as keyof typeof filter]}`;
           }
         }
       }
@@ -269,13 +269,13 @@ export default function Filters() {
         if (key === "City" && value) {
           return;
         }
-        if (Array.isArray(filter[key]) && (filter[key] as string[]).length) {
+        if (Array.isArray(filter[key as keyof typeof filter]) && (filter[key as keyof typeof filter] as string[]).length) {
           query += query.length ? `&${key}=` : `${key}=`;
-          (filter[key] as string[]).map((item: string) => {
+          (filter[key as keyof typeof filter] as string[]).map((item: string) => {
             query += `${item},`;
           });
-        } else if (filter[key]) {
-          if (key === "BedroomsTotal" && typeof filter[key] === "string") {
+        } else if (filter[key as keyof typeof filter]) {
+          if (key === "BedroomsTotal" && typeof filter[key as keyof typeof filter] === "string") {
             if ((filter[key] as strOrNumber) !== "Any") {
               if ((filter[key] as strOrNumber) === "5+") {
                 query += query.length
@@ -303,10 +303,10 @@ export default function Filters() {
               }
             }
           } else {
-            if (filter[key] && !Array.isArray(filter[key])) {
+            if (filter[key as keyof typeof filter] && !Array.isArray(filter[key as keyof typeof filter])) {
               query += query.length
-                ? `&${key}=${filter[key]}`
-                : `${key}=${filter[key]}`;
+                ? `&${key}=${filter[key as keyof typeof filter]}`
+                : `${key}=${filter[key as keyof typeof filter]}`;
             }
           }
         }
@@ -368,7 +368,7 @@ export default function Filters() {
       let propertyType = (searchParams.get("PropertyType"))?.split(",");
       console.log(propertyType)
       if(typeof propertyType != 'undefined' && propertyType.length){
-        setFilter((prevState)=>{
+        setFilter((prevState: any)=>{
           return {
             ...prevState,
             PropertyType: propertyType
@@ -379,7 +379,7 @@ export default function Filters() {
       }
       else {
         propertyType = ["Residential Lease","Residential,Residential Income"];
-        setFilter((prevState)=>{
+        setFilter((prevState: any)=>{
           return {
             ...prevState,
             PropertyType: propertyType

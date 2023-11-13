@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import qs from "qs";
 import axios from "axios";
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import getSession from '@/utils/getSession';
 import {prisma} from "@/lib/prisma";
 
@@ -62,8 +62,8 @@ const calculatePages = (total: number, pageLimit: number) => {
 }; 
 
 export async function GET(
-    req: NextApiRequest,
-    res: NextApiResponse<SearchResponse>
+    req: NextRequest,
+    res: NextResponse<SearchResponse>
     // res: any
 ){
     let searchInput: string = "";

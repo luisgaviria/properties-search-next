@@ -1,6 +1,6 @@
 import styles from "./SearchButton.module.scss";
 
-export default function SearchButton(props: {onClick: ()=>{}}) {
+export default function SearchButton(props: {onClick: ()=>void}) {
   return (
     <div className={styles["search-btn"]}>
       <div

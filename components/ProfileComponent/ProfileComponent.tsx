@@ -16,14 +16,8 @@ export default function ProfileComponent(){
         enabled: true
     });
     // const [searchHistory,setSearchHistory] = useAtom(searchAtom); 
-    const {data,status}: {data:{
-    user: { 
-        id: number; 
-        email: string;
-        username: string;
-        phoneNumber: string;
-    }
-    },status: string} = useSession();
+    const {data,status}: {data: any
+    ,status: any} = useSession();
     
     const getSearchHistory = async()=>{
         const response = await fetch("/api/search_history",{

@@ -39,9 +39,9 @@ export async function generateMetadata({params,searchParams}:{params: any;search
     console.log(id);
 
     const data: PropertyDetails = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/search/${id}`,{cache: "no-store"}).then(res=>res.json());
-    const imageUrls = data.Media?.map((img) => img.MediaURL) || [];
+    const imageUrls = data.Media?.map((img : any) => img.MediaURL) || [];
     const filteredImageUrls = imageUrls.filter(
-      (url) => url && typeof url === "string"
+      (url: any) => url && typeof url === "string"
     );
 
 
