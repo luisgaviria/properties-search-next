@@ -38,6 +38,38 @@ export default function ProfileComponent(){
             return null;
         }
     };
+    
+    const generateQuery = (row: any)=>{ 
+        let query = ""; 
+        query+=`page=1&near=${row.near}`;
+
+        if(row.BedroomsTotal != ""){
+            query+=`&BedroomsTotal=${row.BedroomsTotal}`;
+        }
+        if(row.BathroomsTotalDecimalFrom != ""){
+            query+=`&BathroomsTotalDecimalFrom=${row.BathroomsTotalDecimalFrom}`;
+        }
+        if(row.BathroomsTotalDecimalTo != ""){
+            query+=`&BathroomsTotalDecimalTo=${row.BathroomsTotalDecimalTo}`;
+        }
+        if(row.ListPriceFrom != 0){
+            query+=`&ListPriceFrom=${row.ListPriceFrom}`;
+        }
+        if(row.ListPriceTo != 0){
+            query+=`&ListPriceTo=${row.ListPriceTo}`;
+        }
+        if(row.PropertySubType != ""){ 
+            query+=`&PropertySubType=${row.PropertySubType}`;
+        }
+        if(row.PropertyType != "Residential Lease,Residential,Residential Income"){
+            query+=`&PropertyType=${row.PropertyType}`;
+        }
+        if(row.City != ""){
+            query+=`&City=${row.City}`;
+        }
+        return query;
+    };
+
 
     return ( 
         <div>
@@ -47,9 +79,10 @@ export default function ProfileComponent(){
             <h1>{data?.user.username}</h1> 
             <h1>{data?.user.phoneNumber}</h1>
             {
-                searchHistory.data?.map((row: any)=>{  // here connect bathrooms bedrooms and so on from prisma database
+                searchHistory.data?.map((row: any)=>{  
+                    // here connect bathrooms bedrooms and so on from prisma database
                     return (<h2> 
-                            <Link href={`/search?page=1&near=${row.near}`}>{row.data} {(new Date(row.createdAt)).toLocaleString('us')}</Link>
+                            <Link href={`/search?${generateQuery(row)}`}>{row.near} {(new Date(row.createdAt)).toLocaleString('us')}</Link>
                         </h2>)
                 })
             }

@@ -142,7 +142,7 @@ export default function Filters() {
 
     query += `&near=${input}`;
     query += `&radius=${radiusVal}`; 
-
+     
      // here connect bathrooms bedrooms and so on from prisma database
 
     const res: mapResponse = await fetch(`/api/search/map?${query}`, {
@@ -160,11 +160,13 @@ export default function Filters() {
       { cache: "no-store" }
     ).then((res) => res.json());
 
+    setValue(input);
     setPageObj({ actualPage: page_num, pages: res2.pages });
     setEnableSearching(true);
     setProperties(res2.properties);
   };
   const getData = async (page_num: number) => {
+    clearSuggestions();
     let query = "";
     const keys = Object.keys(filter) as Array<keyof typeof filter>;
     keys.map((keyAsString) => {
@@ -214,7 +216,7 @@ export default function Filters() {
     });
 
     const radiusVal = "1mi";
-
+    console.log(value);
     if (enableSearching && value) {
       query += `&near=${value}`;
       query += `&radius=${radiusVal}`;
@@ -783,19 +785,23 @@ export default function Filters() {
                     }
                     onChange={onChangePropertySubTypeCheckbox}
                   />
-                  <Form.Check
+                  {/* <Form.Check
                     type="checkbox"
                     label="2 Family"
-                    value={2}
-                    checked={filter.NumberOfUnitsTotal === 2}
-                    onChange={() => {
-                      setFilter((prevFilter: FilterState) => ({
-                        ...prevFilter,
-                        NumberOfUnitsTotal:
-                          prevFilter.NumberOfUnitsTotal === 2 ? 0 : 2,
-                      }));
-                    }}
-                  />
+                    value="2 Family"
+                    checked={
+                      filter.
+                    }
+                    // value={2}
+                    // checked={filter.NumberOfUnitsTotal === 2}
+                    // onChange={() => {
+                    //   setFilter((prevFilter: FilterState) => ({
+                    //     ...prevFilter,
+                    //     NumberOfUnitsTotal:
+                    //       prevFilter.NumberOfUnitsTotal === 2 ? 0 : 2,
+                    //   }));
+                    // }}
+                  /> */}
 
                   <Form.Check
                     type="checkbox"

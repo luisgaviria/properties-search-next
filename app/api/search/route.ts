@@ -170,6 +170,7 @@ export async function GET(
           const toSkip = page*limit;
 
           try {
+            console.log(query);
             const response = await axios.get(
                 `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&offset=${toSkip}&limit=${limit}&StandardStatus=Active&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,NumberOfUnitsTotal,Latitude,Longitude${query}`
               );
@@ -189,6 +190,7 @@ export async function GET(
                 delete data.page;
                 delete data.sortBy;
                 delete data.order;
+                delete data.NumberOfUnitsTotal;
                 if(queryObj.near && queryObj.City == 'Any'){
                     delete data.City;
                 }

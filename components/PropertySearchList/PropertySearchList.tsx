@@ -13,7 +13,7 @@ export default function PropertySearchList({
 }) {
   return (
     <>
-      {properties.map((property: Property, index: number) => {
+      {properties?.map((property: Property, index: number) => {
         return (
           <Suspense fallback={<Loading />}>
             <PropertySearchTile
