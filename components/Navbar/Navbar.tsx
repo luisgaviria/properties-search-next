@@ -12,7 +12,7 @@ const NavBar = (props: any) => {
 
   const handleLogOut =async()=>{
     await signOut();
-  }; 
+  };
   
   return (
     <Navbar
@@ -33,6 +33,8 @@ const NavBar = (props: any) => {
             <Link href="/">Home</Link>
             {/* <Nav.Link href="/search">Search</Nav.Link> */}
             <Link href="/search">Search</Link>
+            
+            
             {/* <Nav.Link href={localStorage.getItem("token") ? "/form" : "/login"}>
                   Manage Listings
                 </Nav.Link> */}
@@ -61,13 +63,20 @@ const NavBar = (props: any) => {
           </Navbar.Collapse>
         )} */}
         {
-          data?.user.email.length ?         
+          data?.user.email.length ?   
+          <>      
+                  <Nav.Link
+          href="/profile"
+        >
+          Profile
+        </Nav.Link>
         <Button
           variant="black"
           onClick={handleLogOut}
         >
           Log Out
-        </Button> :  <Navbar.Collapse className="justify-content-end">
+        </Button> 
+        </>:  <Navbar.Collapse className="justify-content-end">
             <Nav>
               <Nav.Link href="/auth/register">Register</Nav.Link>
               <Nav.Link href="/auth/login">Login</Nav.Link>

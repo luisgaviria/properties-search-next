@@ -195,6 +195,10 @@ export async function GET(
                     delete data.City;
                 }
 
+                data.BathroomsTotal = data.BathroomsTotalDecimalTo;
+                delete data.BathroomsTotalDecimalTo;
+                console.log(data);
+
                 await prisma.search.create({
                     data: data
                 });

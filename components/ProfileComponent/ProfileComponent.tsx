@@ -40,11 +40,11 @@ export default function ProfileComponent(){
         if(row.BedroomsTotal != ""){
             query+=`&BedroomsTotal=${row.BedroomsTotal}`;
         }
-        if(row.BathroomsTotalDecimalFrom != ""){
-            query+=`&BathroomsTotalDecimalFrom=${row.BathroomsTotalDecimalFrom}`;
-        }
-        if(row.BathroomsTotalDecimalTo != ""){
-            query+=`&BathroomsTotalDecimalTo=${row.BathroomsTotalDecimalTo}`;
+        // if(row.BathroomsTotalDecimalFrom != ""){
+        //     query+=`&BathroomsTotalDecimalFrom=${row.BathroomsTotalDecimalFrom}`;
+        // }
+        if(row.BathroomsTotal != ""){
+            query+=`&BathroomsTotal=${row.BathroomsTotal}`;
         }
         if(row.ListPriceFrom != 0){
             query+=`&ListPriceFrom=${row.ListPriceFrom}`;

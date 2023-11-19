@@ -134,14 +134,31 @@ export default function Filters() {
     setProperties(res2.properties);
   };
 
-  const getDataFromHome = async(page_num: number,input: string,propertyType:string[] = [])=> {
+  const getDataFromHome = async(page_num: number,input: string,filters: any)=> {
     let query = "";
     const radiusVal = "1mi";
     
-    query += `&PropertyType=${propertyType.toString()}`; 
+    console.log()
+
+    if(filters.PropertyType){
+      query += `&PropertyType=${filters.PropertyType.toString()}`; 
+    }
+    if(filters.PropertySubType){
+      query += `&PropertySubType=${filters.PropertySubType.toString()}`;
+    }
+    if(filters.BedroomsTotal){
+      query += `&BedroomsTotal=${filters.BedroomsTotal}`;
+    }
+    if(filters.BathroomsTotal){
+      query += `&BathroomsTotalDecimalTo=${filters.BathroomsTotal}`;
+    }
 
     query += `&near=${input}`;
     query += `&radius=${radiusVal}`; 
+    query += '&order=desc'; 
+    query += '&sortBy=ListPrice';
+
+    console.log(query);
      
      // here connect bathrooms bedrooms and so on from prisma database
 
@@ -207,18 +224,31 @@ export default function Filters() {
           }
         } else {
           if (filter[key as keyof typeof filter] && !Array.isArray(filter[key as keyof typeof filter])) {
-            query += query.length
+            if(key == 'City' && enableSearching){ 
+              // do nothing
+            }
+            else {
+              query += query.length
               ? `&${key}=${filter[key as keyof typeof filter]}`
               : `${key}=${filter[key as keyof typeof filter]}`;
+            }
+ 
           }
         }
       }
     });
 
     const radiusVal = "1mi";
-    console.log(value);
+     
+    // console.log(query);
+    
+    // console.log(value);
     if (enableSearching && value) {
       query += `&near=${value}`;
+      query += `&radius=${radiusVal}`;
+    }
+    else if (enableSearching && searchInput){
+      query += `&near=${searchInput}`;
       query += `&radius=${radiusVal}`;
     }
 
@@ -233,7 +263,6 @@ export default function Filters() {
     setMapProperties(res.properties);
 
     // use also no pages later for google map
-
     const res2: response = await fetch(
       `/api/search?${query}&page=${page_num}`,
       { cache: "no-store" }
@@ -365,17 +394,27 @@ export default function Filters() {
         };
       });
       const near = searchParams.get("near") as string;
+      console.log(searchParams.entries());
       let propertyType = (searchParams.get("PropertyType"))?.split(",");
-      console.log(propertyType)
+      let propertySubType = (searchParams.get("PropertySubType"))?.split(",");
+      let bedroomsTotal = searchParams.get("BedroomsTotal");
+      let bathroomsTotal = searchParams.get("BathroomsTotal");
+      // console.log(BedroomsTotal);
+      let obj : any = {};
+      propertyType && (obj.PropertyType = propertyType.toString());
+      propertySubType && (obj.PropertySubType = propertySubType);
+      bedroomsTotal && (obj.BedroomsTotal = bedroomsTotal);
+      bathroomsTotal && (obj.BathroomsTotal = bathroomsTotal);
+
       if(typeof propertyType != 'undefined' && propertyType.length){
         setFilter((prevState: any)=>{
           return {
             ...prevState,
-            PropertyType: propertyType
+            ...obj
           }
         });
         setSearchInput(near);
-        getDataFromHome(page,near,propertyType);
+        getDataFromHome(page,near,obj);
       }
       else {
         propertyType = ["Residential Lease","Residential,Residential Income"];
