@@ -69,7 +69,10 @@ export async function GET(
     let searchInput: string = "";
     if(req.method == "GET"){ 
         const __query__ = (req.url?.split("?") as string[])[1];
+        console.log(__query__);
         const queryurl =  qs.parse(__query__);
+        const save = new Boolean(queryurl.save);
+        delete queryurl.save;
         const page: number = Number(queryurl.page) - 1; //ignore;
         const queryObj = {
             sortBy: queryurl.sortBy,
@@ -195,13 +198,23 @@ export async function GET(
                     delete data.City;
                 }
 
+                if (data.ListPriceFrom){
+                    data.ListPriceFrom = parseInt(data.ListPriceFrom);
+                } 
+
+                if (data.ListPriceTo){ 
+                    data.ListPriceTo = parseInt(data.ListPriceTo); 
+                }
+                
                 data.BathroomsTotal = data.BathroomsTotalDecimalTo;
                 delete data.BathroomsTotalDecimalTo;
-                console.log(data);
 
-                await prisma.search.create({
-                    data: data
-                });
+                console.log(save.valueOf());
+                if(save.valueOf()){
+                    await prisma.search.create({
+                        data: data
+                    });
+                }
               }
               const pages = calculatePages(response.data.total, limit);
               return NextResponse.json({

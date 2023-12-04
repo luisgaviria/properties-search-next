@@ -36,6 +36,8 @@ export default function ProfileComponent(){
     const generateQuery = (row: any)=>{ 
         let query = ""; 
         query+=`page=1&near=${row.near}`;
+        
+        console.log(row);
 
         if(row.BedroomsTotal != ""){
             query+=`&BedroomsTotal=${row.BedroomsTotal}`;

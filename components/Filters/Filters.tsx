@@ -124,7 +124,7 @@ export default function Filters() {
     setMapProperties(res.properties);
 
     // use also no pages later for google map
-
+    query+="&save=true";
     const res2: response = await fetch(`/api/search?${query}&page=1`, {
       cache: "no-store",
     }).then((res) => res.json());
@@ -134,11 +134,11 @@ export default function Filters() {
     setProperties(res2.properties);
   };
 
-  const getDataFromHome = async(page_num: number,input: string,filters: any)=> {
+  const getDataFromHome = async(page_num: number,input: string,filters: any,save=true)=> {
     let query = "";
     const radiusVal = "1mi";
     
-    console.log()
+    console.log(save);
 
     if(filters.PropertyType){
       query += `&PropertyType=${filters.PropertyType.toString()}`; 
@@ -171,16 +171,27 @@ export default function Filters() {
     setMapProperties(res.properties);
 
     // use also no pages later for google map
+    if(save == true){ 
+      const res2: response = await fetch(
+        `/api/search?save=true${query}&page=${page_num}`,
+        { cache: "no-store" }
+      ).then((res) => res.json());
+      setValue(input);
+      setPageObj({ actualPage: page_num, pages: res2.pages });
+      setEnableSearching(true);
+      setProperties(res2.properties);
+    }
+    else {
+      const res2: response = await fetch(
+        `/api/search?${query}&page=${page_num}`,
+        { cache: "no-store" }
+      ).then((res) => res.json());
+      setValue(input);
+      setPageObj({ actualPage: page_num, pages: res2.pages });
+      setEnableSearching(true);
+      setProperties(res2.properties);
+    }
 
-    const res2: response = await fetch(
-      `/api/search?${query}&page=${page_num}`,
-      { cache: "no-store" }
-    ).then((res) => res.json());
-
-    setValue(input);
-    setPageObj({ actualPage: page_num, pages: res2.pages });
-    setEnableSearching(true);
-    setProperties(res2.properties);
   };
   const getData = async (page_num: number) => {
     clearSuggestions();
@@ -262,7 +273,8 @@ export default function Filters() {
 
     setMapProperties(res.properties);
 
-    // use also no pages later for google map
+    // use also no pages later for google map 
+    query += "&save=true";
     const res2: response = await fetch(
       `/api/search?${query}&page=${page_num}`,
       { cache: "no-store" }
@@ -399,12 +411,16 @@ export default function Filters() {
       let propertySubType = (searchParams.get("PropertySubType"))?.split(",");
       let bedroomsTotal = searchParams.get("BedroomsTotal");
       let bathroomsTotal = searchParams.get("BathroomsTotal");
+      let listPriceFrom = searchParams.get("ListPriceFrom");
+      let listPriceTo = searchParams.get("ListPriceTo");
       // console.log(BedroomsTotal);
       let obj : any = {};
       propertyType && (obj.PropertyType = propertyType.toString());
       propertySubType && (obj.PropertySubType = propertySubType);
       bedroomsTotal && (obj.BedroomsTotal = bedroomsTotal);
       bathroomsTotal && (obj.BathroomsTotal = bathroomsTotal);
+      listPriceFrom && (obj.ListPriceFrom = listPriceFrom);
+      listPriceTo && (obj.ListPriceTo = listPriceTo);
 
       if(typeof propertyType != 'undefined' && propertyType.length){
         setFilter((prevState: any)=>{
@@ -414,7 +430,7 @@ export default function Filters() {
           }
         });
         setSearchInput(near);
-        getDataFromHome(page,near,obj);
+        getDataFromHome(page,near,obj,false);
       }
       else {
         propertyType = ["Residential Lease","Residential,Residential Income"];
@@ -425,7 +441,7 @@ export default function Filters() {
           }
         });
         setSearchInput(near);
-        getDataFromHome(page,near,propertyType);
+        getDataFromHome(page,near,propertyType,true);
       }
      
       // getData(page);
