@@ -1,5 +1,5 @@
 "use client";
-import { Spinner } from "../../app/client-react-boostrap";
+import { Spinner } from "../../../app/client-react-boostrap";
 
 export default function Loading() {
   return (

@@ -2,7 +2,7 @@
 import {useQuery} from "react-query";
 import { useAtom,atom } from "jotai";
 import { Property } from "../definitions/Property";
-import PropertySearchTile from "../PropertySearchTile/PropertySearchTile";
+import PropertySearchTile from "../Mlspin/PropertySearchTile/PropertySearchTile";
 import styles from "./WaterFrontListings.module.scss";
 
 interface latestResponse {
@@ -15,7 +15,7 @@ const listingArr = atom<Property[]>([]);
 const WaterFrontListings = ()=>{
     const [listings,setListings] = useAtom(listingArr);
     const getListings =async ()=>{
-        const res: latestResponse = await fetch("/api/search/waterFrontListings",{
+        const res: latestResponse = await fetch("/api/search/mlspin/waterFrontListings",{
             cache: 'no-store'
         }).then((res)=>res.json());
         setListings(res.waterFrontListings);

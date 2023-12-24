@@ -169,7 +169,7 @@ export default function SinglePropertyBuy() {
     const id = pathName.split("/search/")[1];
     // const {id} = params.get("");
     const data: { property: PropertyDetails; message: string } = await fetch(
-      `/api/search/${id}`,
+      `/api/search/mlspin/${id}`,
       { cache: "no-store" }
     ).then((res) => res.json());
     setState((prevState: any) => ({

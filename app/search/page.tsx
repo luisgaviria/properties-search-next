@@ -1,4 +1,4 @@
-import Filters from "@/components/Filters/Filters";
+import Filters from "@/components/Mlspin/Filters/Filters";
 import { Suspense } from "react";
 import Loading from "../loading";
 

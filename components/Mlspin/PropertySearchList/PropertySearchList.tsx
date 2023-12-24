@@ -1,6 +1,6 @@
 import styles from "./PropertySearchList.module.scss";
 import PropertySearchTile from "../PropertySearchTile/PropertySearchTile";
-import { Property } from "../definitions/Property";
+import { Property } from "../../definitions/Property";
 import { Suspense } from "react";
 import Loading from "./loading";
 

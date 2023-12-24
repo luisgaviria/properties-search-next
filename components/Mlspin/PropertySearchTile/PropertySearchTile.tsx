@@ -46,7 +46,6 @@ export default function PropertySearchTile({ data,onClick }: any) {
   return (
     <div
     onClick={onClick}
-
     >
       <div className={styles[`properties_grid_element_buy`]}>
         <Carousel

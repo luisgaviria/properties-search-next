@@ -10,7 +10,7 @@ import { Suspense, useEffect } from "react";
 import Image from "@/node_modules/next/image";
 import { Form, Pagination } from "@/app/client-react-boostrap";
 import styles from "./Filters.module.scss";
-import cities from "../../data/massachusetsCities.json";
+import cities from "../../../data/massachusetsCities.json";
 import { ChangeEvent } from "react";
 // import PropertySearchTile from "../PropertySearchTile/PropertySearchTile";
 
@@ -19,20 +19,20 @@ import Map from "@/components/Map/Map";
 import PropertySearchTile from "../PropertySearchTile/PropertySearchTile";
 
 import "rc-slider/assets/index.css";
-import { Property } from "../definitions/Property";
+import { Property } from "../../definitions/Property";
 import {
   response,
   mapResponse,
   FormVisibleState,
   FilterState,
   strOrNumber,
-} from "../definitions/Filters";
+} from "../../definitions/Filters";
 
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
-import SearchButton from "../SearchButton/SearchButton";
+import SearchButton from "../../SearchButton/SearchButton";
 
 import { createPagination } from "@/utils/createPagination";
 import PropertySearchList from "../PropertySearchList/PropertySearchList";
@@ -113,9 +113,9 @@ export default function Filters() {
     }
     query+=`&PropertyType=Residential,Residential Income`;
 
-    // const res = await fetch('/api/search/');
+    // const res = await fetch('/api/search/mlspin/');
 
-    const res: mapResponse = await fetch(`/api/search/map?${query}`, {
+    const res: mapResponse = await fetch(`/api/search/mlspin/map?${query}`, {
       cache: "no-store",
     }).then((res) => res.json());
 
@@ -125,7 +125,7 @@ export default function Filters() {
 
     // use also no pages later for google map
     query+="&save=true";
-    const res2: response = await fetch(`/api/search?${query}&page=1`, {
+    const res2: response = await fetch(`/api/search/mlspin?${query}&page=1`, {
       cache: "no-store",
     }).then((res) => res.json());
 
@@ -162,7 +162,7 @@ export default function Filters() {
      
      // here connect bathrooms bedrooms and so on from prisma database
 
-    const res: mapResponse = await fetch(`/api/search/map?${query}`, {
+    const res: mapResponse = await fetch(`/api/search/mlspin/map?${query}`, {
       cache: "no-store",
     }).then((res) => res.json());
 
@@ -173,7 +173,7 @@ export default function Filters() {
     // use also no pages later for google map
     if(save == true){ 
       const res2: response = await fetch(
-        `/api/search?save=true${query}&page=${page_num}`,
+        `/api/search/mlspin?save=true${query}&page=${page_num}`,
         { cache: "no-store" }
       ).then((res) => res.json());
       setValue(input);
@@ -183,7 +183,7 @@ export default function Filters() {
     }
     else {
       const res2: response = await fetch(
-        `/api/search?${query}&page=${page_num}`,
+        `/api/search/mlspin?${query}&page=${page_num}`,
         { cache: "no-store" }
       ).then((res) => res.json());
       setValue(input);
@@ -263,9 +263,9 @@ export default function Filters() {
       query += `&radius=${radiusVal}`;
     }
 
-    // const res = await fetch('/api/search/');
+    // const res = await fetch('/api/search/mlspin/');
 
-    const res: mapResponse = await fetch(`/api/search/map?${query}`, {
+    const res: mapResponse = await fetch(`/api/search/mlspin/map?${query}`, {
       cache: "no-store",
     }).then((res) => res.json());
 
@@ -276,7 +276,7 @@ export default function Filters() {
     // use also no pages later for google map 
     query += "&save=true";
     const res2: response = await fetch(
-      `/api/search?${query}&page=${page_num}`,
+      `/api/search/mlspin?${query}&page=${page_num}`,
       { cache: "no-store" }
     ).then((res) => res.json());
 
@@ -353,7 +353,7 @@ export default function Filters() {
         }
       });
       const res: mapResponse = await fetch(
-        `/api/search/map?${query}&Lat=${center.lat}&Lng=${center.lng}`
+        `/api/search/mlspin/map?${query}&Lat=${center.lat}&Lng=${center.lng}`
       ).then((res) => res.json());
       return res.properties;
     } catch (err) {
