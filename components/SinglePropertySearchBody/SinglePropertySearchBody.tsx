@@ -24,6 +24,10 @@ const Marker = ({ text }: { text: string; lat: number; lng: number }) => (
   <MdHouse size={25} />
 );
 
+const zillowIdsAtom = atom<string[]>([]);
+ 
+zillowIdsAtom.debugLabel = "Zillow ID Data"
+
 const stateAtom = atom({
   Media: [] as any,
   LivingArea: "",
@@ -156,6 +160,7 @@ const options = {
 
 export default function SinglePropertyBuy() {
   const pathName = usePathname();
+  const [zillowIds, setZillowIds] = useAtom(zillowIdsAtom);
   const [state, setState] = useAtom(stateAtom);
   const data = useQuery({
     queryKey: ["getPropertyData"],
@@ -168,10 +173,11 @@ export default function SinglePropertyBuy() {
     // get Property Id from url
     const id = pathName.split("/search/")[1];
     // const {id} = params.get("");
-    const data: { property: PropertyDetails; message: string } = await fetch(
+    const data: { property: PropertyDetails;zillowData: string[]; message: string } = await fetch(
       `/api/search/mlspin/${id}`,
       { cache: "no-store" }
-    ).then((res) => res.json());
+    ).then((res) => res.json()); 
+    setZillowIds(data.zillowData);
     setState((prevState: any) => ({
       ...prevState,
       ...data.property,
@@ -900,6 +906,11 @@ export default function SinglePropertyBuy() {
       <Link href="/search" className={styles["btn-cta"]}>
             <span>GO BACK</span>
       </Link>
+      {zillowIds?.map((zillowId: number)=>{
+          return (<h6 onClick={()=>{
+            // redirect
+          }}>{zillowId}</h6>)
+      })}
 
           {/* <Button onClick={handleGoBack}>Go back</Button> */}
         </div>

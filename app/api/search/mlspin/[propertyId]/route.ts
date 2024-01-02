@@ -422,8 +422,22 @@ export async function GET(
             `https://api.bridgedataoutput.com/api/v2/mlspin/listings/${propertyId}?access_token=${process.env.API_ACCESS_TOKEN}`
         );
         
+        console.log(response.data.bundle.UnitNumber);
+        const streetName = response.data.bundle.StreetName?.split(" ")[0];
+        
+        const responseZillow = await axios.get(
+            `https://api.bridgedataoutput.com/api/v2/pub/parcels?access_token=${process.env.API_ACCESS_TOKEN}&limit=10&near=${response.data.bundle.Longitude+","+response.data.bundle.Latitude}&address.house=${response.data.bundle.StreetNumber}&address.unit=${response.data.bundle.UnitNumber}&address.full.in=${streetName}&fields=id`        
+        );
+         
+        console.log(responseZillow.data.bundle); 
+        const zillowIds = []; 
+        for (const singleZillowRecord of responseZillow.data.bundle){ 
+            zillowIds.push(singleZillowRecord.id);
+        } 
+
         return NextResponse.json({ 
-            property: response.data.bundle,
+            property: response.data.bundle, 
+            zillowData:  zillowIds,
             message: "Succesfully fetched single property"
         });
 }
