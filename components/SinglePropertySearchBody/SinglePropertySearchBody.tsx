@@ -907,9 +907,12 @@ export default function SinglePropertyBuy() {
             <span>GO BACK</span>
       </Link>
       {zillowIds?.map((zillowId: number)=>{
-          return (<h6 onClick={()=>{
-            // redirect
-          }}>{zillowId}</h6>)
+          return (
+          <div>
+            <Link href={`/zillow/${zillowId}`}>
+              <span>{zillowId}</span>
+            </Link>
+          </div>)
       })}
 
           {/* <Button onClick={handleGoBack}>Go back</Button> */}
