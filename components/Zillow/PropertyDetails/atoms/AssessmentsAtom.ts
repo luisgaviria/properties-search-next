@@ -62,14 +62,14 @@ interface Address {
 
 
 
-interface Area {
+export interface Area {
     areaSquareFeet: number;
     type:           string;
 }
 
 
 
-interface Building {
+export interface Building {
     airConditioning:    string;
     foundation:         string;
     architecturalStyle: string;
@@ -98,7 +98,7 @@ interface Building {
 }
 
 
-interface Garage {
+export interface Garage {
     carCount:       number;
     areaSquareFeet: string;
     type:           string;
@@ -106,7 +106,7 @@ interface Garage {
 
 
 
-interface Legal {
+export interface Legal {
     phase:           string|null;
     tract:           string|null;
     city:            string|null;
@@ -122,6 +122,6 @@ interface Legal {
     township:        string;
 }
 
-export const AssessmentsAtom = atom<Assessment[]>([]);
+export const AssessmentsAtom = atom<AssessmentInt[]>([]);
 
 AssessmentsAtom.debugLabel = "Assessments Data";

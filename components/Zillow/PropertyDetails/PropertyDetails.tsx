@@ -6,7 +6,8 @@ import { usePathname } from "next/navigation";
 import { OverallInt } from "./atoms/OverallAtom";
 import { TransactionsAtom,TransactionInt } from "./atoms/TransactionsAtom";
 import { AssessmentsAtom,AssessmentInt } from "./atoms/AssessmentsAtom";
-import Overall from "./Overall/Overall"; 
+import Overall from "./Overall/Overall";  
+import Assessments from "./Assessments/Assessments";
 
 export default function PropertyDetails() {
     const pathName = usePathname();
@@ -29,6 +30,7 @@ export default function PropertyDetails() {
     return (
         <div>
             <Overall overall={overallData}/>
+            <Assessments assessments={assessmentsData}/>
         </div>
     );
 };

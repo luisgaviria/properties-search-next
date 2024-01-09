@@ -48,12 +48,12 @@ interface Address {
     full:         string;
 }
 
-interface Area {
+export interface Area {
     areaSquareFeet: number;
     type:           string;
 }
 
-interface Building {
+export interface Building {
     airConditioning:    string;
     foundation:         string;
     architecturalStyle: string;
@@ -81,13 +81,13 @@ interface Building {
     fullBaths:          number;
 }
 
-interface Garage {
+export interface Garage {
     carCount:       number;
     areaSquareFeet: string;
     type:           string;
 }
 
-interface Legal {
+export interface Legal {
     phase:           string;
     tract:           string;
     city:            string;
