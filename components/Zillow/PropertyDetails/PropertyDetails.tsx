@@ -8,6 +8,7 @@ import { TransactionsAtom,TransactionInt } from "./atoms/TransactionsAtom";
 import { AssessmentsAtom,AssessmentInt } from "./atoms/AssessmentsAtom";
 import Overall from "./Overall/Overall";  
 import Assessments from "./Assessments/Assessments";
+import Transactions from "./Transactions/Transactions";
 
 export default function PropertyDetails() {
     const pathName = usePathname();
@@ -31,6 +32,7 @@ export default function PropertyDetails() {
         <div>
             <Overall overall={overallData}/>
             <Assessments assessments={assessmentsData}/>
+            <Transactions transactions={transactionsData}/> 
         </div>
     );
 };

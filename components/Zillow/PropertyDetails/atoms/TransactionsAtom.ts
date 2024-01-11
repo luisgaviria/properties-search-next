@@ -58,7 +58,7 @@ export interface TransactionInt {
     url:                            string;
 }
 
-interface Parcel {
+export interface Parcel {
     zip:          string;
     city:         string;
     coordinates:  number[];
@@ -79,6 +79,6 @@ interface Parcel {
 }  
  
 
-export const TransactionsAtom = atom<Transaction[]>([]);
+export const TransactionsAtom = atom<TransactionInt[]>([]);
 
 TransactionsAtom.debugLabel = "Transactions Data";

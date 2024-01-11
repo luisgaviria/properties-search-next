@@ -25,7 +25,10 @@ export default function Overall({overall}:{overall: OverallInt}){
                         trs.push(
                             <tr>
                                 <td>{key.toString()}</td>
-                                <td>{JSON.stringify(overall.legal).replaceAll('{',"").replaceAll("}","").replaceAll('"',"").replaceAll(","," ")}</td>
+                                {Object.keys(overall.legal).map((key: string)=> { 
+                                    return (<td colSpan="100%">{key}:{overall.legal[key as keyof Legal]}</td>);
+                                })}
+                                {/* <td>{JSON.stringify(overall.legal).replaceAll('{',"").replaceAll("}","").replaceAll('"',"").replaceAll(","," ")}</td> */}
                             </tr>
                         );
                         console.log(overall.legal);
@@ -35,24 +38,31 @@ export default function Overall({overall}:{overall: OverallInt}){
                         trs.push(
                             <tr>
                                 <td>{key.toString()}</td>
-                                <td>{JSON.stringify(overall.pools)}</td>
+                                <td colSpan={"100%"}>{JSON.stringify(overall.pools)}</td>
                             </tr>
                         );
                         break;
                     }
-                    case 'areas':{  
-                        trs.push(
-                            <tr>
-                                <td>areas</td>
-                                <td>
-                                {overall.areas.map((area: Area)=>{ 
-                                    return (
-                                    <> Area Square Feet: {area.areaSquareFeet} Type: {area.type} |</>
-                                    );
-                                })}
-                                </td>
-                            </tr>
-                        ); 
+                    case 'areas':{   
+                        overall.areas.map((area: Area,index: number)=>{
+                            trs.push(
+                                <tr>
+                                    <td>area {index+1}</td>
+                                    <td colSpan={4}>Area Square Feet: {area.areaSquareFeet}</td>
+                                    <td colSpan={5}>Type: {area.type}</td>
+                                </tr>
+                            )
+                        });
+                        // trs.push(
+                        //     <tr>
+                        //         <td>areas</td>
+                        //         {overall.areas.map((area: Area)=>{ 
+                        //             return (
+                        //             <td> Area Square Feet: {area.areaSquareFeet} Type: {area.type} |</td>
+                        //             );
+                        //         })}
+                        //     </tr>
+                        // ); 
                         break;
                     }
                     case 'building': {
@@ -63,27 +73,35 @@ export default function Overall({overall}:{overall: OverallInt}){
                                 }
                             });
                         });
-                        trs.push(
-                            <tr>
-                                <td>buildings</td>
-                                <td>{overall.building.map(building=>{
-                                    return (
-                                        <>{JSON.stringify(building).replaceAll('{',"").replaceAll("}","").replaceAll('"',"").replaceAll(","," ")} |</>
-                                    );
-                                })}</td>
-                            </tr>
-                        );
+                        overall.building.map((building: Building,index: number)=>{
+                            trs.push(
+                                <tr>
+                                    <td>building {index+1}</td>
+                                    {Object.keys(building).map((key: string)=> { 
+                                    return (<td>{key}:{building[key as keyof Building]}</td>);
+                                })}
+                                </tr>
+                            ); 
+                        });
+                        // trs.push(
+                        //     <tr>
+                        //         <td>building {1}</td>
+                        //         {overall.building.map(building=>{
+                        //             return (
+                        //                 <>{JSON.stringify(building).replaceAll('{',"").replaceAll("}","").replaceAll('"',"").replaceAll(","," ")} |</>
+                        //             );
+                        //         })}
+                        //     </tr>
+                        // );
                         break;
                     }
                     case 'ownerName':{
                         trs.push(
                             <tr>
                                 <td>owner names</td>
-                                <td>
                                     {overall.ownerName.map(ownerName=>{
-                                        return ownerName+",";
+                                        return (<td>{ownerName}</td>);
                                     })}
-                                </td>
                             </tr>
                         );
                         break;
@@ -117,7 +135,7 @@ export default function Overall({overall}:{overall: OverallInt}){
                     trs.push(
                         <tr>
                             <td>{key.toString()}</td>
-                            <td>{overall[key as keyof OverallInt]?.toString()}</td>
+                            <td colSpan={"100%"}>{overall[key as keyof OverallInt]?.toString()}</td>
                         </tr>
                     );
                 }
@@ -129,7 +147,7 @@ export default function Overall({overall}:{overall: OverallInt}){
     return(
         <div>
             <h1>Overall data</h1>
-            <Table bordered hover responsive>
+            <Table striped bordered hover responsive="sm">
                 <tbody>
                     {returnTable()}
                 </tbody>
