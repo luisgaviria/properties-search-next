@@ -12,7 +12,7 @@ export default function Overall({overall}:{overall: OverallInt}){
                         trs.push(
                         <tr>
                             <td>{key.toString()}</td>
-                            <td>{overall.address.full}</td>
+                            <td colSpan={100}>{overall.address.full}</td>
                         </tr>);
                         break;
                     }
@@ -22,26 +22,52 @@ export default function Overall({overall}:{overall: OverallInt}){
                                 delete overall.legal[key as keyof Legal];
                             }
                         }); 
-                        trs.push(
+                        const keys = Object.keys(overall.legal);
+                        if(keys.length == 1){ 
+                            trs.push(
                             <tr>
                                 <td>{key.toString()}</td>
-                                {Object.keys(overall.legal).map((key: string)=> { 
-                                    return (<td colSpan="100%">{key}:{overall.legal[key as keyof Legal]}</td>);
+                                {keys.map((key:string)=>{
+                                    return (
+                                        <td colSpan={100}>
+                                            {key}:{overall.legal[key as keyof Legal]}
+                                        </td>
+                                    )
                                 })}
-                                {/* <td>{JSON.stringify(overall.legal).replaceAll('{',"").replaceAll("}","").replaceAll('"',"").replaceAll(","," ")}</td> */}
-                            </tr>
-                        );
-                        console.log(overall.legal);
+                            </tr>);
+                        }
+                        else {
+                            trs.push(
+                                <tr>
+                                    <td>{key.toString()}</td>
+                                    {keys.map((key: string)=> { 
+                                        return (<td>{key}:{overall.legal[key as keyof Legal]}</td>);
+                                    })}
+                                    {/* <td>{JSON.stringify(overall.legal).replaceAll('{',"").replaceAll("}","").replaceAll('"',"").replaceAll(","," ")}</td> */}
+                                </tr>
+                            );
+                        }
+
                         break;
                     }
                     case 'pools': { 
-                        trs.push(
-                            <tr>
-                                <td>{key.toString()}</td>
-                                <td colSpan={"100%"}>{JSON.stringify(overall.pools)}</td>
-                            </tr>
-                        );
-                        break;
+                         if(overall.pools.length){
+                            trs.push(
+                                <tr>
+                                    <td>{key.toString()}</td>
+                                    <td>{JSON.stringify(overall.pools)}</td>
+                                </tr>
+                            );
+                         }
+                         else{ 
+                            trs.push(
+                                <tr>
+                                    <td>{key.toString()}</td>
+                                    <td colSpan={100}>no pools</td>
+                                </tr>
+                            );
+                         }
+                         break;
                     }
                     case 'areas':{   
                         overall.areas.map((area: Area,index: number)=>{
@@ -49,7 +75,7 @@ export default function Overall({overall}:{overall: OverallInt}){
                                 <tr>
                                     <td>area {index+1}</td>
                                     <td colSpan={4}>Area Square Feet: {area.areaSquareFeet}</td>
-                                    <td colSpan={5}>Type: {area.type}</td>
+                                    <td colSpan={100}>Type: {area.type}</td>
                                 </tr>
                             )
                         });
@@ -96,14 +122,26 @@ export default function Overall({overall}:{overall: OverallInt}){
                         break;
                     }
                     case 'ownerName':{
-                        trs.push(
-                            <tr>
-                                <td>owner names</td>
+                        if(overall.ownerName.length == 1 || !overall.ownerName.length) {
+                            trs.push(
+                                <tr>
+                                    <td>owner names</td>
                                     {overall.ownerName.map(ownerName=>{
-                                        return (<td>{ownerName}</td>);
+                                        return (<td colSpan={100}>{ownerName}</td>);
                                     })}
-                            </tr>
-                        );
+                                </tr>
+                            );
+                        }
+                        else {
+                            trs.push(
+                                <tr>
+                                    <td>owner names</td>
+                                        {overall.ownerName.map(ownerName=>{
+                                            return (<td>{ownerName}</td>);
+                                        })}
+                                </tr>
+                            );
+                        }
                         break;
                     }
                     case 'garages':{
@@ -114,16 +152,30 @@ export default function Overall({overall}:{overall: OverallInt}){
                                 }
                             });
                         });
-                        trs.push(
+                         
+                        overall.garages.map((garage,index)=>{
+                            const keys = Object.keys(garage);
+
+                            trs.push(
                             <tr>
-                                <td>garages</td>
-                                <td>{overall.garages.map(garage=>{
-                                    return (
-                                        <>{JSON.stringify(garage).replaceAll('{',"").replaceAll("}","").replaceAll('"',"").replaceAll(","," ")} |</>
-                                    );
-                                })}</td>
+                                <td>garage {index+1}</td>
+                                {keys.map((key,index)=>{
+                                    if(index ==0){
+                                        return (
+                                            <td colSpan={4}>{key}: {garage[key as keyof Garage]}</td>
+                                        )
+                                    }
+                                    else{
+                                        return (
+                                            <td colSpan={100}>{key}: {garage[key as keyof Garage]}</td>
+                                        )
+                                    }
+
+                                })}
                             </tr>
-                        );
+                            );
+                        });
+
                         break;
                     };
                 }
@@ -135,7 +187,7 @@ export default function Overall({overall}:{overall: OverallInt}){
                     trs.push(
                         <tr>
                             <td>{key.toString()}</td>
-                            <td colSpan={"100%"}>{overall[key as keyof OverallInt]?.toString()}</td>
+                            <td colSpan={100}>{overall[key as keyof OverallInt]?.toString()}</td>
                         </tr>
                     );
                 }

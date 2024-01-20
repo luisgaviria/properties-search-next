@@ -2,14 +2,9 @@ import { TransactionInt,Parcel } from "../atoms/TransactionsAtom";
 import Table from "react-bootstrap/Table";
 
 export default function Transactions({transactions}:{transactions: TransactionInt[]}){
-    const returnTable= (transaction: TransactionInt, index:number)=>{
+    const returnTable= (transaction: TransactionInt)=>{
         const keys = Object.keys(transaction);
         const trs = [];
-        trs.push(
-            <tr>
-                <td>Transaction number: {index+1}</td>
-            </tr>
-        );
         for(const key of keys){
             if(typeof transaction[key as keyof TransactionInt] === 'object'){
                 switch(key){ 
@@ -21,29 +16,45 @@ export default function Transactions({transactions}:{transactions: TransactionIn
                                 }
                             });
                         });
-                        trs.push(
-                            <tr>
-                                <td>parcels</td>
-                                <td>{transaction.parcels.map(parcel=>{
-                                    return (
-                                        <>{JSON.stringify(parcel).replaceAll('{',"").replaceAll('}',"").replaceAll('"',"").replaceAll(","," ")}</>
-                                    )
-                                })}</td>
-                            </tr>
-                        )
+                        for(let i=0; i<transaction.parcels.length; i++){
+                            const parcel = transaction.parcels[i];
+                            const keys = Object.keys(parcel);
+                            trs.push(
+                                <tr>
+                                    <td>
+                                        parcel {i+1}
+                                    </td>
+                                    {keys.map(key=>{
+                                        return (
+                                            <td>{key}: {parcel[key as keyof Parcel]}</td>
+                                        );
+                                    })}
+                                </tr>
+                            );
+                        }
                         break; 
                     }
                     case 'lenderName':{
-                        trs.push(
-                            <tr>
-                                <td>lender names</td>
-                                <td>
-                                    {transaction.lenderName?.map(lenderName=>{
-                                        return lenderName+",";
+                        if(transaction.lenderName?.length == 1  || !transaction.lenderName?.length){
+                            trs.push(
+                                <tr>
+                                    <td>lender names</td>
+                                    {transaction.lenderName?.map(lenderNameSingle=>{
+                                        return (<td colSpan={100}>{lenderNameSingle}</td>);
                                     })}
-                                </td>
-                            </tr>
-                        )
+                                </tr>
+                            );
+                        }
+                        else {
+                            trs.push(
+                                <tr>
+                                    <td>lender names</td>
+                                    {transaction.lenderName?.map(lenderNameSingle=>{
+                                        return (<td>{lenderNameSingle}</td>);
+                                    })}
+                                </tr>
+                            );
+                        }
                         break;
                     }
                 }
@@ -53,7 +64,7 @@ export default function Transactions({transactions}:{transactions: TransactionIn
                     trs.push(
                         <tr>
                             <td>{key.toString()}</td>
-                            <td>{transaction[key as keyof TransactionInt]?.toString()}</td>
+                            <td colSpan={100}>{transaction[key as keyof TransactionInt]?.toString()}</td>
                         </tr>
                     )
                 }
@@ -65,13 +76,19 @@ export default function Transactions({transactions}:{transactions: TransactionIn
     return (
         <div>
             <h1>Transactions data</h1>
-            <Table>
-                <tbody>
-                    {transactions.map((transaction,index)=>{
-                        return returnTable(transaction,index);
-                    })}
-                </tbody>
-            </Table>  
+            {transactions.map((transaction,index)=>{
+                return (
+                    <>
+                        <h2>Transaction Number: {index+1}</h2>
+                        <Table striped bordered hover responsive="sm">
+                            <tbody>
+                                {returnTable(transaction)}
+                            </tbody>
+                        </Table>
+                    </>
+                ); 
+            })}
+  
         </div>
     )
 };

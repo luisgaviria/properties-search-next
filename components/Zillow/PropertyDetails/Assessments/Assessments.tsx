@@ -2,12 +2,9 @@ import { AssessmentInt,Legal,Building,Area,Garage } from "../atoms/AssessmentsAt
 import Table from "react-bootstrap/Table";
 
 export default function Assessments({assessments}: {assessments: AssessmentInt[]}){
-    const returnTable = (assessment: AssessmentInt,index: number) => {
+    const returnTable = (assessment: AssessmentInt) => {
         const keys = Object.keys(assessment);
         const trs = [];
-        trs.push(<tr>
-            <td>Assessment number: {index+1}</td>
-        </tr>);
         for(const key of keys){
             if(typeof assessment[key as keyof AssessmentInt] === 'object'){
                 switch(key){
@@ -15,7 +12,7 @@ export default function Assessments({assessments}: {assessments: AssessmentInt[]
                         trs.push(
                         <tr>
                             <td>{key.toString()}</td>
-                            <td>{assessment.address.full}</td>
+                            <td colSpan={100}>{assessment.address.full}</td>
                         </tr>);
                         break;
                     }
@@ -25,37 +22,73 @@ export default function Assessments({assessments}: {assessments: AssessmentInt[]
                                 delete assessment.legal[key as keyof Legal];
                             }
                         }); 
-                        trs.push(
+                        const keys = Object.keys(assessment.legal);
+                        if(keys.length == 1){ 
+                            trs.push(
                             <tr>
                                 <td>{key.toString()}</td>
-                                <td>{JSON.stringify(assessment.legal).replaceAll('{',"").replaceAll("}","").replaceAll('"',"").replaceAll(","," ")}</td>
-                            </tr>
-                        );
-                        console.log(assessment.legal);
+                                {keys.map((key:string)=>{
+                                    return (
+                                        <td colSpan={100}>
+                                            {key}:{assessment.legal[key as keyof Legal]}
+                                        </td>
+                                    )
+                                })}
+                            </tr>);
+                        }
+                        else {
+                            trs.push(
+                                <tr>
+                                    <td>{key.toString()}</td>
+                                    {keys.map((key: string)=> { 
+                                        return (<td>{key}:{assessment.legal[key as keyof Legal]}</td>);
+                                    })}
+                                    {/* <td>{JSON.stringify(assessment.legal).replaceAll('{',"").replaceAll("}","").replaceAll('"',"").replaceAll(","," ")}</td> */}
+                                </tr>
+                            );
+                        }
+
                         break;
                     }
                     case 'pools': { 
-                        trs.push(
-                            <tr>
-                                <td>{key.toString()}</td>
-                                <td>{JSON.stringify(assessment.pools)}</td>
-                            </tr>
-                        );
-                        break;
+                         if(assessment.pools.length){
+                            trs.push(
+                                <tr>
+                                    <td>{key.toString()}</td>
+                                    <td>{JSON.stringify(assessment.pools)}</td>
+                                </tr>
+                            );
+                         }
+                         else{ 
+                            trs.push(
+                                <tr>
+                                    <td>{key.toString()}</td>
+                                    <td colSpan={100}>no pools</td>
+                                </tr>
+                            );
+                         }
+                         break;
                     }
-                    case 'areas':{  
-                        trs.push(
-                            <tr>
-                                <td>areas</td>
-                                <td>
-                                {assessment.areas.map((area: Area)=>{ 
-                                    return (
-                                    <> Area Square Feet: {area.areaSquareFeet} Type: {area.type} |</>
-                                    );
-                                })}
-                                </td>
-                            </tr>
-                        ); 
+                    case 'areas':{   
+                        assessment.areas.map((area: Area,index: number)=>{
+                            trs.push(
+                                <tr>
+                                    <td>area {index+1}</td>
+                                    <td colSpan={4}>Area Square Feet: {area.areaSquareFeet}</td>
+                                    <td colSpan={100}>Type: {area.type}</td>
+                                </tr>
+                            )
+                        });
+                        // trs.push(
+                        //     <tr>
+                        //         <td>areas</td>
+                        //         {assessment.areas.map((area: Area)=>{ 
+                        //             return (
+                        //             <td> Area Square Feet: {area.areaSquareFeet} Type: {area.type} |</td>
+                        //             );
+                        //         })}
+                        //     </tr>
+                        // ); 
                         break;
                     }
                     case 'building': {
@@ -66,29 +99,49 @@ export default function Assessments({assessments}: {assessments: AssessmentInt[]
                                 }
                             });
                         });
-                        trs.push(
-                            <tr>
-                                <td>buildings</td>
-                                <td>{assessment.building.map(building=>{
-                                    return (
-                                        <>{JSON.stringify(building).replaceAll('{',"").replaceAll("}","").replaceAll('"',"").replaceAll(","," ")} |</>
-                                    );
-                                })}</td>
-                            </tr>
-                        );
+                        assessment.building.map((building: Building,index: number)=>{
+                            trs.push(
+                                <tr>
+                                    <td>building {index+1}</td>
+                                    {Object.keys(building).map((key: string)=> { 
+                                    return (<td>{key}:{building[key as keyof Building]}</td>);
+                                })}
+                                </tr>
+                            ); 
+                        });
+                        // trs.push(
+                        //     <tr>
+                        //         <td>building {1}</td>
+                        //         {assessment.building.map(building=>{
+                        //             return (
+                        //                 <>{JSON.stringify(building).replaceAll('{',"").replaceAll("}","").replaceAll('"',"").replaceAll(","," ")} |</>
+                        //             );
+                        //         })}
+                        //     </tr>
+                        // );
                         break;
                     }
                     case 'ownerName':{
-                        trs.push(
-                            <tr>
-                                <td>owner names</td>
-                                <td>
+                        if(assessment.ownerName.length == 1 || !assessment.ownerName.length) {
+                            trs.push(
+                                <tr>
+                                    <td>owner names</td>
                                     {assessment.ownerName.map(ownerName=>{
-                                        return ownerName+",";
+                                        return (<td colSpan={100}>{ownerName}</td>);
                                     })}
-                                </td>
-                            </tr>
-                        );
+                                </tr>
+                            );
+                        }
+                        else {
+                            trs.push(
+                                <tr>
+                                    <td>owner names</td>
+                                        {assessment.ownerName.map(ownerName=>{
+                                            return (<td>{ownerName}</td>);
+                                        })}
+                                </tr>
+                            );
+                        }
                         break;
                     }
                     case 'garages':{
@@ -99,16 +152,30 @@ export default function Assessments({assessments}: {assessments: AssessmentInt[]
                                 }
                             });
                         });
-                        trs.push(
+                         
+                        assessment.garages.map((garage,index)=>{
+                            const keys = Object.keys(garage);
+
+                            trs.push(
                             <tr>
-                                <td>garages</td>
-                                <td>{assessment.garages.map(garage=>{
-                                    return (
-                                        <>{JSON.stringify(garage).replaceAll('{',"").replaceAll("}","").replaceAll('"',"").replaceAll(","," ")} |</>
-                                    );
-                                })}</td>
+                                <td>garage {index+1}</td>
+                                {keys.map((key,index)=>{
+                                    if(index ==0){
+                                        return (
+                                            <td colSpan={4}>{key}: {garage[key as keyof Garage]}</td>
+                                        )
+                                    }
+                                    else{
+                                        return (
+                                            <td colSpan={100}>{key}: {garage[key as keyof Garage]}</td>
+                                        )
+                                    }
+
+                                })}
                             </tr>
-                        );
+                            );
+                        });
+
                         break;
                     };
                 }
@@ -120,7 +187,7 @@ export default function Assessments({assessments}: {assessments: AssessmentInt[]
                     trs.push(
                         <tr>
                             <td>{key.toString()}</td>
-                            <td>{assessment[key as keyof AssessmentInt]?.toString()}</td>
+                            <td colSpan={100}>{assessment[key as keyof AssessmentInt]?.toString()}</td>
                         </tr>
                     );
                 }
@@ -133,13 +200,19 @@ export default function Assessments({assessments}: {assessments: AssessmentInt[]
     return (
         <div>
             <h1>Assessments data</h1>
-            <Table>
-                <tbody>
-                    {assessments.map((assessment,index)=>{
-                        return returnTable(assessment,index);
-                    })}
-                </tbody>
-            </Table>
+            {assessments.map((assessment,index)=>{
+                return (
+                    <>
+                        <h2>Assessment number: {index+1}</h2>
+                        <Table striped bordered hover responsive="sm">
+                            <tbody>
+                            {returnTable(assessment)}
+                            </tbody>
+                        </Table>
+                    </>
+                
+                )
+            })}
         </div>
     );
 }

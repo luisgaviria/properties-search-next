@@ -912,7 +912,7 @@ export default function SinglePropertyBuy() {
             <Link href={`/zillow/${zillowId}`}>
               <span>{zillowId}</span>
             </Link>
-          </div>)
+          </div>);
       })}
 
           {/* <Button onClick={handleGoBack}>Go back</Button> */}
