@@ -901,19 +901,39 @@ export default function SinglePropertyBuy() {
           />
         </>
       ) : null}
-      <hr />
+      {
+        zillowIds.length ==0 ?
+        (<div className={styles['zillowDataDiv']}>
+          <h2>No Zillow Public data</h2>
+        </div>)
+
+         : 
+         <>
+        <hr/>
+         <div className={styles["zillowDataDiv"]}>
+        <h2>Zillow Public Data:</h2>
+          
+          {
+         zillowIds?.map((zillowId: number)=>{
+          return (
+            <div style={{marginTop: "20px"}}>
+              <Link href={`/zillow/${zillowId}`} className={styles['btn-cta-zillow']}>
+                <span>{zillowId}</span>
+              </Link>
+            </div>
+          );
+      })
+    }
+      </div>
+      </>
+      }
         <div className={styles["single-prop-buttons"]} >
+        <hr />
+      
       <Link href="/search" className={styles["btn-cta"]}>
             <span>GO BACK</span>
       </Link>
-      {zillowIds?.map((zillowId: number)=>{
-          return (
-          <div>
-            <Link href={`/zillow/${zillowId}`}>
-              <span>{zillowId}</span>
-            </Link>
-          </div>);
-      })}
+      
 
           {/* <Button onClick={handleGoBack}>Go back</Button> */}
         </div>

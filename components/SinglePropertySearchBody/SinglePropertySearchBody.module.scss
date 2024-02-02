@@ -185,7 +185,7 @@
       -webkit-transition: all 0.3s ease-in-out;
       -o-transition: all 0.3s ease-in-out;
       transition: background-color 0.3s ease-in-out;
-      display: inline-block;
+      display: block;
       position: relative;
       border: 3px solid;
       border-radius: 50px;
@@ -202,7 +202,10 @@
       font-family: tenon, sans-serif;
       transition: box-shadow 0.3s ease-in-out;
       box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+      text-align: center;
   
+      width: 20%;
+      margin: auto;
       cursor: pointer;
   
       span {
@@ -249,12 +252,59 @@
     cursor: pointer;
   }
   
+  .btn-cta-zillow {
+    font-weight: 500;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+    display: block;
+    position: relative;
+    border: 3px solid;
+    border-radius: 50px;
+    padding: 13px 35px;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    white-space: nowrap;
+    background-color: #000;
+    border-color: #000;
+    color: #fff;
+    margin-right: 18px;
+    overflow: hidden;
+    cursor: pointer;
+    font-family: tenon, sans-serif;
+    transition: box-shadow 0.3s ease-in-out;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+
+    width: 30%;
+    margin: auto;
+    cursor: pointer;
+
+    span {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    &:hover {
+      background-color: transparent;
+      color: #000;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+  }
+
   //Removed this for map view on properties-buy
   // .carousel-item {
   //   @media (min-width: 768px) {
   //     padding-top: 3rem !important;
   //   }
   // }
+
+  .zillowDataDiv { 
+    display: block; 
+    margin: auto; 
+    width: 50%; 
+    text-align: center;
+
+  }
   
   .single-carousel.carousel.slide
     > a.carousel-control-prev

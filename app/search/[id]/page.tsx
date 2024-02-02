@@ -1,19 +1,22 @@
 import { PropertyDetails } from "@/components/definitions/PropertyDetails";
 import { formatPrice,checkNumberNine } from "@/utils/formatPrice";
 import { Metadata } from "next";
-import SinglePropertyBuy from "@/components/SinglePropertySearchBody/SinglePropertySearchBody";
-const generateTitle = (state : PropertyDetails) => {
-  const livingArea =
-    state.LivingArea !== null
-      ? state.LivingArea?.toLocaleString()
-      : null;
-
-  return `Property Listing: ${state.StreetNumber} ${state.StreetName}, ${
-    state.City
-  }, ${state.StateOrProvince} - ${formatPrice(state.ListPrice)} - ${
-    livingArea !== null ? livingArea + " sqft" : ""
-  }`;
+import SinglePropertyBuy from "@/components/SinglePropertySearchBody/SinglePropertySearchBody"; 
+const generateTitle = ()=>{
+    return "Property Details";
 };
+// const generateTitle = (state : PropertyDetails) => {
+//   const livingArea =
+//     state.LivingArea !== null
+//       ? state.LivingArea?.toLocaleString()
+//       : null;
+
+//   return `Property Listing: ${state.StreetNumber} ${state.StreetName}, ${
+//     state.City
+//   }, ${state.StateOrProvince} - ${formatPrice(state.ListPrice)} - ${
+//     livingArea !== null ? livingArea + " sqft" : ""
+//   }`;
+// };
 
 function truncateStringWithEllipsis(str: string) {
   const maxLength = 157;
