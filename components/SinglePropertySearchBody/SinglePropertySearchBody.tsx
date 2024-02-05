@@ -914,7 +914,7 @@ export default function SinglePropertyBuy() {
         <h2>Zillow Public Data:</h2>
           
           {
-         zillowIds?.map((zillowId: number)=>{
+         zillowIds?.map((zillowId: string)=>{
           return (
             <div style={{marginTop: "20px"}}>
               <Link href={`/zillow/${zillowId}`} className={styles['btn-cta-zillow']}>

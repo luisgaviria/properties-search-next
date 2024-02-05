@@ -104,7 +104,7 @@ export interface Legal {
 }
  
 
-export const OverallAtom = atom<Overall>({
+export const OverallAtom = atom<OverallInt>({
     landUseDescription: "",
     zoningDescription:  "",
     numberOfBuildings:  0,

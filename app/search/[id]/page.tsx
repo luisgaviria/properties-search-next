@@ -49,7 +49,8 @@ export async function generateMetadata({params,searchParams}:{params: any;search
 
 
     return {
-      title: generateTitle(data),
+      // title: generateTitle(data),
+      title: "Property Details",
       description: truncateStringWithEllipsis(data.PublicRemarks as string ?? ""),
       metadataBase: new URL(
         process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
@@ -65,7 +66,8 @@ export async function generateMetadata({params,searchParams}:{params: any;search
       },
       twitter: {
         card: "summary_large_image",
-        title: generateTitle(data),
+        // title: generateTitle(data),
+        title: "Property Details",
         description: truncateStringWithEllipsis(data.PublicRemarks ?? ""),
         images: [{url: filteredImageUrls[0] || ""}]
       }
