@@ -3,8 +3,7 @@ import PropertySearchTile from "../PropertySearchTile/PropertySearchTile";
 import { Suspense } from "react";
 export default function PropertySearchList({
     properties,
-    onClick
-}: {properties: any;onClick: ()=>void}) {
+}: {properties: any}) {
     return ( 
       <>
         {properties?.map((property: any,index:number)=>{ 
@@ -12,7 +11,6 @@ export default function PropertySearchList({
                 <Suspense>
                     <PropertySearchTile
                         key={property.id || index}
-                        onClick={onClick}
                         data={property}
                     />
                 </Suspense>

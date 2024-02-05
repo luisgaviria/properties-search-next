@@ -8,7 +8,6 @@ export default function PropertySearchList({
   properties,
 }: {
   properties: Property[];
-  onClick: (data: Property) => void;
 }) {
   return (
     <>
