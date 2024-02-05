@@ -6,7 +6,6 @@ import Loading from "./loading";
 
 export default function PropertySearchList({
   properties,
-  onClick,
 }: {
   properties: Property[];
   onClick: (data: Property) => void;
@@ -18,7 +17,6 @@ export default function PropertySearchList({
           <Suspense fallback={<Loading />}>
             <PropertySearchTile
               key={property.id || index}
-              onClick={() => onClick(property)}
               data={property}
             />
           </Suspense>

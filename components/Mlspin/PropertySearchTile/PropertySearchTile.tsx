@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "@/node_modules/next/link";
 import { useRouter } from "next/navigation";
 import styles from "./PropertySearchTile.module.scss";
 import { Carousel } from "react-bootstrap";
@@ -16,7 +17,7 @@ const loader = (props: {src: string}) =>{
   return `${props.src}`;
 };
 
-export default function PropertySearchTile({ data,onClick }: any) {
+export default function PropertySearchTile({ data }: any) {
   // const router = useRouter();
   // const parentClick = () =>{ 
   //   router.push("/search/"+data.ListingId);
@@ -45,7 +46,7 @@ export default function PropertySearchTile({ data,onClick }: any) {
 
   return (
     <div
-    onClick={onClick}
+    // onClick={onClick}
     >
       <div className={styles[`properties_grid_element_buy`]}>
         <Carousel
@@ -62,6 +63,7 @@ export default function PropertySearchTile({ data,onClick }: any) {
                   //   autoPlay={false}
                   className={styles["img-wrap-buytile"]}
                 >
+                  <Link href={`/search/${data.ListingId}`}>
                   {
                     <Image
                     // type="image/webp"
@@ -73,12 +75,13 @@ export default function PropertySearchTile({ data,onClick }: any) {
                     }
                     blurDataURL="blur.jpg"
                     key={index}
-                    onClick={onClick}
                     alt="property main image"
                     width={50}
                     height={50}
                   />
                   }
+                  </Link>
+
                 </Carousel.Item>
               );
             }

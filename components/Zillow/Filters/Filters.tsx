@@ -28,7 +28,7 @@ export default function Filters(){
      
     return (
         <>
-            <PropertySearchList properties={properties} onClick={()=>{}}/>
+            <PropertySearchList properties={properties}/>
             <Pagination>
                 {createPagination(pageObj.pages,pageObj.actualPage,getData)}
             </Pagination>

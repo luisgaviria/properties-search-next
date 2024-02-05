@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./PropertySearchTile.module.scss";
+import Link from "@/node_modules/next/link";
 
 const formatPrice = (price: any) => {
   return new Intl.NumberFormat("en-US", {
@@ -13,7 +14,7 @@ const loader = (props: {src: string}) =>{
   return `${props.src}`;
 };
 
-export default function PropertySearchTile({ data,onClick }: any) {
+export default function PropertySearchTile({ data }: any) {
   // const router = useRouter();
   // const parentClick = () =>{ 
   //   router.push("/search/"+data.ListingId);
@@ -42,8 +43,7 @@ export default function PropertySearchTile({ data,onClick }: any) {
 
   return (
     <div
-    onClick={onClick}
-
+    
     >
       <div className={styles[`properties_grid_element_buy`]}>
         <div style={{ cursor: "pointer" }}>
@@ -72,6 +72,8 @@ export default function PropertySearchTile({ data,onClick }: any) {
           </div>
         </div>
       </div>
+      <h1>Test</h1>
+      <Link href={`/search/${data.ListingId}`}>See Details</Link>
     </div>
   );
 }

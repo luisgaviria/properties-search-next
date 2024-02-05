@@ -285,9 +285,9 @@ export default function Filters() {
     setProperties(res2.properties);
   };
 
-  const onPropertyClick = (data: Property) => {
-    router.push("/search/" + data.ListingId);
-  };
+  // const onPropertyClick = (data: Property) => {
+  //   router.push("/search/" + data.ListingId);
+  // };
 
   const onMoveMap = async (event: { center: { lat: number; lng: number } }) => {
     const data = await getDataDynamically(event.center);
@@ -1299,7 +1299,6 @@ export default function Filters() {
             <Suspense fallback={<Loading />}>
               <PropertySearchList
                 properties={properties}
-                onClick={onPropertyClick}
               />
             </Suspense>
             {/* {properties.map((property: Property, index: number) => {
