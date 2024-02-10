@@ -43,6 +43,7 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.1",
     "@types/google.maps": "^3.54.2",
+    "css-aspect-ratio": "^1.0.5",
     "prisma": "^5.4.2",
     "sass": "^1.66.1"
   }

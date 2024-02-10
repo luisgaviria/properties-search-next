@@ -45,7 +45,7 @@ export default function PropertySearchTile({ data }: any) {
   }
 
   return (
-    <div
+    <div 
     // onClick={onClick}
     >
       <div className={styles[`properties_grid_element_buy`]}>
@@ -77,7 +77,7 @@ export default function PropertySearchTile({ data }: any) {
                     key={index}
                     alt="property main image"
                     width={50}
-                    height={50}
+                    height={300}
                   />
                   }
                   </Link>

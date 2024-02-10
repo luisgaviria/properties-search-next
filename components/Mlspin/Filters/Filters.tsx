@@ -40,7 +40,7 @@ import Loading from "./loading";
 
 const formatPrice = (price: number): string => {
   return new Intl.NumberFormat("en-US", {
-    style: "currency",
+  style: "currency",
     currency: "USD",
     minimumFractionDigits: 0,
   }).format(price);
