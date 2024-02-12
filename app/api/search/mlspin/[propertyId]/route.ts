@@ -429,14 +429,23 @@ export async function GET(
             `https://api.bridgedataoutput.com/api/v2/pub/parcels?access_token=${process.env.API_ACCESS_TOKEN}&limit=10&near=${response.data.bundle.Longitude+","+response.data.bundle.Latitude}&address.house=${response.data.bundle.StreetNumber}&address.unit=${response.data.bundle.UnitNumber}&address.full.in=${streetName}&fields=id`        
         );
          
-        console.log(responseZillow.data.bundle); 
+        const responseAgent = await axios.get(
+               `https://api.bridgedataoutput.com/api/v2/mlspin/agents/${response.data.bundle.ListAgentMlsId}?access_token=${process.env.API_ACCESS_TOKEN}`
+        );
+
+        const responseOffice = await axios.get(
+          `https://api.bridgedataoutput.com/api/v2/mlspin/offices/${response.data.bundle.ListOfficeMlsId}?access_token=${process.env.API_ACCESS_TOKEN}`   
+        );
+         
         const zillowIds = []; 
         for (const singleZillowRecord of responseZillow.data.bundle){ 
             zillowIds.push(singleZillowRecord.id);
         } 
 
         return NextResponse.json({ 
-            property: response.data.bundle, 
+            property: response.data.bundle,
+            agentName: responseAgent.data.bundle.MemberFullName,
+            officeName: responseOffice.data.bundle.OfficeName,  
             zillowData:  zillowIds,
             message: "Succesfully fetched single property"
         });

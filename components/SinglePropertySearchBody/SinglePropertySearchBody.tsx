@@ -17,7 +17,6 @@ import GoogleMapReact from "google-map-react";
 import mapStyles from "./mapStyles";
 import { LoanCalculator } from "@/components/LoanCalculator/LoanCalculator";
 import CTA from "@/components/CTA/CTA";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const Marker = ({ text }: { text: string; lat: number; lng: number }) => (
@@ -108,6 +107,8 @@ const stateAtom = atom({
     details: false,
     loan: false,
   },
+  agentName: "",
+  officeName: ""
 });
 
 stateAtom.debugLabel = "PropertyDetails";
@@ -173,7 +174,7 @@ export default function SinglePropertyBuy() {
     // get Property Id from url
     const id = pathName.split("/search/")[1];
     // const {id} = params.get("");
-    const data: { property: PropertyDetails;zillowData: string[]; message: string } = await fetch(
+    const data: { property: PropertyDetails;zillowData: string[]; message: string; agentName: string; officeName: string} = await fetch(
       `/api/search/mlspin/${id}`,
       { cache: "no-store" }
     ).then((res) => res.json()); 
@@ -181,6 +182,8 @@ export default function SinglePropertyBuy() {
     setState((prevState: any) => ({
       ...prevState,
       ...data.property,
+      agentName: data.agentName,
+      officeName: data.officeName
     }));
   };
 
@@ -873,7 +876,15 @@ export default function SinglePropertyBuy() {
           </Table>
         </div>
       ) : null}
-
+      <div className={styles['container']}>
+        <span>
+          {state?.officeName}
+        </span>
+                <br/>
+          <span>
+            {state?.agentName}
+          </span>
+      </div>
       <hr />
       <div className={styles["single-prop-map"]}>
         <GoogleMapReact

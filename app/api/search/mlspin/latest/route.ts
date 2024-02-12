@@ -56,7 +56,7 @@ export async function GET(
 ) {
   try{
     const response = await axios.get(
-      `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&StandardStatus=Active&limit=12&PropertyType.in=Residential&ListPrice.gte=400000&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,NumberOfUnitsTotal,Latitude,Longitude,ListingContractDate&sortBy=ListingContractDate&order=desc`
+      `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&StandardStatus=Active&IDXParticipationYN=true&limit=12&PropertyType.in=Residential&ListPrice.gte=400000&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,NumberOfUnitsTotal,Latitude,Longitude,ListingContractDate&sortBy=ListingContractDate&order=desc`
     );
     const listings = response.data.bundle;
     return NextResponse.json({
