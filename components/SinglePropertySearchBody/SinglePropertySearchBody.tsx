@@ -280,7 +280,7 @@ export default function SinglePropertyBuy() {
     `
           : null}
       </script>
-      <Carousel className={styles["single-carousel"]}>
+      <Carousel variant="dark" nextIcon={<Image src={"/arrow-next.svg"} alt="next arrow" width={50} height={50}/>} prevIcon={<Image src="/arrow-prev.svg" alt="previous arrow" width={50} height={50}/>} className={styles["single-carousel"]}>
         {state.Media?.map((obj: any, index: any) => {
           return (
             <Carousel.Item key={index}>
@@ -306,11 +306,13 @@ export default function SinglePropertyBuy() {
       <div className={styles["single-property-details"]}>
         <div className={styles["show-page-details-icons"]}>
           <div className={styles["icon-item"]}>
-            <MdBedroomParent size={50} />
+            {/* <MdBedroomParent size={50} /> */}
+            <Image src="/BEDROOM.webp" width={50} height={50} alt="bedroom"/>
             <span>{state.BedroomsTotal} Bedrooms</span>
           </div>
           <div className={styles["icon-item"]}>
-            <FaRestroom size={50} />
+            {/* <FaRestroom size={50} /> */}
+            <Image src="/BATHTUB.webp" width={50} height={50} alt="bathhub"/>
             <span>{state.BathroomsTotalDecimal} Bathrooms</span>
           </div>
           {state.LivingArea ? (
@@ -339,7 +341,8 @@ export default function SinglePropertyBuy() {
             
                 </div> */}
           <div className={styles["icon-item"]}>
-            <MdOutlineAttachMoney size={50} />
+            {/* <MdOutlineAttachMoney size={50} /> */}
+            <Image src="/HOMELOAN.webp" width={50} height={50} alt="homeloan"/>
             <span>{formatPrice(state.ListPrice)}</span>
           </div>
           <div className={styles["icon-item"]}>
@@ -950,6 +953,19 @@ export default function SinglePropertyBuy() {
         </div>
      
       <CTA pageName="singlePage" />
+      <p>
+      The property listing data and information, or the Images, set forth herein were
+provided to MLS Property Information Network, Inc. from third party sources,
+including sellers, lessors, landlords and public records, and were compiled by MLS
+Property Information Network, Inc. The property listing data and information, and the
+Images, are for the personal, non commercial use of consumers having a good faith interest in purchasing, leasing or renting listed properties of the type displayed to
+them and may not be used for any purpose other than to identify prospective
+properties which such consumers may have a good faith interest in purchasing,
+leasing or renting. MLS Property Information Network, Inc. and its subscribers
+disclaim any and all representations and warranties as to the accuracy of the
+property listing data and information, or as to the accuracy of any of the Images, set
+forth herein.
+      </p>
     </>
   );
 }
