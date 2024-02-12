@@ -1,15 +1,12 @@
 .properties-new-container {
-    display: grid;
-    place-items: center;
-  }
-  
+  display: grid;
+  place-items: center;
+
   .properties-grid-new-listing {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 1px;
     gap: 10px;
-    padding-left: 1rem;
-    padding-right: 1rem;
+
     max-height: 100%;
     overflow: auto;
 
@@ -34,3 +31,4 @@
       grid-template-columns: repeat(4, 1fr);
     }
   }
+}
