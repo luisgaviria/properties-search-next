@@ -18,7 +18,7 @@ export default function Home() {
         <Container>
           <ImageCards />
           <div className={styles["title-wrapper"]}>
-            <h2>Latest</h2>
+            <h2>New Listings</h2>
             <Suspense fallback={<Loading />}>
               <LatestListings />
             </Suspense>
