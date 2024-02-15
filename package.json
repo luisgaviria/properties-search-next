@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@dazlab-team/loan-calc": "^0.1.5",
     "@emotion/react": "^11.11.1",
     "@googlemaps/markerclusterer": "^2.5.0",
     "@next-auth/prisma-adapter": "^1.0.7",
@@ -29,6 +28,7 @@
     "image-conversion": "^2.1.1",
     "jotai": "^2.4.2",
     "jotai-devtools": "^0.6.2",
+    "loanjs": "^1.1.2",
     "next": "13.4.19",
     "next-auth": "^4.24.3",
     "qs": "^6.11.2",

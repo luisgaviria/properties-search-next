@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 // import { useRouter } from "next/router";
 
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 import Image from "@/node_modules/next/image";
 import { Form, Pagination } from "@/app/client-react-boostrap";
@@ -97,9 +97,13 @@ const pagesAtom = atom({
 
 pagesAtom.debugLabel = "Pages";
 
+const searchFromHomeAtom = atom(false);
+searchFromHomeAtom.debugLabel = "Search From Home";
+
 export default function Filters() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [searchFromHome,setSearchFromHome] = useAtom(searchFromHomeAtom);
   // const [searchCounter, setSearchCounter] = useState(0);
   const getDataCity = async (city: string) => {
     let query = "";
@@ -396,7 +400,7 @@ export default function Filters() {
   });
 
   useEffect(() => {
-    if (searchParams.get("near")){
+    if (searchParams.get("near") && !searchFromHome){
       console.log(searchParams.get("near"));
       const page = parseInt(searchParams.get("page") as string);
       setPageObj((prevPageObj) => {
@@ -430,6 +434,7 @@ export default function Filters() {
           }
         });
         setSearchInput(near);
+        setSearchFromHome(true);
         getDataFromHome(page,near,obj,false);
       }
       else {
@@ -441,6 +446,7 @@ export default function Filters() {
           }
         });
         setSearchInput(near);
+        setSearchFromHome(true);
         getDataFromHome(page,near,propertyType,true);
       }
      

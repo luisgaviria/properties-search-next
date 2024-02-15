@@ -1,8 +1,8 @@
 "use client"
 import { atom, useAtom } from "jotai";
 import { useEffect } from "react";
-import {Loan} from '@dazlab-team/loan-calc';
 import { Form } from "react-bootstrap";
+import {Loan} from "loanjs";
 import { formatPrice } from "@/utils/formatPrice";
 import styles from "./LoanCalculator.module.scss";
 
@@ -75,14 +75,17 @@ export const LoanCalculator = ({ initialAmount, associationFee, yearlyTaxes}:loa
         const calculateLoan = async()=>{
             if (state.amount && state.termYears && state.rate) {
                 try {
-                    let loan = new Loan();
-                    loan.amount = state.amount;
-                    loan.years = state.termYears * 12;
-                    loan.interestRate = state.rate;
+                    console.log("Amount: " + state.amount);
+                    console.log("how many instalments(in months): "+ state.termYears*12);
+                    console.log("interest rate: "+ state.rate );
+                  
+                    const loan = Loan(state.amount,(state.termYears*12),state.rate,'annuity');
+                    console.log(loan.sum)
                     setState(prevState=>{ 
                         return {
                             ...prevState,
-                            result: loan.totalCost
+                            result: loan.sum,
+                            amount: state.amount
                         }
                     });
                 } catch (err) {
@@ -179,7 +182,7 @@ export const LoanCalculator = ({ initialAmount, associationFee, yearlyTaxes}:loa
                   </tr>
                   <tr>
                     <th>Mortgage Payment:</th>
-                    <td>{formatPrice(state.result as number)}</td>
+                    <td>{formatPrice(state.result as number  - state.amount)}</td>
                     <td></td>
                   </tr>
                   {associationFee && (
@@ -198,7 +201,7 @@ export const LoanCalculator = ({ initialAmount, associationFee, yearlyTaxes}:loa
                   <tr>
                     <th>Total Monthly Payment:</th>
                     <td>
-                      {`${formatPrice(state.result as number + associationFee + yearlyTaxes)} `}
+                      {`${formatPrice((state.result as number + associationFee + yearlyTaxes)-state.amount)} `}
                     </td>
                     <td></td>
                   </tr>
