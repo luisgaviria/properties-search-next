@@ -1,42 +1,53 @@
 .loan-calculator-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 16px;
-    padding-bottom: 4rem;
-  }
-  
-  .input[type="range"].range-slider {
-    padding-bottom: 2rem !important;
-  }
-  
-  // .range-slider {
-  //   margin-top: 1rem;
-  // }
-  
-  .range-slider__thumb {
-    background: #121314 !important;
-  }
-  .calculator-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    padding: 2rem;
-  }
-  
-  .calculator-table th,
-  .calculator-table td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: left;
-  }
-  
-  .calculator-table th {
-    background-color: #f0f0f0;
-    font-weight: bold;
-  }
-  
-  .calculator-table input {
-    width: 100%;
-    padding: 5px;
-  }
-  
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+  padding-bottom: 4rem;
+}
+
+.input[type="range"].range-slider {
+  padding-bottom: 2rem !important;
+}
+
+// .range-slider {
+//   margin-top: 1rem;
+// }
+
+.range-slider__thumb {
+  background: #121314 !important;
+}
+.calculator-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  padding: 2rem;
+}
+
+.calculator-table th,
+.calculator-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.calculator-table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.calculator-table input {
+  width: 100%;
+  padding: 5px;
+}
+
+.property-detail-table-title {
+  font-size: 34px;
+  font-weight: bold;
+  padding-bottom: 2rem;
+  text-align: center;
+}
+
+.arrow-wrapper {
+  display: grid;
+  place-items: center;
+}
