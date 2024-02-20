@@ -279,6 +279,7 @@ export default function SinglePropertyBuy() {
             alt="previous arrow"
             width={50}
             height={50}
+            loading="eager"
           />
         }
         className={styles["single-carousel"]}
@@ -892,23 +893,25 @@ export default function SinglePropertyBuy() {
                 ) : null}
               </tbody>
             </Table>
-            <p>
-              The property listing data and information, or the Images, set
-              forth herein were provided to MLS Property Information Network,
-              Inc. from third party sources, including sellers, lessors,
-              landlords and public records, and were compiled by MLS Property
-              Information Network, Inc. The property listing data and
-              information, and the Images, are for the personal, non commercial
-              use of consumers having a good faith interest in purchasing,
-              leasing or renting listed properties of the type displayed to them
-              and may not be used for any purpose other than to identify
-              prospective properties which such consumers may have a good faith
-              interest in purchasing, leasing or renting. MLS Property
-              Information Network, Inc. and its subscribers disclaim any and all
-              representations and warranties as to the accuracy of the property
-              listing data and information, or as to the accuracy of any of the
-              Images, set forth herein.
-            </p>
+            <div className={styles["disclosure-wrapper"]}>
+              <p>
+                The property listing data and information, or the Images, set
+                forth herein were provided to MLS Property Information Network,
+                Inc. from third party sources, including sellers, lessors,
+                landlords and public records, and were compiled by MLS Property
+                Information Network, Inc. The property listing data and
+                information, and the Images, are for the personal, non
+                commercial use of consumers having a good faith interest in
+                purchasing, leasing or renting listed properties of the type
+                displayed to them and may not be used for any purpose other than
+                to identify prospective properties which such consumers may have
+                a good faith interest in purchasing, leasing or renting. MLS
+                Property Information Network, Inc. and its subscribers disclaim
+                any and all representations and warranties as to the accuracy of
+                the property listing data and information, or as to the accuracy
+                of any of the Images, set forth herein.
+              </p>
+            </div>
 
             <div className={styles["container"]}>
               <span>{state?.officeName}</span>

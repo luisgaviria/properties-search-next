@@ -28,6 +28,12 @@
   }
 }
 
+@media (min-width: 1200px) {
+  .single-carousel {
+    height: 840px;
+  }
+}
+
 .single-prop-map {
   height: 800px;
   width: 100%;
@@ -232,6 +238,12 @@
   }
 }
 
+.disclosure-wrapper {
+  p {
+    font-size: 12px;
+  }
+}
+
 .single-prop-buttons {
   padding-top: 2rem;
   .btn-cta {
@@ -377,8 +389,4 @@
 
 .carousel-control-next-icon {
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z' stroke='%23000' stroke-width='1.5'/%3E%3C/svg%3E") !important;
-}
-
-.carousel {
-  position: absolute;
 }
