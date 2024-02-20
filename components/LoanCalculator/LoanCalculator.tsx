@@ -80,11 +80,10 @@ export const LoanCalculator = ({ initialAmount, associationFee, yearlyTaxes}:loa
                     console.log("interest rate: "+ state.rate );
                   
                     const loan = Loan(state.amount,(state.termYears*12),state.rate,'annuity');
-                    console.log(loan.sum)
                     setState(prevState=>{ 
                         return {
                             ...prevState,
-                            result: loan.sum,
+                            result: loan.sum/360,
                             amount: state.amount
                         }
                     });
@@ -182,7 +181,7 @@ export const LoanCalculator = ({ initialAmount, associationFee, yearlyTaxes}:loa
                   </tr>
                   <tr>
                     <th>Mortgage Payment:</th>
-                    <td>{formatPrice(state.result as number  - state.amount)}</td>
+                    <td>{formatPrice(state.result as number)}</td>
                     <td></td>
                   </tr>
                   {associationFee && (
@@ -201,7 +200,7 @@ export const LoanCalculator = ({ initialAmount, associationFee, yearlyTaxes}:loa
                   <tr>
                     <th>Total Monthly Payment:</th>
                     <td>
-                      {`${formatPrice((state.result as number + associationFee + yearlyTaxes)-state.amount)} `}
+                      {`${formatPrice((state.result as number + associationFee + yearlyTaxes))} `}
                     </td>
                     <td></td>
                   </tr>
