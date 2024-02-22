@@ -76,14 +76,13 @@ export const LoanCalculator = ({ initialAmount, associationFee, yearlyTaxes}:loa
             if (state.amount && state.termYears && state.rate) {
                 try {
                     console.log("Amount: " + state.amount);
-                    console.log("how many instalments(in months): "+ state.termYears*12);
-                    console.log("interest rate: "+ state.rate );
+
                   
                     const loan = Loan(state.amount,(state.termYears*12),state.rate,'annuity');
                     setState(prevState=>{ 
                         return {
                             ...prevState,
-                            result: loan.sum/360,
+                            result: loan.sum/state.termYears*12,
                             amount: state.amount
                         }
                     });

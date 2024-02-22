@@ -1,7 +1,10 @@
+"use client"
 import styles from "./ImageCards.module.scss";
 import { Container } from "@/app/client-react-boostrap";
 import Image from "@/node_modules/next/image";
 import Link from "@/node_modules/next/link";
+import {Popup} from "reactjs-popup";
+import stylesPopup from "./Popup.module.scss";
 
 const ImageCards = () => {
   return (
@@ -39,28 +42,95 @@ const ImageCards = () => {
             </div>
           </div>
         </div>
-        <div className={styles["card-home-two"]}>
-          <Image
-            className={styles["card-image"]}
-            width={500}
-            height={300}
-            src="/house28-v1.webp"
-            alt="house icon"
-          />
-          <div className={styles["card-info-wrapper"]}>
-            <div className={styles["title-wrapper-cards"]}>
-              <h2>List Your Home!</h2>
-            </div>
-            <div className={styles["card-description"]}>
-              <p>Effortless Home Selling Experience</p>
-            </div>
-            <div className={styles["apply-btn"]}>
-              <div className={styles["btn-cards"]}>
-                <span>LIST YOUR HOME</span>
+        {
+          
+        }
+        <Popup   
+          position="right center"
+          modal
+          trigger={open=>
+            <div className={styles["card-home-two"]}>
+            <Image
+              className={styles["card-image"]}
+              width={500}
+              height={300}
+              src="/house28-v1.webp"
+              alt="house icon"
+            />
+            <div className={styles["card-info-wrapper"]}>
+              <div className={styles["title-wrapper-cards"]}>
+                <h2>List Your Home!</h2>
+              </div>
+              <div className={styles["card-description"]}>
+                <p>Effortless Home Selling Experience</p>
+              </div>
+              <div className={styles["apply-btn"]}>
+                <div className={styles["btn-cards"]}>
+                  <span>LIST YOUR HOME</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        }>
+            <div className={stylesPopup.rowWrapper}>
+                <div className={stylesPopup.columnLeft}>
+                    <h1 className={stylesPopup.columnLeftH1}>Are You interested in more information?</h1>
+                    <p className={stylesPopup.mktP}>Hello</p>
+                    <div className={stylesPopup.theForm}>
+                        <div className={stylesPopup.formWrapper}>
+                            <div className={stylesPopup.titleWrap}>
+                                <span className={stylesPopup.titleWrapSpan}></span>
+                            </div>
+                            <form className={stylesPopup.mktForm}>
+                                <div className={stylesPopup.mktFormRow}>
+                                    <div className={stylesPopup.mktFormCol}>
+                                        <div className={stylesPopup.mktFieldWrap}>
+                                            <input name="firstName" id="FirstName" placeholder="First Name" className={stylesPopup.mktInputText} style={{width: '166px'}}/>
+                                        </div>
+                                    </div>
+                                    <div className={stylesPopup.mktFormCol}>
+                                            <div className={stylesPopup.mktFieldWrap}>
+                                                <input name="lastName" id="LastName" placeholder="Last Name" className={stylesPopup.mktInputText}  style={{width: '166px'}}/>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div className={stylesPopup.mktFormRow}>
+                                    <div className={stylesPopup.mktFormCol}>
+                                            <div className={stylesPopup.mktFieldWrap}>
+                                                <input name="telephoneNumber" id="TelephoneNumber" placeholder="Telephone Number" className={stylesPopup.mktInputText} style={{width: '166px'}}/>
+                                            </div>
+                                    </div>
+                                    <div className={stylesPopup.mktFormCol}>
+                                            <div className={stylesPopup.mktFieldWrap}>
+                                                <input name="email" id="Email" placeholder="Email" className={stylesPopup.mktInputText}  style={{width: '166px'}}/>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div className={stylesPopup.mktFormRowSingle}>
+                                    <div className={stylesPopup.mktFormCol}>
+                                        <div className={stylesPopup.mktFieldWrap}>
+                                            <textarea name="message" id="Message" placeholder="Message" className={stylesPopup.mktInputTextArea}   style={{width: "286px"}}/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={stylesPopup.mktButtonRow}>
+                                    <span className={stylesPopup.mktButtonSpan}>
+                                        <button type="submit" className={stylesPopup.mktButton}>
+                                            Submit
+                                        </button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </Popup>
+       
+        {
+
+        }
         <div className={styles["card-home-three"]}>
           <Image
             className={styles["card-image"]}

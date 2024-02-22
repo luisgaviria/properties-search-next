@@ -50,6 +50,7 @@ export default function PropertySearchTile({ data }: any) {
     >
       <div className={styles[`properties_grid_element_buy`]}>
         <Carousel
+          variant="primary"
           onClick={childrenClick}
           interval={null}
           // autoPlay={false}

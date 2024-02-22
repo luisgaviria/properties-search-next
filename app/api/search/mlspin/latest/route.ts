@@ -56,9 +56,19 @@ export async function GET(
 ) {
   try{
     const response = await axios.get(
-      `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&StandardStatus=Active&IDXParticipationYN=true&limit=12&PropertyType.in=Residential&ListPrice.gte=400000&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,NumberOfUnitsTotal,Latitude,Longitude,ListingContractDate&sortBy=ListingContractDate&order=desc`
+      `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&StandardStatus=Active&IDXParticipationYN=true&limit=60&PropertyType.in=Residential&ListPrice.gte=400000&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,NumberOfUnitsTotal,Latitude,Longitude,ListingContractDate&sortBy=ListingContractDate&order=desc`
     );
-    const listings = response.data.bundle;
+    const listings = [];
+    let temp=[];
+    for(let i=0; i<=60; i++){
+        if(!(i%12) && i){ 
+          listings.push(temp);
+          temp=[];
+        }
+        if(response.data.bundle[i]){
+          temp.push(response.data.bundle[i]);
+        }
+    }
     return NextResponse.json({
       listings: listings,
       message: "Succesfully get latest listings"
