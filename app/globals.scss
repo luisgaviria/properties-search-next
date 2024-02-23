@@ -151,20 +151,41 @@ li a {
   border-color: #000 !important;
 }
 
-
 @media (min-width: 1200px) {
-  .container, .container-lg, .container-md, .container-sm, .container-xl {
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
     max-width: 1480 px !important;
   }
 }
 @media (min-width: 1400px) {
-  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl,
+  .container-xxl {
     max-width: 1600px !important;
   }
+}
+.homeCarousel > .carousel-indicators {
+  margin-bottom: -1.5rem;
 }
 
 .homeCarousel > .carousel-indicators > button {
   background-color: black !important;
+}
+
+.homeCarousel > .carousel-control-prev {
+  left: -50px;
+  width: 0%;
+}
+
+.homeCarousel > .carousel-control-next {
+  right: -50px;
+  width: 0%;
 }
 
 .popup-overlay {

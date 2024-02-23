@@ -271,6 +271,7 @@ export default function SinglePropertyBuy() {
             alt="next arrow"
             width={50}
             height={50}
+            loading="eager"
           />
         }
         prevIcon={
