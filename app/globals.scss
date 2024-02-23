@@ -188,6 +188,16 @@ li a {
   width: 0%;
 }
 
+@media (max-width: 1700px) {
+  .homeCarousel > .carousel-control-prev {
+    display: none !important;
+  }
+
+  .homeCarousel > .carousel-control-next {
+    display: none !important;
+  }
+}
+
 .popup-overlay {
   background: #00000047;
 }
