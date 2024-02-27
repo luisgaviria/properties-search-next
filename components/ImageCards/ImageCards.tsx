@@ -4,9 +4,44 @@ import { Container } from "@/app/client-react-boostrap";
 import Image from "@/node_modules/next/image";
 import Link from "@/node_modules/next/link";
 import {Popup} from "reactjs-popup";
-import stylesPopup from "./Popup.module.scss";
+import stylesPopup from "./Popup.module.scss"; 
+import { useState } from "react";
+import axios from "axios";
 
 const ImageCards = () => {
+  const [listYourHomeState,setListYourHomeState] = useState({
+    firstName: "",
+    lastName: "",
+    telephoneNumber: "",
+    email: "",
+    message: ""
+  });
+   
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void=>{  
+    setListYourHomeState(prevState=>{ 
+      return {
+        ...prevState,
+        [event.target.name]: event.target.value
+      }
+    });
+  };
+
+  const onFormSubmit = async (name: string)=>{  
+    switch(name) { 
+      case "List Your Home State": {
+        await axios.post("/api/message",{...listYourHomeState},{ 
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+        break;
+      }
+      case "Apply Today":{
+        break;
+      }
+    }
+  }; 
+  
   return (
     <Container>
       <div className={styles["flex-container"]}>
@@ -81,35 +116,38 @@ const ImageCards = () => {
                             <div className={stylesPopup.titleWrap}>
                                 <span className={stylesPopup.titleWrapSpan}></span>
                             </div>
-                            <form className={stylesPopup.mktForm}>
+                            <form className={stylesPopup.mktForm} onSubmit={(event)=>{
+                              event.preventDefault();
+                              onFormSubmit("List Your Home State");
+                              }}>
                                 <div className={stylesPopup.mktFormRow}>
                                     <div className={stylesPopup.mktFormCol}>
                                         <div className={stylesPopup.mktFieldWrap}>
-                                            <input name="firstName" id="FirstName" placeholder="First Name" className={stylesPopup.mktInputText} style={{width: '166px'}}/>
-                                        </div>
+                                            <input name="firstName" onChange={handleInput} value={listYourHomeState.firstName} id="FirstName" placeholder="First Name" className={stylesPopup.mktInputText} style={{width: '166px'}}/>
+                                       </div>
                                     </div>
                                     <div className={stylesPopup.mktFormCol}>
                                             <div className={stylesPopup.mktFieldWrap}>
-                                                <input name="lastName" id="LastName" placeholder="Last Name" className={stylesPopup.mktInputText}  style={{width: '166px'}}/>
+                                                <input name="lastName" onChange={handleInput} value={listYourHomeState.lastName} id="LastName" placeholder="Last Name" className={stylesPopup.mktInputText}  style={{width: '166px'}}/>
                                             </div>
                                     </div>
                                 </div>
                                 <div className={stylesPopup.mktFormRow}>
                                     <div className={stylesPopup.mktFormCol}>
                                             <div className={stylesPopup.mktFieldWrap}>
-                                                <input name="telephoneNumber" id="TelephoneNumber" placeholder="Telephone Number" className={stylesPopup.mktInputText} style={{width: '166px'}}/>
+                                                <input name="telephoneNumber" type="number" onChange={handleInput} value={listYourHomeState.telephoneNumber} id="TelephoneNumber" placeholder="Telephone Number" className={stylesPopup.mktInputText} style={{width: '166px'}}/>
                                             </div>
                                     </div>
                                     <div className={stylesPopup.mktFormCol}>
                                             <div className={stylesPopup.mktFieldWrap}>
-                                                <input name="email" id="Email" placeholder="Email" className={stylesPopup.mktInputText}  style={{width: '166px'}}/>
-                                            </div>
+                                                <input name="email" id="Email" value={listYourHomeState.email}  onChange={handleInput}  placeholder="Email" className={stylesPopup.mktInputText}  style={{width: '166px'}}/>
+                                            </div> 
                                     </div>
                                 </div>
                                 <div className={stylesPopup.mktFormRowSingle}>
                                     <div className={stylesPopup.mktFormCol}>
                                         <div className={stylesPopup.mktFieldWrap}>
-                                            <textarea name="message" id="Message" placeholder="Message" className={stylesPopup.mktInputTextArea}   style={{width: "286px"}}/>
+                                            <textarea name="message" onChange={handleInput}  id="Message" placeholder="Message" className={stylesPopup.mktInputTextArea}   style={{width: "286px"}}/>
                                         </div>
                                     </div>
                                 </div>

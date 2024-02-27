@@ -12,6 +12,11 @@ export async function POST (
     req: Request,
     res: NextResponse
 ){
-    const body: reqBody = await req.json();
     // store somewhere? or what?
+    const body: reqBody = await req.json(); 
+
+    console.log(body);
+    return NextResponse.json({
+        message: "Api received form"
+    });
 }
