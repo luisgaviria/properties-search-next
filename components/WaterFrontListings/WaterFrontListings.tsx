@@ -6,6 +6,7 @@ import PropertySearchTile from "../Mlspin/PropertySearchTile/PropertySearchTile"
 import styles from "./WaterFrontListings.module.scss";
 import { Carousel } from "react-bootstrap";
 import Image from "next/image";
+import { useEffect } from "react";
 
 interface latestResponse {
   message: string;
@@ -25,11 +26,14 @@ const WaterFrontListings = () => {
     ).then((res) => res.json());
     setListings(res.waterFrontListings);
   };
-  useQuery({
-    queryKey: ["getWaterFrontListings"],
-    queryFn: () => getListings(),
-    enabled: true,
-  });
+  // useQuery({
+  //   queryKey: ["getWaterFrontListings"],
+  //   queryFn: () => getListings(),
+  //   enabled: true,
+  // });
+  useEffect(()=>{ // this should be invoked before site rendering
+    getListings();
+  },[]);
 
   return (
     <Carousel

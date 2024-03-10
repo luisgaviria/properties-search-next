@@ -6,6 +6,7 @@ import PropertySearchTile from "../Mlspin/PropertySearchTile/PropertySearchTile"
 import styles from "./LatestListings.module.scss";
 import { Carousel } from "react-bootstrap";
 import Image from "next/image";
+import { useEffect } from "react";
 
 interface latestResponse {
   message: string;
@@ -22,12 +23,15 @@ const LatestListings = () => {
     }).then((res) => res.json());
     setListings(res.listings);
   };
-  useQuery({
-    queryKey: ["getLatestListings"],
-    queryFn: () => getListings(),
-    enabled: true,
-  });
-  return (
+  useEffect(()=>{ 
+    getListings();
+  },[]); 
+  // useQuery({
+  //   queryKey: ["getLatestListings"],
+  //   queryFn: () => getListings(),
+  //   enabled: true,
+  // });
+    return (
     <Carousel
       className="homeCarousel"
       controls={true}
