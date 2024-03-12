@@ -8,24 +8,23 @@ import { Carousel } from "react-bootstrap";
 import Image from "next/image";
 import { useEffect } from "react";
 
-interface latestResponse {
+type LatestResponse = {
   message: string;
   listings: Property[][];
 }
 
-const listingsArr = atom<Property[][]>([]);
+// const listingsArr = atom<Property[][]>([]);
 
-const LatestListings = () => {
-  const [listings, setListings] = useAtom(listingsArr);
-  const getListings = async () => {
-    const res: latestResponse = await fetch("/api/search/mlspin/latest", {
-      cache: "no-store",
-    }).then((res) => res.json());
-    setListings(res.listings);
-  };
-  useEffect(()=>{ 
-    getListings();
-  },[]); 
+const LatestListings = ({listings}: {listings: Property[][]}) => {
+  // const getListings = async () => {
+  //   const res: latestResponse = await fetch("/api/search/mlspin/latest", {
+  //     cache: "no-store",
+  //   }).then((res) => res.json());
+  //   setListings(res.listings);
+  // };
+  // useEffect(()=>{ 
+  //   getListings();
+  // },[]); 
   // useQuery({
   //   queryKey: ["getLatestListings"],
   //   queryFn: () => getListings(),

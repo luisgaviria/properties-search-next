@@ -8,32 +8,32 @@ import { Carousel } from "react-bootstrap";
 import Image from "next/image";
 import { useEffect } from "react";
 
-interface latestResponse {
-  message: string;
-  waterFrontListings: Property[][];
-}
+// interface latestResponse {
+//   message: string;
+//   waterFrontListings: Property[][];
+// }
 
-const listingArr = atom<Property[][]>([]);
+// const listingArr = atom<Property[][]>([]);
 
-const WaterFrontListings = () => {
-  const [listings, setListings] = useAtom(listingArr);
-  const getListings = async () => {
-    const res: latestResponse = await fetch(
-      "/api/search/mlspin/waterFrontListings",
-      {
-        cache: "no-store",
-      }
-    ).then((res) => res.json());
-    setListings(res.waterFrontListings);
-  };
+const WaterFrontListings = ({listings}: {listings: Property[][]}) => {
+  // const [listings, setListings] = useAtom(listingArr);
+  // const getListings = async () => {
+  //   const res: latestResponse = await fetch(
+  //     "/api/search/mlspin/waterFrontListings",
+  //     {
+  //       cache: "no-store",
+  //     }
+  //   ).then((res) => res.json());
+  //   setListings(res.waterFrontListings);
+  // };
   // useQuery({
   //   queryKey: ["getWaterFrontListings"],
   //   queryFn: () => getListings(),
   //   enabled: true,
   // });
-  useEffect(()=>{ // this should be invoked before site rendering
-    getListings();
-  },[]);
+  // useEffect(()=>{ // this should be invoked before site rendering
+  //   getListings();
+  // },[]);
 
   return (
     <Carousel
