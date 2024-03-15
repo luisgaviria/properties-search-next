@@ -27,8 +27,8 @@ async function getCityListings(city: any){
 
 export default async function ExactCity(){ 
     const headersList = headers();
-    const xInvokePath = headersList.get('x-invoke-path') as string;
-    const data = await getCityListings(xInvokePath.split('/city/')[1][0].toUpperCase() + xInvokePath.split('/city/')[1].slice(1));
+    const xInvokePath = headersList.get('x-invoke-path') as string; // on vercel it is not sending as a header x-invoke-path we need to create middleware to add one more header with request url
+    const data = await getCityListings(xInvokePath.split('/city/')[1][0].toUpperCase() + xInvokePath.split('/city/')[1].slice(1)); 
     return (
         <>  
             <Filters cityData={data.properties} cityPages={data.pages}/>
