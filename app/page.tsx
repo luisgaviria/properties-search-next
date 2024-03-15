@@ -20,12 +20,12 @@ interface waterFrontResponse {
 }
 
 async function getLatestListings(){ // url in env! should be solved in case of deployment!
-  const res: latestResponse = await fetch("http://localhost:3000/api/search/mlspin/latest").then(data=>data.json());
+  const res: latestResponse = await fetch(`${process.env.URL_API}/api/search/mlspin/latest`).then(data=>data.json());
   return res.listings;
 }
 
 async function getWaterFrontListings(){
-  const res: waterFrontResponse = await fetch("http://localhost:3000/api/search/mlspin/waterFrontListings").then(data=>data.json());
+  const res: waterFrontResponse = await fetch(`${process.env.URL_API}/api/search/mlspin/waterFrontListings`).then(data=>data.json());
   return res.waterFrontListings;
 }
 

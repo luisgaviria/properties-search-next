@@ -1,5 +1,7 @@
 import Filters from "@/components/Mlspin/Filters/Filters"
+import { response } from "@/components/definitions/Filters";
 import { Metadata } from "next";
+import { headers } from 'next/headers';
 
 export async function generateMetadata({params,searchParams}:{params: any;searchParams: any}): Promise<Metadata> {
     const city = params.city;
@@ -11,10 +13,25 @@ export async function generateMetadata({params,searchParams}:{params: any;search
     }
 }
 
-export default function ExactCity(){ 
+async function getCityListings(city: any){
+    let query = "";
+    query+=`City=${city}`;
+    query+=`&PropertyType=Residential,Residential Income`;
+    query+="&save=true";
+    const res: any = await fetch(`${process.env.URL_API}/api/search/mlspin?${query}&page=1`,{
+        cache: "no-store"
+    }).then((res)=>res.json());
+
+    return {properties: res.properties,pages: res.pages};
+}  
+
+export default async function ExactCity(){ 
+    const headersList = headers();
+    const xInvokePath = headersList.get('x-invoke-path') as string;
+    const data = await getCityListings(xInvokePath.split('/city/')[1][0].toUpperCase() + xInvokePath.split('/city/')[1].slice(1));
     return (
         <>  
-            <Filters/>
+            <Filters cityData={data.properties} cityPages={data.pages}/>
         </>
     )
 }

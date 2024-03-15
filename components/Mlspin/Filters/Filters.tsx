@@ -12,11 +12,9 @@ import { Form, Pagination } from "@/app/client-react-boostrap";
 import styles from "./Filters.module.scss";
 import cities from "../../../data/massachusetsCities.json";
 import { ChangeEvent } from "react";
-// import PropertySearchTile from "../PropertySearchTile/PropertySearchTile";
 
 import Slider from "@/node_modules/rc-slider/lib/Slider";
 import Map from "@/components/Map/Map";
-import PropertySearchTile from "../PropertySearchTile/PropertySearchTile";
 
 import "rc-slider/assets/index.css";
 import { Property } from "../../definitions/Property";
@@ -100,12 +98,13 @@ pagesAtom.debugLabel = "Pages";
 const searchFromHomeAtom = atom(false);
 searchFromHomeAtom.debugLabel = "Search From Home";
 
-export default function Filters() {
+export default function Filters(params: {cityData: any,cityPages: number}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchFromHome,setSearchFromHome] = useAtom(searchFromHomeAtom);
   // const [searchCounter, setSearchCounter] = useState(0);
   const getDataCity = async (city: string) => {
+    setProperties(params.cityData);
     let query = "";
     query += `City=${city}`;
 
@@ -128,14 +127,13 @@ export default function Filters() {
     setMapProperties(res.properties);
 
     // use also no pages later for google map
-    query+="&save=true";
-    const res2: response = await fetch(`/api/search/mlspin?${query}&page=1`, {
-      cache: "no-store",
-    }).then((res) => res.json());
+    // query+="&save=true";
+    // const res2: response = await fetch(`/api/search/mlspin?${query}&page=1`, {
+    //   cache: "no-store",
+    // }).then((res) => res.json());
 
-    setPageObj({ actualPage: 1, pages: res2.pages });
-
-    setProperties(res2.properties);
+    // setPageObj({ actualPage: 1, pages: res2.pages });
+    setPageObj({ actualPage: 1, pages: params.cityPages });
   };
 
   const getDataFromHome = async(page_num: number,input: string,filters: any,save=true)=> {
@@ -1304,7 +1302,7 @@ export default function Filters() {
           >
             <Suspense fallback={<Loading />}>
               <PropertySearchList
-                properties={properties}
+                properties={properties.length ? properties : params.cityData}
               />
             </Suspense>
             {/* {properties.map((property: Property, index: number) => {
