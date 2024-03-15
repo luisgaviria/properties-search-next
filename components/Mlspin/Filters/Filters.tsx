@@ -1300,11 +1300,11 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
                 : styles["properties_grid"]
             }
           >
-            <Suspense fallback={<Loading />}>
+            {/* <Suspense fallback={<Loading />}> */}
               <PropertySearchList
                 properties={properties.length ? properties : params.cityData}
               />
-            </Suspense>
+            {/* </Suspense> */}
             {/* {properties.map((property: Property, index: number) => {
               return (
                 <PropertySearchTile
