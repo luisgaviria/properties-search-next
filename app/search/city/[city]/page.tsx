@@ -2,7 +2,7 @@ import Filters from "@/components/Mlspin/Filters/Filters"
 // import { response } from "@/components/definitions/Filters";
 import { Metadata } from "next";
 import { headers } from 'next/headers';
-import { usePathname } from "next/navigation";
+import Head from 'next/head'
 
 // export async function generateMetadata({params,searchParams}:{params: any;searchParams: any}): Promise<Metadata> {
 //     const city = params.city;
@@ -34,6 +34,9 @@ export default async function ExactCity(){
     const data = await getCityListings(xInvokePath.split('/city/')[1][0].toUpperCase() + xInvokePath.split('/city/')[1].slice(1)); 
     return (
         <>  
+        <Head>
+            <title>{`There are ${data.properties.length} for sale in ${xInvokePath.split('/city/')[1][0].toUpperCase() + xInvokePath.split('/city/')[1].slice(1)}`}</title>
+        </Head>
             <Filters cityData={data.properties} cityPages={data.pages}/>
         </>
     )

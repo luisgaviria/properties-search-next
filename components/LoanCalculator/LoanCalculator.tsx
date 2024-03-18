@@ -1,10 +1,12 @@
 "use client"
 import { atom, useAtom } from "jotai";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import {Loan} from "loanjs";
 import { formatPrice } from "@/utils/formatPrice";
 import styles from "./LoanCalculator.module.scss";
+import { useAtomValue } from "jotai";
+import { StateAtom } from "../SinglePropertySearchBody/SinglePropertySearchBody";
 
 interface loanState {
     amount: number; 
@@ -14,13 +16,13 @@ interface loanState {
     isCalculatorVisible: boolean;
 }
 
-const stateAtom = atom<loanState>({
-    amount: 0,
-    rate: 7.2,
-    termYears: 30,
-    result: 0,
-    isCalculatorVisible: true
-});
+// const stateAtom = atom<loanState>({
+//     amount: 0,
+//     rate: 7.2,
+//     termYears: 30,
+//     result: 0,
+//     isCalculatorVisible: true
+// });
 
 interface loanProps {
     initialAmount: number;
@@ -28,9 +30,17 @@ interface loanProps {
     yearlyTaxes: number;
 }
 
-export const LoanCalculator = ({ initialAmount, associationFee, yearlyTaxes}:loanProps ) =>{
-    yearlyTaxes = yearlyTaxes / 12;
-    const [state,setState] = useAtom(stateAtom);
+export const LoanCalculator = ( ) =>{
+    const initData = useAtomValue(StateAtom);
+    // initData.yearl
+    // initData.yearlyTaxes = yearlyTaxes / 12;
+    const [state,setState] = useState<loanState>({
+      amount: 0,
+      rate: 7.2,
+      termYears: 30,
+      result: 0,
+      isCalculatorVisible: true
+    });
 
     const onChange = (event:React.ChangeEvent<HTMLInputElement> )=>{ 
         const {name,value} = event.target;
@@ -67,7 +77,7 @@ export const LoanCalculator = ({ initialAmount, associationFee, yearlyTaxes}:loa
         setState(prevState=>{
           return {
             ...prevState,
-            amount: initialAmount
+            amount: initData.ListPrice
           }
         });
       }
@@ -98,6 +108,7 @@ export const LoanCalculator = ({ initialAmount, associationFee, yearlyTaxes}:loa
 
       }
     },[state.amount,state.rate,state.termYears]);
+
 
     const toggleCalculatorVisibility = ()=>{ 
         setState(prevState=>{
@@ -139,12 +150,12 @@ export const LoanCalculator = ({ initialAmount, associationFee, yearlyTaxes}:loa
                         type="number"
                         step="1000"
                         min="0"
-                        value={state.amount}
+                        value={initData.ListPrice}
                         onChange={onChange}
                         name="amount"
                       />
                     </td>
-                    <td>{formatPrice(state.amount)}</td>
+                    <td>{formatPrice(initData.ListPrice)}</td>
                   </tr>
                   <tr>
                     <th>Interest Rate:</th>
@@ -181,23 +192,23 @@ export const LoanCalculator = ({ initialAmount, associationFee, yearlyTaxes}:loa
                     <td>{formatPrice(state.result as number)}</td>
                     <td></td>
                   </tr>
-                  {associationFee && (
+                  {initData.AssociationFee && (
                     <tr>
                       <th>HOA:</th>
-                      <td>{formatPrice(associationFee)}</td>
+                      <td>{formatPrice(initData.AssociationFee)}</td>
                       <td></td>
                     </tr>
                   )}
     
                   <tr>
                     <th>Taxes by month:</th>
-                    <td>{formatPrice(yearlyTaxes)}</td>
-                    <td>{yearlyTaxes == 0 ? "Unkown" : null}</td>
+                    <td>{formatPrice(initData.TaxAnnualAmount/12)}</td>
+                    <td>{initData.TaxAnnualAmount/12 == 0 ? "Unkown" : null}</td>
                   </tr>
                   <tr>
                     <th>Total Monthly Payment:</th>
                     <td>
-                      {`${formatPrice((state.result as number + associationFee + yearlyTaxes))} `}
+                      {`${formatPrice((state.result as number + initData.AssociationFee + initData.TaxAnnualAmount/12))} `}
                     </td>
                     <td></td>
                   </tr>

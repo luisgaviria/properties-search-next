@@ -22,8 +22,6 @@ export const metadata: Metadata = {
     "Search MLS Listings for Houses in Massachusetts - Build Your Real Estate Portfolio with Us. Property sales, connect with agents, find a buyers agent, and start selling your house or finding your dream home today.",
 };
 
-
-
 export default async function RootLayout({ children }: RootLayoutProps){
   return (
       <ReactQueryProvider>

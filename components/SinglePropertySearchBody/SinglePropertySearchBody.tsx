@@ -28,7 +28,7 @@ const zillowIdsAtom = atom<string[]>([]);
 
 zillowIdsAtom.debugLabel = "Zillow ID Data";
 
-const stateAtom = atom({
+export const StateAtom = atom({
   Media: [] as any,
   LivingArea: "",
   StreetNumber: "",
@@ -112,7 +112,7 @@ const stateAtom = atom({
   officeName: "",
 });
 
-stateAtom.debugLabel = "PropertyDetails";
+StateAtom.debugLabel = "PropertyDetails";
 
 const loader = (props: { src: string }) => {
   return `${props.src}`;
@@ -163,7 +163,7 @@ const options = {
 export default function SinglePropertyBuy() {
   const pathName = usePathname();
   const [zillowIds, setZillowIds] = useAtom(zillowIdsAtom);
-  const [state, setState] = useAtom(stateAtom);
+  const [state, setState] = useAtom(StateAtom);
   const data = useQuery({
     queryKey: ["getPropertyData"],
     queryFn: () => getData(),
@@ -947,9 +947,9 @@ export default function SinglePropertyBuy() {
         {state.ListPrice > 100000 ? (
           <>
             <LoanCalculator
-              initialAmount={state.ListPrice}
-              associationFee={state.AssociationFee}
-              yearlyTaxes={checkNumberNine(state.TaxAnnualAmount)}
+              // initialAmount={state.ListPrice}
+              // associationFee={state.AssociationFee}
+              // yearlyTaxes={checkNumberNine(state.TaxAnnualAmount)}
             />
           </>
         ) : null}
