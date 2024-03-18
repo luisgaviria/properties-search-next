@@ -1,7 +1,8 @@
 import Filters from "@/components/Mlspin/Filters/Filters"
-import { response } from "@/components/definitions/Filters";
+// import { response } from "@/components/definitions/Filters";
 import { Metadata } from "next";
 import { headers } from 'next/headers';
+import { usePathname } from "next/navigation";
 
 export async function generateMetadata({params,searchParams}:{params: any;searchParams: any}): Promise<Metadata> {
     const city = params.city;
@@ -27,7 +28,9 @@ async function getCityListings(city: any){
 
 export default async function ExactCity(){ 
     const headersList = headers();
-    const xInvokePath = headersList.get('x-invoke-path') as string; // on vercel it is not sending as a header x-invoke-path we need to create middleware to add one more header with request url
+    const xInvokePath = headersList.get('x-path') as string; 
+    console.log(xInvokePath);
+    // on vercel it is not sending as a header x-invoke-path we need to create middleware to add one more header with request url
     const data = await getCityListings(xInvokePath.split('/city/')[1][0].toUpperCase() + xInvokePath.split('/city/')[1].slice(1)); 
     return (
         <>  
