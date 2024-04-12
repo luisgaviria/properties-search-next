@@ -104,6 +104,12 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
   const [searchFromHome,setSearchFromHome] = useAtom(searchFromHomeAtom);
   // const [searchCounter, setSearchCounter] = useState(0);
   const getDataCity = async (city: string) => {
+    setFormVisible(prevState=>{
+      return {
+        ...prevState,
+        map: false
+      }
+    });
     setProperties(params.cityData);
     let query = "";
     query += `City=${city}`;
@@ -121,8 +127,6 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
     const res: mapResponse = await fetch(`/api/search/mlspin/map?${query}`, {
       cache: "no-store",
     }).then((res) => res.json());
-
-    console.log(res.properties);
 
     setMapProperties(res.properties);
 
@@ -196,6 +200,12 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
 
   };
   const getData = async (page_num: number) => {
+    setFormVisible(prevState=>{
+      return {
+        ...prevState,
+        map: false
+      }
+    });
     clearSuggestions();
     let query = "";
     const keys = Object.keys(filter) as Array<keyof typeof filter>;

@@ -12,7 +12,6 @@ interface loanState {
     amount: number; 
     rate: number; 
     termYears: number; 
-    result: number | string;
     isCalculatorVisible: boolean;
 }
 
@@ -38,7 +37,6 @@ export const LoanCalculator = ( ) =>{
       amount: 0,
       rate: 7.2,
       termYears: 30,
-      result: 0,
       isCalculatorVisible: true
     });
 
@@ -72,6 +70,30 @@ export const LoanCalculator = ( ) =>{
         }
     };
 
+    const calculateLoan = () :  {result: number;amount:number}=>{
+      if (state.amount && state.termYears && state.rate) {
+        try {
+          
+            const loan = Loan(initData.ListPrice,(state.termYears*12),state.rate,'annuity');
+            return {
+                  result: loan.sum/(state.termYears*12),
+                  amount: state.amount
+            }
+        } catch (err) {
+          return {
+            result: 0,
+            amount: 0
+          }
+        }
+      }
+      else {
+        return {
+          result: 0, 
+          amount: 0 
+        }
+      }
+    };
+
     useEffect(()=>{
       if(!state.amount){
         setState(prevState=>{
@@ -82,30 +104,13 @@ export const LoanCalculator = ( ) =>{
         });
       }
       else{
-        const calculateLoan = async()=>{
-            if (state.amount && state.termYears && state.rate) {
-                try {
-                  
-                    const loan = Loan(state.amount,(state.termYears*12),state.rate,'annuity');
-                    setState(prevState=>{ 
-                        return {
-                            ...prevState,
-                            result: loan.sum/(state.termYears*12),
-                            amount: state.amount
-                        }
-                    });
-                } catch (err) {
-                    setState(prevState=> {
-                        return {
-                            ...prevState,
-                            result: "Error calculating loan. Please check your inputs."
-                        }
-                    });
-                }
-              }
-        }; 
+      setState(prevState=>{
+        return {
+          ...prevState,
+          ...calculateLoan()
+        }
+      });
       calculateLoan();
-
       }
     },[state.amount,state.rate,state.termYears]);
 
@@ -189,7 +194,7 @@ export const LoanCalculator = ( ) =>{
                   </tr>
                   <tr>
                     <th>Mortgage Payment:</th>
-                    <td>{formatPrice(state.result as number)}</td>
+                    <td>{formatPrice(calculateLoan().result)}</td>
                     <td></td>
                   </tr>
                   {initData.AssociationFee && (
@@ -208,7 +213,7 @@ export const LoanCalculator = ( ) =>{
                   <tr>
                     <th>Total Monthly Payment:</th>
                     <td>
-                      {`${formatPrice((state.result as number + initData.AssociationFee + initData.TaxAnnualAmount/12))} `}
+                      {`${formatPrice((calculateLoan().result as number + initData.AssociationFee + initData.TaxAnnualAmount/12))} `}
                     </td>
                     <td></td>
                   </tr>

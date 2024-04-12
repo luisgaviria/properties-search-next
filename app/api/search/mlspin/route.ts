@@ -52,7 +52,7 @@ const limit = 12;
 const noPagesLimit = 200;
 
 const calculatePages = (total: number, pageLimit: number) => {
-  let pages: number = Math.round(total / pageLimit);
+  let pages: number = Math.floor(total / pageLimit);
 //   pages = parseInt(pages);
   const rest = total - pages * pageLimit;
   if (rest) {

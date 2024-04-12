@@ -38,6 +38,9 @@ export const findBordersBy9 = (number: number) => {
 
 export const createPagination = (pages: number,page: number,getData: (number: number)=>{})=>{
     let items = [];
+    if(pages > 833){
+      pages = 833;
+    }
     if (pages >= 10) {
       if (page == 1) {
         for (let number = 1; number < 10; number++) {
