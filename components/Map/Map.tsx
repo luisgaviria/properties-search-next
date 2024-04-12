@@ -126,13 +126,18 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
     // Create markers and info windows when the map is loaded
     this.markersWithInfoWindows = (this.props.properties || []).map(
       (property) => {
+        const imgUrl = property.Media?.[0]?.MediaURL;
         return {
           marker: new this.googleRef.Marker({
             position: { lat: property.Latitude, lng: property.Longitude },
           }),
           infoWindow: new this.googleRef.InfoWindow({
             content: `
-            ${property.City}, ${property.StreetName}, ${property.StreetNumber}
+            <div>
+              <a href="/search/${property.ListingId}"><img height="200px" src="${imgUrl}"/></a>
+              <br/>
+              <a style="text-decoration:underline; color: blue"  href="/search/${property.ListingId}">${property.City}, ${property.StreetName}, ${property.StreetNumber}</a>
+            </div>
           `,
           }),
         };

@@ -1312,7 +1312,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
           >
             {/* <Suspense fallback={<Loading />}> */}
               <PropertySearchList
-                properties={properties.length ? properties : params.cityData}
+                properties={properties?.length ? properties : params.cityData}
               />
             {/* </Suspense> */}
             {/* {properties.map((property: Property, index: number) => {
