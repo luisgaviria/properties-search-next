@@ -1,6 +1,8 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "css-aspect-ratio/css-aspect-ratio";
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 footer {
   padding-top: 6rem;
 }
@@ -200,4 +202,12 @@ li a {
 
 .popup-overlay {
   background: #00000047;
+}
+@layer base {
+  body {
+    @apply dark:bg-[#0a0a0a] 
+        bg-[#edf6f9];
+    @apply dark:text-white
+        text-black
+  }
 }

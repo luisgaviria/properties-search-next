@@ -27,22 +27,22 @@ const Footer = () => {
               <div className={styles["menu-title"]}>Social</div>
               <ul>
                 <li>
-                  <a href="#" target="_blank" rel="noreferrer noopener">
+                  <a href="#" className="text-gray-900 dark:text-white" target="_blank" rel="noreferrer noopener">
                     Instagram
                   </a>
                 </li>
                 <li>
-                  <a href="#" target="_blank" rel="noreferrer noopener">
+                  <a href="#" className="text-gray-900 dark:text-white" target="_blank" rel="noreferrer noopener">
                     Twitter
                   </a>
                 </li>
                 <li>
-                  <a href="#" target="_blank" rel="noreferrer noopener">
+                  <a href="#" className="text-gray-900 dark:text-white" target="_blank" rel="noreferrer noopener">
                     LinkedIn
                   </a>
                 </li>
                 <li>
-                  <a href="#" target="_blank" rel="noreferrer noopener">
+                  <a href="#" className="text-gray-900 dark:text-white" target="_blank" rel="noreferrer noopener">
                     Facebook
                   </a>
                 </li>
@@ -53,10 +53,10 @@ const Footer = () => {
               <div className={styles["wp-widget-group__inner-blocks"]}>
                 <ul>
                   <li>
-                    <a href="#">About</a>
+                    <a href="#" className="text-gray-900 dark:text-white">About</a>
                   </li>
                   <li>
-                    <a href="#" data-type="URL" data-id="/about/">
+                    <a className="text-gray-900 dark:text-white" href="#" data-type="URL" data-id="/about/">
                       Resources
                     </a>
                   </li>
@@ -81,7 +81,6 @@ const Footer = () => {
                 <br />
                 <a
                   href="mailto: luis.aptx@gmail.com"
-                  style={{ color: "#151515" }}
                 >
                   Email
                 </a>

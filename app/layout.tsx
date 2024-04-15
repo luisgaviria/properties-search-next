@@ -10,6 +10,7 @@ import { Provider } from "./client-exports";
 import DevTools from "./client-exports-jotai";
 import { ReactNode } from 'react';
 import AuthProvider from "./AuthProvider";
+import { ThemeProvider } from "@/components/ThemeProvider/ThemeProvider";
 
 export interface RootLayoutProps {
   children: ReactNode;
@@ -29,19 +30,19 @@ export default async function RootLayout({ children }: RootLayoutProps){
           <AuthProvider>
           <html lang="en">
             <body className={inter.className}>
-
-              <DevTools />
-                <NavBar />
-                {children}
-                <Footer />
-                <Script
-                  defer
-                  id="googlemaps"
-                  src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_API_KEY}&libraries=places`}
-                  strategy="afterInteractive"
-                  type="text/javascript"
-                />
-
+              <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+                  <DevTools />
+                    <NavBar />
+                    {children}
+                    <Footer />
+                    <Script
+                      defer
+                      id="googlemaps"
+                      src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_API_KEY}&libraries=places`}
+                      strategy="afterInteractive"
+                      type="text/javascript"
+                    />
+              </ThemeProvider>
             </body>
           </html>
           </AuthProvider>

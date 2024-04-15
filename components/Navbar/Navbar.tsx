@@ -6,6 +6,7 @@ import { Navbar } from "@/node_modules/react-bootstrap/esm/index";
 import styles from "./Navbar.module.scss";
 import { Button } from "react-bootstrap";
 import { useSession,signOut } from "next-auth/react";
+import DarkModeToggle from "../ToogleThemeButton/ToogleThemeButton";
 
 const NavBar = (props: any) => {
   const {data,status}: {data: any;status: any} = useSession();
@@ -78,12 +79,12 @@ const NavBar = (props: any) => {
         </Button> 
         </>:  <Navbar.Collapse className="justify-content-end">
             <Nav>
-              <Nav.Link href="/auth/register">Register</Nav.Link>
-              <Nav.Link href="/auth/login">Login</Nav.Link>
+              <Nav.Link className="text-gray-900 dark:text-white" href="/auth/register">Register</Nav.Link>
+              <Nav.Link className="text-gray-900 dark:text-white" href="/auth/login">Login</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         }
-
+        <DarkModeToggle/>
       </Container>
     </Navbar>
   );
