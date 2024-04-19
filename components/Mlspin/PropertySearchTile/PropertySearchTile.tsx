@@ -62,7 +62,7 @@ export default function PropertySearchTile({ data }: any) {
                   style={{ cursor: "pointer" }}
                   //   interval={null}
                   //   autoPlay={false}
-                  className={styles["img-wrap-buytile"]}
+                  // className={styles["img-wrap-buytile"]}
                 >
                   <Link href={`/search/${data.ListingId}`}>
                   {

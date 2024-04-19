@@ -40,12 +40,10 @@
   top: 305px; /* Adjust the value to position vertically */
   // right: 20px; /* Adjust the value to position horizontally */
   z-index: 100; /* Adjust the value to ensure the element is above other content */
-  background-color: white; /* Set a background color for the form */
   padding: 10px;
   @media (max-width: 1200px) {
     position: static;
     z-index: 100;
-    background-color: white;
     padding: 10px;
   }
 }
@@ -91,13 +89,11 @@
   top: 305px; /* Adjust the value to position vertically */
   // right: 20px; /* Adjust the value to position horizontally */
   z-index: 100; /* Adjust the value to ensure the element is above other content */
-  background-color: white; /* Set a background color for the form */
 
   padding: 10px;
   @media (max-width: 1200px) {
     position: static;
     z-index: 100;
-    background-color: white;
     padding: 10px;
   }
 }
@@ -115,13 +111,11 @@
   top: 300px; /* Adjust the value to position vertically */
   // right: 20px; /* Adjust the value to position horizontally */
   z-index: 100; /* Adjust the value to ensure the element is above other content */
-  background-color: white; /* Set a background color for the form */
 
   padding: 10px;
   @media (max-width: 1200px) {
     position: static;
     z-index: 100;
-    background-color: white;
     padding: 10px;
   }
 }
@@ -137,12 +131,10 @@
   top: 333px; /* Adjust the value to position vertically */
   // right: 20px; /* Adjust the value to position horizontally */
   z-index: 100; /* Adjust the value to ensure the element is above other content */
-  background-color: white; /* Set a background color for the form */
   padding: 10px;
   @media (max-width: 1200px) {
     position: static;
     z-index: 100;
-    background-color: white;
     padding: 10px;
   }
 }
@@ -190,7 +182,6 @@
 
 .sort-select {
   margin-right: 1rem;
-  background-color: #f8f9fa;
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   border: 0.5px solid rgba(44, 41, 41, 0.8588235294) !important;
@@ -201,7 +192,6 @@
 }
 
 .order-select {
-  background-color: #f8f9fa;
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   border: 0.3px solid rgba(44, 41, 41, 0.8588235294) !important;
@@ -303,13 +293,11 @@
   top: 333px; /* Adjust the value to position vertically */
   // right: 20px; /* Adjust the value to position horizontally */
   z-index: 100; /* Adjust the value to ensure the element is above other content */
-  background-color: white; /* Set a background color for the form */
   padding: 5px 0 10px;
   max-width: 275px;
   @media (max-width: 1200px) {
     position: static;
     z-index: 100;
-    background-color: white;
     padding-top: 35px;
   }
 }
@@ -357,7 +345,6 @@
     box-shadow: 0 0 0 50px transparent inset;
     -webkit-box-shadow: 0 0 0 50px transparent inset;
     border: 1px solid black;
-    background-color: #ffffff;
     height: 40px;
     font-size: 16px;
     margin: 0;
@@ -384,7 +371,6 @@
     box-shadow: 0 0 0 50px transparent inset;
     -webkit-box-shadow: 0 0 0 50px transparent inset;
     border: 1px solid black;
-    background-color: #efeeee;
     height: 40px;
     font-size: 16px;
     margin: 0;
@@ -467,13 +453,11 @@
   position: absolute;
   top: 300px; /* Adjust the value to position vertically */
   z-index: 100; /* Adjust the value to ensure the element is above other content */
-  background-color: white; /* Set a background color for the form */
   width: 200px;
   padding: 10px;
   @media (max-width: 1200px) {
     position: static;
     z-index: 100;
-    background-color: white;
     padding: 10px;
   }
 }
