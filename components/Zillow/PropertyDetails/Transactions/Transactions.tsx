@@ -1,7 +1,9 @@
 import { TransactionInt,Parcel } from "../atoms/TransactionsAtom";
 import Table from "react-bootstrap/Table";
+import { useTheme } from "next-themes";
 
 export default function Transactions({transactions}:{transactions: TransactionInt[]}){
+    const {theme} = useTheme();
     const returnTable= (transaction: TransactionInt)=>{
         const keys = Object.keys(transaction);
         const trs = [];
@@ -80,7 +82,7 @@ export default function Transactions({transactions}:{transactions: TransactionIn
                 return (
                     <>
                         <h2>Transaction Number: {index+1}</h2>
-                        <Table striped bordered hover responsive="sm">
+                        <Table striped bordered hover responsive="sm" variant={theme}>
                             <tbody>
                                 {returnTable(transaction)}
                             </tbody>

@@ -19,6 +19,7 @@ import { LoanCalculator } from "@/components/LoanCalculator/LoanCalculator";
 import CTA from "@/components/CTA/CTA";
 import Link from "next/link";
 import { Container } from "@/app/client-react-boostrap";
+import { useTheme } from "next-themes";
 
 const Marker = ({ text }: { text: string; lat: number; lng: number }) => (
   <MdHouse size={25} />
@@ -161,6 +162,7 @@ const options = {
 };
 
 export default function SinglePropertyBuy() {
+  const {theme} = useTheme();
   const pathName = usePathname();
   const [zillowIds, setZillowIds] = useAtom(zillowIdsAtom);
   const [state, setState] = useAtom(StateAtom);
@@ -407,7 +409,7 @@ export default function SinglePropertyBuy() {
 
         {!state.detailsVisible.details ? ( // Add this conditional block
           <div className={styles["property-detail-table"]}>
-            <Table bordered hover responsive>
+            <Table bordered hover responsive variant={theme}>
               <tbody>
                 {state.MlsStatus ? (
                   <tr key="status">

@@ -1,7 +1,9 @@
 import { AssessmentInt,Legal,Building,Area,Garage } from "../atoms/AssessmentsAtom";
 import Table from "react-bootstrap/Table";
+import { useTheme } from "next-themes";
 
 export default function Assessments({assessments}: {assessments: AssessmentInt[]}){
+    const {theme} = useTheme();
     const returnTable = (assessment: AssessmentInt) => {
         const keys = Object.keys(assessment);
         const trs = [];
@@ -204,7 +206,7 @@ export default function Assessments({assessments}: {assessments: AssessmentInt[]
                 return (
                     <>
                         <h2>Assessment number: {index+1}</h2>
-                        <Table striped bordered hover responsive="sm">
+                        <Table striped bordered hover responsive="sm" variant={theme}>
                             <tbody>
                             {returnTable(assessment)}
                             </tbody>

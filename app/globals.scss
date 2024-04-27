@@ -205,8 +205,8 @@ li a {
 }
 @layer base {
   body {
-    @apply dark:bg-[#0a0a0a] 
-        bg-[#edf6f9];
+    @apply dark:bg-[#333333] 
+        bg-[#ffffff];
     @apply dark:text-white
         text-black
   }

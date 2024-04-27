@@ -1,7 +1,8 @@
 import { OverallInt, Legal, Area, Building,Garage } from "../atoms/OverallAtom";
 import Table from "react-bootstrap/Table";
+import {useTheme} from "next-themes";
 export default function Overall({overall}:{overall: OverallInt}){
-    
+    const {theme} = useTheme();
     const returnTable = ()=>{
         const keys = Object.keys(overall);
         const trs = []; 
@@ -199,11 +200,13 @@ export default function Overall({overall}:{overall: OverallInt}){
     return(
         <div>
             <h1>Overall data</h1>
-            <Table striped bordered hover responsive="sm">
+            {
+                overall.url ?             <Table striped bordered hover responsive="sm" variant={theme} >
                 <tbody>
                     {returnTable()}
                 </tbody>
-            </Table>
+            </Table> : null
+            }
         </div>
     )
 
