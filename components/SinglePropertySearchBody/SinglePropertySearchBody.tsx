@@ -162,7 +162,7 @@ const options = {
 };
 
 export default function SinglePropertyBuy() {
-  const {theme} = useTheme();
+  const {resolvedTheme} = useTheme();
   const pathName = usePathname();
   const [zillowIds, setZillowIds] = useAtom(zillowIdsAtom);
   const [state, setState] = useAtom(StateAtom);
@@ -227,7 +227,7 @@ export default function SinglePropertyBuy() {
     (url: any) => url && typeof url === "string"
   );
 
-  return (
+  return resolvedTheme ? (
     <>
       <script type="application/ld+json">
         {state.StreetNumber
@@ -388,7 +388,7 @@ export default function SinglePropertyBuy() {
                 <span>View Property Details</span>
               </div>
               <div className={styles["arrow-wrapper"]}>
-                <img src="/arrow-down.svg" alt="Down Arrow" />
+                <img src={resolvedTheme == "dark" ? "/arrow-down-white.svg" : "/arrow-down.svg"} alt="Down Arrow" />
               </div>
             </>
           ) : (
@@ -399,7 +399,7 @@ export default function SinglePropertyBuy() {
                 </div>
                 <img
                   className={styles["arrow-wrapper"]}
-                  src="/arrow-up.svg"
+                  src={resolvedTheme=="dark" ? "/arrow-up-white.svg" : "/arrow-up.svg"}
                   alt="Up Arrow"
                 />
               </div>
@@ -409,7 +409,7 @@ export default function SinglePropertyBuy() {
 
         {!state.detailsVisible.details ? ( // Add this conditional block
           <div className={styles["property-detail-table"]}>
-            <Table bordered hover responsive variant={theme}>
+            <Table bordered hover responsive variant={resolvedTheme}>
               <tbody>
                 {state.MlsStatus ? (
                   <tr key="status">
@@ -970,7 +970,8 @@ export default function SinglePropertyBuy() {
                   <div style={{ marginTop: "20px" }}>
                     <Link
                       href={`/zillow/${zillowId}`}
-                      className={styles["btn-cta-zillow"]}
+                      className={resolvedTheme == "dark" ? styles["btn-cta-zillow-dark"] : styles["btn-cta-zillow"]
+                    }
                     >
                       <span>{zillowId}</span>
                     </Link>
@@ -983,7 +984,7 @@ export default function SinglePropertyBuy() {
         <div className={styles["single-prop-buttons"]}>
           <hr />
 
-          <Link href="/search" className={styles["btn-cta"]}>
+          <Link href="/search" className={resolvedTheme == "dark" ? styles["btn-cta-dark"] : styles["btn-cta"]}>
             <span>GO BACK</span>
           </Link>
 
@@ -993,5 +994,5 @@ export default function SinglePropertyBuy() {
         <CTA pageName="singlePage" />
       </Container>
     </>
-  );
+  ) : null;
 }

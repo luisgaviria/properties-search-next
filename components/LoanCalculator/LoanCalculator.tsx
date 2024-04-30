@@ -7,6 +7,7 @@ import { formatPrice } from "@/utils/formatPrice";
 import styles from "./LoanCalculator.module.scss";
 import { useAtomValue } from "jotai";
 import { StateAtom } from "../SinglePropertySearchBody/SinglePropertySearchBody";
+import { useTheme } from "next-themes";
 
 interface loanState {
     amount: number; 
@@ -30,6 +31,7 @@ interface loanProps {
 }
 
 export const LoanCalculator = ( ) =>{
+    const {resolvedTheme} = useTheme();
     const initData = useAtomValue(StateAtom);
     // initData.yearl
     // initData.yearlyTaxes = yearlyTaxes / 12;
@@ -132,7 +134,7 @@ export const LoanCalculator = ( ) =>{
                   <span>Mortgage Calculator</span>
                 </div>
                 <div className={styles["arrow-wrapper"]}>
-                  <img src="/arrow-up.svg" alt="Up Arrow" />
+                  <img src={resolvedTheme == "dark" ? "/arrow-up-white.svg" : "/arrow-up.svg"} alt="Up Arrow" />
                 </div>
               </>
             ) : (
@@ -140,7 +142,7 @@ export const LoanCalculator = ( ) =>{
                 <div className={styles["property-detail-table-title"]}>
                   <span>View Mortgage Calculator</span>
                 </div>
-                <img className={styles["arrow-wrapper"]} src="/arrow-down.svg" alt="Down Arrow" />
+                <img className={styles["arrow-wrapper"]} src={resolvedTheme == "dark" ? "/arrow-down-white.svg" : "/arrow-down.svg"} alt="Down Arrow" />
               </>
             )}
           </div>

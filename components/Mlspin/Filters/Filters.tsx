@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 // import { useRouter } from "next/router";
 
 import { Suspense, useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 
 import Image from "@/node_modules/next/image";
 import { Form, Pagination } from "@/app/client-react-boostrap";
@@ -102,6 +103,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchFromHome,setSearchFromHome] = useAtom(searchFromHomeAtom);
+  const {resolvedTheme} =  useTheme();
   // const [searchCounter, setSearchCounter] = useState(0);
   const getDataCity = async (city: string) => {
     setFormVisible(prevState=>{
@@ -406,7 +408,6 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
     },
     debounce: 300,
   });
-
   useEffect(() => {
     if (searchParams.get("near") && !searchFromHome){
       console.log(searchParams.get("near"));
@@ -632,718 +633,716 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
     }));
   };
 
-  return (
-    <>
-      <div className={styles["property-search"]}>
-        <div className={styles["filter-wrapper"]}>
-          <Image
-            width={40}
-            height={40}
-            src="/HOUSE.webp"
-            alt="house icon"
-            className={styles["type-icon"]}
-          />
-          {/* type icon */}
-          <div
-            className={styles["toggle-wrapper"]}
-            onClick={() => toggleFormVisibility("propertyType")}
-          >
-            {/* toggle-wrapper */}
-            <span className={styles["label_filters"]}>
-              {formVisible.propertyType ? "Listing Type" : "Listing Type"}
-            </span>
-            {formVisible.propertyType ? (
-              <Image
-                width={40}
-                height={40}
-                src="/arrow-up.svg"
-                alt="Up Arrow"
-              />
-            ) : (
-              <Image
-                width={40}
-                height={40}
-                src="/arrow-down.svg"
-                alt="Down Arrow"
-              />
-            )}
-          </div>
-          {formVisible.propertyType && (
-            <Form className={styles["property-type-form"]}>
-              <Form.Group>
-                <div
-                  key={`default`}
-                  className={`${styles["propType_filter"]} ${styles["mb-2"]}`}
-                >
-                  {/* "propType_filter mb-2" */}
+  return resolvedTheme ?     <>
+    <div className={styles["property-search"]}>
+      <div className={styles["filter-wrapper"]}>
+        <Image
+          width={40}
+          height={40}
+          src="/HOUSE.webp"
+          alt="house icon"
+          className={styles["type-icon"]}
+        />
+        {/* type icon */}
+        <div
+          className={styles["toggle-wrapper"]}
+          onClick={() => toggleFormVisibility("propertyType")}
+        >
+          {/* toggle-wrapper */}
+          <span className={styles["label_filters"]}>
+            {formVisible.propertyType ? "Listing Type" : "Listing Type"}
+          </span>
+          {formVisible.propertyType ? (
+            <Image
+              width={40}
+              height={40}
+              src={resolvedTheme == "dark" ? "/arrow-up-white.svg" : "/arrow-up.svg" }
+              alt="Up Arrow"
+            />
+          ) : (
+            <Image
+              width={40}
+              height={40}
+              src={resolvedTheme == "dark" ? "/arrow-down-white.svg" : "/arrow-down.svg" }
+              alt="Down Arrow"
+            />
+          )}
+        </div>
+        {formVisible.propertyType && (
+          <Form className={styles["property-type-form"]}>
+            <Form.Group>
+              <div
+                key={`default`}
+                className={`${styles["propType_filter"]} ${styles["mb-2"]}`}
+              >
+                {/* "propType_filter mb-2" */}
 
-                  <Form.Check>
-                    <Form.Check.Input
-                      value="Residential,Residential Income"
-                      checked={
-                        filter.PropertyType.indexOf(
-                          "Residential,Residential Income"
-                        ) > -1
-                          ? true
-                          : false
-                      }
-                      id="buy"
-                      type="checkbox"
-                      onChange={onChangePropertyTypeCheckbox}
-                    />
-                    <Form.Check.Label htmlFor="Buy">Buy</Form.Check.Label>
-                  </Form.Check>
-
-                  <Form.Check>
-                    <Form.Check.Input
-                      type="checkbox"
-                      value="Residential Lease"
-                      checked={
-                        filter.PropertyType.indexOf("Residential Lease") > -1
-                          ? true
-                          : false
-                      }
-                      onChange={onChangePropertyTypeCheckbox}
-                    />
-                    <Form.Check.Label htmlFor="Rent">Rent</Form.Check.Label>
-                  </Form.Check>
-
-                  <Form.Check>
-                    <Form.Check.Input
-                      type="checkbox"
-                      value="Commercial Sale"
-                      checked={
-                        filter.PropertyType.indexOf("Commercial Sale") > -1
-                          ? true
-                          : false
-                      }
-                      onChange={onChangePropertyTypeCheckbox}
-                    />
-                    <Form.Check.Label htmlFor="Commercial">
-                      Commercial
-                    </Form.Check.Label>
-                  </Form.Check>
-
-                  {/* <Form.Check
+                <Form.Check>
+                  <Form.Check.Input
+                    value="Residential,Residential Income"
+                    checked={
+                      filter.PropertyType.indexOf(
+                        "Residential,Residential Income"
+                      ) > -1
+                        ? true
+                        : false
+                    }
+                    id="buy"
                     type="checkbox"
-                    label="Commercial"
+                    onChange={onChangePropertyTypeCheckbox}
+                  />
+                  <Form.Check.Label htmlFor="Buy">Buy</Form.Check.Label>
+                </Form.Check>
+
+                <Form.Check>
+                  <Form.Check.Input
+                    type="checkbox"
+                    value="Residential Lease"
+                    checked={
+                      filter.PropertyType.indexOf("Residential Lease") > -1
+                        ? true
+                        : false
+                    }
+                    onChange={onChangePropertyTypeCheckbox}
+                  />
+                  <Form.Check.Label htmlFor="Rent">Rent</Form.Check.Label>
+                </Form.Check>
+
+                <Form.Check>
+                  <Form.Check.Input
+                    type="checkbox"
                     value="Commercial Sale"
                     checked={
-                      state.filter.PropertyType.indexOf("Commercial Sale") > -1
+                      filter.PropertyType.indexOf("Commercial Sale") > -1
                         ? true
                         : false
                     }
                     onChange={onChangePropertyTypeCheckbox}
-                  /> */}
-                  {/* <Form.Check
-                    type="checkbox"
-                    label="Business Opportunity"
-                    value="Business Opportunity"
-                    checked={
-                      state.filter.PropertyType.indexOf(
-                        "Business Opportunity"
-                      ) > -1
-                        ? true
-                        : false
-                    }
-                    onChange={onChangePropertyTypeCheckbox}
-                  /> */}
-                </div>
-              </Form.Group>
-            </Form>
-          )}
-        </div>
-        <div className={styles["filter-wrapper"]}>
+                  />
+                  <Form.Check.Label htmlFor="Commercial">
+                    Commercial
+                  </Form.Check.Label>
+                </Form.Check>
+
+                {/* <Form.Check
+                  type="checkbox"
+                  label="Commercial"
+                  value="Commercial Sale"
+                  checked={
+                    state.filter.PropertyType.indexOf("Commercial Sale") > -1
+                      ? true
+                      : false
+                  }
+                  onChange={onChangePropertyTypeCheckbox}
+                /> */}
+                {/* <Form.Check
+                  type="checkbox"
+                  label="Business Opportunity"
+                  value="Business Opportunity"
+                  checked={
+                    state.filter.PropertyType.indexOf(
+                      "Business Opportunity"
+                    ) > -1
+                      ? true
+                      : false
+                  }
+                  onChange={onChangePropertyTypeCheckbox}
+                /> */}
+              </div>
+            </Form.Group>
+          </Form>
+        )}
+      </div>
+      <div className={styles["filter-wrapper"]}>
+        <Image
+          width={40}
+          height={40}
+          className={styles["subtype-icon"]}
+          src="/SKYSCRAPER.webp"
+          alt="skyscrapper image"
+        />
+        <div
+          onClick={() => toggleFormVisibility("propertySubType")}
+          className={styles["toggle-wrapper"]}
+        >
+          <span className={styles["label_filters"]}>
+            {formVisible.propertySubType
+              ? "Listing SubType"
+              : "Listing SubType"}
+          </span>
+          {formVisible.propertySubType ? (
+            <Image
+            width={40}
+            height={40}
+            src={resolvedTheme == "dark" ? "/arrow-up-white.svg" : "/arrow-up.svg" }
+            alt="Up Arrow"
+          />
+        ) : (
           <Image
             width={40}
             height={40}
-            className={styles["subtype-icon"]}
-            src="/SKYSCRAPER.webp"
-            alt="skyscrapper image"
+            src={resolvedTheme == "dark" ? "/arrow-down-white.svg" : "/arrow-down.svg" }
+            alt="Down Arrow"
           />
-          <div
-            onClick={() => toggleFormVisibility("propertySubType")}
-            className={styles["toggle-wrapper"]}
-          >
-            <span className={styles["label_filters"]}>
-              {formVisible.propertySubType
-                ? "Listing SubType"
-                : "Listing SubType"}
-            </span>
-            {formVisible.propertySubType ? (
-              <Image
-                width={40}
-                height={40}
-                src="/arrow-up.svg"
-                alt="Up Arrow"
-              />
-            ) : (
-              <Image
-                width={40}
-                height={40}
-                src="/arrow-down.svg"
-                alt="Down Arrow"
-              />
-            )}
-          </div>
-
-          {formVisible.propertySubType && (
-            <Form className={styles["property-subtype-form"]}>
-              <Form.Group>
-                <div
-                  key={`default`}
-                  className={`${styles["propType_filter"]} ${styles["mb-2"]} `}
-                >
-                  <Form.Check // prettier-ignore
-                    label="House"
-                    type="checkbox"
-                    value="Single Family Residence"
-                    checked={
-                      filter.PropertySubType.indexOf(
-                        "Single Family Residence"
-                      ) > -1
-                        ? true
-                        : false
-                    }
-                    onChange={onChangePropertySubTypeCheckbox}
-                  />
-
-                  <Form.Check
-                    type="checkbox"
-                    label="Condominium"
-                    value="Condominium"
-                    checked={
-                      filter.PropertySubType.indexOf("Condominium") > -1
-                        ? true
-                        : false
-                    }
-                    onChange={onChangePropertySubTypeCheckbox}
-                  />
-
-                  <Form.Check
-                    type="checkbox"
-                    label="Townhomes"
-                    value="Townhouse"
-                    checked={
-                      filter.PropertySubType.indexOf("Townhouse") > -1
-                        ? true
-                        : false
-                    }
-                    onChange={onChangePropertySubTypeCheckbox}
-                  />
-                  <Form.Check
-                    type="checkbox"
-                    label="Apartment"
-                    value="Apartment"
-                    checked={
-                      filter.PropertySubType.indexOf("Apartment") > -1
-                        ? true
-                        : false
-                    }
-                    onChange={onChangePropertySubTypeCheckbox}
-                  />
-
-                  <Form.Check
-                    type="checkbox"
-                    label="Multi Family"
-                    value="Multi Family"
-                    checked={
-                      filter.PropertySubType.indexOf("Multi Family") > -1
-                        ? true
-                        : false
-                    }
-                    onChange={onChangePropertySubTypeCheckbox}
-                  />
-                  {/* <Form.Check
-                    type="checkbox"
-                    label="2 Family"
-                    value="2 Family"
-                    checked={
-                      filter.
-                    }
-                    // value={2}
-                    // checked={filter.NumberOfUnitsTotal === 2}
-                    // onChange={() => {
-                    //   setFilter((prevFilter: FilterState) => ({
-                    //     ...prevFilter,
-                    //     NumberOfUnitsTotal:
-                    //       prevFilter.NumberOfUnitsTotal === 2 ? 0 : 2,
-                    //   }));
-                    // }}
-                  /> */}
-
-                  <Form.Check
-                    type="checkbox"
-                    label="3 Family"
-                    value="3 Family"
-                    checked={
-                      filter.PropertySubType.indexOf("3 Family") > -1
-                        ? true
-                        : false
-                    }
-                    onChange={onChangePropertySubTypeCheckbox}
-                  />
-
-                  <Form.Check
-                    type="checkbox"
-                    label="4 Family"
-                    value="4 Family"
-                    checked={
-                      filter.PropertySubType.indexOf("4 Family") > -1
-                        ? true
-                        : false
-                    }
-                    onChange={onChangePropertySubTypeCheckbox}
-                  />
-
-                  <Form.Check
-                    type="checkbox"
-                    label="Residential"
-                    value="Residential"
-                    checked={
-                      filter.PropertySubType.indexOf("Residential") > -1
-                        ? true
-                        : false
-                    }
-                    onChange={onChangePropertySubTypeCheckbox}
-                  />
-
-                  {/* <Form.Check
-                    type="checkbox"
-                    label="Duplex"
-                    value="Duplex"
-                    checked={
-                      state.filter.PropertySubType.indexOf("Duplex") > -1
-                        ? true
-                        : false
-                    }
-                    onChange={onChangePropertySubTypeCheckbox}
-                  /> */}
-
-                  {/* 
-                  <Form.Check
-                    type="checkbox"
-                    label="Cabin"
-                    value="Cabin"
-                    checked={
-                      state.filter.PropertySubType.indexOf("Cabin") > -1
-                        ? true
-                        : false
-                    }
-                    onChange={onChangePropertySubTypeCheckbox}
-                  /> */}
-
-                  {/* <Form.Check
-                    type="checkbox"
-                    label="Parking"
-                    value="Parking"
-                    checked={
-                      state.filter.PropertySubType.indexOf("Parking") > -1
-                        ? true
-                        : false
-                    }
-                    onChange={onChangePropertySubTypeCheckbox}
-                  /> */}
-
-                  {/* <Form.Check
-                    type="checkbox"
-                    label="Attached"
-                    value="Attached (Townhouse/Rowhouse/Duplex)"
-                    checked={
-                      state.filter.PropertySubType.indexOf(
-                        "Attached (Townhouse/Rowhouse/Duplex)"
-                      ) > -1
-                        ? true
-                        : false
-                    }
-                    onChange={onChangePropertySubTypeCheckbox}
-                  /> */}
-                  {/* <Form.Check
-                    type="checkbox"
-                    label="Manufactured"
-                    value="Manufactured Home"
-                    checked={
-                      state.filter.PropertySubType.indexOf(
-                        "Manufactured Home"
-                      ) > -1
-                        ? true
-                        : false
-                    }
-                    onChange={onChangePropertySubTypeCheckbox}
-                  /> */}
-
-                  {/* <Form.Check
-                    type="checkbox"
-                    label="Mobile Home"
-                    value="Mobile Home"
-                    checked={
-                      state.filter.PropertySubType.indexOf("Mobile Home") > -1
-                        ? true
-                        : false
-                    }
-                    onChange={onChangePropertySubTypeCheckbox}
-                  /> */}
-                </div>
-              </Form.Group>
-            </Form>
           )}
         </div>
-        <div className={styles["filter-wrapper"]}>
+
+        {formVisible.propertySubType && (
+          <Form className={styles["property-subtype-form"]}>
+            <Form.Group>
+              <div
+                key={`default`}
+                className={`${styles["propType_filter"]} ${styles["mb-2"]} `}
+              >
+                <Form.Check // prettier-ignore
+                  label="House"
+                  type="checkbox"
+                  value="Single Family Residence"
+                  checked={
+                    filter.PropertySubType.indexOf(
+                      "Single Family Residence"
+                    ) > -1
+                      ? true
+                      : false
+                  }
+                  onChange={onChangePropertySubTypeCheckbox}
+                />
+
+                <Form.Check
+                  type="checkbox"
+                  label="Condominium"
+                  value="Condominium"
+                  checked={
+                    filter.PropertySubType.indexOf("Condominium") > -1
+                      ? true
+                      : false
+                  }
+                  onChange={onChangePropertySubTypeCheckbox}
+                />
+
+                <Form.Check
+                  type="checkbox"
+                  label="Townhomes"
+                  value="Townhouse"
+                  checked={
+                    filter.PropertySubType.indexOf("Townhouse") > -1
+                      ? true
+                      : false
+                  }
+                  onChange={onChangePropertySubTypeCheckbox}
+                />
+                <Form.Check
+                  type="checkbox"
+                  label="Apartment"
+                  value="Apartment"
+                  checked={
+                    filter.PropertySubType.indexOf("Apartment") > -1
+                      ? true
+                      : false
+                  }
+                  onChange={onChangePropertySubTypeCheckbox}
+                />
+
+                <Form.Check
+                  type="checkbox"
+                  label="Multi Family"
+                  value="Multi Family"
+                  checked={
+                    filter.PropertySubType.indexOf("Multi Family") > -1
+                      ? true
+                      : false
+                  }
+                  onChange={onChangePropertySubTypeCheckbox}
+                />
+                {/* <Form.Check
+                  type="checkbox"
+                  label="2 Family"
+                  value="2 Family"
+                  checked={
+                    filter.
+                  }
+                  // value={2}
+                  // checked={filter.NumberOfUnitsTotal === 2}
+                  // onChange={() => {
+                  //   setFilter((prevFilter: FilterState) => ({
+                  //     ...prevFilter,
+                  //     NumberOfUnitsTotal:
+                  //       prevFilter.NumberOfUnitsTotal === 2 ? 0 : 2,
+                  //   }));
+                  // }}
+                /> */}
+
+                <Form.Check
+                  type="checkbox"
+                  label="3 Family"
+                  value="3 Family"
+                  checked={
+                    filter.PropertySubType.indexOf("3 Family") > -1
+                      ? true
+                      : false
+                  }
+                  onChange={onChangePropertySubTypeCheckbox}
+                />
+
+                <Form.Check
+                  type="checkbox"
+                  label="4 Family"
+                  value="4 Family"
+                  checked={
+                    filter.PropertySubType.indexOf("4 Family") > -1
+                      ? true
+                      : false
+                  }
+                  onChange={onChangePropertySubTypeCheckbox}
+                />
+
+                <Form.Check
+                  type="checkbox"
+                  label="Residential"
+                  value="Residential"
+                  checked={
+                    filter.PropertySubType.indexOf("Residential") > -1
+                      ? true
+                      : false
+                  }
+                  onChange={onChangePropertySubTypeCheckbox}
+                />
+
+                {/* <Form.Check
+                  type="checkbox"
+                  label="Duplex"
+                  value="Duplex"
+                  checked={
+                    state.filter.PropertySubType.indexOf("Duplex") > -1
+                      ? true
+                      : false
+                  }
+                  onChange={onChangePropertySubTypeCheckbox}
+                /> */}
+
+                {/* 
+                <Form.Check
+                  type="checkbox"
+                  label="Cabin"
+                  value="Cabin"
+                  checked={
+                    state.filter.PropertySubType.indexOf("Cabin") > -1
+                      ? true
+                      : false
+                  }
+                  onChange={onChangePropertySubTypeCheckbox}
+                /> */}
+
+                {/* <Form.Check
+                  type="checkbox"
+                  label="Parking"
+                  value="Parking"
+                  checked={
+                    state.filter.PropertySubType.indexOf("Parking") > -1
+                      ? true
+                      : false
+                  }
+                  onChange={onChangePropertySubTypeCheckbox}
+                /> */}
+
+                {/* <Form.Check
+                  type="checkbox"
+                  label="Attached"
+                  value="Attached (Townhouse/Rowhouse/Duplex)"
+                  checked={
+                    state.filter.PropertySubType.indexOf(
+                      "Attached (Townhouse/Rowhouse/Duplex)"
+                    ) > -1
+                      ? true
+                      : false
+                  }
+                  onChange={onChangePropertySubTypeCheckbox}
+                /> */}
+                {/* <Form.Check
+                  type="checkbox"
+                  label="Manufactured"
+                  value="Manufactured Home"
+                  checked={
+                    state.filter.PropertySubType.indexOf(
+                      "Manufactured Home"
+                    ) > -1
+                      ? true
+                      : false
+                  }
+                  onChange={onChangePropertySubTypeCheckbox}
+                /> */}
+
+                {/* <Form.Check
+                  type="checkbox"
+                  label="Mobile Home"
+                  value="Mobile Home"
+                  checked={
+                    state.filter.PropertySubType.indexOf("Mobile Home") > -1
+                      ? true
+                      : false
+                  }
+                  onChange={onChangePropertySubTypeCheckbox}
+                /> */}
+              </div>
+            </Form.Group>
+          </Form>
+        )}
+      </div>
+      <div className={styles["filter-wrapper"]}>
+        <Image
+          width={40}
+          height={40}
+          className={styles["price-icon"]}
+          src="/HOMELOAN.webp"
+          alt="money icon"
+        />
+        <div
+          onClick={() => toggleFormVisibility("price")}
+          className={styles["toggle-wrapper"]}
+        >
+          <span className={styles["label_filters"]}>
+            {formVisible.price ? "Price Range" : "Price Range"}
+          </span>
+          {formVisible.price ? (
+            <Image
+            width={40}
+            height={40}
+            src={resolvedTheme == "dark" ? "/arrow-up-white.svg" : "/arrow-up.svg" }
+            alt="Up Arrow"
+          />
+        ) : (
           <Image
             width={40}
             height={40}
-            className={styles["price-icon"]}
-            src="/HOMELOAN.webp"
-            alt="money icon"
+            src={resolvedTheme == "dark" ? "/arrow-down-white.svg" : "/arrow-down.svg" }
+            alt="Down Arrow"
           />
-          <div
-            onClick={() => toggleFormVisibility("price")}
-            className={styles["toggle-wrapper"]}
-          >
-            <span className={styles["label_filters"]}>
-              {formVisible.price ? "Price Range" : "Price Range"}
-            </span>
-            {formVisible.price ? (
-              <Image
-                width={40}
-                height={40}
-                src="/arrow-up.svg"
-                alt="Up Arrow"
-              />
-            ) : (
-              <Image
-                width={40}
-                height={40}
-                src="/arrow-down.svg"
-                alt="Down Arrow"
-              />
-            )}
-          </div>
-          {formVisible.price && (
-            <Form className={styles["price-input-wrapper"]}>
-              <Form.Group className={styles["price-label"]}>
-                <div className={styles["min-wrapper"]}>
-                  <Form.Label>Min:</Form.Label>
-                  <Form.Control
-                    autoComplete="off"
-                    name={"ListPriceFrom"}
-                    onChange={onChangeInput}
-                    value={filter.ListPriceFrom}
-                    type="number"
-                  />
-                </div>
-                <div>
-                  <Form.Label>Max:</Form.Label>
-                  <Form.Control
-                    autoComplete="off"
-                    name={"ListPriceTo"}
-                    onChange={onChangeInput}
-                    value={formatPrice(filter.ListPriceTo)}
-                  />
-                </div>
-              </Form.Group>
-              <div className={styles["range-slider-price"]}>
-                <Slider
-                  range
-                  className="t-slider"
-                  step={1000}
-                  min={0}
-                  max={10000000}
-                  value={[filter.ListPriceFrom, filter.ListPriceTo]}
-                  //[state.filter.ListPriceFrom, state.filter.ListPriceTo]
-                  // onInput={onChangeSlider}
-                  onChange={onChangeSlider}
-                  vertical={false}
-                  allowCross={false}
+          )}
+        </div>
+        {formVisible.price && (
+          <Form className={styles["price-input-wrapper"]}>
+            <Form.Group className={styles["price-label"]}>
+              <div className={styles["min-wrapper"]}>
+                <Form.Label>Min:</Form.Label>
+                <Form.Control
+                  autoComplete="off"
+                  name={"ListPriceFrom"}
+                  onChange={onChangeInput}
+                  value={filter.ListPriceFrom}
+                  type="number"
                 />
               </div>
-            </Form>
-          )}
-        </div>
+              <div>
+                <Form.Label>Max:</Form.Label>
+                <Form.Control
+                  autoComplete="off"
+                  name={"ListPriceTo"}
+                  onChange={onChangeInput}
+                  value={formatPrice(filter.ListPriceTo)}
+                />
+              </div>
+            </Form.Group>
+            <div className={styles["range-slider-price"]}>
+              <Slider
+                range
+                className="t-slider"
+                step={1000}
+                min={0}
+                max={10000000}
+                value={[filter.ListPriceFrom, filter.ListPriceTo]}
+                //[state.filter.ListPriceFrom, state.filter.ListPriceTo]
+                // onInput={onChangeSlider}
+                onChange={onChangeSlider}
+                vertical={false}
+                allowCross={false}
+              />
+            </div>
+          </Form>
+        )}
+      </div>
 
-        <div className={styles["filter-wrapper"]}>
+      <div className={styles["filter-wrapper"]}>
+        <Image
+          width={40}
+          height={40}
+          className={styles["price-icon"]}
+          src="/LOCATION.webp"
+          alt="money icon"
+        />
+        <div
+          onClick={() => toggleFormVisibility("city")}
+          className={styles["toggle-wrapper"]}
+        >
+          <span className={styles["label_filters"]}>
+            {formVisible.city ? "Location" : "Location"}
+          </span>
+          {formVisible.city ? (
+            <Image
+            width={40}
+            height={40}
+            src={resolvedTheme == "dark" ? "/arrow-up-white.svg" : "/arrow-up.svg" }
+            alt="Up Arrow"
+          />
+        ) : (
           <Image
             width={40}
             height={40}
-            className={styles["price-icon"]}
-            src="/LOCATION.webp"
-            alt="money icon"
+            src={resolvedTheme == "dark" ? "/arrow-down-white.svg" : "/arrow-down.svg" }
+            alt="Down Arrow"
           />
-          <div
-            onClick={() => toggleFormVisibility("city")}
-            className={styles["toggle-wrapper"]}
-          >
-            <span className={styles["label_filters"]}>
-              {formVisible.city ? "Location" : "Location"}
-            </span>
-            {formVisible.city ? (
-              <Image
-                width={40}
-                height={40}
-                src="/arrow-up.svg"
-                alt="Up Arrow"
-              />
-            ) : (
-              <Image
-                width={40}
-                height={40}
-                src="/arrow-down.svg"
-                alt="Down Arrow"
-              />
-            )}
-          </div>
+          )}
+        </div>
 
-          {formVisible.city && (
-            <Form className={styles["input-form-wrapper"]}>
-              <Form.Group className={styles["input-form"]}>
-                <div className={styles["mktFormColBuy"]}>
-                  <Form.Check
-                    checked={enableSearching}
-                    type="checkbox"
-                    onChange={onCheckEnablingSearching}
-                    className={styles["mktoFormCheckBox"]}
+        {formVisible.city && (
+          <Form className={styles["input-form-wrapper"]}>
+            <Form.Group className={styles["input-form"]}>
+              <div className={styles["mktFormColBuy"]}>
+                <Form.Check
+                  checked={enableSearching}
+                  type="checkbox"
+                  onChange={onCheckEnablingSearching}
+                  className={styles["mktoFormCheckBox"]}
+                />
+                <div className={styles["mktFieldWrap"]}>
+                  <Form.Control
+                    name="Location"
+                    id="Location"
+                    autoComplete="off"
+                    type="text"
+                    placeholder="Enter a Location"
+                    className={
+                      enableSearching
+                        ? styles["inputText"]
+                        : styles["disabled"]
+                    }
+                    onChange={onInputAddressChange}
+                    disabled={!enableSearching}
+                    // onSubmit={() => getData(1)}
+                    value={searchInput}
                   />
-                  <div className={styles["mktFieldWrap"]}>
-                    <Form.Control
-                      name="Location"
-                      id="Location"
-                      autoComplete="off"
-                      type="text"
-                      placeholder="Enter a Location"
-                      className={
-                        enableSearching
-                          ? styles["inputText"]
-                          : styles["disabled"]
-                      }
-                      onChange={onInputAddressChange}
-                      disabled={!enableSearching}
-                      // onSubmit={() => getData(1)}
-                      value={searchInput}
+                  {enableSearching && (
+                    <Image
+                      className={styles["icon-mag-buy"]}
+                      src="/mag-glass.png"
+                      height={25}
+                      width={25}
+                      alt="magnifiying glass icon"
+                      // onClick={() => getData(1)}
                     />
-                    {enableSearching && (
-                      <Image
-                        className={styles["icon-mag-buy"]}
-                        src="/mag-glass.png"
-                        height={25}
-                        width={25}
-                        alt="magnifiying glass icon"
-                        // onClick={() => getData(1)}
-                      />
-                    )}
+                  )}
 
-                    {status === "OK" && (
-                      <div className={styles["autocomplete-suggestions"]}>
-                        {renderAutocompleteSuggestions()}
-                      </div>
-                    )}
-                  </div>
+                  {status === "OK" && (
+                    <div className={styles["autocomplete-suggestions"]}>
+                      {renderAutocompleteSuggestions()}
+                    </div>
+                  )}
                 </div>
-                <div className={styles["city_label"]}>
-                  <Form.Label
-                    style={{
-                      fontWeight: "bold",
-                      lineHeight: "1.2",
-                      marginTop: "5px",
-                    }}
-                    key={3021}
-                  >
-                    Uncheck Location Input to Use City Dropdown:
-                  </Form.Label>
-                  <Form.Select
-                    value={filter.City}
-                    name="City"
-                    onChange={onChangeSelect}
-                  >
-                    {cities.map((city, index) => {
-                      return (
-                        <option key={index} value={city.Name}>
-                          {city.Name}
-                        </option>
-                      );
-                    })}
-                  </Form.Select>
+              </div>
+              <div className={styles["city_label"]}>
+                <Form.Label
+                  style={{
+                    fontWeight: "bold",
+                    lineHeight: "1.2",
+                    marginTop: "5px",
+                  }}
+                  key={3021}
+                >
+                  Uncheck Location Input to Use City Dropdown:
+                </Form.Label>
+                <Form.Select
+                  value={filter.City}
+                  name="City"
+                  onChange={onChangeSelect}
+                >
+                  {cities.map((city, index) => {
+                    return (
+                      <option key={index} value={city.Name}>
+                        {city.Name}
+                      </option>
+                    );
+                  })}
+                </Form.Select>
+              </div>
+            </Form.Group>
+          </Form>
+        )}
+      </div>
+
+      <div className={styles["filter-wrapper"]}>
+        <div className={styles["bed-baths-icon-wrapper"]}>
+          <Image
+            width={55}
+            height={55}
+            className={styles["beds-icon"]}
+            src={"/BEDROOM.webp"}
+            alt="Bedroom Icon"
+          />
+          <Image
+            width={55}
+            height={55}
+            alt="Bathroom Icon"
+            className={styles["baths-icon"]}
+            src={"/BATHTUB.webp"}
+          />
+        </div>
+
+        <div
+          onClick={() => toggleFormVisibility("bedBaths")}
+          className={styles["toggle-wrapper"]}
+        >
+          <span className={styles["label_filters"]}>
+            {formVisible.bedBaths ? "Beds & Baths" : "Beds & Baths"}
+          </span>
+          {formVisible.bedBaths ? (
+                         <Image
+                         width={40}
+                         height={40}
+                         src={resolvedTheme == "dark" ? "/arrow-up-white.svg" : "/arrow-up.svg" }
+                         alt="Up Arrow"
+                       />
+                     ) : (
+                       <Image
+                         width={40}
+                         height={40}
+                         src={resolvedTheme == "dark" ? "/arrow-down-white.svg" : "/arrow-down.svg" }
+                         alt="Down Arrow"
+                       />
+          )}
+        </div>
+
+        {formVisible.bedBaths && (
+          <>
+            <Form className={styles["beds-baths-form"]}>
+              <Form.Group>
+                <div className={styles["beds-label"]}>
+                  <Form.Label>Beds:</Form.Label>
                 </div>
+                <Form.Select
+                  value={filter.BedroomsTotal}
+                  name="BedroomsTotal"
+                  onChange={onChangeSelect}
+                >
+                  <option value={"Any"}>Any</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={"5+"}>5+</option>
+                </Form.Select>
+              </Form.Group>
+
+              <Form.Group>
+                <div className={styles["baths-label"]}>
+                  <Form.Label>Baths:</Form.Label>
+                </div>
+                <Form.Select
+                  value={filter.BathroomsTotal}
+                  name="BathroomsTotal"
+                  onChange={onChangeSelect}
+                >
+                  <option value={"Any"}>Any</option>
+                  <option value={1}>1</option>
+                  <option value={1.5}>1.5</option>
+                  <option value={2}>2</option>
+                  <option value={2.5}>2.5</option>
+                  <option value={"3+"}>3+</option>
+                </Form.Select>
               </Form.Group>
             </Form>
-          )}
+          </>
+        )}
+      </div>
+    </div>
+    <SearchButton onClick={onClickSearchHomes} />
+
+    <div className={formVisible["map"] ? styles["search-container"] : ""}>
+      <div className={styles["properties-grid-filter"]}>
+        {/* <div className="pagination-wrapper">
+          <Pagination>{items}</Pagination>
+        </div> */}
+        <div className={styles["btn-map-wrapper"]}>
+          <div className={styles["btn-filters-vis"]}>
+            <span>{"MORE FILTERS"}</span>
+          </div>
+          <div
+            className={resolvedTheme == "dark" ? styles["btn-map-dark"] : styles["btn-map"]}
+            onClick={() => toggleMapVisibility("map")}
+          >
+            <span>{formVisible.map ? "HIDE MAP" : "VIEW MAP"}</span>
+          </div>
         </div>
 
-        <div className={styles["filter-wrapper"]}>
-          <div className={styles["bed-baths-icon-wrapper"]}>
-            <Image
-              width={55}
-              height={55}
-              className={styles["beds-icon"]}
-              src={"/BEDROOM.webp"}
-              alt="Bedroom Icon"
-            />
-            <Image
-              width={55}
-              height={55}
-              alt="Bathroom Icon"
-              className={styles["baths-icon"]}
-              src={"/BATHTUB.webp"}
-            />
-          </div>
-
-          <div
-            onClick={() => toggleFormVisibility("bedBaths")}
-            className={styles["toggle-wrapper"]}
-          >
-            <span className={styles["label_filters"]}>
-              {formVisible.bedBaths ? "Beds & Baths" : "Beds & Baths"}
-            </span>
-            {formVisible.bedBaths ? (
-              <Image
-                width={40}
-                height={40}
-                src={"/arrow-up.svg"}
-                alt="Up Arrow"
-              />
-            ) : (
-              <Image
-                width={40}
-                height={40}
-                src="/arrow-down.svg"
-                alt="Down Arrow"
-              />
+        <div className={styles["sort-container"]}>
+          <div className={styles["sort-select"]}>
+            {formVisible.sortBy && (
+              <Form.Select
+                value={filter.sortBy}
+                onChange={onChangeSelect}
+                name="sortBy"
+              >
+                <option value={""}>Sort By</option>
+                <option value={"ListPrice"}>List Price</option>
+                <option value={"LivingArea"}>Living Area</option>
+                <option value={"ModificationTimestamp"}>Last Modified</option>
+                <option value={"ListingContractDate"}>Listing Date</option>
+              </Form.Select>
             )}
           </div>
+          <div className={styles["order-select"]}>
+            {formVisible.sortBy && (
+              <Form.Select
+                value={filter.order}
+                onChange={onChangeSelect}
+                name="order"
+              >
+                <option value={"asc"}>ascending</option>
+                <option value={"desc"}>descending</option>
+              </Form.Select>
+            )}
+          </div>
+        </div>
 
-          {formVisible.bedBaths && (
-            <>
-              <Form className={styles["beds-baths-form"]}>
-                <Form.Group>
-                  <div className={styles["beds-label"]}>
-                    <Form.Label>Beds:</Form.Label>
-                  </div>
-                  <Form.Select
-                    value={filter.BedroomsTotal}
-                    name="BedroomsTotal"
-                    onChange={onChangeSelect}
-                  >
-                    <option value={"Any"}>Any</option>
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
-                    <option value={"5+"}>5+</option>
-                  </Form.Select>
-                </Form.Group>
+        {/* <PropertySeachList properties={properties} /> */}
+        <div
+          className={
+            formVisible["map"]
+              ? styles["properties_grid_map_view"]
+              : styles["properties_grid"]
+          }
+        >
+          {/* <Suspense fallback={<Loading />}> */}
+            <PropertySearchList
+              properties={properties?.length ? properties : params.cityData}
+            />
+          {/* </Suspense> */}
+          {/* {properties.map((property: Property, index: number) => {
+            return (
+              <PropertySearchTile
+                key={property.id || index}
+                onClick={() => {}}
+                data={property}
+              />
+            );
+          })} */}
+        </div>
 
-                <Form.Group>
-                  <div className={styles["baths-label"]}>
-                    <Form.Label>Baths:</Form.Label>
-                  </div>
-                  <Form.Select
-                    value={filter.BathroomsTotal}
-                    name="BathroomsTotal"
-                    onChange={onChangeSelect}
-                  >
-                    <option value={"Any"}>Any</option>
-                    <option value={1}>1</option>
-                    <option value={1.5}>1.5</option>
-                    <option value={2}>2</option>
-                    <option value={2.5}>2.5</option>
-                    <option value={"3+"}>3+</option>
-                  </Form.Select>
-                </Form.Group>
-              </Form>
-            </>
-          )}
+        <div className={styles["pagination-wrapper"]}>
+          <Suspense fallback={<Loading />}>
+            <Pagination>
+              {createPagination(pageObj.pages, pageObj.actualPage, getData)}
+            </Pagination>
+          </Suspense>
         </div>
       </div>
-      <SearchButton onClick={onClickSearchHomes} />
-
-      <div className={formVisible["map"] ? styles["search-container"] : ""}>
-        <div className={styles["properties-grid-filter"]}>
-          {/* <div className="pagination-wrapper">
-            <Pagination>{items}</Pagination>
-          </div> */}
-          <div className={styles["btn-map-wrapper"]}>
-            <div className={styles["btn-filters-vis"]}>
-              <span>{"MORE FILTERS"}</span>
-            </div>
-            <div
-              className={styles["btn-map"]}
-              onClick={() => toggleMapVisibility("map")}
-            >
-              <span>{formVisible.map ? "HIDE MAP" : "VIEW MAP"}</span>
-            </div>
-          </div>
-
-          <div className={styles["sort-container"]}>
-            <div className={styles["sort-select"]}>
-              {formVisible.sortBy && (
-                <Form.Select
-                  value={filter.sortBy}
-                  onChange={onChangeSelect}
-                  name="sortBy"
-                >
-                  <option value={""}>Sort By</option>
-                  <option value={"ListPrice"}>List Price</option>
-                  <option value={"LivingArea"}>Living Area</option>
-                  <option value={"ModificationTimestamp"}>Last Modified</option>
-                  <option value={"ListingContractDate"}>Listing Date</option>
-                </Form.Select>
-              )}
-            </div>
-            <div className={styles["order-select"]}>
-              {formVisible.sortBy && (
-                <Form.Select
-                  value={filter.order}
-                  onChange={onChangeSelect}
-                  name="order"
-                >
-                  <option value={"asc"}>ascending</option>
-                  <option value={"desc"}>descending</option>
-                </Form.Select>
-              )}
-            </div>
-          </div>
-
-          {/* <PropertySeachList properties={properties} /> */}
-          <div
-            className={
-              formVisible["map"]
-                ? styles["properties_grid_map_view"]
-                : styles["properties_grid"]
-            }
-          >
-            {/* <Suspense fallback={<Loading />}> */}
-              <PropertySearchList
-                properties={properties?.length ? properties : params.cityData}
-              />
-            {/* </Suspense> */}
-            {/* {properties.map((property: Property, index: number) => {
-              return (
-                <PropertySearchTile
-                  key={property.id || index}
-                  onClick={() => {}}
-                  data={property}
-                />
-              );
-            })} */}
-          </div>
-
-          <div className={styles["pagination-wrapper"]}>
+      <div className={styles["map-wrapper"]}>
+        {formVisible.map && (
+          <div className={styles["grid-prop-map"]}>
             <Suspense fallback={<Loading />}>
-              <Pagination>
-                {createPagination(pageObj.pages, pageObj.actualPage, getData)}
-              </Pagination>
+              <Map properties={mapProperties} onMoveMap={onMoveMap} />
             </Suspense>
           </div>
-        </div>
-        <div className={styles["map-wrapper"]}>
-          {formVisible.map && (
-            <div className={styles["grid-prop-map"]}>
-              <Suspense fallback={<Loading />}>
-                <Map properties={mapProperties} onMoveMap={onMoveMap} />
-              </Suspense>
-            </div>
-          )}
-        </div>
+        )}
       </div>
-    </>
-  );
+    </div>
+  </> : null
 }
