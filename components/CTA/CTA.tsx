@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 
 import { Container } from "@/app/client-react-boostrap";
+import Link from "@/node_modules/next/link";
 
 import Image from "@/node_modules/next/image";
 
 import "./CTA.scss";
 
-const CTA = ({pageName}: {pageName: string}) => {
+const CTA = ({ pageName }: { pageName: string }) => {
   const [isHovered, setIsHovered] = useState(false);
   // let buttonTextOne = "";
   // let buttonTextTwo = "";
@@ -51,13 +52,15 @@ const CTA = ({pageName}: {pageName: string}) => {
             Your House.
           </span>
           <div className="row-wrapper">
-            <div
-              className="btn-cta"
-              onMouseEnter={handleButtonHover}
-              onMouseLeave={handleButtonLeave}
-            >
-              <span>SEACH LISTINGS</span>
-            </div>
+            <Link href={"/search"}>
+              <div
+                className="btn-cta"
+                onMouseEnter={handleButtonHover}
+                onMouseLeave={handleButtonLeave}
+              >
+                <span>SEACH LISTINGS</span>
+              </div>
+            </Link>
             <div
               className="btn-cta-second"
               onMouseEnter={handleButtonHover}
