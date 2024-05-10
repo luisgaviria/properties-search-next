@@ -5,16 +5,16 @@ import { Nav } from "@/node_modules/react-bootstrap/esm/index";
 import { Navbar } from "@/node_modules/react-bootstrap/esm/index";
 import styles from "./Navbar.module.scss";
 import { Button } from "react-bootstrap";
-import { useSession,signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import DarkModeToggle from "../ToogleThemeButton/ToogleThemeButton";
 
 const NavBar = (props: any) => {
-  const {data,status}: {data: any;status: any} = useSession();
+  const { data, status }: { data: any; status: any } = useSession();
 
-  const handleLogOut =async()=>{
+  const handleLogOut = async () => {
     await signOut();
   };
-  
+
   return (
     <Navbar
       className={styles["navbar-properties"]}
@@ -34,8 +34,7 @@ const NavBar = (props: any) => {
             <Link href="/">Home</Link>
             {/* <Nav.Link href="/search">Search</Nav.Link> */}
             <Link href="/search">Search</Link>
-            
-            
+
             {/* <Nav.Link href={localStorage.getItem("token") ? "/form" : "/login"}>
                   Manage Listings
                 </Nav.Link> */}
@@ -63,28 +62,32 @@ const NavBar = (props: any) => {
             </Nav>
           </Navbar.Collapse>
         )} */}
-        {
-          data?.user.email.length ?   
-          <>      
-                  <Nav.Link
-          href="/profile"
-        >
-          Profile
-        </Nav.Link>
-        <Button
-          variant="black"
-          onClick={handleLogOut}
-        >
-          Log Out
-        </Button> 
-        </>:  <Navbar.Collapse className="justify-content-end">
+        {data?.user.email.length ? (
+          <>
+            <Nav.Link href="/profile">Profile</Nav.Link>
+            <Button variant="black" onClick={handleLogOut}>
+              Log Out
+            </Button>
+          </>
+        ) : (
+          <Navbar.Collapse className="justify-content-end mr-3">
             <Nav>
-              <Nav.Link className="text-gray-900 dark:text-white" href="/auth/register">Register</Nav.Link>
-              <Nav.Link className="text-gray-900 dark:text-white" href="/auth/login">Login</Nav.Link>
+              <Nav.Link
+                className="text-gray-900 dark:text-white"
+                href="/auth/register"
+              >
+                Register
+              </Nav.Link>
+              <Nav.Link
+                className="text-gray-900 dark:text-white mr4"
+                href="/auth/login"
+              >
+                Login
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
-        }
-        <DarkModeToggle/>
+        )}
+        <DarkModeToggle />
       </Container>
     </Navbar>
   );
