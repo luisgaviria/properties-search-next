@@ -133,8 +133,8 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
           }),
           infoWindow: new this.googleRef.InfoWindow({
             content: `
-            <div>
-              <a href="/search/${property.ListingId}"><img height="200px" src="${imgUrl}"/></a>
+            <div style="padding: 10px">
+              <a href="/search/${property.ListingId}"><img style="width: 300px; height: 200px;" src="${imgUrl}"/></a>
               <br/>
               <a style="text-decoration:underline; color: blue"  href="/search/${property.ListingId}">${property.City}, ${property.StreetName}, ${property.StreetNumber}</a>
             </div>

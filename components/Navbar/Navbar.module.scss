@@ -29,6 +29,10 @@
 
 .nav-link-items {
   margin-left: 2.6rem;
+  @media (max-width: 480px) {
+    margin-top: 20px;
+    margin-left: 0;
+  }
   a {
     margin-right: 2rem;
   }

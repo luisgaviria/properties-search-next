@@ -144,6 +144,9 @@ li a {
 
 .page-link {
   color: black !important;
+  @media (max-width: 480px) {
+    font-size: 13px;
+  }
 }
 
 .active > .page-link,
@@ -208,6 +211,6 @@ li a {
     @apply dark:bg-[#333333] 
         bg-[#ffffff];
     @apply dark:text-white
-        text-black
+        text-black;
   }
 }
