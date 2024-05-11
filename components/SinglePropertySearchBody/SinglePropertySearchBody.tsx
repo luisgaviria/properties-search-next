@@ -313,18 +313,18 @@ export default function SinglePropertyBuy() {
         <div className={styles["single-property-details"]}>
           <div className={styles["show-page-details-icons"]}>
             <div className={styles["icon-item"]}>
-              <Image src="/BEDROOM.webp" width={50} height={50} alt="bedroom" />
+              <Image src={resolvedTheme == "dark" ? "/BEDROOM-WHITE.svg" : "/BEDROOM.webp"} width={50} height={50} alt="bedroom" />
               <span>{state.BedroomsTotal} Bedrooms</span>
             </div>
             <div className={styles["icon-item"]}>
               {/* <FaRestroom size={50} /> */}
-              <Image src="/BATHTUB.webp" width={50} height={50} alt="bathhub" />
+              <Image src={resolvedTheme == "dark" ? "/BATHTUB-WHITE.svg" : "/BATHTUB.webp"} width={50} height={50} alt="bathhub" />
               <span>{state.BathroomsTotalDecimal} Bathrooms</span>
             </div>
             {state.LivingArea ? (
               <div className={styles["icon-item"]}>
                 <Image
-                  src="/DISCOUNT.webp"
+                  src={resolvedTheme == "dark" ? "/DISCOUNT-WHITE.svg" : "/DISCOUNT.webp"}
                   width={50}
                   height={50}
                   alt="bathhub"
@@ -354,7 +354,7 @@ export default function SinglePropertyBuy() {
             <div className={styles["icon-item"]}>
               {/* <MdOutlineAttachMoney size={50} /> */}
               <Image
-                src="/HOMELOAN.webp"
+                src={resolvedTheme=="dark" ? "/HOMELOAN-WHITE.svg" : "/HOMELOAN.webp"}
                 width={50}
                 height={50}
                 alt="homeloan"
@@ -362,7 +362,7 @@ export default function SinglePropertyBuy() {
               <span>{formatPrice(state.ListPrice)}</span>
             </div>
             <div className={styles["icon-item"]}>
-              <Image src="/REALTOR.webp" width={50} height={50} alt="bathhub" />
+              <Image src={resolvedTheme == "dark" ? "/REALTOR-WHITE.svg" : "/REALTOR.webp" } width={50} height={50} alt="bathhub" />
               <span>508-762-7639</span>
             </div>
           </div>

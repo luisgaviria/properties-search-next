@@ -639,7 +639,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
         <Image
           width={40}
           height={40}
-          src="/HOUSE.webp"
+          src={resolvedTheme == "dark" ? "/HOUSE-WHITE.svg" : "/HOUSE.webp"}
           alt="house icon"
           className={styles["type-icon"]}
         />
@@ -758,7 +758,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
           width={40}
           height={40}
           className={styles["subtype-icon"]}
-          src="/SKYSCRAPER.webp"
+          src={resolvedTheme == "dark" ? "/SKYSCRAPER-WHITE.svg" : "/SKYSCRAPER.webp"}
           alt="skyscrapper image"
         />
         <div
@@ -993,7 +993,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
           width={40}
           height={40}
           className={styles["price-icon"]}
-          src="/HOMELOAN.webp"
+          src={resolvedTheme == "dark" ? "/HOMELOAN-WHITE.svg" : "/HOMELOAN.webp"}
           alt="money icon"
         />
         <div
@@ -1066,7 +1066,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
           width={40}
           height={40}
           className={styles["price-icon"]}
-          src="/LOCATION.webp"
+          src={resolvedTheme == "dark" ? "/LOCATION-WHITE.svg" : "/LOCATION.webp"}
           alt="money icon"
         />
         <div
@@ -1174,7 +1174,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
             width={55}
             height={55}
             className={styles["beds-icon"]}
-            src={"/BEDROOM.webp"}
+            src={resolvedTheme == "dark" ? "/BEDROOM-WHITE.svg" : "/BEDROOM.webp"}
             alt="Bedroom Icon"
           />
           <Image
@@ -1182,7 +1182,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
             height={55}
             alt="Bathroom Icon"
             className={styles["baths-icon"]}
-            src={"/BATHTUB.webp"}
+            src={resolvedTheme == "dark" ? "/BATHTUB-WHITE.svg" :"/BATHTUB.webp"}
           />
         </div>
 
