@@ -20,6 +20,7 @@ import CTA from "@/components/CTA/CTA";
 import Link from "next/link";
 import { Container } from "@/app/client-react-boostrap";
 import { useTheme } from "next-themes";
+import ScrollButton from "../ScrollButton/ScrollButton";
 
 const Marker = ({ text }: { text: string; lat: number; lng: number }) => (
   <MdHouse size={25} />
@@ -304,6 +305,7 @@ export default function SinglePropertyBuy() {
         })}
       </Carousel>
       <Container>
+        <ScrollButton/>
         <div className={styles["prop-tile-address"]}>
           <h1>
             {state.StreetNumber} {state.StreetName} {state.City},{" "}
