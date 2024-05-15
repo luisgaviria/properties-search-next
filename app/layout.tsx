@@ -35,13 +35,6 @@ export default async function RootLayout({ children }: RootLayoutProps){
                     <NavBar />
                     {children}
                     <Footer />
-                    <Script
-                      defer
-                      id="googlemaps"
-                      src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_API_KEY}&libraries=places`}
-                      strategy="afterInteractive"
-                      type="text/javascript"
-                    />
               </ThemeProvider>
             </body>
           </html>
