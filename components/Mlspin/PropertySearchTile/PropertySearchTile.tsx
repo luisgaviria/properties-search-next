@@ -64,7 +64,7 @@ export default function PropertySearchTile({ data }: any) {
                   //   autoPlay={false}
                   // className={styles["img-wrap-buytile"]}
                 >
-                  <Link href={`/search/${data.ListingId}`}>
+                  <a href={`/search/${data.ListingId}`} target="_blank">
                   {
                     <Image
                     // type="image/webp"
@@ -81,7 +81,7 @@ export default function PropertySearchTile({ data }: any) {
                     height={300}
                   />
                   }
-                  </Link>
+                  </a>
 
                 </Carousel.Item>
               );

@@ -212,38 +212,32 @@
 // export default GoogleMapContainer;
 
 "use client";
-import React from 'react'
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
-import { googlekey } from './token';
+import React, { useEffect } from 'react'
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { Property } from '../definitions/Property';
 
 const containerStyle = {
   width: '100%',
   height: '100%'
 };
 
-const center = {
-  lat: -3.745,
-  lng: -38.523
-};
-
-
-
-function MyComponent() {
-  const apikey: string = googlekey as string;
+function Map({properties}: {properties: Property[]}) {
+  console.log(properties);
   return (
     <LoadScript
-      googleMapsApiKey={apikey}
+      googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string}
     >
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={center}
-        zoom={10}
+        center={{lat: properties[0].Latitude,lng: properties[0].Longitude}}
+        zoom={14}
       >
-        { /* Child components, such as markers, info windows, etc. */ }
-        <></>
+        {properties.map(property=>{
+            return (<Marker position={{lat: property.Latitude,lng: property.Longitude}}/>)
+        })}
       </GoogleMap>
     </LoadScript>
   )
 }
 
-export default React.memo(MyComponent)
+export default React.memo(Map)

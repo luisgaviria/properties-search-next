@@ -1337,9 +1337,10 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
       <div className={styles["map-wrapper"]}>
         {formVisible.map && (
           <div className={styles["grid-prop-map"]}>
-            <Suspense fallback={<Loading />}>
-              <Map properties={mapProperties} onMoveMap={onMoveMap} />
-            </Suspense>
+            {/* <Suspense fallback={<Loading />}> */}
+              {/* <Map properties={mapProperties} onMoveMap={onMoveMap} /> */}
+              <Map properties={mapProperties}/>
+            {/* </Suspense> */}
           </div>
         )}
       </div>
