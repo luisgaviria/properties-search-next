@@ -34,6 +34,7 @@ import usePlacesAutocomplete, {
 import SearchButton from "../../SearchButton/SearchButton";
 
 import { createPagination } from "@/utils/createPagination";
+import { createPaginationPhone } from "@/utils/createPaginationPhone";
 import PropertySearchList from "../PropertySearchList/PropertySearchList";
 import Loading from "./loading";
 
@@ -104,6 +105,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
   const searchParams = useSearchParams();
   const [searchFromHome,setSearchFromHome] = useAtom(searchFromHomeAtom);
   const {resolvedTheme} =  useTheme();
+  const [screenWidth,setScreenWidth] = useState(1000);
   // const [searchCounter, setSearchCounter] = useState(0);
   const getDataCity = async (city: string) => {
     setFormVisible(prevState=>{
@@ -481,6 +483,15 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
     //   });
     // }
   }, []);
+
+  const onResizeWindow = () =>{ 
+    const width = window.innerWidth;
+    setScreenWidth(width);
+  };
+
+  useEffect(()=>{
+    window.addEventListener('resize',onResizeWindow);
+  },[window.innerWidth]);
 
   const onInputAddressChange = (e: any) => {
     // Update the autocomplete input value
@@ -1329,7 +1340,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
         <div className={styles["pagination-wrapper"]}>
           <Suspense fallback={<Loading />}>
             <Pagination>
-              {createPagination(pageObj.pages, pageObj.actualPage, getData)}
+              {screenWidth < 862 ? createPaginationPhone(pageObj.pages, pageObj.actualPage, getData) : createPagination(pageObj.pages, pageObj.actualPage, getData)}
             </Pagination>
           </Suspense>
         </div>
