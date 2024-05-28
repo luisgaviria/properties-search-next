@@ -138,7 +138,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
             <div style="padding: 10px" class="marker">
               <a><img style="width: 300px; height: 200px;" src="${imgUrl}"/></a>
               <br/>
-              <a href="/search/${property.ListingId}" target="blank" style="text-decoration:underline; color: blue">${property.City}, ${property.StreetName}, ${property.StreetNumber}</a>
+              <a href="/search/${property.ListingId}" target="_blank" style="text-decoration:underline; color: blue">${property.City}, ${property.StreetName}, ${property.StreetNumber}</a>
             </div>
           `,
           }),
