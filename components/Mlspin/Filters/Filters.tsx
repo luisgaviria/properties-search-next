@@ -299,7 +299,9 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
     setPageObj({ actualPage: page_num, pages: res2.pages });
 
     setProperties(res2.properties);
+
   };
+
 
   // const onPropertyClick = (data: Property) => {
   //   router.push("/search/" + data.ListingId);
@@ -386,9 +388,10 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
     enabled: false,
   });
 
-  const onClickSearchHomes = () => {
+  const onClickSearchHomes = async() => {
     // setPageObj({actualPage: 1,pages: });
-    properties_.refetch();
+
+    await properties_.refetch();
   };
 
   const [formVisible, setFormVisible] = useAtom(formVisibleAtom);
@@ -483,6 +486,15 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
     //   });
     // }
   }, []);
+
+
+  useEffect(()=>{
+
+    const gridScrollElement = document.getElementById("properties-grid-filter");
+    if (gridScrollElement) {
+      gridScrollElement.scrollIntoView({ behavior: "auto" });
+    }
+  },[properties]);
 
   const onResizeWindow = () =>{ 
     const width = window.innerWidth;
@@ -1266,7 +1278,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
     </div>
     <SearchButton onClick={onClickSearchHomes} />
 
-    <div className={formVisible["map"] ? styles["search-container"] : ""}>
+    <div className={formVisible["map"] ? styles["search-container"] : "container"}>
       <div className={styles["properties-grid-filter"]}>
         {/* <div className="pagination-wrapper">
           <Pagination>{items}</Pagination>
@@ -1312,7 +1324,6 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
             )}
           </div>
         </div>
-
         {/* <PropertySeachList properties={properties} /> */}
         <div
           className={
@@ -1320,6 +1331,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
               ? styles["properties_grid_map_view"]
               : styles["properties_grid"]
           }
+          id="properties-grid-filter"
         >
           {/* <Suspense fallback={<Loading />}> */}
             <PropertySearchList
