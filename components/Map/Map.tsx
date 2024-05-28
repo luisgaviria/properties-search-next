@@ -116,6 +116,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
 
       // Store the markers and info windows for later use
       this.markersWithInfoWindows = [];
+
     }, 1000);
   }
 
@@ -126,6 +127,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
     // Create markers and info windows when the map is loaded
     this.markersWithInfoWindows = (this.props.properties || []).map(
       (property) => {
+        console.log(property);
         const imgUrl = property.Media?.[0]?.MediaURL;
         return {
           marker: new this.googleRef.Marker({
@@ -133,10 +135,10 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
           }),
           infoWindow: new this.googleRef.InfoWindow({
             content: `
-            <div style="padding: 10px">
-              <a href="/search/${property.ListingId}"><img style="width: 300px; height: 200px;" src="${imgUrl}"/></a>
+            <div style="padding: 10px" class="marker">
+              <a><img style="width: 300px; height: 200px;" src="${imgUrl}"/></a>
               <br/>
-              <a style="text-decoration:underline; color: blue"  href="/search/${property.ListingId}">${property.City}, ${property.StreetName}, ${property.StreetNumber}</a>
+              <a href="/search/${property.ListingId}" target="_blank" style="text-decoration:underline; color: blue">${property.City}, ${property.StreetName}, ${property.StreetNumber}</a>
             </div>
           `,
           }),

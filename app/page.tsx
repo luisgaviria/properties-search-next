@@ -8,6 +8,8 @@ import WaterFrontListings from "@/components/WaterFrontListings/WaterFrontListin
 import { Suspense } from "react";
 import Loading from "./loading";
 import { Property } from "@/components/definitions/Property";
+import { formatPrice } from "@/utils/formatPrice";
+
 
 interface latestResponse {
   message: string;
@@ -29,11 +31,83 @@ async function getWaterFrontListings(){
   return res.waterFrontListings;
 }
 
+const generateTitle = (state: any) => {
+  const livingArea =
+    state.LivingArea !== null ? state.LivingArea?.toLocaleString() : null;
+
+  return `Property Listing: ${state.StreetNumber} ${state.StreetName}, ${
+    state.City
+  }, ${state.StateOrProvince} - ${formatPrice(state.ListPrice)} - ${
+    livingArea !== null ? livingArea + " sqft" : ""
+  }`;
+};
+
+function truncateStringWithEllipsis(str: string) {
+  const maxLength = 157;
+
+  if (typeof str !== "string") {
+    throw new Error("Input must be a string.");
+  }
+
+  if (!str || str.trim() === "") {
+    return "";
+  }
+
+  if (str.length <= maxLength) {
+    return str;
+  }
+
+  return str.substring(0, maxLength - 3) + "...";
+}
+
+
 export default async function Home() {
   const newListings = await getLatestListings();
   const waterFrontListings = await getWaterFrontListings();
+
+  console.log(newListings,waterFrontListings);
+   
   return (
     <>
+    <script type="application/ld+json">
+      {(newListings.length && waterFrontListings.length) && `
+        {
+          "@context": "https://schema.org",
+          "@type": "RealEstateListing",
+          "name": "Home Page",
+          "description": "There are ${newListings.length + waterFrontListings.length} properties available in the home page.",
+          "numberOfItems": ${newListings.length + waterFrontListings.length},
+          "itemListElement": [
+          ${(newListings.concat(waterFrontListings)).map((property, index) => property.map((tempProperty,index) => `
+          {
+          "@type": "ListItem",
+          "position": ${index + 1},
+          "item": {
+          "@type": "RealEstateListing",
+          "name": "${generateTitle(tempProperty)}",
+          "image": "${tempProperty.Media[0].MediaURL || ""}",
+          "url": "${tempProperty.url}",
+          "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "${tempProperty.StreetNumber} ${tempProperty.StreetName}",
+          "addressLocality": "${tempProperty.City}",
+          "addressRegion": "${tempProperty.StateOrProvince}",
+          "addressCountry": "USA"
+          },
+          "price": "${formatPrice(tempProperty.ListPrice)}",
+          "numberOfBedrooms": "${tempProperty.BedroomsTotal}",
+          "numberOfBathrooms": "${tempProperty.BathroomsTotalDecimal}",
+          "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": ${tempProperty.LivingArea !== undefined && tempProperty.LivingArea !== 0 ? `"${tempProperty.LivingArea.toLocaleString()}"` : null},
+          "unitCode": "SQFT"
+          }
+          }
+          `)).join(',')}
+          ]
+        }
+      `}
+    </script>
       <main className={styles.main}>
         <Banner />
 
