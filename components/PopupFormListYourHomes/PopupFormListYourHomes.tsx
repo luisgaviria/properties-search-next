@@ -40,11 +40,11 @@ const PopupFormListYourHomes = ()=>{
     };
     return (
       <>
-        <header style={
+        {/* <header style={
             {color: "#fff"}
         }>
             <span className={`${styles['close-button']} ${styles['topright']}`}>&times;</span>
-        </header>
+        </header> */}
         <div className={styles.rowWrapper}>
         <div className={styles.columnLeft}>
             <h1 className={styles.columnLeftH1}>Are You interested in more information?</h1>
