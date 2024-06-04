@@ -19,7 +19,7 @@ async function getCityListings(city: any){
     query+=`City=${city}`;
     query+=`&PropertyType=Residential,Residential Income`;
     query+="&save=true";
-    const res: any = await fetch(`${process.env.URL_API}/api/search/mlspin?${query}&page=1`,{
+    const res: any = await fetch(`${process.env.URL_API}:${process.env.PORT || 3000}/api/search/mlspin?${query}&page=1`,{
         cache: "no-store"
     }).then((res)=>res.json());
 
