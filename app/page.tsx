@@ -10,7 +10,6 @@ import Loading from "./loading";
 import { Property } from "@/components/definitions/Property";
 import { formatPrice } from "@/utils/formatPrice";
 
-
 interface latestResponse {
   message: string;
   listings: Property[][];
@@ -18,16 +17,21 @@ interface latestResponse {
 
 interface waterFrontResponse {
   message: string;
-  waterFrontListings: Property[][]
+  waterFrontListings: Property[][];
 }
 
-async function getLatestListings(){ // url in env! should be solved in case of deployment!
-  const res: latestResponse = await fetch(`${process.env.URL_API}:${process.env.PORT || 3000}/api/search/mlspin/latest`).then(data=>data.json());
+async function getLatestListings() {
+  // url in env! should be solved in case of deployment!
+  const res: latestResponse = await fetch(
+    `${process.env.URL_API}:${process.env.PORT || 3000}/api/search/mlspin/latest`,
+  ).then((data) => data.json());
   return res.listings;
 }
 
-async function getWaterFrontListings(){
-  const res: waterFrontResponse = await fetch(`${process.env.URL_API}:${process.env.PORT || 3000}/api/search/mlspin/waterFrontListings`).then(data=>data.json());
+async function getWaterFrontListings() {
+  const res: waterFrontResponse = await fetch(
+    `${process.env.URL_API}:${process.env.PORT || 3000}/api/search/mlspin/waterFrontListings`,
+  ).then((data) => data.json());
   return res.waterFrontListings;
 }
 
@@ -60,17 +64,18 @@ function truncateStringWithEllipsis(str: string) {
   return str.substring(0, maxLength - 3) + "...";
 }
 
-
 export default async function Home() {
   const newListings = await getLatestListings();
   const waterFrontListings = await getWaterFrontListings();
 
-  console.log(newListings,waterFrontListings);
-   
+  console.log(newListings, waterFrontListings);
+
   return (
     <>
-    <script type="application/ld+json">
-      {(newListings.length && waterFrontListings.length) && `
+      <script type="application/ld+json">
+        {newListings.length &&
+          waterFrontListings.length &&
+          `
         {
           "@context": "https://schema.org",
           "@type": "RealEstateListing",
@@ -78,7 +83,11 @@ export default async function Home() {
           "description": "There are ${newListings.length + waterFrontListings.length} properties available in the home page.",
           "numberOfItems": ${newListings.length + waterFrontListings.length},
           "itemListElement": [
-          ${(newListings.concat(waterFrontListings)).map((property, index) => property.map((tempProperty,index) => `
+          ${newListings
+            .concat(waterFrontListings)
+            .map((property, index) =>
+              property.map(
+                (tempProperty, index) => `
           {
           "@type": "ListItem",
           "position": ${index + 1},
@@ -103,11 +112,14 @@ export default async function Home() {
           "unitCode": "SQFT"
           }
           }
-          `)).join(',')}
+          `,
+              ),
+            )
+            .join(",")}
           ]
         }
       `}
-    </script>
+      </script>
       <main className={styles.main}>
         <Banner />
 

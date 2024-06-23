@@ -40,7 +40,7 @@ import Loading from "./loading";
 
 const formatPrice = (price: number): string => {
   return new Intl.NumberFormat("en-US", {
-  style: "currency",
+    style: "currency",
     currency: "USD",
     minimumFractionDigits: 0,
   }).format(price);
@@ -100,19 +100,19 @@ pagesAtom.debugLabel = "Pages";
 const searchFromHomeAtom = atom(false);
 searchFromHomeAtom.debugLabel = "Search From Home";
 
-export default function Filters(params: {cityData: any,cityPages: number}) {
+export default function Filters(params: { cityData: any; cityPages: number }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [searchFromHome,setSearchFromHome] = useAtom(searchFromHomeAtom);
-  const {resolvedTheme} =  useTheme();
-  const [screenWidth,setScreenWidth] = useState(1000);
+  const [searchFromHome, setSearchFromHome] = useAtom(searchFromHomeAtom);
+  const { resolvedTheme } = useTheme();
+  const [screenWidth, setScreenWidth] = useState(1000);
   // const [searchCounter, setSearchCounter] = useState(0);
   const getDataCity = async (city: string) => {
-    setFormVisible(prevState=>{
+    setFormVisible((prevState) => {
       return {
         ...prevState,
-        map: false
-      }
+        map: false,
+      };
     });
     setProperties(params.cityData);
     let query = "";
@@ -124,7 +124,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
       query += `&near=${value}`;
       query += `&radius=${radiusVal}`;
     }
-    query+=`&PropertyType=Residential,Residential Income`;
+    query += `&PropertyType=Residential,Residential Income`;
 
     // const res = await fetch('/api/search/mlspin/');
 
@@ -144,33 +144,38 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
     setPageObj({ actualPage: 1, pages: params.cityPages });
   };
 
-  const getDataFromHome = async(page_num: number,input: string,filters: any,save=true)=> {
+  const getDataFromHome = async (
+    page_num: number,
+    input: string,
+    filters: any,
+    save = true,
+  ) => {
     let query = "";
     const radiusVal = "1mi";
-    
+
     console.log(save);
 
-    if(filters.PropertyType){
-      query += `&PropertyType=${filters.PropertyType.toString()}`; 
+    if (filters.PropertyType) {
+      query += `&PropertyType=${filters.PropertyType.toString()}`;
     }
-    if(filters.PropertySubType){
+    if (filters.PropertySubType) {
       query += `&PropertySubType=${filters.PropertySubType.toString()}`;
     }
-    if(filters.BedroomsTotal){
+    if (filters.BedroomsTotal) {
       query += `&BedroomsTotal=${filters.BedroomsTotal}`;
     }
-    if(filters.BathroomsTotal){
+    if (filters.BathroomsTotal) {
       query += `&BathroomsTotalDecimalTo=${filters.BathroomsTotal}`;
     }
 
     query += `&near=${input}`;
-    query += `&radius=${radiusVal}`; 
-    query += '&order=desc'; 
-    query += '&sortBy=ListPrice';
+    query += `&radius=${radiusVal}`;
+    query += "&order=desc";
+    query += "&sortBy=ListPrice";
 
     console.log(query);
-     
-     // here connect bathrooms bedrooms and so on from prisma database
+
+    // here connect bathrooms bedrooms and so on from prisma database
 
     const res: mapResponse = await fetch(`/api/search/mlspin/map?${query}`, {
       cache: "no-store",
@@ -181,34 +186,32 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
     setMapProperties(res.properties);
 
     // use also no pages later for google map
-    if(save == true){ 
+    if (save == true) {
       const res2: response = await fetch(
         `/api/search/mlspin?save=true${query}&page=${page_num}`,
-        { cache: "no-store" }
+        { cache: "no-store" },
       ).then((res) => res.json());
       setValue(input);
       setPageObj({ actualPage: page_num, pages: res2.pages });
       setEnableSearching(true);
       setProperties(res2.properties);
-    }
-    else {
+    } else {
       const res2: response = await fetch(
         `/api/search/mlspin?${query}&page=${page_num}`,
-        { cache: "no-store" }
+        { cache: "no-store" },
       ).then((res) => res.json());
       setValue(input);
       setPageObj({ actualPage: page_num, pages: res2.pages });
       setEnableSearching(true);
       setProperties(res2.properties);
     }
-
   };
   const getData = async (page_num: number) => {
-    setFormVisible(prevState=>{
+    setFormVisible((prevState) => {
       return {
         ...prevState,
-        map: false
-      }
+        map: false,
+      };
     });
     clearSuggestions();
     let query = "";
@@ -216,11 +219,14 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
     keys.map((keyAsString) => {
       // Explicitly convert key to a string
       const key = String(keyAsString);
-      if (Array.isArray(filter[key as keyof typeof filter])  && (filter[key as keyof typeof filter] as string[]).length) {
-          query += query.length ? `&${key}=` : `${key}=`;
-          (filter[key as keyof typeof filter] as string[]).map((item: string) => {
-            query += `${item},`;
-          });
+      if (
+        Array.isArray(filter[key as keyof typeof filter]) &&
+        (filter[key as keyof typeof filter] as string[]).length
+      ) {
+        query += query.length ? `&${key}=` : `${key}=`;
+        (filter[key as keyof typeof filter] as string[]).map((item: string) => {
+          query += `${item},`;
+        });
       } else if (filter[key as keyof typeof filter]) {
         if (key === "BedroomsTotal" && typeof filter[key] === "string") {
           if ((filter[key] as strOrNumber) !== "Any") {
@@ -250,31 +256,31 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
             }
           }
         } else {
-          if (filter[key as keyof typeof filter] && !Array.isArray(filter[key as keyof typeof filter])) {
-            if(key == 'City' && enableSearching){ 
+          if (
+            filter[key as keyof typeof filter] &&
+            !Array.isArray(filter[key as keyof typeof filter])
+          ) {
+            if (key == "City" && enableSearching) {
               // do nothing
-            }
-            else {
+            } else {
               query += query.length
-              ? `&${key}=${filter[key as keyof typeof filter]}`
-              : `${key}=${filter[key as keyof typeof filter]}`;
+                ? `&${key}=${filter[key as keyof typeof filter]}`
+                : `${key}=${filter[key as keyof typeof filter]}`;
             }
- 
           }
         }
       }
     });
 
     const radiusVal = "1mi";
-     
+
     // console.log(query);
-    
+
     // console.log(value);
     if (enableSearching && value) {
       query += `&near=${value}`;
       query += `&radius=${radiusVal}`;
-    }
-    else if (enableSearching && searchInput){
+    } else if (enableSearching && searchInput) {
       query += `&near=${searchInput}`;
       query += `&radius=${radiusVal}`;
     }
@@ -289,19 +295,17 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
 
     setMapProperties(res.properties);
 
-    // use also no pages later for google map 
+    // use also no pages later for google map
     query += "&save=true";
     const res2: response = await fetch(
       `/api/search/mlspin?${query}&page=${page_num}`,
-      { cache: "no-store" }
+      { cache: "no-store" },
     ).then((res) => res.json());
 
     setPageObj({ actualPage: page_num, pages: res2.pages });
 
     setProperties(res2.properties);
-
   };
-
 
   // const onPropertyClick = (data: Property) => {
   //   router.push("/search/" + data.ListingId);
@@ -328,13 +332,21 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
         if (key === "City" && value) {
           return;
         }
-        if (Array.isArray(filter[key as keyof typeof filter]) && (filter[key as keyof typeof filter] as string[]).length) {
+        if (
+          Array.isArray(filter[key as keyof typeof filter]) &&
+          (filter[key as keyof typeof filter] as string[]).length
+        ) {
           query += query.length ? `&${key}=` : `${key}=`;
-          (filter[key as keyof typeof filter] as string[]).map((item: string) => {
-            query += `${item},`;
-          });
+          (filter[key as keyof typeof filter] as string[]).map(
+            (item: string) => {
+              query += `${item},`;
+            },
+          );
         } else if (filter[key as keyof typeof filter]) {
-          if (key === "BedroomsTotal" && typeof filter[key as keyof typeof filter] === "string") {
+          if (
+            key === "BedroomsTotal" &&
+            typeof filter[key as keyof typeof filter] === "string"
+          ) {
             if ((filter[key] as strOrNumber) !== "Any") {
               if ((filter[key] as strOrNumber) === "5+") {
                 query += query.length
@@ -362,7 +374,10 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
               }
             }
           } else {
-            if (filter[key as keyof typeof filter] && !Array.isArray(filter[key as keyof typeof filter])) {
+            if (
+              filter[key as keyof typeof filter] &&
+              !Array.isArray(filter[key as keyof typeof filter])
+            ) {
               query += query.length
                 ? `&${key}=${filter[key as keyof typeof filter]}`
                 : `${key}=${filter[key as keyof typeof filter]}`;
@@ -371,7 +386,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
         }
       });
       const res: mapResponse = await fetch(
-        `/api/search/mlspin/map?${query}&Lat=${center.lat}&Lng=${center.lng}`
+        `/api/search/mlspin/map?${query}&Lat=${center.lat}&Lng=${center.lng}`,
       ).then((res) => res.json());
       return res.properties;
     } catch (err) {
@@ -388,7 +403,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
     enabled: false,
   });
 
-  const onClickSearchHomes = async() => {
+  const onClickSearchHomes = async () => {
     // setPageObj({actualPage: 1,pages: });
 
     await properties_.refetch();
@@ -414,7 +429,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
     debounce: 300,
   });
   useEffect(() => {
-    if (searchParams.get("near") && !searchFromHome){
+    if (searchParams.get("near") && !searchFromHome) {
       console.log(searchParams.get("near"));
       const page = parseInt(searchParams.get("page") as string);
       setPageObj((prevPageObj) => {
@@ -425,14 +440,14 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
       });
       const near = searchParams.get("near") as string;
       console.log(searchParams.entries());
-      let propertyType = (searchParams.get("PropertyType"))?.split(",");
-      let propertySubType = (searchParams.get("PropertySubType"))?.split(",");
+      let propertyType = searchParams.get("PropertyType")?.split(",");
+      let propertySubType = searchParams.get("PropertySubType")?.split(",");
       let bedroomsTotal = searchParams.get("BedroomsTotal");
       let bathroomsTotal = searchParams.get("BathroomsTotal");
       let listPriceFrom = searchParams.get("ListPriceFrom");
       let listPriceTo = searchParams.get("ListPriceTo");
       // console.log(BedroomsTotal);
-      let obj : any = {};
+      let obj: any = {};
       propertyType && (obj.PropertyType = propertyType.toString());
       propertySubType && (obj.PropertySubType = propertySubType);
       bedroomsTotal && (obj.BedroomsTotal = bedroomsTotal);
@@ -440,30 +455,29 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
       listPriceFrom && (obj.ListPriceFrom = listPriceFrom);
       listPriceTo && (obj.ListPriceTo = listPriceTo);
 
-      if(typeof propertyType != 'undefined' && propertyType.length){
-        setFilter((prevState: any)=>{
+      if (typeof propertyType != "undefined" && propertyType.length) {
+        setFilter((prevState: any) => {
           return {
             ...prevState,
-            ...obj
-          }
+            ...obj,
+          };
         });
         setSearchInput(near);
         setSearchFromHome(true);
-        getDataFromHome(page,near,obj,false);
-      }
-      else {
-        propertyType = ["Residential Lease","Residential,Residential Income"];
-        setFilter((prevState: any)=>{
+        getDataFromHome(page, near, obj, false);
+      } else {
+        propertyType = ["Residential Lease", "Residential,Residential Income"];
+        setFilter((prevState: any) => {
           return {
             ...prevState,
-            PropertyType: propertyType
-          }
+            PropertyType: propertyType,
+          };
         });
         setSearchInput(near);
         setSearchFromHome(true);
-        getDataFromHome(page,near,propertyType,true);
+        getDataFromHome(page, near, propertyType, true);
       }
-     
+
       // getData(page);
     } else if (window.location.href.split("/")[5]) {
       const city = window.location.href.split("/")[5];
@@ -472,7 +486,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
         return {
           ...prevState,
           City: modStr,
-          PropertyType: ["Residential,Residential Income"]
+          PropertyType: ["Residential,Residential Income"],
         };
       });
       getDataCity(modStr);
@@ -487,23 +501,21 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
     // }
   }, []);
 
-
-  useEffect(()=>{
-
+  useEffect(() => {
     const gridScrollElement = document.getElementById("properties-grid-filter");
     if (gridScrollElement) {
       gridScrollElement.scrollIntoView({ behavior: "auto" });
     }
-  },[properties]);
+  }, [properties]);
 
-  const onResizeWindow = () =>{ 
+  const onResizeWindow = () => {
     const width = window.innerWidth;
     setScreenWidth(width);
   };
 
-  useEffect(()=>{
-    window.addEventListener('resize',onResizeWindow);
-  },[window.innerWidth]);
+  useEffect(() => {
+    window.addEventListener("resize", onResizeWindow);
+  }, [window.innerWidth]);
 
   const onInputAddressChange = (e: any) => {
     // Update the autocomplete input value
@@ -578,7 +590,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
 
   //Jotai
   const onChangePropertyTypeCheckbox = (
-    event: ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement>,
   ) => {
     setFilter((prevFilter: FilterState) => {
       let PropertyTypes = Array.isArray(prevFilter.PropertyType)
@@ -626,7 +638,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
 
   //Jotai
   const onChangePropertySubTypeCheckbox = (
-    event: ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement>,
   ) => {
     setFilter((prevFilter: FilterState) => {
       const PropertySubTypes = prevFilter.PropertySubType || [];
@@ -656,98 +668,107 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
     }));
   };
 
-  return resolvedTheme ?     <>
-    <div className={styles["property-search"]}>
-      <div className={styles["filter-wrapper"]}>
-        <Image
-          width={40}
-          height={40}
-          src={resolvedTheme == "dark" ? "/HOUSE-WHITE.svg" : "/HOUSE.webp"}
-          alt="house icon"
-          className={styles["type-icon"]}
-        />
-        {/* type icon */}
-        <div
-          className={styles["toggle-wrapper"]}
-          onClick={() => toggleFormVisibility("propertyType")}
-        >
-          {/* toggle-wrapper */}
-          <span className={styles["label_filters"]}>
-            {formVisible.propertyType ? "Listing Type" : "Listing Type"}
-          </span>
-          {formVisible.propertyType ? (
-            <Image
-              width={40}
-              height={40}
-              src={resolvedTheme == "dark" ? "/arrow-up-white.svg" : "/arrow-up.svg" }
-              alt="Up Arrow"
-            />
-          ) : (
-            <Image
-              width={40}
-              height={40}
-              src={resolvedTheme == "dark" ? "/arrow-down-white.svg" : "/arrow-down.svg" }
-              alt="Down Arrow"
-            />
-          )}
-        </div>
-        {formVisible.propertyType && (
-          <Form className={styles["property-type-form"]}>
-            <Form.Group>
-              <div
-                key={`default`}
-                className={`${styles["propType_filter"]} ${styles["mb-2"]}`}
-              >
-                {/* "propType_filter mb-2" */}
+  return resolvedTheme ? (
+    <>
+      <div className={styles["property-search"]}>
+        <div className={styles["filter-wrapper"]}>
+          <Image
+            width={40}
+            height={40}
+            src={resolvedTheme == "dark" ? "/HOUSE-WHITE.svg" : "/HOUSE.webp"}
+            alt="house icon"
+            className={styles["type-icon"]}
+          />
+          {/* type icon */}
+          <div
+            className={styles["toggle-wrapper"]}
+            onClick={() => toggleFormVisibility("propertyType")}
+          >
+            {/* toggle-wrapper */}
+            <span className={styles["label_filters"]}>
+              {formVisible.propertyType ? "Listing Type" : "Listing Type"}
+            </span>
+            {formVisible.propertyType ? (
+              <Image
+                width={40}
+                height={40}
+                src={
+                  resolvedTheme == "dark"
+                    ? "/arrow-up-white.svg"
+                    : "/arrow-up.svg"
+                }
+                alt="Up Arrow"
+              />
+            ) : (
+              <Image
+                width={40}
+                height={40}
+                src={
+                  resolvedTheme == "dark"
+                    ? "/arrow-down-white.svg"
+                    : "/arrow-down.svg"
+                }
+                alt="Down Arrow"
+              />
+            )}
+          </div>
+          {formVisible.propertyType && (
+            <Form className={styles["property-type-form"]}>
+              <Form.Group>
+                <div
+                  key={`default`}
+                  className={`${styles["propType_filter"]} ${styles["mb-2"]}`}
+                >
+                  {/* "propType_filter mb-2" */}
 
-                <Form.Check>
-                  <Form.Check.Input
-                    value="Residential,Residential Income"
-                    checked={
-                      filter.PropertyType.indexOf(
-                        "Residential,Residential Income"
-                      ) > -1
-                        ? true
-                        : false
-                    }
-                    id="buy"
-                    type="checkbox"
-                    onChange={onChangePropertyTypeCheckbox}
-                  />
-                  <Form.Check.Label htmlFor="Buy">Buy</Form.Check.Label>
-                </Form.Check>
+                  <Form.Check>
+                    <Form.Check.Input
+                      value="Residential,Residential Income"
+                      checked={
+                        filter.PropertyType.indexOf(
+                          "Residential,Residential Income",
+                        ) > -1
+                          ? true
+                          : false
+                      }
+                      id="buy"
+                      type="checkbox"
+                      onChange={onChangePropertyTypeCheckbox}
+                    />
+                    <Form.Check.Label htmlFor="Buy">Buy</Form.Check.Label>
+                  </Form.Check>
 
-                <Form.Check>
-                  <Form.Check.Input
-                    type="checkbox"
-                    value="Residential Lease"
-                    checked={
-                      filter.PropertyType.indexOf("Residential Lease") > -1
-                        ? true
-                        : false
-                    }
-                    onChange={onChangePropertyTypeCheckbox}
-                  />
-                  <Form.Check.Label htmlFor="Rent">Rent</Form.Check.Label>
-                </Form.Check>
+                  <Form.Check>
+                    <Form.Check.Input
+                      type="checkbox"
+                      value="Residential Lease"
+                      checked={
+                        filter.PropertyType.indexOf("Residential Lease") > -1
+                          ? true
+                          : false
+                      }
+                      onChange={onChangePropertyTypeCheckbox}
+                    />
+                    <Form.Check.Label htmlFor="Rent">Rent</Form.Check.Label>
+                  </Form.Check>
 
-                <Form.Check>
-                  <Form.Check.Input
-                    type="checkbox"
-                    value="Commercial Sale"
-                    checked={
-                      filter.PropertyType.indexOf("Commercial Sale") > -1
-                        ? true
-                        : false
-                    }
-                    onChange={onChangePropertyTypeCheckbox}
-                  />
-                  <Form.Check.Label htmlFor="Commercial">
-                    Commercial
-                  </Form.Check.Label>
-                </Form.Check>
+                  <Form.Check>
+                    <Form.Check.Input
+                      type="checkbox"
+                      value="Commercial Sale"
+                      checked={
+                        filter.PropertyType.indexOf("Commercial Sale") > -1
+                          ? true
+                          : false
+                      }
+                      onChange={onChangePropertyTypeCheckbox}
+                    />
+                    <Form.Check.Label htmlFor="Commercial">
+                      Commercial
+                    </Form.Check.Label>
+                  </Form.Check>
 
-                {/* <Form.Check
+                  {/* <Form.Check
                   type="checkbox"
                   label="Commercial"
                   value="Commercial Sale"
@@ -758,7 +779,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
                   }
                   onChange={onChangePropertyTypeCheckbox}
                 /> */}
-                {/* <Form.Check
+                  {/* <Form.Check
                   type="checkbox"
                   label="Business Opportunity"
                   value="Business Opportunity"
@@ -771,113 +792,125 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
                   }
                   onChange={onChangePropertyTypeCheckbox}
                 /> */}
-              </div>
-            </Form.Group>
-          </Form>
-        )}
-      </div>
-      <div className={styles["filter-wrapper"]}>
-        <Image
-          width={40}
-          height={40}
-          className={styles["subtype-icon"]}
-          src={resolvedTheme == "dark" ? "/SKYSCRAPER-WHITE.svg" : "/SKYSCRAPER.webp"}
-          alt="skyscrapper image"
-        />
-        <div
-          onClick={() => toggleFormVisibility("propertySubType")}
-          className={styles["toggle-wrapper"]}
-        >
-          <span className={styles["label_filters"]}>
-            {formVisible.propertySubType
-              ? "Listing SubType"
-              : "Listing SubType"}
-          </span>
-          {formVisible.propertySubType ? (
-            <Image
-            width={40}
-            height={40}
-            src={resolvedTheme == "dark" ? "/arrow-up-white.svg" : "/arrow-up.svg" }
-            alt="Up Arrow"
-          />
-        ) : (
+                </div>
+              </Form.Group>
+            </Form>
+          )}
+        </div>
+        <div className={styles["filter-wrapper"]}>
           <Image
             width={40}
             height={40}
-            src={resolvedTheme == "dark" ? "/arrow-down-white.svg" : "/arrow-down.svg" }
-            alt="Down Arrow"
+            className={styles["subtype-icon"]}
+            src={
+              resolvedTheme == "dark"
+                ? "/SKYSCRAPER-WHITE.svg"
+                : "/SKYSCRAPER.webp"
+            }
+            alt="skyscrapper image"
           />
-          )}
-        </div>
+          <div
+            onClick={() => toggleFormVisibility("propertySubType")}
+            className={styles["toggle-wrapper"]}
+          >
+            <span className={styles["label_filters"]}>
+              {formVisible.propertySubType
+                ? "Listing SubType"
+                : "Listing SubType"}
+            </span>
+            {formVisible.propertySubType ? (
+              <Image
+                width={40}
+                height={40}
+                src={
+                  resolvedTheme == "dark"
+                    ? "/arrow-up-white.svg"
+                    : "/arrow-up.svg"
+                }
+                alt="Up Arrow"
+              />
+            ) : (
+              <Image
+                width={40}
+                height={40}
+                src={
+                  resolvedTheme == "dark"
+                    ? "/arrow-down-white.svg"
+                    : "/arrow-down.svg"
+                }
+                alt="Down Arrow"
+              />
+            )}
+          </div>
 
-        {formVisible.propertySubType && (
-          <Form className={styles["property-subtype-form"]}>
-            <Form.Group>
-              <div
-                key={`default`}
-                className={`${styles["propType_filter"]} ${styles["mb-2"]} `}
-              >
-                <Form.Check // prettier-ignore
-                  label="House"
-                  type="checkbox"
-                  value="Single Family Residence"
-                  checked={
-                    filter.PropertySubType.indexOf(
-                      "Single Family Residence"
-                    ) > -1
-                      ? true
-                      : false
-                  }
-                  onChange={onChangePropertySubTypeCheckbox}
-                />
+          {formVisible.propertySubType && (
+            <Form className={styles["property-subtype-form"]}>
+              <Form.Group>
+                <div
+                  key={`default`}
+                  className={`${styles["propType_filter"]} ${styles["mb-2"]} `}
+                >
+                  <Form.Check // prettier-ignore
+                    label="House"
+                    type="checkbox"
+                    value="Single Family Residence"
+                    checked={
+                      filter.PropertySubType.indexOf(
+                        "Single Family Residence",
+                      ) > -1
+                        ? true
+                        : false
+                    }
+                    onChange={onChangePropertySubTypeCheckbox}
+                  />
 
-                <Form.Check
-                  type="checkbox"
-                  label="Condominium"
-                  value="Condominium"
-                  checked={
-                    filter.PropertySubType.indexOf("Condominium") > -1
-                      ? true
-                      : false
-                  }
-                  onChange={onChangePropertySubTypeCheckbox}
-                />
+                  <Form.Check
+                    type="checkbox"
+                    label="Condominium"
+                    value="Condominium"
+                    checked={
+                      filter.PropertySubType.indexOf("Condominium") > -1
+                        ? true
+                        : false
+                    }
+                    onChange={onChangePropertySubTypeCheckbox}
+                  />
 
-                <Form.Check
-                  type="checkbox"
-                  label="Townhomes"
-                  value="Townhouse"
-                  checked={
-                    filter.PropertySubType.indexOf("Townhouse") > -1
-                      ? true
-                      : false
-                  }
-                  onChange={onChangePropertySubTypeCheckbox}
-                />
-                <Form.Check
-                  type="checkbox"
-                  label="Apartment"
-                  value="Apartment"
-                  checked={
-                    filter.PropertySubType.indexOf("Apartment") > -1
-                      ? true
-                      : false
-                  }
-                  onChange={onChangePropertySubTypeCheckbox}
-                />
+                  <Form.Check
+                    type="checkbox"
+                    label="Townhomes"
+                    value="Townhouse"
+                    checked={
+                      filter.PropertySubType.indexOf("Townhouse") > -1
+                        ? true
+                        : false
+                    }
+                    onChange={onChangePropertySubTypeCheckbox}
+                  />
+                  <Form.Check
+                    type="checkbox"
+                    label="Apartment"
+                    value="Apartment"
+                    checked={
+                      filter.PropertySubType.indexOf("Apartment") > -1
+                        ? true
+                        : false
+                    }
+                    onChange={onChangePropertySubTypeCheckbox}
+                  />
 
-                <Form.Check
-                  type="checkbox"
-                  label="Multi Family"
-                  value="Multi Family"
-                  checked={
-                    filter.PropertySubType.indexOf("Multi Family") > -1
-                      ? true
-                      : false
-                  }
-                  onChange={onChangePropertySubTypeCheckbox}
-                />
-                {/* <Form.Check
+                  <Form.Check
+                    type="checkbox"
+                    label="Multi Family"
+                    value="Multi Family"
+                    checked={
+                      filter.PropertySubType.indexOf("Multi Family") > -1
+                        ? true
+                        : false
+                    }
+                    onChange={onChangePropertySubTypeCheckbox}
+                  />
+                  {/* <Form.Check
                   type="checkbox"
                   label="2 Family"
                   value="2 Family"
@@ -895,43 +928,43 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
                   // }}
                 /> */}
 
-                <Form.Check
-                  type="checkbox"
-                  label="3 Family"
-                  value="3 Family"
-                  checked={
-                    filter.PropertySubType.indexOf("3 Family") > -1
-                      ? true
-                      : false
-                  }
-                  onChange={onChangePropertySubTypeCheckbox}
-                />
+                  <Form.Check
+                    type="checkbox"
+                    label="3 Family"
+                    value="3 Family"
+                    checked={
+                      filter.PropertySubType.indexOf("3 Family") > -1
+                        ? true
+                        : false
+                    }
+                    onChange={onChangePropertySubTypeCheckbox}
+                  />
 
-                <Form.Check
-                  type="checkbox"
-                  label="4 Family"
-                  value="4 Family"
-                  checked={
-                    filter.PropertySubType.indexOf("4 Family") > -1
-                      ? true
-                      : false
-                  }
-                  onChange={onChangePropertySubTypeCheckbox}
-                />
+                  <Form.Check
+                    type="checkbox"
+                    label="4 Family"
+                    value="4 Family"
+                    checked={
+                      filter.PropertySubType.indexOf("4 Family") > -1
+                        ? true
+                        : false
+                    }
+                    onChange={onChangePropertySubTypeCheckbox}
+                  />
 
-                <Form.Check
-                  type="checkbox"
-                  label="Residential"
-                  value="Residential"
-                  checked={
-                    filter.PropertySubType.indexOf("Residential") > -1
-                      ? true
-                      : false
-                  }
-                  onChange={onChangePropertySubTypeCheckbox}
-                />
+                  <Form.Check
+                    type="checkbox"
+                    label="Residential"
+                    value="Residential"
+                    checked={
+                      filter.PropertySubType.indexOf("Residential") > -1
+                        ? true
+                        : false
+                    }
+                    onChange={onChangePropertySubTypeCheckbox}
+                  />
 
-                {/* <Form.Check
+                  {/* <Form.Check
                   type="checkbox"
                   label="Duplex"
                   value="Duplex"
@@ -943,7 +976,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
                   onChange={onChangePropertySubTypeCheckbox}
                 /> */}
 
-                {/* 
+                  {/* 
                 <Form.Check
                   type="checkbox"
                   label="Cabin"
@@ -956,7 +989,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
                   onChange={onChangePropertySubTypeCheckbox}
                 /> */}
 
-                {/* <Form.Check
+                  {/* <Form.Check
                   type="checkbox"
                   label="Parking"
                   value="Parking"
@@ -968,7 +1001,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
                   onChange={onChangePropertySubTypeCheckbox}
                 /> */}
 
-                {/* <Form.Check
+                  {/* <Form.Check
                   type="checkbox"
                   label="Attached"
                   value="Attached (Townhouse/Rowhouse/Duplex)"
@@ -981,7 +1014,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
                   }
                   onChange={onChangePropertySubTypeCheckbox}
                 /> */}
-                {/* <Form.Check
+                  {/* <Form.Check
                   type="checkbox"
                   label="Manufactured"
                   value="Manufactured Home"
@@ -995,7 +1028,7 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
                   onChange={onChangePropertySubTypeCheckbox}
                 /> */}
 
-                {/* <Form.Check
+                  {/* <Form.Check
                   type="checkbox"
                   label="Mobile Home"
                   value="Mobile Home"
@@ -1006,339 +1039,379 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
                   }
                   onChange={onChangePropertySubTypeCheckbox}
                 /> */}
-              </div>
-            </Form.Group>
-          </Form>
-        )}
-      </div>
-      <div className={styles["filter-wrapper"]}>
-        <Image
-          width={40}
-          height={40}
-          className={styles["price-icon"]}
-          src={resolvedTheme == "dark" ? "/HOMELOAN-WHITE.svg" : "/HOMELOAN.webp"}
-          alt="money icon"
-        />
-        <div
-          onClick={() => toggleFormVisibility("price")}
-          className={styles["toggle-wrapper"]}
-        >
-          <span className={styles["label_filters"]}>
-            {formVisible.price ? "Price Range" : "Price Range"}
-          </span>
-          {formVisible.price ? (
-            <Image
-            width={40}
-            height={40}
-            src={resolvedTheme == "dark" ? "/arrow-up-white.svg" : "/arrow-up.svg" }
-            alt="Up Arrow"
-          />
-        ) : (
-          <Image
-            width={40}
-            height={40}
-            src={resolvedTheme == "dark" ? "/arrow-down-white.svg" : "/arrow-down.svg" }
-            alt="Down Arrow"
-          />
-          )}
-        </div>
-        {formVisible.price && (
-          <Form className={styles["price-input-wrapper"]}>
-            <Form.Group className={styles["price-label"]}>
-              <div className={styles["min-wrapper"]}>
-                <Form.Label>Min:</Form.Label>
-                <Form.Control
-                  autoComplete="off"
-                  name={"ListPriceFrom"}
-                  onChange={onChangeInput}
-                  value={filter.ListPriceFrom}
-                  type="number"
-                />
-              </div>
-              <div>
-                <Form.Label>Max:</Form.Label>
-                <Form.Control
-                  autoComplete="off"
-                  name={"ListPriceTo"}
-                  onChange={onChangeInput}
-                  value={formatPrice(filter.ListPriceTo)}
-                />
-              </div>
-            </Form.Group>
-            <div className={styles["range-slider-price"]}>
-              <Slider
-                range
-                className="t-slider"
-                step={1000}
-                min={0}
-                max={10000000}
-                value={[filter.ListPriceFrom, filter.ListPriceTo]}
-                //[state.filter.ListPriceFrom, state.filter.ListPriceTo]
-                // onInput={onChangeSlider}
-                onChange={onChangeSlider}
-                vertical={false}
-                allowCross={false}
-              />
-            </div>
-          </Form>
-        )}
-      </div>
-
-      <div className={styles["filter-wrapper"]}>
-        <Image
-          width={40}
-          height={40}
-          className={styles["price-icon"]}
-          src={resolvedTheme == "dark" ? "/LOCATION-WHITE.svg" : "/LOCATION.webp"}
-          alt="money icon"
-        />
-        <div
-          onClick={() => toggleFormVisibility("city")}
-          className={styles["toggle-wrapper"]}
-        >
-          <span className={styles["label_filters"]}>
-            {formVisible.city ? "Location" : "Location"}
-          </span>
-          {formVisible.city ? (
-            <Image
-            width={40}
-            height={40}
-            src={resolvedTheme == "dark" ? "/arrow-up-white.svg" : "/arrow-up.svg" }
-            alt="Up Arrow"
-          />
-        ) : (
-          <Image
-            width={40}
-            height={40}
-            src={resolvedTheme == "dark" ? "/arrow-down-white.svg" : "/arrow-down.svg" }
-            alt="Down Arrow"
-          />
-          )}
-        </div>
-
-        {formVisible.city && (
-          <Form className={styles["input-form-wrapper"]}>
-            <Form.Group className={styles["input-form"]}>
-              <div className={styles["mktFormColBuy"]}>
-                <Form.Check
-                  checked={enableSearching}
-                  type="checkbox"
-                  onChange={onCheckEnablingSearching}
-                  className={styles["mktoFormCheckBox"]}
-                />
-                <div className={styles["mktFieldWrap"]}>
-                  <Form.Control
-                    name="Location"
-                    id="Location"
-                    autoComplete="off"
-                    type="text"
-                    placeholder="Enter a Location"
-                    className={
-                      enableSearching
-                        ? styles["inputText"]
-                        : styles["disabled"]
-                    }
-                    onChange={onInputAddressChange}
-                    disabled={!enableSearching}
-                    // onSubmit={() => getData(1)}
-                    value={searchInput}
-                  />
-                  {enableSearching && (
-                    <Image
-                      className={styles["icon-mag-buy"]}
-                      src="/mag-glass.png"
-                      height={25}
-                      width={25}
-                      alt="magnifiying glass icon"
-                      // onClick={() => getData(1)}
-                    />
-                  )}
-
-                  {status === "OK" && (
-                    <div className={styles["autocomplete-suggestions"]}>
-                      {renderAutocompleteSuggestions()}
-                    </div>
-                  )}
                 </div>
-              </div>
-              <div className={styles["city_label"]}>
-                <Form.Label
-                  style={{
-                    fontWeight: "bold",
-                    lineHeight: "1.2",
-                    marginTop: "5px",
-                  }}
-                  key={3021}
-                >
-                  Uncheck Location Input to Use City Dropdown:
-                </Form.Label>
-                <Form.Select
-                  value={filter.City}
-                  name="City"
-                  onChange={onChangeSelect}
-                >
-                  {cities.map((city, index) => {
-                    return (
-                      <option key={index} value={city.Name}>
-                        {city.Name}
-                      </option>
-                    );
-                  })}
-                </Form.Select>
-              </div>
-            </Form.Group>
-          </Form>
-        )}
-      </div>
-
-      <div className={styles["filter-wrapper"]}>
-        <div className={styles["bed-baths-icon-wrapper"]}>
-          <Image
-            width={55}
-            height={55}
-            className={styles["beds-icon"]}
-            src={resolvedTheme == "dark" ? "/BEDROOM-WHITE.svg" : "/BEDROOM.webp"}
-            alt="Bedroom Icon"
-          />
-          <Image
-            width={55}
-            height={55}
-            alt="Bathroom Icon"
-            className={styles["baths-icon"]}
-            src={resolvedTheme == "dark" ? "/BATHTUB-WHITE.svg" :"/BATHTUB.webp"}
-          />
-        </div>
-
-        <div
-          onClick={() => toggleFormVisibility("bedBaths")}
-          className={styles["toggle-wrapper"]}
-        >
-          <span className={styles["label_filters"]}>
-            {formVisible.bedBaths ? "Beds & Baths" : "Beds & Baths"}
-          </span>
-          {formVisible.bedBaths ? (
-                         <Image
-                         width={40}
-                         height={40}
-                         src={resolvedTheme == "dark" ? "/arrow-up-white.svg" : "/arrow-up.svg" }
-                         alt="Up Arrow"
-                       />
-                     ) : (
-                       <Image
-                         width={40}
-                         height={40}
-                         src={resolvedTheme == "dark" ? "/arrow-down-white.svg" : "/arrow-down.svg" }
-                         alt="Down Arrow"
-                       />
-          )}
-        </div>
-
-        {formVisible.bedBaths && (
-          <>
-            <Form className={styles["beds-baths-form"]}>
-              <Form.Group>
-                <div className={styles["beds-label"]}>
-                  <Form.Label>Beds:</Form.Label>
-                </div>
-                <Form.Select
-                  value={filter.BedroomsTotal}
-                  name="BedroomsTotal"
-                  onChange={onChangeSelect}
-                >
-                  <option value={"Any"}>Any</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={"5+"}>5+</option>
-                </Form.Select>
-              </Form.Group>
-
-              <Form.Group>
-                <div className={styles["baths-label"]}>
-                  <Form.Label>Baths:</Form.Label>
-                </div>
-                <Form.Select
-                  value={filter.BathroomsTotal}
-                  name="BathroomsTotal"
-                  onChange={onChangeSelect}
-                >
-                  <option value={"Any"}>Any</option>
-                  <option value={1}>1</option>
-                  <option value={1.5}>1.5</option>
-                  <option value={2}>2</option>
-                  <option value={2.5}>2.5</option>
-                  <option value={"3+"}>3+</option>
-                </Form.Select>
               </Form.Group>
             </Form>
-          </>
-        )}
-      </div>
-    </div>
-    <SearchButton onClick={onClickSearchHomes} />
+          )}
+        </div>
+        <div className={styles["filter-wrapper"]}>
+          <Image
+            width={40}
+            height={40}
+            className={styles["price-icon"]}
+            src={
+              resolvedTheme == "dark" ? "/HOMELOAN-WHITE.svg" : "/HOMELOAN.webp"
+            }
+            alt="money icon"
+          />
+          <div
+            onClick={() => toggleFormVisibility("price")}
+            className={styles["toggle-wrapper"]}
+          >
+            <span className={styles["label_filters"]}>
+              {formVisible.price ? "Price Range" : "Price Range"}
+            </span>
+            {formVisible.price ? (
+              <Image
+                width={40}
+                height={40}
+                src={
+                  resolvedTheme == "dark"
+                    ? "/arrow-up-white.svg"
+                    : "/arrow-up.svg"
+                }
+                alt="Up Arrow"
+              />
+            ) : (
+              <Image
+                width={40}
+                height={40}
+                src={
+                  resolvedTheme == "dark"
+                    ? "/arrow-down-white.svg"
+                    : "/arrow-down.svg"
+                }
+                alt="Down Arrow"
+              />
+            )}
+          </div>
+          {formVisible.price && (
+            <Form className={styles["price-input-wrapper"]}>
+              <Form.Group className={styles["price-label"]}>
+                <div className={styles["min-wrapper"]}>
+                  <Form.Label>Min:</Form.Label>
+                  <Form.Control
+                    autoComplete="off"
+                    name={"ListPriceFrom"}
+                    onChange={onChangeInput}
+                    value={filter.ListPriceFrom}
+                    type="number"
+                  />
+                </div>
+                <div>
+                  <Form.Label>Max:</Form.Label>
+                  <Form.Control
+                    autoComplete="off"
+                    name={"ListPriceTo"}
+                    onChange={onChangeInput}
+                    value={formatPrice(filter.ListPriceTo)}
+                  />
+                </div>
+              </Form.Group>
+              <div className={styles["range-slider-price"]}>
+                <Slider
+                  range
+                  className="t-slider"
+                  step={1000}
+                  min={0}
+                  max={10000000}
+                  value={[filter.ListPriceFrom, filter.ListPriceTo]}
+                  //[state.filter.ListPriceFrom, state.filter.ListPriceTo]
+                  // onInput={onChangeSlider}
+                  onChange={onChangeSlider}
+                  vertical={false}
+                  allowCross={false}
+                />
+              </div>
+            </Form>
+          )}
+        </div>
 
-    <div className={formVisible["map"] ? styles["search-container"] : "container"}>
-      <div className={styles["properties-grid-filter"]}>
-        {/* <div className="pagination-wrapper">
+        <div className={styles["filter-wrapper"]}>
+          <Image
+            width={40}
+            height={40}
+            className={styles["price-icon"]}
+            src={
+              resolvedTheme == "dark" ? "/LOCATION-WHITE.svg" : "/LOCATION.webp"
+            }
+            alt="money icon"
+          />
+          <div
+            onClick={() => toggleFormVisibility("city")}
+            className={styles["toggle-wrapper"]}
+          >
+            <span className={styles["label_filters"]}>
+              {formVisible.city ? "Location" : "Location"}
+            </span>
+            {formVisible.city ? (
+              <Image
+                width={40}
+                height={40}
+                src={
+                  resolvedTheme == "dark"
+                    ? "/arrow-up-white.svg"
+                    : "/arrow-up.svg"
+                }
+                alt="Up Arrow"
+              />
+            ) : (
+              <Image
+                width={40}
+                height={40}
+                src={
+                  resolvedTheme == "dark"
+                    ? "/arrow-down-white.svg"
+                    : "/arrow-down.svg"
+                }
+                alt="Down Arrow"
+              />
+            )}
+          </div>
+
+          {formVisible.city && (
+            <Form className={styles["input-form-wrapper"]}>
+              <Form.Group className={styles["input-form"]}>
+                <div className={styles["mktFormColBuy"]}>
+                  <Form.Check
+                    checked={enableSearching}
+                    type="checkbox"
+                    onChange={onCheckEnablingSearching}
+                    className={styles["mktoFormCheckBox"]}
+                  />
+                  <div className={styles["mktFieldWrap"]}>
+                    <Form.Control
+                      name="Location"
+                      id="Location"
+                      autoComplete="off"
+                      type="text"
+                      placeholder="Enter a Location"
+                      className={
+                        enableSearching
+                          ? styles["inputText"]
+                          : styles["disabled"]
+                      }
+                      onChange={onInputAddressChange}
+                      disabled={!enableSearching}
+                      // onSubmit={() => getData(1)}
+                      value={searchInput}
+                    />
+                    {enableSearching && (
+                      <Image
+                        className={styles["icon-mag-buy"]}
+                        src="/mag-glass.png"
+                        height={25}
+                        width={25}
+                        alt="magnifiying glass icon"
+                        // onClick={() => getData(1)}
+                      />
+                    )}
+
+                    {status === "OK" && (
+                      <div className={styles["autocomplete-suggestions"]}>
+                        {renderAutocompleteSuggestions()}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className={styles["city_label"]}>
+                  <Form.Label
+                    style={{
+                      fontWeight: "bold",
+                      lineHeight: "1.2",
+                      marginTop: "5px",
+                    }}
+                    key={3021}
+                  >
+                    Uncheck Location Input to Use City Dropdown:
+                  </Form.Label>
+                  <Form.Select
+                    value={filter.City}
+                    name="City"
+                    onChange={onChangeSelect}
+                  >
+                    {cities.map((city, index) => {
+                      return (
+                        <option key={index} value={city.Name}>
+                          {city.Name}
+                        </option>
+                      );
+                    })}
+                  </Form.Select>
+                </div>
+              </Form.Group>
+            </Form>
+          )}
+        </div>
+
+        <div className={styles["filter-wrapper"]}>
+          <div className={styles["bed-baths-icon-wrapper"]}>
+            <Image
+              width={55}
+              height={55}
+              className={styles["beds-icon"]}
+              src={
+                resolvedTheme == "dark" ? "/BEDROOM-WHITE.svg" : "/BEDROOM.webp"
+              }
+              alt="Bedroom Icon"
+            />
+            <Image
+              width={55}
+              height={55}
+              alt="Bathroom Icon"
+              className={styles["baths-icon"]}
+              src={
+                resolvedTheme == "dark" ? "/BATHTUB-WHITE.svg" : "/BATHTUB.webp"
+              }
+            />
+          </div>
+
+          <div
+            onClick={() => toggleFormVisibility("bedBaths")}
+            className={styles["toggle-wrapper"]}
+          >
+            <span className={styles["label_filters"]}>
+              {formVisible.bedBaths ? "Beds & Baths" : "Beds & Baths"}
+            </span>
+            {formVisible.bedBaths ? (
+              <Image
+                width={40}
+                height={40}
+                src={
+                  resolvedTheme == "dark"
+                    ? "/arrow-up-white.svg"
+                    : "/arrow-up.svg"
+                }
+                alt="Up Arrow"
+              />
+            ) : (
+              <Image
+                width={40}
+                height={40}
+                src={
+                  resolvedTheme == "dark"
+                    ? "/arrow-down-white.svg"
+                    : "/arrow-down.svg"
+                }
+                alt="Down Arrow"
+              />
+            )}
+          </div>
+
+          {formVisible.bedBaths && (
+            <>
+              <Form className={styles["beds-baths-form"]}>
+                <Form.Group>
+                  <div className={styles["beds-label"]}>
+                    <Form.Label>Beds:</Form.Label>
+                  </div>
+                  <Form.Select
+                    value={filter.BedroomsTotal}
+                    name="BedroomsTotal"
+                    onChange={onChangeSelect}
+                  >
+                    <option value={"Any"}>Any</option>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
+                    <option value={4}>4</option>
+                    <option value={"5+"}>5+</option>
+                  </Form.Select>
+                </Form.Group>
+
+                <Form.Group>
+                  <div className={styles["baths-label"]}>
+                    <Form.Label>Baths:</Form.Label>
+                  </div>
+                  <Form.Select
+                    value={filter.BathroomsTotal}
+                    name="BathroomsTotal"
+                    onChange={onChangeSelect}
+                  >
+                    <option value={"Any"}>Any</option>
+                    <option value={1}>1</option>
+                    <option value={1.5}>1.5</option>
+                    <option value={2}>2</option>
+                    <option value={2.5}>2.5</option>
+                    <option value={"3+"}>3+</option>
+                  </Form.Select>
+                </Form.Group>
+              </Form>
+            </>
+          )}
+        </div>
+      </div>
+      <SearchButton onClick={onClickSearchHomes} />
+
+      <div
+        className={
+          formVisible["map"] ? styles["search-container"] : "container"
+        }
+      >
+        <div className={styles["properties-grid-filter"]}>
+          {/* <div className="pagination-wrapper">
           <Pagination>{items}</Pagination>
         </div> */}
-        <div className={styles["btn-map-wrapper"]}>
-          <div className={styles["btn-filters-vis"]}>
-            <span>{"MORE FILTERS"}</span>
+          <div className={styles["btn-map-wrapper"]}>
+            <div className={styles["btn-filters-vis"]}>
+              <span>{"MORE FILTERS"}</span>
+            </div>
+            <div
+              className={
+                resolvedTheme == "dark"
+                  ? styles["btn-map-dark"]
+                  : styles["btn-map"]
+              }
+              onClick={() => toggleMapVisibility("map")}
+            >
+              <span>{formVisible.map ? "HIDE MAP" : "VIEW MAP"}</span>
+            </div>
           </div>
-          <div
-            className={resolvedTheme == "dark" ? styles["btn-map-dark"] : styles["btn-map"]}
-            onClick={() => toggleMapVisibility("map")}
-          >
-            <span>{formVisible.map ? "HIDE MAP" : "VIEW MAP"}</span>
-          </div>
-        </div>
 
-        <div className={styles["sort-container"]}>
-          <div className={styles["sort-select"]}>
-            {formVisible.sortBy && (
-              <Form.Select
-                value={filter.sortBy}
-                onChange={onChangeSelect}
-                name="sortBy"
-              >
-                <option value={""}>Sort By</option>
-                <option value={"ListPrice"}>List Price</option>
-                <option value={"LivingArea"}>Living Area</option>
-                <option value={"ModificationTimestamp"}>Last Modified</option>
-                <option value={"ListingContractDate"}>Listing Date</option>
-              </Form.Select>
-            )}
+          <div className={styles["sort-container"]}>
+            <div className={styles["sort-select"]}>
+              {formVisible.sortBy && (
+                <Form.Select
+                  value={filter.sortBy}
+                  onChange={onChangeSelect}
+                  name="sortBy"
+                >
+                  <option value={""}>Sort By</option>
+                  <option value={"ListPrice"}>List Price</option>
+                  <option value={"LivingArea"}>Living Area</option>
+                  <option value={"ModificationTimestamp"}>Last Modified</option>
+                  <option value={"ListingContractDate"}>Listing Date</option>
+                </Form.Select>
+              )}
+            </div>
+            <div className={styles["order-select"]}>
+              {formVisible.sortBy && (
+                <Form.Select
+                  value={filter.order}
+                  onChange={onChangeSelect}
+                  name="order"
+                >
+                  <option value={"asc"}>ascending</option>
+                  <option value={"desc"}>descending</option>
+                </Form.Select>
+              )}
+            </div>
           </div>
-          <div className={styles["order-select"]}>
-            {formVisible.sortBy && (
-              <Form.Select
-                value={filter.order}
-                onChange={onChangeSelect}
-                name="order"
-              >
-                <option value={"asc"}>ascending</option>
-                <option value={"desc"}>descending</option>
-              </Form.Select>
-            )}
-          </div>
-        </div>
-        {/* <PropertySeachList properties={properties} /> */}
-        <div
-          className={
-            formVisible["map"]
-              ? styles["properties_grid_map_view"]
-              : styles["properties_grid"]
-          }
-          id="properties-grid-filter"
-        >
-          {/* <Suspense fallback={<Loading />}> */}
+          {/* <PropertySeachList properties={properties} /> */}
+          <div
+            className={
+              formVisible["map"]
+                ? styles["properties_grid_map_view"]
+                : styles["properties_grid"]
+            }
+            id="properties-grid-filter"
+          >
+            {/* <Suspense fallback={<Loading />}> */}
             <PropertySearchList
               properties={properties?.length ? properties : params.cityData}
             />
-          {/* </Suspense> */}
-          {/* {properties.map((property: Property, index: number) => {
+            {/* </Suspense> */}
+            {/* {properties.map((property: Property, index: number) => {
             return (
               <PropertySearchTile
                 key={property.id || index}
@@ -1347,26 +1420,37 @@ export default function Filters(params: {cityData: any,cityPages: number}) {
               />
             );
           })} */}
-        </div>
-
-        <div className={styles["pagination-wrapper"]}>
-          <Suspense fallback={<Loading />}>
-            <Pagination>
-              {screenWidth < 862 ? createPaginationPhone(pageObj.pages, pageObj.actualPage, getData) : createPagination(pageObj.pages, pageObj.actualPage, getData)}
-            </Pagination>
-          </Suspense>
-        </div>
-      </div>
-      <div className={styles["map-wrapper"]}>
-        {formVisible.map && (
-          <div className={styles["grid-prop-map"]}>
-            {/* <Suspense fallback={<Loading />}> */}
-              {/* <Map properties={mapProperties} onMoveMap={onMoveMap} /> */}
-              <Map properties={mapProperties}/>
-            {/* </Suspense> */}
           </div>
-        )}
+
+          <div className={styles["pagination-wrapper"]}>
+            <Suspense fallback={<Loading />}>
+              <Pagination>
+                {screenWidth < 862
+                  ? createPaginationPhone(
+                      pageObj.pages,
+                      pageObj.actualPage,
+                      getData,
+                    )
+                  : createPagination(
+                      pageObj.pages,
+                      pageObj.actualPage,
+                      getData,
+                    )}
+              </Pagination>
+            </Suspense>
+          </div>
+        </div>
+        <div className={styles["map-wrapper"]}>
+          {formVisible.map && (
+            <div className={styles["grid-prop-map"]}>
+              {/* <Suspense fallback={<Loading />}> */}
+              {/* <Map properties={mapProperties} onMoveMap={onMoveMap} /> */}
+              <Map properties={mapProperties} />
+              {/* </Suspense> */}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  </> : null
+    </>
+  ) : null;
 }

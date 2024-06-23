@@ -6,7 +6,6 @@ import Link from "@/node_modules/next/link";
 import { Popup } from "reactjs-popup";
 import PopupFormListYourHomes from "../PopupFormListYourHomes/PopupFormListYourHomes";
 import PopupFormApplyToday from "../PopupFormApplyToday/PopupFormApplyToday";
-import { ReactNode } from "react";
 
 const ImageCards = () => {
   return (
@@ -73,11 +72,9 @@ const ImageCards = () => {
             </div>
           )}
         >
-
-                <> 
-
-       <span>&times;</span>
-         <PopupFormListYourHomes />
+          <>
+            <span>&times;</span>
+            <PopupFormListYourHomes />
           </>
         </Popup>
 
@@ -110,12 +107,10 @@ const ImageCards = () => {
             </div>
           )}
         >
-                <> 
-
-       <span>&times;</span>
-       <PopupFormApplyToday />
+          <>
+            <span>&times;</span>
+            <PopupFormApplyToday />
           </>
-  
         </Popup>
       </div>
     </Container>

@@ -1,7 +1,5 @@
-import ProfileComponent from "@/components/ProfileComponent/ProfileComponent"
+import ProfileComponent from "@/components/ProfileComponent/ProfileComponent";
 
-export default function Profile(){ 
-    return (
-        <ProfileComponent/>
-    );
-};
+export default function Profile() {
+  return <ProfileComponent />;
+}

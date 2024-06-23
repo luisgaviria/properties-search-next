@@ -6,9 +6,10 @@ export default function Search() {
   return (
     <>
       {/* <Suspense fallback={<Loading />}> */}
-        <Filters cityData={null} cityPages={0}/> {
-          // doesnt matter what is params here it won't use it in that case
-        }
+      <Filters cityData={null} cityPages={0} />{" "}
+      {
+        // doesnt matter what is params here it won't use it in that case
+      }
       {/* </Suspense> */}
     </>
   );

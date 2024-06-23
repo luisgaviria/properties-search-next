@@ -9,20 +9,18 @@ const formatPrice = (price: any) => {
   }).format(price);
 };
 
-const loader = (props: {src: string}) =>{
+const loader = (props: { src: string }) => {
   return `${props.src}`;
 };
 
-export default function PropertySearchTile({ data,onClick }: any) {
+export default function PropertySearchTile({ data, onClick }: any) {
   // const router = useRouter();
-  // const parentClick = () =>{ 
+  // const parentClick = () =>{
   //   router.push("/search/"+data.ListingId);
   // }
   // const parentClick = () => {
   //     navigate(`/buy/${data.ListingId}`);
   //   };
-   
-  
 
   const childrenClick = (event: any) => {
     event.stopPropagation();
@@ -41,10 +39,7 @@ export default function PropertySearchTile({ data,onClick }: any) {
   }
 
   return (
-    <div
-    onClick={onClick}
-
-    >
+    <div onClick={onClick}>
       <div className={styles[`properties_grid_element_buy`]}>
         <div style={{ cursor: "pointer" }}>
           <div className={styles["tile-city"]}>

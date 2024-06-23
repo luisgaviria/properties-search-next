@@ -15,7 +15,7 @@ import { useEffect } from "react";
 
 // const listingArr = atom<Property[][]>([]);
 
-const WaterFrontListings = ({listings}: {listings: Property[][]}) => {
+const WaterFrontListings = ({ listings }: { listings: Property[][] }) => {
   // const [listings, setListings] = useAtom(listingArr);
   // const getListings = async () => {
   //   const res: latestResponse = await fetch(

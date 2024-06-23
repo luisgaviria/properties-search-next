@@ -3,7 +3,7 @@ import Link from "@/node_modules/next/link";
 import { useRouter } from "next/navigation";
 import styles from "./PropertySearchTile.module.scss";
 import { Carousel } from "react-bootstrap";
-import Image from "next/image"; 
+import Image from "next/image";
 // import { formatPrice } from "../../utils/formatPrice";
 const formatPrice = (price: any) => {
   return new Intl.NumberFormat("en-US", {
@@ -13,20 +13,18 @@ const formatPrice = (price: any) => {
   }).format(price);
 };
 
-const loader = (props: {src: string}) =>{
+const loader = (props: { src: string }) => {
   return `${props.src}`;
 };
 
 export default function PropertySearchTile({ data }: any) {
   // const router = useRouter();
-  // const parentClick = () =>{ 
+  // const parentClick = () =>{
   //   router.push("/search/"+data.ListingId);
   // }
   // const parentClick = () => {
   //     navigate(`/buy/${data.ListingId}`);
   //   };
-   
-  
 
   const childrenClick = (event: any) => {
     event.stopPropagation();
@@ -45,7 +43,7 @@ export default function PropertySearchTile({ data }: any) {
   }
 
   return (
-    <div 
+    <div
     // onClick={onClick}
     >
       <div className={styles[`properties_grid_element_buy`]}>
@@ -65,24 +63,21 @@ export default function PropertySearchTile({ data }: any) {
                   // className={styles["img-wrap-buytile"]}
                 >
                   <a href={`/search/${data.ListingId}`} target="_blank">
-                  {
-                    <Image
-                    // type="image/webp"
-                    className={styles["img-carousel-tile"]}
-                    loader={loader}
-                    placeholder="blur"
-                    src={
-                      media.MediaURL
+                    {
+                      <Image
+                        // type="image/webp"
+                        className={styles["img-carousel-tile"]}
+                        loader={loader}
+                        placeholder="blur"
+                        src={media.MediaURL}
+                        blurDataURL="blur.jpg"
+                        key={index}
+                        alt="property main image"
+                        width={50}
+                        height={300}
+                      />
                     }
-                    blurDataURL="blur.jpg"
-                    key={index}
-                    alt="property main image"
-                    width={50}
-                    height={300}
-                  />
-                  }
                   </a>
-
                 </Carousel.Item>
               );
             }

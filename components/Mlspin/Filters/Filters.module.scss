@@ -185,7 +185,9 @@
   background-position: right 0.75rem center;
   border: 0.5px solid rgba(44, 41, 41, 0.8588235294) !important;
   border-radius: 8px;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
   appearance: none;
   box-shadow: 0 0 4px rgba(53, 50, 50, 0.2);
 }
@@ -195,7 +197,9 @@
   background-position: right 0.75rem center;
   border: 0.3px solid rgba(44, 41, 41, 0.8588235294) !important;
   border-radius: 8px;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
   appearance: none;
   box-shadow: 0 0 4px rgba(53, 50, 50, 0.2);
 }
@@ -761,7 +765,9 @@
   background-position: right 0.75rem center;
   border: 0.5px solid rgba(44, 41, 41, 0.8588235294) !important;
   border-radius: 8px;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
   appearance: none;
   box-shadow: 0 0 4px rgba(53, 50, 50, 0.2);
 }
@@ -772,7 +778,9 @@
   background-position: right 0.75rem center;
   border: 0.3px solid rgba(44, 41, 41, 0.8588235294) !important;
   border-radius: 8px;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
   appearance: none;
   box-shadow: 0 0 4px rgba(53, 50, 50, 0.2);
 }

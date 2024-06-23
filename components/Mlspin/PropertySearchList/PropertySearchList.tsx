@@ -41,8 +41,9 @@ export default function PropertySearchList({
 }) {
   return (
     <>
-    <script type="application/ld+json">
-      {properties?.map((property: Property,index: number)=>`
+      <script type="application/ld+json">
+        {properties?.map(
+          (property: Property, index: number) => `
        {
         "@context": "https://schema.org",
         "@type": "RealEstateListing",
@@ -50,7 +51,9 @@ export default function PropertySearchList({
         "description": "There are ${properties.length} properties available in the home page.",
         "numberOfItems": ${properties.length},
         "itemListElement": [
-        ${properties.map((property, index) =>  `
+        ${properties
+          .map(
+            (property, index) => `
         {
         "@type": "ListItem",
         "position": ${index + 1},
@@ -75,18 +78,18 @@ export default function PropertySearchList({
         "unitCode": "SQFT"
         }
         }
-        `).join(',')}
+        `,
+          )
+          .join(",")}
         ]
       }
-      `)}
-    </script>
+      `,
+        )}
+      </script>
       {properties?.map((property: Property, index: number) => {
         return (
           <Suspense fallback={<Loading />}>
-            <PropertySearchTile
-              key={property.id || index}
-              data={property}
-            />
+            <PropertySearchTile key={property.id || index} data={property} />
           </Suspense>
         );
       })}

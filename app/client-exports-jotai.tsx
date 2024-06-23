@@ -1,4 +1,4 @@
 "use client";
-import {DevTools} from "jotai-devtools";
- 
+import { DevTools } from "jotai-devtools";
+
 export default DevTools;

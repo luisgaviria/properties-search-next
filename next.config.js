@@ -18,8 +18,8 @@ const nextConfig = {
   },
   experimental: {
     webVitalsAttribution: ["CLS", "LCP"],
-    optimizeCss: true
-    },
+    optimizeCss: true,
+  },
   webpack(config, { dev, isServer }) {
     // Code splitting
     config.optimization.splitChunks.cacheGroups = {

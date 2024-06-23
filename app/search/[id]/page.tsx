@@ -1,9 +1,9 @@
 import { PropertyDetails } from "@/components/definitions/PropertyDetails";
-import { formatPrice,checkNumberNine } from "@/utils/formatPrice";
+import { formatPrice, checkNumberNine } from "@/utils/formatPrice";
 import { Metadata } from "next";
-import SinglePropertyBuy from "@/components/SinglePropertySearchBody/SinglePropertySearchBody"; 
-const generateTitle = ()=>{
-    return "Property Details";
+import SinglePropertyBuy from "@/components/SinglePropertySearchBody/SinglePropertySearchBody";
+const generateTitle = () => {
+  return "Property Details";
 };
 // const generateTitle = (state : PropertyDetails) => {
 //   const livingArea =
@@ -36,47 +36,55 @@ function truncateStringWithEllipsis(str: string) {
   return str.substring(0, maxLength - 3) + "...";
 }
 
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: any;
+  searchParams: any;
+}): Promise<Metadata> {
+  const id = params.id;
+  console.log(id);
 
-export async function generateMetadata({params,searchParams}:{params: any;searchParams: any}): Promise<Metadata> {
-    const id = params.id;
-    console.log(id);
+  const data: PropertyDetails = await fetch(
+    process.env.VERCEL_URL
+      ? `https://properties-search-next.vercel.app/api/search/mlspin/${id}`
+      : `http://localhost:3000/api/search/mlspin/${id}`,
+    { cache: "no-store" },
+  ).then((res) => res.json());
+  const imageUrls = data.Media?.map((img: any) => img.MediaURL) || [];
+  const filteredImageUrls = imageUrls.filter(
+    (url: any) => url && typeof url === "string",
+  );
 
-    
-    const data: PropertyDetails = await fetch( process.env.VERCEL_URL ? `https://properties-search-next.vercel.app/api/search/mlspin/${id}` : `http://localhost:3000/api/search/mlspin/${id}`,{cache: "no-store"}).then(res=>res.json());
-    const imageUrls = data.Media?.map((img : any) => img.MediaURL) || [];
-    const filteredImageUrls = imageUrls.filter(
-      (url: any) => url && typeof url === "string"
-    );
-
-
-    return {
+  return {
+    // title: generateTitle(data),
+    title: "Property Details",
+    description: truncateStringWithEllipsis(
+      (data.PublicRemarks as string) ?? "",
+    ),
+    metadataBase: new URL(
+      process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+    ),
+    alternates: {
+      canonical: `/buy/${id}`,
+    },
+    openGraph: {
+      description: truncateStringWithEllipsis(data.PublicRemarks ?? ""),
+      images: [{ url: filteredImageUrls[0] || "" }],
+      url: `/buy/${id}`,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
       // title: generateTitle(data),
       title: "Property Details",
-      description: truncateStringWithEllipsis(data.PublicRemarks as string ?? ""),
-      metadataBase: new URL(
-        process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
-      ),
-      alternates: {
-        canonical: `/buy/${id}`,
-      },
-      openGraph: {
-        description: truncateStringWithEllipsis(data.PublicRemarks ?? ""),
-        images: [{url:filteredImageUrls[0] || "" }],
-        url: `/buy/${id}`,
-        type: "article"
-      },
-      twitter: {
-        card: "summary_large_image",
-        // title: generateTitle(data),
-        title: "Property Details",
-        description: truncateStringWithEllipsis(data.PublicRemarks ?? ""),
-        images: [{url: filteredImageUrls[0] || ""}]
-      }
-    }
-  } 
+      description: truncateStringWithEllipsis(data.PublicRemarks ?? ""),
+      images: [{ url: filteredImageUrls[0] || "" }],
+    },
+  };
+}
 
-export default function PageSinglePropertyBuy(){ 
-  return (
-    <SinglePropertyBuy/>
-  )
-};
+export default function PageSinglePropertyBuy() {
+  return <SinglePropertyBuy />;
+}

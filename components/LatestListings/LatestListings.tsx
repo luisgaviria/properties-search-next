@@ -11,26 +11,26 @@ import { useEffect } from "react";
 type LatestResponse = {
   message: string;
   listings: Property[][];
-}
+};
 
 // const listingsArr = atom<Property[][]>([]);
 
-const LatestListings = ({listings}: {listings: Property[][]}) => {
+const LatestListings = ({ listings }: { listings: Property[][] }) => {
   // const getListings = async () => {
   //   const res: latestResponse = await fetch("/api/search/mlspin/latest", {
   //     cache: "no-store",
   //   }).then((res) => res.json());
   //   setListings(res.listings);
   // };
-  // useEffect(()=>{ 
+  // useEffect(()=>{
   //   getListings();
-  // },[]); 
+  // },[]);
   // useQuery({
   //   queryKey: ["getLatestListings"],
   //   queryFn: () => getListings(),
   //   enabled: true,
   // });
-    return (
+  return (
     <Carousel
       className="homeCarousel"
       controls={true}

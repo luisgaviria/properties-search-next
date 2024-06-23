@@ -8,6 +8,9 @@ import Link from "@/node_modules/next/link";
 import Image from "@/node_modules/next/image";
 
 import "./CTA.scss";
+import Popup from "reactjs-popup";
+
+import PopupFormListYourHomes from "../PopupFormListYourHomes/PopupFormListYourHomes";
 
 const CTA = ({ pageName }: { pageName: string }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -58,16 +61,27 @@ const CTA = ({ pageName }: { pageName: string }) => {
                 onMouseEnter={handleButtonHover}
                 onMouseLeave={handleButtonLeave}
               >
-                <span>SEACH LISTINGS</span>
+                <span>SEARCH LISTINGS</span>
               </div>
             </Link>
-            <div
-              className="btn-cta-second"
-              onMouseEnter={handleButtonHover}
-              onMouseLeave={handleButtonLeave}
+            <Popup
+              position="right center"
+              modal
+              trigger={(open) => (
+                <div
+                  className="btn-cta-second"
+                  onMouseEnter={handleButtonHover}
+                  onMouseLeave={handleButtonLeave}
+                >
+                  <span>LIST YOUR HOUSE</span>
+                </div>
+              )}
             >
-              <span>LIST YOUR HOUSE</span>
-            </div>
+              <>
+                <span>&times;</span>
+                <PopupFormListYourHomes />
+              </>
+            </Popup>
           </div>
         </div>
       </div>

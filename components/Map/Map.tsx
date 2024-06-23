@@ -80,8 +80,8 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
               console.error("Error loading image:", error);
               return null; // Skip properties with loading errors
             }
-          }
-        )
+          },
+        ),
       );
 
       // Attach click listeners and handle clustering
@@ -91,7 +91,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
             if (loadedInfoWindows[i]) {
               loadedInfoWindows[i].open(
                 this.googleMapRef,
-                markerWithInfoWindow.marker
+                markerWithInfoWindow.marker,
               );
             }
           });
@@ -116,7 +116,6 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
 
       // Store the markers and info windows for later use
       this.markersWithInfoWindows = [];
-
     }, 1000);
   }
 
@@ -136,14 +135,14 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
           infoWindow: new this.googleRef.InfoWindow({
             content: `
             <div style="padding: 10px" class="marker">
-              <a><img style="width: 300px; height: 200px;" src="${imgUrl}"/></a>
+              <img style="width: 300px; height: 200px;" src="${imgUrl}"/>
               <br/>
               <a href="/search/${property.ListingId}" target="_blank" style="text-decoration:underline; color: blue">${property.City}, ${property.StreetName}, ${property.StreetNumber}</a>
             </div>
           `,
           }),
         };
-      }
+      },
     );
 
     // Attach click listeners
@@ -152,7 +151,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
         if (markerWithInfoWindow.infoWindow) {
           markerWithInfoWindow.infoWindow.open(
             this.googleMapRef,
-            markerWithInfoWindow.marker
+            markerWithInfoWindow.marker,
           );
         }
       });

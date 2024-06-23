@@ -1,9 +1,8 @@
-
 export type strOrNumber = string | number;
 
 export interface response {
   message: string;
-  pages: number; 
+  pages: number;
   properties: Property[];
 }
 

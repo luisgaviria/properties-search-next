@@ -163,7 +163,7 @@ const options = {
 };
 
 export default function SinglePropertyBuy() {
-  const {resolvedTheme} = useTheme();
+  const { resolvedTheme } = useTheme();
   const pathName = usePathname();
   const [zillowIds, setZillowIds] = useAtom(zillowIdsAtom);
   const [state, setState] = useAtom(StateAtom);
@@ -184,8 +184,9 @@ export default function SinglePropertyBuy() {
       agentName: string;
       officeName: string;
     } = await fetch(`/api/search/mlspin/${id}`, { cache: "no-store" }).then(
-      (res) => res.json()
+      (res) => res.json(),
     );
+    console.log(data);
     setZillowIds(data.zillowData);
     setState((prevState: any) => ({
       ...prevState,
@@ -225,7 +226,7 @@ export default function SinglePropertyBuy() {
 
   const imageUrls = state.Media?.map((img: any) => img.MediaURL) || [];
   const filteredImageUrls = imageUrls.filter(
-    (url: any) => url && typeof url === "string"
+    (url: any) => url && typeof url === "string",
   );
 
   return resolvedTheme ? (
@@ -238,7 +239,7 @@ export default function SinglePropertyBuy() {
         "@type": "RealEstateListing",
         "name": "${generateTitle(state)}",
         "description": "${truncateStringWithEllipsis(
-          state.PublicRemarks ?? ""
+          state.PublicRemarks ?? "",
         )}",
         "image": "${filteredImageUrls[0] || ""}",
         "url": "/buy/${pathName.split("/search/")[1]}",
@@ -305,7 +306,7 @@ export default function SinglePropertyBuy() {
         })}
       </Carousel>
       <Container>
-        <ScrollButton/>
+        <ScrollButton />
         <div className={styles["prop-tile-address"]}>
           <h1>
             {state.StreetNumber} {state.StreetName} {state.City},{" "}
@@ -315,18 +316,40 @@ export default function SinglePropertyBuy() {
         <div className={styles["single-property-details"]}>
           <div className={styles["show-page-details-icons"]}>
             <div className={styles["icon-item"]}>
-              <Image src={resolvedTheme == "dark" ? "/BEDROOM-WHITE.svg" : "/BEDROOM.webp"} width={50} height={50} alt="bedroom" />
+              <Image
+                src={
+                  resolvedTheme == "dark"
+                    ? "/BEDROOM-WHITE.svg"
+                    : "/BEDROOM.webp"
+                }
+                width={50}
+                height={50}
+                alt="bedroom"
+              />
               <span>{state.BedroomsTotal} Bedrooms</span>
             </div>
             <div className={styles["icon-item"]}>
               {/* <FaRestroom size={50} /> */}
-              <Image src={resolvedTheme == "dark" ? "/BATHTUB-WHITE.svg" : "/BATHTUB.webp"} width={50} height={50} alt="bathhub" />
+              <Image
+                src={
+                  resolvedTheme == "dark"
+                    ? "/BATHTUB-WHITE.svg"
+                    : "/BATHTUB.webp"
+                }
+                width={50}
+                height={50}
+                alt="bathhub"
+              />
               <span>{state.BathroomsTotalDecimal} Bathrooms</span>
             </div>
             {state.LivingArea ? (
               <div className={styles["icon-item"]}>
                 <Image
-                  src={resolvedTheme == "dark" ? "/DISCOUNT-WHITE.svg" : "/DISCOUNT.webp"}
+                  src={
+                    resolvedTheme == "dark"
+                      ? "/DISCOUNT-WHITE.svg"
+                      : "/DISCOUNT.webp"
+                  }
                   width={50}
                   height={50}
                   alt="bathhub"
@@ -356,7 +379,11 @@ export default function SinglePropertyBuy() {
             <div className={styles["icon-item"]}>
               {/* <MdOutlineAttachMoney size={50} /> */}
               <Image
-                src={resolvedTheme=="dark" ? "/HOMELOAN-WHITE.svg" : "/HOMELOAN.webp"}
+                src={
+                  resolvedTheme == "dark"
+                    ? "/HOMELOAN-WHITE.svg"
+                    : "/HOMELOAN.webp"
+                }
                 width={50}
                 height={50}
                 alt="homeloan"
@@ -364,7 +391,16 @@ export default function SinglePropertyBuy() {
               <span>{formatPrice(state.ListPrice)}</span>
             </div>
             <div className={styles["icon-item"]}>
-              <Image src={resolvedTheme == "dark" ? "/REALTOR-WHITE.svg" : "/REALTOR.webp" } width={50} height={50} alt="bathhub" />
+              <Image
+                src={
+                  resolvedTheme == "dark"
+                    ? "/REALTOR-WHITE.svg"
+                    : "/REALTOR.webp"
+                }
+                width={50}
+                height={50}
+                alt="bathhub"
+              />
               <span>508-762-7639</span>
             </div>
           </div>
@@ -390,7 +426,14 @@ export default function SinglePropertyBuy() {
                 <span>View Property Details</span>
               </div>
               <div className={styles["arrow-wrapper"]}>
-                <img src={resolvedTheme == "dark" ? "/arrow-down-white.svg" : "/arrow-down.svg"} alt="Down Arrow" />
+                <img
+                  src={
+                    resolvedTheme == "dark"
+                      ? "/arrow-down-white.svg"
+                      : "/arrow-down.svg"
+                  }
+                  alt="Down Arrow"
+                />
               </div>
             </>
           ) : (
@@ -401,7 +444,11 @@ export default function SinglePropertyBuy() {
                 </div>
                 <img
                   className={styles["arrow-wrapper"]}
-                  src={resolvedTheme=="dark" ? "/arrow-up-white.svg" : "/arrow-up.svg"}
+                  src={
+                    resolvedTheme == "dark"
+                      ? "/arrow-up-white.svg"
+                      : "/arrow-up.svg"
+                  }
                   alt="Up Arrow"
                 />
               </div>
@@ -951,9 +998,9 @@ export default function SinglePropertyBuy() {
         {state.ListPrice > 100000 ? (
           <>
             <LoanCalculator
-              // initialAmount={state.ListPrice}
-              // associationFee={state.AssociationFee}
-              // yearlyTaxes={checkNumberNine(state.TaxAnnualAmount)}
+            // initialAmount={state.ListPrice}
+            // associationFee={state.AssociationFee}
+            // yearlyTaxes={checkNumberNine(state.TaxAnnualAmount)}
             />
           </>
         ) : null}
@@ -972,10 +1019,16 @@ export default function SinglePropertyBuy() {
                   <div style={{ marginTop: "20px" }}>
                     <Link
                       href={`/zillow/${zillowId}`}
-                      className={resolvedTheme == "dark" ? styles["btn-cta-zillow-dark"] : styles["btn-cta-zillow"]
-                    }
+                      className={
+                        resolvedTheme == "dark"
+                          ? styles["btn-cta-zillow-dark"]
+                          : styles["btn-cta-zillow"]
+                      }
                     >
-                      <span>{zillowId}</span>
+                      <span>
+                        {state.StreetNumber} {state.StreetName} {state.City},{" "}
+                        {state.StateOrProvince}
+                      </span>
                     </Link>
                   </div>
                 );
@@ -986,7 +1039,14 @@ export default function SinglePropertyBuy() {
         <div className={styles["single-prop-buttons"]}>
           <hr />
 
-          <Link href="/search" className={resolvedTheme == "dark" ? styles["btn-cta-dark"] : styles["btn-cta"]}>
+          <Link
+            href="/search"
+            className={
+              resolvedTheme == "dark"
+                ? styles["btn-cta-dark"]
+                : styles["btn-cta"]
+            }
+          >
             <span>GO BACK</span>
           </Link>
 

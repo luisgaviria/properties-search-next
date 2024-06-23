@@ -7,12 +7,9 @@ const DarkModeToggle = () => {
   const { theme, setTheme } = useTheme();
   return (
     <button
-      onClick={() => (theme == "dark" ? setTheme("light") : setTheme("dark"))}>
-      {theme === "light" ? (
-        <RiMoonLine/>
-      ) : (
-        <RiSunLine/>
-      )}
+      onClick={() => (theme == "dark" ? setTheme("light") : setTheme("dark"))}
+    >
+      {theme === "light" ? <RiMoonLine /> : <RiSunLine />}
     </button>
   );
 };
