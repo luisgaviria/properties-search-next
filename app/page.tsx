@@ -84,9 +84,9 @@ export default async function Home() {
           "numberOfItems": ${newListings.length + waterFrontListings.length},
           "itemListElement": [
           ${newListings
-            .concat(waterFrontListings)
-            .map((property, index) =>
-              property.map(
+            ?.concat(waterFrontListings)
+            ?.map((property, index) =>
+              property?.map(
                 (tempProperty, index) => `
           {
           "@type": "ListItem",
