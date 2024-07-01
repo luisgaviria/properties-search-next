@@ -94,7 +94,7 @@ export default async function Home() {
           "item": {
           "@type": "RealEstateListing",
           "name": "${generateTitle(tempProperty)}",
-          "image": "${tempProperty.Media[0].MediaURL || ""}",
+          "image": "${tempProperty?.Media?.length && tempProperty.Media[0].MediaURL}",
           "url": "${tempProperty.url}",
           "address": {
           "@type": "PostalAddress",
