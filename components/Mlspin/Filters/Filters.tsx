@@ -514,7 +514,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
 
   useEffect(() => {
     window.addEventListener("resize", onResizeWindow);
-  }, [window.innerWidth]);
+  }, [window?.innerWidth]);
 
   const onInputAddressChange = (e: any) => {
     // Update the autocomplete input value
