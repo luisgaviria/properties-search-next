@@ -72,10 +72,7 @@ const ImageCards = () => {
             </div>
           )}
         >
-          <>
-            <span>&times;</span>
-            <PopupFormListYourHomes />
-          </>
+          <PopupFormListYourHomes />
         </Popup>
 
         {}
@@ -107,10 +104,7 @@ const ImageCards = () => {
             </div>
           )}
         >
-          <>
-            <span>&times;</span>
-            <PopupFormApplyToday />
-          </>
+          <PopupFormApplyToday />
         </Popup>
       </div>
     </Container>
