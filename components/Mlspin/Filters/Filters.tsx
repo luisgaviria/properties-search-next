@@ -403,10 +403,9 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     enabled: false,
   });
 
-  const onClickSearchHomes = async () => {
+  const onClickSearchHomes =  () => {
     // setPageObj({actualPage: 1,pages: });
-
-    await properties_.refetch();
+    properties_.refetch();
   };
 
   const [formVisible, setFormVisible] = useAtom(formVisibleAtom);
