@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 import styles from "./ImageCards.module.scss";
 import { Container } from "@/app/client-react-boostrap";
@@ -72,7 +73,14 @@ const ImageCards = () => {
             </div>
           )}
         >
-          <PopupFormListYourHomes />
+          {(close: any) => (
+            <>
+              <span style={{ cursor: "pointer" }} onClick={close}>
+                &times;
+              </span>
+              <PopupFormListYourHomes />
+            </>
+          )}
         </Popup>
 
         {}
@@ -104,7 +112,14 @@ const ImageCards = () => {
             </div>
           )}
         >
-          <PopupFormApplyToday />
+          {(close: any) => (
+            <>
+              <span style={{ cursor: "pointer" }} onClick={close}>
+                &times;
+              </span>
+              <PopupFormApplyToday />
+            </>
+          )}
         </Popup>
       </div>
     </Container>

@@ -54,7 +54,7 @@ const LatestListings = ({ listings }: { listings: Property[][] }) => {
         />
       }
     >
-      {listings.length
+      {listings?.length
         ? listings.map((page) => {
             return (
               <Carousel.Item>

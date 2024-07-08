@@ -22,17 +22,15 @@ interface waterFrontResponse {
 
 async function getLatestListings() {
   // url in env! should be solved in case of deployment!
-
   const res: latestResponse = await fetch(
-    `${process.env.NEXT_PUBLIC_URL_API && process.env.PORT ? `${process.env.NEXT_PUBLIC_URL_API}:${process.env.PORT || 3000}/api/search/mlspin/waterFrontListings}` : `https://properties-search-next.vercel.app/api/search/mlspin/latest`}`,
-
+    `${process.env.NEXT_PUBLIC_URL_API && process.env.PORT ? `${process.env.NEXT_PUBLIC_URL_API}:${process.env.PORT || 3000}/api/search/mlspin/latest` : `https://properties-search-next.vercel.app/api/search/mlspin/latest`}`,
   ).then((data) => data.json());
   return res.listings;
 }
 
 async function getWaterFrontListings() {
   const res: waterFrontResponse = await fetch(
-    `${process.env.NEXT_PUBLIC_URL_API && process.env.PORT ? `${process.env.NEXT_PUBLIC_URL_API}:${process.env.PORT || 3000}/api/search/mlspin/waterFrontListings}` : `https://properties-search-next.vercel.app/api/search/mlspin/waterFrontListings`}`,
+    `${process.env.NEXT_PUBLIC_URL_API && process.env.PORT ? `${process.env.NEXT_PUBLIC_URL_API}:${process.env.PORT || 3000}/api/search/mlspin/waterFrontListings` : `https://properties-search-next.vercel.app/api/search/mlspin/waterFrontListings`}`,
   ).then((data) => data.json());
   return res.waterFrontListings;
 }
@@ -75,15 +73,15 @@ export default async function Home() {
   return (
     <>
       <script type="application/ld+json">
-        {newListings.length &&
-          waterFrontListings.length &&
+        {newListings?.length &&
+          waterFrontListings?.length &&
           `
         {
           "@context": "https://schema.org",
           "@type": "RealEstateListing",
           "name": "Home Page",
-          "description": "There are ${newListings.length + waterFrontListings.length} properties available in the home page.",
-          "numberOfItems": ${newListings.length + waterFrontListings.length},
+          "description": "There are ${newListings?.length + waterFrontListings?.length} properties available in the home page.",
+          "numberOfItems": ${newListings?.length + waterFrontListings?.length},
           "itemListElement": [
           ${newListings
             ?.concat(waterFrontListings)

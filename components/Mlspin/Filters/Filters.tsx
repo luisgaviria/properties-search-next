@@ -403,7 +403,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     enabled: false,
   });
 
-  const onClickSearchHomes =  () => {
+  const onClickSearchHomes = () => {
     // setPageObj({actualPage: 1,pages: });
     properties_.refetch();
   };
