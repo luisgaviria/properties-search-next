@@ -106,7 +106,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
   const [searchFromHome, setSearchFromHome] = useAtom(searchFromHomeAtom);
   const { resolvedTheme } = useTheme();
   const [screenWidth, setScreenWidth] = useState(1000);
-  // const [searchCounter, setSearchCounter] = useState(0);
+  const [moreFilters,setMoreFilters] = useState(false);
   const getDataCity = async (city: string) => {
     setFormVisible((prevState) => {
       return {
@@ -274,9 +274,6 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
 
     const radiusVal = "1mi";
 
-    // console.log(query);
-
-    // console.log(value);
     if (enableSearching && value) {
       query += `&near=${value}`;
       query += `&radius=${radiusVal}`;
@@ -284,8 +281,6 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
       query += `&near=${searchInput}`;
       query += `&radius=${radiusVal}`;
     }
-
-    // const res = await fetch('/api/search/mlspin/');
 
     const res: mapResponse = await fetch(`/api/search/mlspin/map?${query}`, {
       cache: "no-store",
@@ -406,6 +401,12 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
   const onClickSearchHomes = () => {
     // setPageObj({actualPage: 1,pages: });
     properties_.refetch();
+  };
+
+  const onClickMoreFilters = ()=>{ 
+    setMoreFilters(prevState=> {
+      return !prevState
+    });
   };
 
   const [formVisible, setFormVisible] = useAtom(formVisibleAtom);
@@ -1340,6 +1341,37 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
           )}
         </div>
       </div>
+      {
+        moreFilters && (
+          <div className={styles["property-search"]}>
+            <div className={styles["filter-wrapper"]}>
+              <Form.Group>
+              <div className={styles["baths-label"]}>
+                    <Form.Label>Baths:</Form.Label>
+                  </div>
+                  <Form.Select
+                    value={filter.BathroomsTotal}
+                    name="BathroomsTotal"
+                    onChange={onChangeSelect}
+                  >
+                    <option value={"Any"}>Any</option>
+                    <option value={1}>1</option>
+                    <option value={1.5}>1.5</option>
+                    <option value={2}>2</option>
+                    <option value={2.5}>2.5</option>
+                    <option value={"3+"}>3+</option>
+                  </Form.Select>
+              </Form.Group>
+            </div>
+          </div>
+        )
+      }
+      <div style={{width: '100%', textAlign: 'center'}}>
+          <div onClick={onClickMoreFilters} className={styles["btn-more-filters"]}>
+            <span>{moreFilters ? "HIDE MORE FILTERS" : "MORE FILTERS"}</span>
+          </div>
+      </div>
+
       <SearchButton onClick={onClickSearchHomes} />
 
       <div
