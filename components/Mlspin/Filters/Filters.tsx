@@ -1352,9 +1352,9 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
           <Pagination>{items}</Pagination>
         </div> */}
           <div className={styles["btn-map-wrapper"]}>
-            <div className={styles["btn-filters-vis"]}>
+            {/* <div className={styles["btn-filters-vis"]}>
               <span>{"MORE FILTERS"}</span>
-            </div>
+            </div> */}
             <div
               className={
                 resolvedTheme == "dark"

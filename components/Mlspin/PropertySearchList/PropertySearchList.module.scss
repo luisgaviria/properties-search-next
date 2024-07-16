@@ -9,11 +9,11 @@
   max-height: 1115px;
   overflow-y: auto;
   scroll-padding-top: 1rem;
-
+ 
   @media (min-width: 280px) and (max-width: 1299px) {
     width: 100%; /* Adjust the width for medium-sized screens */
     flex: none;
-    max-width: none;
+    // max-width: none;
     .properties_grid_map_view {
       grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
       grid-gap: 1px;
@@ -25,11 +25,11 @@
       scroll-padding-top: none;
     }
   }
-
+ 
   @media (min-width: 1301px) and (max-width: 1480px) {
     width: 975px; /* Adjust the width for medium-sized screens */
   }
-
+ 
   @media (min-width: 1481px) and (max-width: 1980px) {
     width: 1165px; /* Adjust the width for medium-sized screens */
   }
@@ -43,7 +43,7 @@
     width: 1775px; /* Adjust the width for medium-sized screens */
   }
 }
-
+ 
 .properties_grid {
   // Map view 3 cards on left
   // display: grid;
@@ -56,14 +56,14 @@
   // max-height: 1115px;
   // overflow-y: auto;
   // scroll-padding-top: 1rem;
-
+ 
   //styles for full width of the properties grid
   grid-template-columns: repeat(auto-fill, minmax(425px, 1fr));
   grid-gap: 1px;
   display: grid;
   gap: 1px;
   padding-bottom: 6rem;
-
+ 
   // Original layout with no map view
   // grid-template-columns: repeat(auto-fill, minmax(425px, 3fr));
   // display: grid;
