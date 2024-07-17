@@ -12,7 +12,7 @@ const PopupFormApplyToday = () => {
     message: "",
   });
   const handleInput = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
     setListYourHomeState((prevState) => {
       return {
@@ -31,7 +31,7 @@ const PopupFormApplyToday = () => {
             headers: {
               "Content-Type": "application/json",
             },
-          },
+          }
         );
         break;
       }
@@ -46,9 +46,12 @@ const PopupFormApplyToday = () => {
       <div className={styles.rowWrapper} style={{ zIndex: 2 }}>
         <div className={styles.columnLeft}>
           <h1 className={styles.columnLeftH1}>
-            Are You interested in more information?
+            Start Your Career With Us Today
           </h1>
-          <p className={styles.mktP}>Hello</p>
+          <p className={styles.mktP}>
+            Fill out the details below to take the first step towards an
+            exciting career with our company."
+          </p>
           <div className={styles.theForm}>
             <div className={styles.formWrapper}>
               <div className={styles.titleWrap}>
@@ -71,7 +74,7 @@ const PopupFormApplyToday = () => {
                         id="FirstName"
                         placeholder="First Name"
                         className={styles.mktInputText}
-                        style={{ width: "166px" }}
+                        // style={{ width: "166px" }}
                       />
                     </div>
                   </div>
@@ -84,7 +87,7 @@ const PopupFormApplyToday = () => {
                         id="LastName"
                         placeholder="Last Name"
                         className={styles.mktInputText}
-                        style={{ width: "166px" }}
+                        // style={{ width: "166px" }}
                       />
                     </div>
                   </div>
@@ -100,7 +103,7 @@ const PopupFormApplyToday = () => {
                         id="TelephoneNumber"
                         placeholder="Telephone Number"
                         className={styles.mktInputText}
-                        style={{ width: "166px" }}
+                        // style={{ width: "166px" }}
                       />
                     </div>
                   </div>
@@ -113,7 +116,7 @@ const PopupFormApplyToday = () => {
                         onChange={handleInput}
                         placeholder="Email"
                         className={styles.mktInputText}
-                        style={{ width: "166px" }}
+                        // style={{ width: "166px" }}
                       />
                     </div>
                   </div>
@@ -127,7 +130,7 @@ const PopupFormApplyToday = () => {
                         id="Message"
                         placeholder="Message"
                         className={styles.mktInputTextArea}
-                        style={{ width: "286px" }}
+                        // style={{ width: "286px" }}
                       />
                     </div>
                   </div>
