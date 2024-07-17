@@ -9,15 +9,17 @@
 
 .columnLeftH1 {
   color: #ffffff;
-  font-size: 36px;
+  font-size: 34px;
   max-width: 100%;
   padding: 1rem;
   padding-top: 3rem;
+  text-align: center;
   @media screen and (min-width: 275px) and (max-width: 480px) {
     padding: 1rem;
     padding-top: 3rem;
     font-size: 30px;
     font-weight: bold;
+    text-align: left;
   }
 }
 @media screen and (min-width: 275px) and (max-width: 480px) {
@@ -345,8 +347,12 @@
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
   // padding-bottom: 2rem;
-  padding-left: 20px;
+  padding-left: 65px;
   max-width: 90%;
+
+  @media screen and (min-width: 275px) and (max-width: 480px) {
+    padding-left: 20px;
+  }
 }
 
 .close-button {
