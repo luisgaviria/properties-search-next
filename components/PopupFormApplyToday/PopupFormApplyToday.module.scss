@@ -9,7 +9,7 @@
 
 .columnLeftH1 {
   color: #ffffff;
-  font-size: 40px;
+  font-size: 36px;
   max-width: 100%;
   padding: 1rem;
   padding-top: 3rem;
@@ -22,10 +22,10 @@
 }
 @media screen and (min-width: 275px) and (max-width: 480px) {
   .rowWrapper {
-    padding-left: 1rem;
-    padding-top: 3rem;
-    padding-bottom: 2rem;
-    padding-right: 1rem;
+    // padding-left: 1rem;
+    // padding-top: 3rem;
+    // padding-bottom: 2rem;
+    // padding-right: 1rem;
     display: block !important;
     max-width: 398px;
   }
