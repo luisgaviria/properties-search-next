@@ -211,7 +211,11 @@ li a {
     color: white;
     font-weight: bolder;
     font-size: 48px;
-    margin-left: 20px;
+    margin-left: 100%;
+
+    @media (max-width: 480px) {
+      margin-left: 20px;
+    }
   }
 }
 @layer base {
