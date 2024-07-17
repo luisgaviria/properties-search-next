@@ -25,7 +25,7 @@ const ImageCards = () => {
               <h2>Search Massachusetts Homes!</h2>
             </div>
             <div className={styles["card-description"]}>
-              <p>Browse MLS home listings now.</p>
+              <p>Browse MLS Home Listings</p>
             </div>
             {/* <span class="hover-text">
           Random new text added when hovering on card
