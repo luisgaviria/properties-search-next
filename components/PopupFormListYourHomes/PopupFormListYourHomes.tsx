@@ -103,7 +103,7 @@ const PopupFormListYourHomes = () => {
                         onChange={handleInput}
                         value={listYourHomeState.telephoneNumber}
                         id="TelephoneNumber"
-                        placeholder="Telephone Number"
+                        placeholder="Phone Number"
                         className={styles.mktInputText}
                         // style={{ width: "166px" }}
                       />

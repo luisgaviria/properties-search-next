@@ -50,7 +50,7 @@ const PopupFormApplyToday = () => {
           </h1>
           <p className={styles.mktP}>
             Fill out the details below to take the first step towards an
-            exciting career with our company."
+            exciting career with our company.
           </p>
           <div className={styles.theForm}>
             <div className={styles.formWrapper}>
@@ -101,7 +101,7 @@ const PopupFormApplyToday = () => {
                         onChange={handleInput}
                         value={listYourHomeState.telephoneNumber}
                         id="TelephoneNumber"
-                        placeholder="Telephone Number"
+                        placeholder="Phone Number"
                         className={styles.mktInputText}
                         // style={{ width: "166px" }}
                       />
