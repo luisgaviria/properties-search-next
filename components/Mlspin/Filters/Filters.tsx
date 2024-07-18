@@ -82,7 +82,7 @@ const mapPropertiesAtom = atom<Property[]>([]);
 
 mapPropertiesAtom.debugLabel = "Map Properties";
 
-const enableSearchingAtom = atom(true);
+const enableSearchingAtom = atom(false);
 
 enableSearchingAtom.debugLabel = "Enable Searching";
 
@@ -148,7 +148,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     page_num: number,
     input: string,
     filters: any,
-    save = true,
+    save = true
   ) => {
     let query = "";
     const radiusVal = "1mi";
@@ -189,7 +189,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     if (save == true) {
       const res2: response = await fetch(
         `/api/search/mlspin?save=true${query}&page=${page_num}`,
-        { cache: "no-store" },
+        { cache: "no-store" }
       ).then((res) => res.json());
       setValue(input);
       setPageObj({ actualPage: page_num, pages: res2.pages });
@@ -198,7 +198,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     } else {
       const res2: response = await fetch(
         `/api/search/mlspin?${query}&page=${page_num}`,
-        { cache: "no-store" },
+        { cache: "no-store" }
       ).then((res) => res.json());
       setValue(input);
       setPageObj({ actualPage: page_num, pages: res2.pages });
@@ -299,7 +299,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     query += "&save=true";
     const res2: response = await fetch(
       `/api/search/mlspin?${query}&page=${page_num}`,
-      { cache: "no-store" },
+      { cache: "no-store" }
     ).then((res) => res.json());
 
     setPageObj({ actualPage: page_num, pages: res2.pages });
@@ -340,7 +340,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
           (filter[key as keyof typeof filter] as string[]).map(
             (item: string) => {
               query += `${item},`;
-            },
+            }
           );
         } else if (filter[key as keyof typeof filter]) {
           if (
@@ -386,7 +386,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
         }
       });
       const res: mapResponse = await fetch(
-        `/api/search/mlspin/map?${query}&Lat=${center.lat}&Lng=${center.lng}`,
+        `/api/search/mlspin/map?${query}&Lat=${center.lat}&Lng=${center.lng}`
       ).then((res) => res.json());
       return res.properties;
     } catch (err) {
@@ -589,7 +589,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
 
   //Jotai
   const onChangePropertyTypeCheckbox = (
-    event: ChangeEvent<HTMLInputElement>,
+    event: ChangeEvent<HTMLInputElement>
   ) => {
     setFilter((prevFilter: FilterState) => {
       let PropertyTypes = Array.isArray(prevFilter.PropertyType)
@@ -637,7 +637,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
 
   //Jotai
   const onChangePropertySubTypeCheckbox = (
-    event: ChangeEvent<HTMLInputElement>,
+    event: ChangeEvent<HTMLInputElement>
   ) => {
     setFilter((prevFilter: FilterState) => {
       const PropertySubTypes = prevFilter.PropertySubType || [];
@@ -725,7 +725,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                       value="Residential,Residential Income"
                       checked={
                         filter.PropertyType.indexOf(
-                          "Residential,Residential Income",
+                          "Residential,Residential Income"
                         ) > -1
                           ? true
                           : false
@@ -855,7 +855,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                     value="Single Family Residence"
                     checked={
                       filter.PropertySubType.indexOf(
-                        "Single Family Residence",
+                        "Single Family Residence"
                       ) > -1
                         ? true
                         : false
@@ -1171,6 +1171,45 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
           {formVisible.city && (
             <Form className={styles["input-form-wrapper"]}>
               <Form.Group className={styles["input-form"]}>
+                <div className={styles["city_label"]}>
+                  <Form.Label
+                    style={{
+                      fontWeight: "400",
+                      lineHeight: "1.2",
+                      // marginTop: "20px",
+                      textAlign: "left",
+                    }}
+                    key={3021}
+                  >
+                    City Dropdown:
+                  </Form.Label>
+                  <Form.Select
+                    value={filter.City}
+                    name="City"
+                    onChange={onChangeSelect}
+                  >
+                    {cities.map((city, index) => {
+                      return (
+                        <option key={index} value={city.Name}>
+                          {city.Name}
+                        </option>
+                      );
+                    })}
+                  </Form.Select>
+                </div>
+                <Form.Label
+                  style={{
+                    position: "relative",
+                    left: "28px",
+                    fontWeight: "bold",
+                    lineHeight: "1.2",
+                    marginTop: "27px",
+                  }}
+                  key={3021}
+                >
+                  Check to type a location:
+                </Form.Label>
+
                 <div className={styles["mktFormColBuy"]}>
                   <Form.Check
                     checked={enableSearching}
@@ -1186,9 +1225,9 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                       type="text"
                       placeholder="Enter a Location"
                       className={
-                        enableSearching
-                          ? styles["inputText"]
-                          : styles["disabled"]
+                        !enableSearching
+                          ? styles["disabled"]
+                          : styles["inputText"]
                       }
                       onChange={onInputAddressChange}
                       disabled={!enableSearching}
@@ -1212,31 +1251,6 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                       </div>
                     )}
                   </div>
-                </div>
-                <div className={styles["city_label"]}>
-                  <Form.Label
-                    style={{
-                      fontWeight: "bold",
-                      lineHeight: "1.2",
-                      marginTop: "5px",
-                    }}
-                    key={3021}
-                  >
-                    Uncheck Location Input to Use City Dropdown:
-                  </Form.Label>
-                  <Form.Select
-                    value={filter.City}
-                    name="City"
-                    onChange={onChangeSelect}
-                  >
-                    {cities.map((city, index) => {
-                      return (
-                        <option key={index} value={city.Name}>
-                          {city.Name}
-                        </option>
-                      );
-                    })}
-                  </Form.Select>
                 </div>
               </Form.Group>
             </Form>
@@ -1428,12 +1442,12 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                   ? createPaginationPhone(
                       pageObj.pages,
                       pageObj.actualPage,
-                      getData,
+                      getData
                     )
                   : createPagination(
                       pageObj.pages,
                       pageObj.actualPage,
-                      getData,
+                      getData
                     )}
               </Pagination>
             </Suspense>
