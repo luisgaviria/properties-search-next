@@ -184,7 +184,7 @@ export default function SinglePropertyBuy() {
       agentName: string;
       officeName: string;
     } = await fetch(`/api/search/mlspin/${id}`, { cache: "no-store" }).then(
-      (res) => res.json(),
+      (res) => res.json()
     );
     console.log(data);
     setZillowIds(data.zillowData);
@@ -226,7 +226,7 @@ export default function SinglePropertyBuy() {
 
   const imageUrls = state.Media?.map((img: any) => img.MediaURL) || [];
   const filteredImageUrls = imageUrls.filter(
-    (url: any) => url && typeof url === "string",
+    (url: any) => url && typeof url === "string"
   );
 
   return resolvedTheme ? (
@@ -239,7 +239,7 @@ export default function SinglePropertyBuy() {
         "@type": "RealEstateListing",
         "name": "${generateTitle(state)}",
         "description": "${truncateStringWithEllipsis(
-          state.PublicRemarks ?? "",
+          state.PublicRemarks ?? ""
         )}",
         "image": "${filteredImageUrls[0] || ""}",
         "url": "/buy/${pathName.split("/search/")[1]}",
@@ -401,7 +401,12 @@ export default function SinglePropertyBuy() {
                 height={50}
                 alt="bathhub"
               />
-              <span>508-762-7639</span>
+              <Link
+                href="tel:+1(508)-762-7639"
+                className={styles["text-footer-links"]}
+              >
+                <span>508-762-7639</span>
+              </Link>
             </div>
           </div>
         </div>
