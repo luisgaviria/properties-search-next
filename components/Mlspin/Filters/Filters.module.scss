@@ -11,7 +11,7 @@
 
   @media (max-width: 768px) {
     /* Reset the margin on mobile screens */
-    margin-bottom: 4rem;
+    margin-bottom: 1rem;
   }
 }
 .type-icon {
@@ -176,7 +176,8 @@
   // display: flex;
   z-index: 1;
   @media (max-width: 480px) {
-    left: 0px;
+    // left: 0px;
+    justify-content: center;
   }
 }
 
@@ -571,7 +572,7 @@
     background-color: #4e4fa8;
     border-color: #4e4fa8;
     color: #fff;
-    margin-right: 18px;
+    margin-right: 10px;
     overflow: hidden;
     cursor: pointer;
     font-family: tenon, sans-serif;
