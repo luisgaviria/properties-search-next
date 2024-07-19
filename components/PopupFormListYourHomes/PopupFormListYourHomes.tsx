@@ -12,7 +12,7 @@ const PopupFormListYourHomes = () => {
     message: "",
   });
   const handleInput = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
     setListYourHomeState((prevState) => {
       return {
@@ -31,7 +31,7 @@ const PopupFormListYourHomes = () => {
             headers: {
               "Content-Type": "application/json",
             },
-          },
+          }
         );
         break;
       }
@@ -48,9 +48,12 @@ const PopupFormListYourHomes = () => {
       <div className={styles.rowWrapper}>
         <div className={styles.columnLeft}>
           <h1 className={styles.columnLeftH1}>
-            Are You interested in more information?
+            Get Started with Your Home Listing
           </h1>
-          <p className={styles.mktP}>Hello</p>
+          <p className={styles.mktP}>
+            Fill out the details below to list your home and reach potential
+            buyers quickly and easily.
+          </p>
           <div className={styles.theForm}>
             <div className={styles.formWrapper}>
               <div className={styles.titleWrap}>
@@ -73,7 +76,7 @@ const PopupFormListYourHomes = () => {
                         id="FirstName"
                         placeholder="First Name"
                         className={styles.mktInputText}
-                        style={{ width: "166px" }}
+                        // style={{ width: "166px" }}
                       />
                     </div>
                   </div>
@@ -86,7 +89,7 @@ const PopupFormListYourHomes = () => {
                         id="LastName"
                         placeholder="Last Name"
                         className={styles.mktInputText}
-                        style={{ width: "166px" }}
+                        // style={{ width: "166px" }}
                       />
                     </div>
                   </div>
@@ -100,9 +103,9 @@ const PopupFormListYourHomes = () => {
                         onChange={handleInput}
                         value={listYourHomeState.telephoneNumber}
                         id="TelephoneNumber"
-                        placeholder="Telephone Number"
+                        placeholder="Phone Number"
                         className={styles.mktInputText}
-                        style={{ width: "166px" }}
+                        // style={{ width: "166px" }}
                       />
                     </div>
                   </div>
@@ -115,7 +118,7 @@ const PopupFormListYourHomes = () => {
                         onChange={handleInput}
                         placeholder="Email"
                         className={styles.mktInputText}
-                        style={{ width: "166px" }}
+                        // style={{ width: "166px" }}
                       />
                     </div>
                   </div>
@@ -129,7 +132,7 @@ const PopupFormListYourHomes = () => {
                         id="Message"
                         placeholder="Message"
                         className={styles.mktInputTextArea}
-                        style={{ width: "286px" }}
+                        // style={{ width: "286px" }}
                       />
                     </div>
                   </div>

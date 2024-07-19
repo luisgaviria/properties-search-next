@@ -9,16 +9,27 @@
 
 .columnLeftH1 {
   color: #ffffff;
-  font-size: 40px;
+  font-size: 34px;
   max-width: 100%;
+  padding: 1rem;
+  padding-top: 3rem;
+  text-align: center;
+  @media screen and (min-width: 275px) and (max-width: 480px) {
+    padding: 1rem;
+    padding-top: 3rem;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: left;
+  }
 }
 @media screen and (min-width: 275px) and (max-width: 480px) {
   .rowWrapper {
-    padding-left: 1rem;
-    padding-top: 3rem;
-    padding-bottom: 2rem;
-    padding-right: 1rem;
+    // padding-left: 1rem;
+    // padding-top: 3rem;
+    // padding-bottom: 2rem;
+    // padding-right: 1rem;
     display: block !important;
+    max-width: 398px;
   }
   .theForm {
     padding-bottom: 2rem !important;
@@ -173,6 +184,10 @@
   color: #888888;
   position: relative;
   z-index: 1;
+  width: 205px;
+  @media screen and (min-width: 275px) and (max-width: 480px) {
+    width: 100%;
+  }
 }
 
 .mktInputTextArea {
@@ -198,6 +213,11 @@
   position: relative;
   z-index: 1;
   height: 100px;
+  // width: 266px;
+  @media screen and (min-width: 275px) and (max-width: 480px) {
+    width: 100%;
+    min-width: 285px;
+  }
 }
 
 .mktFormRowSingle {
@@ -326,7 +346,13 @@
   margin-inline-end: 0px;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
-  padding-bottom: 2rem;
+  // padding-bottom: 2rem;
+  padding-left: 65px;
+  max-width: 90%;
+
+  @media screen and (min-width: 275px) and (max-width: 480px) {
+    padding-left: 20px;
+  }
 }
 
 .close-button {
