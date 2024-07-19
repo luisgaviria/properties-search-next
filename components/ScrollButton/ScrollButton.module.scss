@@ -18,7 +18,12 @@
   transition: background-color 0.3s ease, transform 0.3s ease,
     box-shadow 0.3s ease, border 0.3s ease, color 0.3s ease;
 }
-
+.myBtn::before {
+  content: "Go to Top";
+}
+#myBtn {
+  display: none;
+}
 .myBtn:hover {
   // background: linear-gradient(45deg, #fff, #fff);
   transform: translateY(-5px);
