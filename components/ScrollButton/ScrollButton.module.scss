@@ -15,8 +15,12 @@
   padding: 15px;
   border-radius: 50px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease, transform 0.3s ease,
-    box-shadow 0.3s ease, border 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border 0.3s ease,
+    color 0.3s ease;
 }
 .myBtn::before {
   content: "Go to Top";
@@ -30,8 +34,12 @@
   // box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   // border: 3px solid #000;
   // color: #000;
-  transition: background-color 0.5s ease, transform 0.5s ease,
-    box-shadow 0.5s ease, border 0.5s ease, color 0.5s ease;
+  transition:
+    background-color 0.5s ease,
+    transform 0.5s ease,
+    box-shadow 0.5s ease,
+    border 0.5s ease,
+    color 0.5s ease;
 }
 
 .myBtn:active {

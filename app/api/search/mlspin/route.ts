@@ -60,17 +60,17 @@ const calculatePages = (total: number, pageLimit: number) => {
 };
 
 // MORE FILTERS
-// HOA -> AssociationFee -> added 
+// HOA -> AssociationFee -> added
 // PARKING SPACES -> ParkingTotal -> added
-// SQUAREFEET MINIMUM -> livingarea -> added 
+// SQUAREFEET MINIMUM -> livingarea -> added
 // SQUAREFEET MAXIMUM -> added
 // LOTSIZE MINIMUM -> Lotsize squarefeet -> added
-// LOTSIZE MAXIMUM  -> added 
+// LOTSIZE MAXIMUM  -> added
 // BASEMENT  -> Basement array -> added
 // OTHER AMENITIES -> Cooling array, pollfeatures, waterfrontFeatures array  done?
 // DAYS ON MARKET/ZILLOW! -> our date - ListingContractDate = days! -> one more filter function after api call to make equation!
 
-export async function GET( 
+export async function GET(
   req: NextRequest,
   res: NextResponse<SearchResponse>,
   // res: any
@@ -139,8 +139,8 @@ export async function GET(
             }
           : null,
       Basement: (queryurl.Basement as string)?.split(","), // Basement.in // Y or N :> Yes or No
-      Cooling: (queryurl.Cooling as string)?.split(','),
-      WaterfrontFeatures: (queryurl.WaterfrontFeatures as string)?.split(','),
+      Cooling: (queryurl.Cooling as string)?.split(","),
+      WaterfrontFeatures: (queryurl.WaterfrontFeatures as string)?.split(","),
       StoriesTotal: queryurl.StoriesTotalFrom
         ? {
             lt: queryurl.StoriesTotalFrom,

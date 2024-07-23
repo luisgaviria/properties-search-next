@@ -148,7 +148,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     page_num: number,
     input: string,
     filters: any,
-    save = true
+    save = true,
   ) => {
     let query = "";
     const radiusVal = "1mi";
@@ -189,7 +189,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     if (save == true) {
       const res2: response = await fetch(
         `/api/search/mlspin?save=true${query}&page=${page_num}`,
-        { cache: "no-store" }
+        { cache: "no-store" },
       ).then((res) => res.json());
       setValue(input);
       setPageObj({ actualPage: page_num, pages: res2.pages });
@@ -198,7 +198,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     } else {
       const res2: response = await fetch(
         `/api/search/mlspin?${query}&page=${page_num}`,
-        { cache: "no-store" }
+        { cache: "no-store" },
       ).then((res) => res.json());
       setValue(input);
       setPageObj({ actualPage: page_num, pages: res2.pages });
@@ -294,7 +294,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     query += "&save=true";
     const res2: response = await fetch(
       `/api/search/mlspin?${query}&page=${page_num}`,
-      { cache: "no-store" }
+      { cache: "no-store" },
     ).then((res) => res.json());
 
     setPageObj({ actualPage: page_num, pages: res2.pages });
@@ -335,7 +335,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
           (filter[key as keyof typeof filter] as string[]).map(
             (item: string) => {
               query += `${item},`;
-            }
+            },
           );
         } else if (filter[key as keyof typeof filter]) {
           if (
@@ -381,7 +381,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
         }
       });
       const res: mapResponse = await fetch(
-        `/api/search/mlspin/map?${query}&Lat=${center.lat}&Lng=${center.lng}`
+        `/api/search/mlspin/map?${query}&Lat=${center.lat}&Lng=${center.lng}`,
       ).then((res) => res.json());
       return res.properties;
     } catch (err) {
@@ -590,7 +590,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
 
   //Jotai
   const onChangePropertyTypeCheckbox = (
-    event: ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement>,
   ) => {
     setFilter((prevFilter: FilterState) => {
       let PropertyTypes = Array.isArray(prevFilter.PropertyType)
@@ -638,7 +638,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
 
   //Jotai
   const onChangePropertySubTypeCheckbox = (
-    event: ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement>,
   ) => {
     setFilter((prevFilter: FilterState) => {
       const PropertySubTypes = prevFilter.PropertySubType || [];
@@ -726,7 +726,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                       value="Residential,Residential Income"
                       checked={
                         filter.PropertyType.indexOf(
-                          "Residential,Residential Income"
+                          "Residential,Residential Income",
                         ) > -1
                           ? true
                           : false
@@ -856,7 +856,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                     value="Single Family Residence"
                     checked={
                       filter.PropertySubType.indexOf(
-                        "Single Family Residence"
+                        "Single Family Residence",
                       ) > -1
                         ? true
                         : false
@@ -1355,186 +1355,167 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
           )}
         </div>
       </div>
-      {
-        moreFilters && (
-          <div className={styles["property-search"]}>
-            <div className={styles["filter-wrapper"]}>
-            <Image
-            width={40}
-            height={40}
-            className={styles["type-icon"]}
-            src={
-              resolvedTheme == "dark" ? "/BASEMENT_WHITE.svg" : "/BASEMENT.svg"
-            }
-            alt="basement icon"
-          />
-              <Form.Group>
-              <div className={styles["baths-label"]}>
-                    <Form.Label>Basement:</Form.Label>
-                  </div>
-                  <Form.Select
-                    value={filter.BathroomsTotal}
-                    name="Basement"
-                    onChange={onChangeSelect}
-                  >
-                    <option value={1}>Yes</option>
-                    <option value={0}>No</option>
-                  </Form.Select>
-              </Form.Group>
+      {moreFilters && (
+        <div className={styles["property-search"]}>
+          <div className={styles["filter-wrapper"]}>
+            <div className={styles["bed-baths-icon-wrapper"]}>
+              <Image
+                width={40}
+                height={40}
+                className={styles["type-icon"]}
+                src={
+                  resolvedTheme == "dark"
+                    ? "/BASEMENT_WHITE.svg"
+                    : "/BASEMENT.svg"
+                }
+                alt="basement icon"
+              />
+              <Image
+                width={40}
+                height={40}
+                className={styles["type-icon"]}
+                src={
+                  resolvedTheme == "dark"
+                    ? "/GARRAGE_WHITE.svg"
+                    : "/GARRAGE.svg"
+                }
+                alt="garrage icon"
+              />
+              <Image
+                width={40}
+                height={40}
+                className={styles["type-icon"]}
+                src={resolvedTheme == "dark" ? "/POOL_WHITE.svg" : "/POOL.svg"}
+                alt="pool icon"
+              />
             </div>
-            <div className={styles["filter-wrapper"]}>
-            <Image
-            width={40}
-            height={40}
-            className={styles["type-icon"]}
-            src={
-              resolvedTheme == "dark" ? "/GARRAGE_WHITE.svg" : "/GARRAGE.svg"
-            }
-            alt="garrage icon"
-          />
-              <Form.Group>
+            <Form.Group>
               <div className={styles["baths-label"]}>
-                    <Form.Label>Garrage:</Form.Label>
-                  </div>
-                  <Form.Select
-                    value={filter.BathroomsTotal}
-                    name="Garrage"
-                    onChange={onChangeSelect}
-                  >
-                    <option value={1}>Yes</option>
-                    <option value={0}>No</option>
-                  </Form.Select>
-              </Form.Group>
-            </div>
-            <div className={styles["filter-wrapper"]}>
-            <Image
-            width={40}
-            height={40}
-            className={styles["type-icon"]}
-            src={
-              resolvedTheme == "dark" ? "/INTERESTRATE_WHITE.svg" : "/INTERESTRATE.svg"
-            }
-            alt="Interestrate icon"
-          />
-              <Form.Group>
-              <div className={styles["baths-label"]}>
-                    <Form.Label>Interest rate:</Form.Label>
-                  </div>
-                  <Form.Select
-                    value={filter.BathroomsTotal}
-                    name="Interestrate"
-                    onChange={onChangeSelect}
-                  >
-                    <option value={1}>5</option>
-                    <option value={0}>10</option>
-                  </Form.Select>
-              </Form.Group>
-            </div>
-            <div className={styles["filter-wrapper"]}>
-            <Image
-            width={40}
-            height={40}
-            className={styles["type-icon"]}
-            src={
-              resolvedTheme == "dark" ? "/LIVINGAREA_WHITE.svg" : "/LIVINGAREA.svg"
-            }
-            alt="Interestrate icon"
-          />
-              <Form.Group>
-              <div className={styles["baths-label"]}>
-                    <Form.Label>Living area:</Form.Label>
-                  </div>
-                  <Form.Select
-                    value={filter.BathroomsTotal}
-                    name="Livingarea"
-                    onChange={onChangeSelect}
-                  >
-                    <option value={1}>5</option>
-                    <option value={0}>10</option>
-                  </Form.Select>
-              </Form.Group>
-            </div>
-            <div className={styles["filter-wrapper"]}>
-            <Image
-            width={40}
-            height={40}
-            className={styles["type-icon"]}
-            src={
-              resolvedTheme == "dark" ? "/POOL_WHITE.svg" : "/POOL.svg"
-            }
-            alt="pool icon"
-          />
-              <Form.Group>
-              <div className={styles["baths-label"]}>
-                    <Form.Label>Pool:</Form.Label>
-                  </div>
-                  <Form.Select
-                    value={filter.BathroomsTotal}
-                    name="Pool"
-                    onChange={onChangeSelect}
-                  >
-                    <option value={1}>Yes</option>
-                    <option value={0}>No</option>
-                  </Form.Select>
-              </Form.Group>
-            </div>
-            <div className={styles["filter-wrapper"]}>
-            <Image
-            width={40}
-            height={40}
-            className={styles["type-icon"]}
-            src={
-              resolvedTheme == "dark" ? "/LOTSIZE_WHITE.svg" : "/LOTSIZE.svg"
-            }
-            alt="Lotsize icon"
-          />
-              <Form.Group>
-              <div className={styles["baths-label"]}>
-                    <Form.Label>Lotsize:</Form.Label>
-                  </div>
-                  <Form.Select
-                    value={filter.BathroomsTotal}
-                    name="Lotsize"
-                    onChange={onChangeSelect}
-                  >
-                    <option value={1}>5</option>
-                    <option value={0}>10</option>
-                  </Form.Select>
-              </Form.Group>
-            </div>
-            <div className={styles["filter-wrapper"]}>
-            <Image
-            width={40}
-            height={40}
-            className={styles["type-icon"]}
-            src={
-              resolvedTheme == "dark" ? "/REFINANCING_WHITE.svg" : "/REFINANCING.svg"
-            }
-            alt="refinancing icon"
-          />
-              <Form.Group>
-              <div className={styles["baths-label"]}>
-                    <Form.Label>Refinancing:</Form.Label>
-                  </div>
-                  <Form.Select
-                    value={filter.BathroomsTotal}
-                    name="Refinancing"
-                    onChange={onChangeSelect}
-                  >
-                    <option value={1}>5</option>
-                    <option value={0}>10</option>
-                  </Form.Select>
-              </Form.Group>
-            </div>
+                <Form.Label>Other Amenities</Form.Label>
+              </div>
+              <Form.Check label="Basement" type="checkbox" />
+              <Form.Check label="Garage" type="checkbox" />
+              <Form.Check label="Waterpool" type="checkbox" />
+            </Form.Group>
           </div>
-        )
-      }
-      <div style={{width: '100%', textAlign: 'center'}}>
-          <div onClick={onClickMoreFilters} className={styles["btn-more-filters"]}>
-            <span>{moreFilters ? "HIDE MORE FILTERS" : "MORE FILTERS"}</span>
+          <div className={styles["filter-wrapper"]}>
+            <Image
+              width={40}
+              height={40}
+              className={styles["type-icon"]}
+              src={
+                resolvedTheme == "dark"
+                  ? "/INTERESTRATE_WHITE.svg"
+                  : "/INTERESTRATE.svg"
+              }
+              alt="Interestrate icon"
+            />
+            <Form.Group>
+              <div className={styles["baths-label"]}>
+                <Form.Label>Interest rate:</Form.Label>
+              </div>
+              <Form.Select
+                value={filter.BathroomsTotal}
+                name="Interestrate"
+                onChange={onChangeSelect}
+              >
+                <option value={1}>5</option>
+                <option value={0}>10</option>
+              </Form.Select>
+            </Form.Group>
+          </div>
+          <div className={styles["filter-wrapper"]}>
+            <Image
+              width={40}
+              height={40}
+              className={styles["type-icon"]}
+              src={
+                resolvedTheme == "dark"
+                  ? "/LIVINGAREA_WHITE.svg"
+                  : "/LIVINGAREA.svg"
+              }
+              alt="Interestrate icon"
+            />
+            <Form.Group>
+              <div className={styles["baths-label"]}>
+                <Form.Label>Living area:</Form.Label>
+              </div>
+              <div style={{ display: "flex" }}>
+                <Form.Select style={{ width: "150px", marginRight: "10px" }}>
+                  <option value={1}>No Min</option>
+                  <option value={0}>10</option>
+                </Form.Select>
+                <p>-</p>
+                <Form.Select style={{ width: "150px", marginLeft: "10px" }}>
+                  <option value={1}>No Max</option>
+                  <option value={0}>10</option>
+                </Form.Select>
+              </div>
+            </Form.Group>
+          </div>
+          <div className={styles["filter-wrapper"]}>
+            <Image
+              width={40}
+              height={40}
+              className={styles["type-icon"]}
+              src={
+                resolvedTheme == "dark" ? "/LOTSIZE_WHITE.svg" : "/LOTSIZE.svg"
+              }
+              alt="Lotsize icon"
+            />
+            <Form.Group>
+              <div className={styles["baths-label"]}>
+                <Form.Label>Lotsize:</Form.Label>
+              </div>
+              <div style={{ display: "flex" }}>
+                <Form.Select style={{ width: "150px", marginRight: "10px" }}>
+                  <option value={1}>No Min</option>
+                  <option value={0}>10</option>
+                </Form.Select>
+                <p>-</p>
+                <Form.Select style={{ width: "150px", marginLeft: "10px" }}>
+                  <option value={1}>No Max</option>
+                  <option value={0}>10</option>
+                </Form.Select>
+              </div>
+            </Form.Group>
+          </div>
+          <div className={styles["filter-wrapper"]}>
+            <Image
+              width={40}
+              height={40}
+              className={styles["type-icon"]}
+              src={
+                resolvedTheme == "dark"
+                  ? "/REFINANCING_WHITE.svg"
+                  : "/REFINANCING.svg"
+              }
+              alt="refinancing icon"
+            />
+            <Form.Group>
+              <div className={styles["baths-label"]}>
+                <Form.Label>Refinancing:</Form.Label>
+              </div>
+              <Form.Select
+                value={filter.BathroomsTotal}
+                name="Refinancing"
+                onChange={onChangeSelect}
+              >
+                <option value={1}>5</option>
+                <option value={0}>10</option>
+              </Form.Select>
+            </Form.Group>
           </div>
         </div>
       )}
+      <div style={{ width: "100%", textAlign: "center" }}>
+        <div
+          onClick={onClickMoreFilters}
+          className={styles["btn-more-filters"]}
+        >
+          <span>{moreFilters ? "HIDE MORE FILTERS" : "MORE FILTERS"}</span>
+        </div>
+      </div>
       <div style={{ width: "100%", textAlign: "center" }}>
         <div
           onClick={onClickMoreFilters}
@@ -1632,12 +1613,12 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                   ? createPaginationPhone(
                       pageObj.pages,
                       pageObj.actualPage,
-                      getData
+                      getData,
                     )
                   : createPagination(
                       pageObj.pages,
                       pageObj.actualPage,
-                      getData
+                      getData,
                     )}
               </Pagination>
             </Suspense>
