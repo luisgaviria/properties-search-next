@@ -30,9 +30,7 @@ const ScrollButton = () => {
       id="myBtn"
       className={styles[showBtn]}
       title="Go to top"
-    >
-      Go to Top
-    </button>
+    ></button>
   );
 };
 

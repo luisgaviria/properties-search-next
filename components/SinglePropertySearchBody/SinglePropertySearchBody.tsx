@@ -468,7 +468,11 @@ export default function SinglePropertyBuy() {
                 {state.MlsStatus ? (
                   <tr key="status">
                     <td>Listing Status:</td>
-                    <td>{state.MlsStatus}</td>
+                    {state.MlsStatus === "New" ? (
+                      <td className="cell-green">{state.MlsStatus}</td>
+                    ) : (
+                      <td>{state.MlsStatus}</td>
+                    )}
                   </tr>
                 ) : null}
                 {state.OnMarketDate ? (

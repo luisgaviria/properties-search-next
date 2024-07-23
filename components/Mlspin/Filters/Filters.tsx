@@ -106,7 +106,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
   const [searchFromHome, setSearchFromHome] = useAtom(searchFromHomeAtom);
   const { resolvedTheme } = useTheme();
   const [screenWidth, setScreenWidth] = useState(1000);
-  const [moreFilters,setMoreFilters] = useState(false);
+  const [moreFilters, setMoreFilters] = useState(false);
   const getDataCity = async (city: string) => {
     setFormVisible((prevState) => {
       return {
@@ -403,9 +403,9 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     properties_.refetch();
   };
 
-  const onClickMoreFilters = ()=>{ 
-    setMoreFilters(prevState=> {
-      return !prevState
+  const onClickMoreFilters = () => {
+    setMoreFilters((prevState) => {
+      return !prevState;
     });
   };
 
@@ -1533,6 +1533,15 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
           <div onClick={onClickMoreFilters} className={styles["btn-more-filters"]}>
             <span>{moreFilters ? "HIDE MORE FILTERS" : "MORE FILTERS"}</span>
           </div>
+        </div>
+      )}
+      <div style={{ width: "100%", textAlign: "center" }}>
+        <div
+          onClick={onClickMoreFilters}
+          className={styles["btn-more-filters"]}
+        >
+          {/* <span>{moreFilters ? "HIDE MORE FILTERS" : "MORE FILTERS"}</span> */}
+        </div>
       </div>
 
       <SearchButton onClick={onClickSearchHomes} />
