@@ -189,7 +189,7 @@ export async function GET(
     try {
       console.log(query);
       const response = await axios.get(
-        `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&offset=${toSkip}&limit=${limit}&StandardStatus=Active&IDXParticipationYN=true&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,NumberOfUnitsTotal,Latitude,Longitude${query}`,
+        `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&offset=${toSkip}&limit=${limit}&StandardStatus=Active&IDXParticipationYN=true&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,NumberOfUnitsTotal,Latitude,Longitude,Basement${query}`,
       );
       searchInput = queryObj.near as string;
       const session = (await getSession()) as any;

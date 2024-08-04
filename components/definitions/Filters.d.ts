@@ -32,4 +32,7 @@ export interface FilterState {
   BedroomsTotal: number;
   sortBy: string;
   order: string;
+  Basement: string[];
+  WaterfrontYN: boolean | null;
+  GarageYN: boolean | null;
 }

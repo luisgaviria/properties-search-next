@@ -70,6 +70,9 @@ const filterAtom = atom<FilterState>({
   BedroomsTotal: 0,
   sortBy: "ListPrice",
   order: "desc",
+  Basement: [],
+  WaterfrontYN: null,
+  GarageYN: null
 });
 
 filterAtom.debugLabel = "Filters";
@@ -635,6 +638,26 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
       [formType]: !prevFormVisible[formType],
     }));
   };
+
+
+  const onChangeGarageYNandWaterfrontYNCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
+    setFilter((prevFilter: FilterState)=>{
+      const {value, checked} = event.target;
+    
+      if (checked){ 
+        return {
+          ...prevFilter,
+          [value]: checked
+        }
+      }
+      else {
+        return {
+          ...prevFilter,
+          [value]: null
+        }
+      }
+    });
+  }
 
   //Jotai
   const onChangePropertySubTypeCheckbox = (
@@ -1393,9 +1416,25 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
               <div className={styles["baths-label"]}>
                 <Form.Label>Other Amenities</Form.Label>
               </div>
-              <Form.Check label="Basement" type="checkbox" />
-              <Form.Check label="Garage" type="checkbox" />
-              <Form.Check label="Waterpool" type="checkbox" />
+              <Form.Check 
+                label="Basement" 
+                type="checkbox" 
+                value="Basement" // to be done
+              />
+              <Form.Check 
+                label="Garage" 
+                type="checkbox" 
+                value="GarageYN"
+                checked={filter.GarageYN as boolean}
+                onChange={onChangeGarageYNandWaterfrontYNCheckbox}
+              />
+              <Form.Check 
+                label="Waterpool"
+                type="checkbox"
+                value="WaterfrontYN" 
+                checked={filter.WaterfrontYN as boolean}
+                onChange={onChangeGarageYNandWaterfrontYNCheckbox}
+              />
             </Form.Group>
           </div>
           <div className={styles["filter-wrapper"]}>
@@ -1508,12 +1547,13 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
           </div>
         </div>
       )}
-      <div style={{ width: "100%", textAlign: "center" }}>
+      <div style={{ width: "100%", textAlign: "center"}}>
         <div
           onClick={onClickMoreFilters}
           className={styles["btn-more-filters"]}
+          
         >
-          <span>{moreFilters ? "HIDE MORE FILTERS" : "MORE FILTERS"}</span>
+          <span style={{cursor: 'pointer'}}>{moreFilters ? "HIDE MORE FILTERS" : "MORE FILTERS"}</span>
         </div>
       </div>
       <div style={{ width: "100%", textAlign: "center" }}>
