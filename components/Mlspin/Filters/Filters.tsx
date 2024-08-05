@@ -26,6 +26,7 @@ import {
   FilterState,
   strOrNumber,
 } from "../../definitions/Filters";
+import MultiSelect, { ActionMeta, MultiValue } from "react-select";
 
 import usePlacesAutocomplete, {
   getGeocode,
@@ -37,6 +38,17 @@ import { createPagination } from "@/utils/createPagination";
 import { createPaginationPhone } from "@/utils/createPaginationPhone";
 import PropertySearchList from "../PropertySearchList/PropertySearchList";
 import Loading from "./loading";
+
+const getCitiesOptions = (cities: any[]) =>{
+  const options = [];
+  for (const city of cities){
+    options.push({
+      value: city,
+      label: city.Name,
+    });
+  }
+  return options;
+}
 
 const formatPrice = (price: number): string => {
   return new Intl.NumberFormat("en-US", {
@@ -62,7 +74,7 @@ const filterAtom = atom<FilterState>({
   // Add the types here
   ListPriceFrom: 0,
   ListPriceTo: 0,
-  City: "Any",
+  City: [],
   PropertyType: [],
   PropertySubType: [],
   NumberOfUnitsTotal: null,
@@ -227,7 +239,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
         (filter[key as keyof typeof filter] as string[]).length
       ) {
         query += query.length ? `&${key}=` : `${key}=`;
-        (filter[key as keyof typeof filter] as string[]).map((item: string) => {
+        (filter[key as keyof typeof filter] as string[]).map((item: string) => { 
           query += `${item},`;
         });
       } else if (filter[key as keyof typeof filter]) {
@@ -284,6 +296,8 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
       query += `&near=${searchInput}`;
       query += `&radius=${radiusVal}`;
     }
+
+    console.log(query);
 
     const res: mapResponse = await fetch(`/api/search/mlspin/map?${query}`, {
       cache: "no-store",
@@ -485,10 +499,11 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     } else if (window.location.href.split("/")[5]) {
       const city = window.location.href.split("/")[5];
       let modStr = city[0].toUpperCase() + city.slice(1);
+      const cityArr = [modStr];
       setFilter((prevState) => {
         return {
           ...prevState,
-          City: modStr,
+          City: cityArr,
           PropertyType: ["Residential,Residential Income"],
         };
       });
@@ -560,6 +575,19 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     ));
 
   // Jotai state
+
+  const onChangeMultiSelect = (newValue: MultiValue<{ value: any; label: any; }>, actionMeta: ActionMeta<{ value: any; label: any; }>) => {
+    const cities: string[] = [];
+    for(const value of newValue){
+      cities.push(value.value.Name);
+    }    
+    setFilter(prevState=>{
+      return {
+        ...prevState,
+        City: cities
+      }
+    });
+  };
   const onChangeSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
     setFilter((prevSearch: FilterState) => ({
@@ -1207,7 +1235,18 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                   >
                     City Dropdown:
                   </Form.Label>
-                  <Form.Select
+                  <MultiSelect
+                      isMulti
+                      name="cities"
+                      options={getCitiesOptions(cities)}
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      closeMenuOnSelect={false}
+                      onChange={onChangeMultiSelect}
+                      isOptionDisabled={() => filter.City.length >= 5}
+/>
+                
+                  {/* <Form.Select
                     value={filter.City}
                     name="City"
                     onChange={onChangeSelect}
@@ -1219,7 +1258,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                         </option>
                       );
                     })}
-                  </Form.Select>
+                  </Form.Select> */}
                 </div>
                 <Form.Label
                   style={{

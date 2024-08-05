@@ -282,3 +282,7 @@ table .cell-green::before {
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+.basic-multi-select {
+  z-index: 99 !important;
+}

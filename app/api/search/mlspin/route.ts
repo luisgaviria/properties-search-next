@@ -89,7 +89,7 @@ export async function GET(
       near: queryurl.near,
       radius: queryurl.radius,
       NumberOfUnitsTotal: queryurl.NumberOfUnitsTotal,
-      City: queryurl.City, // City :
+      City: (queryurl.City as string)?.split(","), // City :
       ListPrice:
         queryurl.ListPriceFrom || queryurl.ListPriceTo
           ? {
@@ -151,7 +151,7 @@ export async function GET(
     type queryType = keyof typeof queryObj;
     let query = "";
     for (const key of Object.keys(queryObj)) {
-      if (key === "City" && queryObj[key] === "Any") {
+      if (key === "City" && queryObj[key].indexOf("Any") > -1) {
         // Skip adding this parameter to the query
         continue;
       }
@@ -163,7 +163,6 @@ export async function GET(
         delete queryObj.City;
         continue;
       }
-
       if (Array.isArray(queryObj[key as queryType])) {
         query += `&${key}.in=${queryObj[key as queryType]}`;
       } else if (
@@ -203,12 +202,13 @@ export async function GET(
           data[key] = queryurl[key];
         });
 
+
         delete data.radius;
         delete data.page;
         delete data.sortBy;
         delete data.order;
         delete data.NumberOfUnitsTotal;
-        if (queryObj.near && queryObj.City == "Any") {
+        if (queryObj.near && queryObj.City.indexOf("Any") >= -1) {
           delete data.City;
         }
 

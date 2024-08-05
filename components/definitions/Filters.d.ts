@@ -24,7 +24,7 @@ export interface FormVisibleState {
 export interface FilterState {
   ListPriceFrom: number;
   ListPriceTo: number;
-  City: string;
+  City: string[];
   PropertyType: string[];
   PropertySubType: string[];
   NumberOfUnitsTotal: number | null;
