@@ -514,8 +514,20 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
   };
 
   useEffect(() => {
-    window.addEventListener("resize", onResizeWindow);
-  }, [window?.innerWidth]);
+    // window.addEventListener("resize", onResizeWindow);
+    if (typeof window !== "undefined") {
+      // Add the event listener
+      window.addEventListener("resize", onResizeWindow);
+
+      // Initial call to set up any necessary state or side-effects
+      onResizeWindow();
+
+      // Cleanup the event listener on component unmount
+      return () => {
+        window.removeEventListener("resize", onResizeWindow);
+      };
+    }
+  }, []);
 
   const onInputAddressChange = (e: any) => {
     // Update the autocomplete input value
@@ -1355,183 +1367,181 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
           )}
         </div>
       </div>
-      {
-        moreFilters && (
-          <div className={styles["property-search"]}>
-            <div className={styles["filter-wrapper"]}>
+      {moreFilters && (
+        <div className={styles["property-search"]}>
+          <div className={styles["filter-wrapper"]}>
             <Image
-            width={40}
-            height={40}
-            className={styles["type-icon"]}
-            src={
-              resolvedTheme == "dark" ? "/BASEMENT_WHITE.svg" : "/BASEMENT.svg"
-            }
-            alt="basement icon"
-          />
-              <Form.Group>
+              width={40}
+              height={40}
+              className={styles["type-icon"]}
+              src={
+                resolvedTheme == "dark"
+                  ? "/BASEMENT_WHITE.svg"
+                  : "/BASEMENT.svg"
+              }
+              alt="basement icon"
+            />
+            <Form.Group>
               <div className={styles["baths-label"]}>
-                    <Form.Label>Basement:</Form.Label>
-                  </div>
-                  <Form.Select
-                    value={filter.BathroomsTotal}
-                    name="Basement"
-                    onChange={onChangeSelect}
-                  >
-                    <option value={1}>Yes</option>
-                    <option value={0}>No</option>
-                  </Form.Select>
-              </Form.Group>
-            </div>
-            <div className={styles["filter-wrapper"]}>
-            <Image
-            width={40}
-            height={40}
-            className={styles["type-icon"]}
-            src={
-              resolvedTheme == "dark" ? "/GARRAGE_WHITE.svg" : "/GARRAGE.svg"
-            }
-            alt="garrage icon"
-          />
-              <Form.Group>
-              <div className={styles["baths-label"]}>
-                    <Form.Label>Garrage:</Form.Label>
-                  </div>
-                  <Form.Select
-                    value={filter.BathroomsTotal}
-                    name="Garrage"
-                    onChange={onChangeSelect}
-                  >
-                    <option value={1}>Yes</option>
-                    <option value={0}>No</option>
-                  </Form.Select>
-              </Form.Group>
-            </div>
-            <div className={styles["filter-wrapper"]}>
-            <Image
-            width={40}
-            height={40}
-            className={styles["type-icon"]}
-            src={
-              resolvedTheme == "dark" ? "/INTERESTRATE_WHITE.svg" : "/INTERESTRATE.svg"
-            }
-            alt="Interestrate icon"
-          />
-              <Form.Group>
-              <div className={styles["baths-label"]}>
-                    <Form.Label>Interest rate:</Form.Label>
-                  </div>
-                  <Form.Select
-                    value={filter.BathroomsTotal}
-                    name="Interestrate"
-                    onChange={onChangeSelect}
-                  >
-                    <option value={1}>5</option>
-                    <option value={0}>10</option>
-                  </Form.Select>
-              </Form.Group>
-            </div>
-            <div className={styles["filter-wrapper"]}>
-            <Image
-            width={40}
-            height={40}
-            className={styles["type-icon"]}
-            src={
-              resolvedTheme == "dark" ? "/LIVINGAREA_WHITE.svg" : "/LIVINGAREA.svg"
-            }
-            alt="Interestrate icon"
-          />
-              <Form.Group>
-              <div className={styles["baths-label"]}>
-                    <Form.Label>Living area:</Form.Label>
-                  </div>
-                  <Form.Select
-                    value={filter.BathroomsTotal}
-                    name="Livingarea"
-                    onChange={onChangeSelect}
-                  >
-                    <option value={1}>5</option>
-                    <option value={0}>10</option>
-                  </Form.Select>
-              </Form.Group>
-            </div>
-            <div className={styles["filter-wrapper"]}>
-            <Image
-            width={40}
-            height={40}
-            className={styles["type-icon"]}
-            src={
-              resolvedTheme == "dark" ? "/POOL_WHITE.svg" : "/POOL.svg"
-            }
-            alt="pool icon"
-          />
-              <Form.Group>
-              <div className={styles["baths-label"]}>
-                    <Form.Label>Pool:</Form.Label>
-                  </div>
-                  <Form.Select
-                    value={filter.BathroomsTotal}
-                    name="Pool"
-                    onChange={onChangeSelect}
-                  >
-                    <option value={1}>Yes</option>
-                    <option value={0}>No</option>
-                  </Form.Select>
-              </Form.Group>
-            </div>
-            <div className={styles["filter-wrapper"]}>
-            <Image
-            width={40}
-            height={40}
-            className={styles["type-icon"]}
-            src={
-              resolvedTheme == "dark" ? "/LOTSIZE_WHITE.svg" : "/LOTSIZE.svg"
-            }
-            alt="Lotsize icon"
-          />
-              <Form.Group>
-              <div className={styles["baths-label"]}>
-                    <Form.Label>Lotsize:</Form.Label>
-                  </div>
-                  <Form.Select
-                    value={filter.BathroomsTotal}
-                    name="Lotsize"
-                    onChange={onChangeSelect}
-                  >
-                    <option value={1}>5</option>
-                    <option value={0}>10</option>
-                  </Form.Select>
-              </Form.Group>
-            </div>
-            <div className={styles["filter-wrapper"]}>
-            <Image
-            width={40}
-            height={40}
-            className={styles["type-icon"]}
-            src={
-              resolvedTheme == "dark" ? "/REFINANCING_WHITE.svg" : "/REFINANCING.svg"
-            }
-            alt="refinancing icon"
-          />
-              <Form.Group>
-              <div className={styles["baths-label"]}>
-                    <Form.Label>Refinancing:</Form.Label>
-                  </div>
-                  <Form.Select
-                    value={filter.BathroomsTotal}
-                    name="Refinancing"
-                    onChange={onChangeSelect}
-                  >
-                    <option value={1}>5</option>
-                    <option value={0}>10</option>
-                  </Form.Select>
-              </Form.Group>
-            </div>
+                <Form.Label>Basement:</Form.Label>
+              </div>
+              <Form.Select
+                value={filter.BathroomsTotal}
+                name="Basement"
+                onChange={onChangeSelect}
+              >
+                <option value={1}>Yes</option>
+                <option value={0}>No</option>
+              </Form.Select>
+            </Form.Group>
           </div>
-        )
-      }
-      <div style={{width: '100%', textAlign: 'center'}}>
-          <div onClick={onClickMoreFilters} className={styles["btn-more-filters"]}>
-            <span>{moreFilters ? "HIDE MORE FILTERS" : "MORE FILTERS"}</span>
+          <div className={styles["filter-wrapper"]}>
+            <Image
+              width={40}
+              height={40}
+              className={styles["type-icon"]}
+              src={
+                resolvedTheme == "dark" ? "/GARRAGE_WHITE.svg" : "/GARRAGE.svg"
+              }
+              alt="garrage icon"
+            />
+            <Form.Group>
+              <div className={styles["baths-label"]}>
+                <Form.Label>Garrage:</Form.Label>
+              </div>
+              <Form.Select
+                value={filter.BathroomsTotal}
+                name="Garrage"
+                onChange={onChangeSelect}
+              >
+                <option value={1}>Yes</option>
+                <option value={0}>No</option>
+              </Form.Select>
+            </Form.Group>
+          </div>
+          <div className={styles["filter-wrapper"]}>
+            <Image
+              width={40}
+              height={40}
+              className={styles["type-icon"]}
+              src={
+                resolvedTheme == "dark"
+                  ? "/INTERESTRATE_WHITE.svg"
+                  : "/INTERESTRATE.svg"
+              }
+              alt="Interestrate icon"
+            />
+            <Form.Group>
+              <div className={styles["baths-label"]}>
+                <Form.Label>Interest rate:</Form.Label>
+              </div>
+              <Form.Select
+                value={filter.BathroomsTotal}
+                name="Interestrate"
+                onChange={onChangeSelect}
+              >
+                <option value={1}>5</option>
+                <option value={0}>10</option>
+              </Form.Select>
+            </Form.Group>
+          </div>
+          <div className={styles["filter-wrapper"]}>
+            <Image
+              width={40}
+              height={40}
+              className={styles["type-icon"]}
+              src={
+                resolvedTheme == "dark"
+                  ? "/LIVINGAREA_WHITE.svg"
+                  : "/LIVINGAREA.svg"
+              }
+              alt="Interestrate icon"
+            />
+            <Form.Group>
+              <div className={styles["baths-label"]}>
+                <Form.Label>Living area:</Form.Label>
+              </div>
+              <Form.Select
+                value={filter.BathroomsTotal}
+                name="Livingarea"
+                onChange={onChangeSelect}
+              >
+                <option value={1}>5</option>
+                <option value={0}>10</option>
+              </Form.Select>
+            </Form.Group>
+          </div>
+          <div className={styles["filter-wrapper"]}>
+            <Image
+              width={40}
+              height={40}
+              className={styles["type-icon"]}
+              src={resolvedTheme == "dark" ? "/POOL_WHITE.svg" : "/POOL.svg"}
+              alt="pool icon"
+            />
+            <Form.Group>
+              <div className={styles["baths-label"]}>
+                <Form.Label>Pool:</Form.Label>
+              </div>
+              <Form.Select
+                value={filter.BathroomsTotal}
+                name="Pool"
+                onChange={onChangeSelect}
+              >
+                <option value={1}>Yes</option>
+                <option value={0}>No</option>
+              </Form.Select>
+            </Form.Group>
+          </div>
+          <div className={styles["filter-wrapper"]}>
+            <Image
+              width={40}
+              height={40}
+              className={styles["type-icon"]}
+              src={
+                resolvedTheme == "dark" ? "/LOTSIZE_WHITE.svg" : "/LOTSIZE.svg"
+              }
+              alt="Lotsize icon"
+            />
+            <Form.Group>
+              <div className={styles["baths-label"]}>
+                <Form.Label>Lotsize:</Form.Label>
+              </div>
+              <Form.Select
+                value={filter.BathroomsTotal}
+                name="Lotsize"
+                onChange={onChangeSelect}
+              >
+                <option value={1}>5</option>
+                <option value={0}>10</option>
+              </Form.Select>
+            </Form.Group>
+          </div>
+          <div className={styles["filter-wrapper"]}>
+            <Image
+              width={40}
+              height={40}
+              className={styles["type-icon"]}
+              src={
+                resolvedTheme == "dark"
+                  ? "/REFINANCING_WHITE.svg"
+                  : "/REFINANCING.svg"
+              }
+              alt="refinancing icon"
+            />
+            <Form.Group>
+              <div className={styles["baths-label"]}>
+                <Form.Label>Refinancing:</Form.Label>
+              </div>
+              <Form.Select
+                value={filter.BathroomsTotal}
+                name="Refinancing"
+                onChange={onChangeSelect}
+              >
+                <option value={1}>5</option>
+                <option value={0}>10</option>
+              </Form.Select>
+            </Form.Group>
           </div>
         </div>
       )}
