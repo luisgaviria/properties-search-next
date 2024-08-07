@@ -61,7 +61,7 @@ export async function generateMetadata({
       ? truncateStringWithEllipsis(publicRemarks)
       : "Explore this property in detail.";
 
-  console.log("DATA:", data, "???");
+  console.log("NEXT_PUBLIC_SITE_URL:", process.env.NEXT_PUBLIC_SITE_URL);
 
   return {
     title: generateTitle(),
