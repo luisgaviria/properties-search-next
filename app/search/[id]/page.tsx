@@ -61,8 +61,6 @@ export async function generateMetadata({
       ? truncateStringWithEllipsis(publicRemarks)
       : "Explore this property in detail.";
 
-  console.log("NEXT_PUBLIC_SITE_URL:", process.env.NEXT_PUBLIC_SITE_URL);
-
   return {
     title: generateTitle(),
     description: description,
@@ -72,13 +70,13 @@ export async function generateMetadata({
         : `http://localhost:3000/`
     ),
     alternates: {
-      canonical: `/buy/${id}`,
+      canonical: `/search/${id}`,
     },
     openGraph: {
       title: generateTitle(),
       description: description,
       images: [{ url: filteredImageUrls[0] || "" }],
-      url: `/buy/${id}`,
+      url: `/search/${id}`,
       type: "article",
     },
     twitter: {
