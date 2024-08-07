@@ -67,7 +67,9 @@ export async function generateMetadata({
     title: generateTitle(),
     description: description,
     metadataBase: new URL(
-      process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+      process.env.VERCEL_URL
+        ? `https://properties-search-next.vercel.app/`
+        : `http://localhost:3000/`
     ),
     alternates: {
       canonical: `/buy/${id}`,
