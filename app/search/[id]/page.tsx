@@ -66,7 +66,7 @@ export async function generateMetadata({
     description: description,
     metadataBase: new URL(
       process.env.VERCEL_URL
-        ? `https://properties-search-next.vercel.app/`
+        ? `https://www.bostonharmonyhomes.com/`
         : `http://localhost:3000/`
     ),
     alternates: {
