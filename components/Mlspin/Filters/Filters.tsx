@@ -500,6 +500,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
       const city = window.location.href.split("/")[5];
       let modStr = city[0].toUpperCase() + city.slice(1);
       const cityArr = [modStr];
+      console.log(cityArr);
       setFilter((prevState) => {
         return {
           ...prevState,
@@ -591,7 +592,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
   const onChangeMultiSelect = (newValue: MultiValue<{ value: any; label: any; }>, actionMeta: ActionMeta<{ value: any; label: any; }>) => {
     const cities: string[] = [];
     for(const value of newValue){
-      cities.push(value.value.Name);
+      cities.push(value.label);
     }    
     setFilter(prevState=>{
       return {
@@ -1256,7 +1257,13 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                       closeMenuOnSelect={false}
                       onChange={onChangeMultiSelect}
                       isOptionDisabled={() => filter.City.length >= 5}
-/>
+                      value={filter.City.map(city => {
+                        return {
+                          value: city,
+                          label: city
+                        }
+                      })}
+                  />
                 
                   {/* <Form.Select
                     value={filter.City}
