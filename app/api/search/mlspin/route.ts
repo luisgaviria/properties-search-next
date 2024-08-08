@@ -1,5 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import qs, { ParsedQs } from "qs";
+import qs from "qs";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 import getSession from "@/utils/getSession";
@@ -73,6 +72,9 @@ const calculatePages = (total: number, pageLimit: number) => {
 // BASEMENT  -> Basement array -> added
 // OTHER AMENITIES -> Cooling array, pollfeatures, waterfrontFeatures array  done?
 // DAYS ON MARKET/ZILLOW! -> our date - ListingContractDate = days! -> one more filter function after api call to make equation!
+
+export const maxDuration = 30; // vercel stuff
+export const dynamic = 'force-dynamic';
 
 export async function GET(
   req: NextRequest,
