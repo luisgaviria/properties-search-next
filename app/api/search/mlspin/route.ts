@@ -46,6 +46,10 @@ interface Media {
   ShortDescription: null;
 }
 
+interface QueryObj {
+  [key: string]: any | undefined
+}
+
 const limit = 12;
 const noPagesLimit = 200;
 
@@ -83,7 +87,7 @@ export async function GET(
     const save = new Boolean(queryurl.save);
     delete queryurl.save;
     const page: number = Number(queryurl.page) - 1; //ignore;
-    const queryObj = {
+    const queryObj: QueryObj = {
       sortBy: queryurl.sortBy,
       order: queryurl.order,
       near: queryurl.near,
