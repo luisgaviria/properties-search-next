@@ -532,8 +532,20 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
   };
 
   useEffect(() => {
-    window.addEventListener("resize", onResizeWindow);
-  }, [window?.innerWidth]);
+    // window.addEventListener("resize", onResizeWindow);
+    if (typeof window !== "undefined") {
+      // Add the event listener
+      window.addEventListener("resize", onResizeWindow);
+
+      // Initial call to set up any necessary state or side-effects
+      onResizeWindow();
+
+      // Cleanup the event listener on component unmount
+      return () => {
+        window.removeEventListener("resize", onResizeWindow);
+      };
+    }
+  }, []);
 
   const onInputAddressChange = (e: any) => {
     // Update the autocomplete input value
@@ -1474,6 +1486,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                 checked={filter.WaterfrontYN as boolean}
                 onChange={onChangeGarageYNandWaterfrontYNCheckbox}
               />
+
             </Form.Group>
           </div>
           <div className={styles["filter-wrapper"]}>
@@ -1490,6 +1503,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
             />
             <Form.Group>
               <div className={styles["baths-label"]}>
+
                 <Form.Label>Interest rate:</Form.Label>
               </div>
               <Form.Select
