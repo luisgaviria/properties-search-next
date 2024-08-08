@@ -26,6 +26,7 @@ import {
   FilterState,
   strOrNumber,
 } from "../../definitions/Filters";
+import MultiSelect, { ActionMeta, MultiValue } from "react-select";
 
 import usePlacesAutocomplete, {
   getGeocode,
@@ -37,6 +38,17 @@ import { createPagination } from "@/utils/createPagination";
 import { createPaginationPhone } from "@/utils/createPaginationPhone";
 import PropertySearchList from "../PropertySearchList/PropertySearchList";
 import Loading from "./loading";
+
+const getCitiesOptions = (cities: any[]) =>{
+  const options = [];
+  for (const city of cities){
+    options.push({
+      value: city,
+      label: city.Name,
+    });
+  }
+  return options;
+}
 
 const formatPrice = (price: number): string => {
   return new Intl.NumberFormat("en-US", {
@@ -62,7 +74,7 @@ const filterAtom = atom<FilterState>({
   // Add the types here
   ListPriceFrom: 0,
   ListPriceTo: 0,
-  City: "Any",
+  City: [],
   PropertyType: [],
   PropertySubType: [],
   NumberOfUnitsTotal: null,
@@ -70,6 +82,9 @@ const filterAtom = atom<FilterState>({
   BedroomsTotal: 0,
   sortBy: "ListPrice",
   order: "desc",
+  Basement: [],
+  WaterfrontYN: null,
+  GarageYN: null
 });
 
 filterAtom.debugLabel = "Filters";
@@ -148,7 +163,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     page_num: number,
     input: string,
     filters: any,
-    save = true
+    save = true,
   ) => {
     let query = "";
     const radiusVal = "1mi";
@@ -189,7 +204,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     if (save == true) {
       const res2: response = await fetch(
         `/api/search/mlspin?save=true${query}&page=${page_num}`,
-        { cache: "no-store" }
+        { cache: "no-store" },
       ).then((res) => res.json());
       setValue(input);
       setPageObj({ actualPage: page_num, pages: res2.pages });
@@ -198,7 +213,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     } else {
       const res2: response = await fetch(
         `/api/search/mlspin?${query}&page=${page_num}`,
-        { cache: "no-store" }
+        { cache: "no-store" },
       ).then((res) => res.json());
       setValue(input);
       setPageObj({ actualPage: page_num, pages: res2.pages });
@@ -224,7 +239,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
         (filter[key as keyof typeof filter] as string[]).length
       ) {
         query += query.length ? `&${key}=` : `${key}=`;
-        (filter[key as keyof typeof filter] as string[]).map((item: string) => {
+        (filter[key as keyof typeof filter] as string[]).map((item: string) => { 
           query += `${item},`;
         });
       } else if (filter[key as keyof typeof filter]) {
@@ -282,6 +297,8 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
       query += `&radius=${radiusVal}`;
     }
 
+    console.log(query);
+
     const res: mapResponse = await fetch(`/api/search/mlspin/map?${query}`, {
       cache: "no-store",
     }).then((res) => res.json());
@@ -294,7 +311,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     query += "&save=true";
     const res2: response = await fetch(
       `/api/search/mlspin?${query}&page=${page_num}`,
-      { cache: "no-store" }
+      { cache: "no-store" },
     ).then((res) => res.json());
 
     setPageObj({ actualPage: page_num, pages: res2.pages });
@@ -335,7 +352,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
           (filter[key as keyof typeof filter] as string[]).map(
             (item: string) => {
               query += `${item},`;
-            }
+            },
           );
         } else if (filter[key as keyof typeof filter]) {
           if (
@@ -381,7 +398,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
         }
       });
       const res: mapResponse = await fetch(
-        `/api/search/mlspin/map?${query}&Lat=${center.lat}&Lng=${center.lng}`
+        `/api/search/mlspin/map?${query}&Lat=${center.lat}&Lng=${center.lng}`,
       ).then((res) => res.json());
       return res.properties;
     } catch (err) {
@@ -482,10 +499,11 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     } else if (window.location.href.split("/")[5]) {
       const city = window.location.href.split("/")[5];
       let modStr = city[0].toUpperCase() + city.slice(1);
+      const cityArr = [modStr];
       setFilter((prevState) => {
         return {
           ...prevState,
-          City: modStr,
+          City: cityArr,
           PropertyType: ["Residential,Residential Income"],
         };
       });
@@ -569,6 +587,19 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     ));
 
   // Jotai state
+
+  const onChangeMultiSelect = (newValue: MultiValue<{ value: any; label: any; }>, actionMeta: ActionMeta<{ value: any; label: any; }>) => {
+    const cities: string[] = [];
+    for(const value of newValue){
+      cities.push(value.value.Name);
+    }    
+    setFilter(prevState=>{
+      return {
+        ...prevState,
+        City: cities
+      }
+    });
+  };
   const onChangeSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
     setFilter((prevSearch: FilterState) => ({
@@ -602,7 +633,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
 
   //Jotai
   const onChangePropertyTypeCheckbox = (
-    event: ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement>,
   ) => {
     setFilter((prevFilter: FilterState) => {
       let PropertyTypes = Array.isArray(prevFilter.PropertyType)
@@ -648,9 +679,29 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     }));
   };
 
+
+  const onChangeGarageYNandWaterfrontYNCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
+    setFilter((prevFilter: FilterState)=>{
+      const {value, checked} = event.target;
+    
+      if (checked){ 
+        return {
+          ...prevFilter,
+          [value]: checked
+        }
+      }
+      else {
+        return {
+          ...prevFilter,
+          [value]: null
+        }
+      }
+    });
+  }
+
   //Jotai
   const onChangePropertySubTypeCheckbox = (
-    event: ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement>,
   ) => {
     setFilter((prevFilter: FilterState) => {
       const PropertySubTypes = prevFilter.PropertySubType || [];
@@ -738,7 +789,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                       value="Residential,Residential Income"
                       checked={
                         filter.PropertyType.indexOf(
-                          "Residential,Residential Income"
+                          "Residential,Residential Income",
                         ) > -1
                           ? true
                           : false
@@ -868,7 +919,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                     value="Single Family Residence"
                     checked={
                       filter.PropertySubType.indexOf(
-                        "Single Family Residence"
+                        "Single Family Residence",
                       ) > -1
                         ? true
                         : false
@@ -1196,7 +1247,18 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                   >
                     City Dropdown:
                   </Form.Label>
-                  <Form.Select
+                  <MultiSelect
+                      isMulti
+                      name="cities"
+                      options={getCitiesOptions(cities)}
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      closeMenuOnSelect={false}
+                      onChange={onChangeMultiSelect}
+                      isOptionDisabled={() => filter.City.length >= 5}
+/>
+                
+                  {/* <Form.Select
                     value={filter.City}
                     name="City"
                     onChange={onChangeSelect}
@@ -1208,7 +1270,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                         </option>
                       );
                     })}
-                  </Form.Select>
+                  </Form.Select> */}
                 </div>
                 <Form.Label
                   style={{
@@ -1370,53 +1432,61 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
       {moreFilters && (
         <div className={styles["property-search"]}>
           <div className={styles["filter-wrapper"]}>
-            <Image
-              width={40}
-              height={40}
-              className={styles["type-icon"]}
-              src={
-                resolvedTheme == "dark"
-                  ? "/BASEMENT_WHITE.svg"
-                  : "/BASEMENT.svg"
-              }
-              alt="basement icon"
-            />
+            <div className={styles["bed-baths-icon-wrapper"]}>
+              <Image
+                width={40}
+                height={40}
+                className={styles["type-icon"]}
+                src={
+                  resolvedTheme == "dark"
+                    ? "/BASEMENT_WHITE.svg"
+                    : "/BASEMENT.svg"
+                }
+                alt="basement icon"
+              />
+              <Image
+                width={40}
+                height={40}
+                className={styles["type-icon"]}
+                src={
+                  resolvedTheme == "dark"
+                    ? "/GARRAGE_WHITE.svg"
+                    : "/GARRAGE.svg"
+                }
+                alt="garrage icon"
+              />
+              <Image
+                width={40}
+                height={40}
+                className={styles["type-icon"]}
+                src={resolvedTheme == "dark" ? "/POOL_WHITE.svg" : "/POOL.svg"}
+                alt="pool icon"
+              />
+            </div>
             <Form.Group>
               <div className={styles["baths-label"]}>
-                <Form.Label>Basement:</Form.Label>
+                <Form.Label>Other Amenities</Form.Label>
               </div>
-              <Form.Select
-                value={filter.BathroomsTotal}
-                name="Basement"
-                onChange={onChangeSelect}
-              >
-                <option value={1}>Yes</option>
-                <option value={0}>No</option>
-              </Form.Select>
-            </Form.Group>
-          </div>
-          <div className={styles["filter-wrapper"]}>
-            <Image
-              width={40}
-              height={40}
-              className={styles["type-icon"]}
-              src={
-                resolvedTheme == "dark" ? "/GARRAGE_WHITE.svg" : "/GARRAGE.svg"
-              }
-              alt="garrage icon"
-            />
-            <Form.Group>
-              <div className={styles["baths-label"]}>
-                <Form.Label>Garrage:</Form.Label>
-              </div>
-              <Form.Select
-                value={filter.BathroomsTotal}
-                name="Garrage"
-                onChange={onChangeSelect}
-              >
-                <option value={1}>Yes</option>
-                <option value={0}>No</option>
-              </Form.Select>
+              <Form.Check 
+                label="Basement" 
+                type="checkbox" 
+                value="Basement" // to be done
+              />
+              <Form.Check 
+                label="Garage" 
+                type="checkbox" 
+                value="GarageYN"
+                checked={filter.GarageYN as boolean}
+                onChange={onChangeGarageYNandWaterfrontYNCheckbox}
+              />
+              <Form.Check 
+                label="Waterpool"
+                type="checkbox"
+                value="WaterfrontYN" 
+                checked={filter.WaterfrontYN as boolean}
+                onChange={onChangeGarageYNandWaterfrontYNCheckbox}
+              />
+
             </Form.Group>
           </div>
           <div className={styles["filter-wrapper"]}>
@@ -1433,6 +1503,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
             />
             <Form.Group>
               <div className={styles["baths-label"]}>
+
                 <Form.Label>Interest rate:</Form.Label>
               </div>
               <Form.Select
@@ -1461,36 +1532,17 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
               <div className={styles["baths-label"]}>
                 <Form.Label>Living area:</Form.Label>
               </div>
-              <Form.Select
-                value={filter.BathroomsTotal}
-                name="Livingarea"
-                onChange={onChangeSelect}
-              >
-                <option value={1}>5</option>
-                <option value={0}>10</option>
-              </Form.Select>
-            </Form.Group>
-          </div>
-          <div className={styles["filter-wrapper"]}>
-            <Image
-              width={40}
-              height={40}
-              className={styles["type-icon"]}
-              src={resolvedTheme == "dark" ? "/POOL_WHITE.svg" : "/POOL.svg"}
-              alt="pool icon"
-            />
-            <Form.Group>
-              <div className={styles["baths-label"]}>
-                <Form.Label>Pool:</Form.Label>
+              <div style={{ display: "flex" }}>
+                <Form.Select style={{ width: "150px", marginRight: "10px" }}>
+                  <option value={1}>No Min</option>
+                  <option value={0}>10</option>
+                </Form.Select>
+                <p>-</p>
+                <Form.Select style={{ width: "150px", marginLeft: "10px" }}>
+                  <option value={1}>No Max</option>
+                  <option value={0}>10</option>
+                </Form.Select>
               </div>
-              <Form.Select
-                value={filter.BathroomsTotal}
-                name="Pool"
-                onChange={onChangeSelect}
-              >
-                <option value={1}>Yes</option>
-                <option value={0}>No</option>
-              </Form.Select>
             </Form.Group>
           </div>
           <div className={styles["filter-wrapper"]}>
@@ -1507,14 +1559,17 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
               <div className={styles["baths-label"]}>
                 <Form.Label>Lotsize:</Form.Label>
               </div>
-              <Form.Select
-                value={filter.BathroomsTotal}
-                name="Lotsize"
-                onChange={onChangeSelect}
-              >
-                <option value={1}>5</option>
-                <option value={0}>10</option>
-              </Form.Select>
+              <div style={{ display: "flex" }}>
+                <Form.Select style={{ width: "150px", marginRight: "10px" }}>
+                  <option value={1}>No Min</option>
+                  <option value={0}>10</option>
+                </Form.Select>
+                <p>-</p>
+                <Form.Select style={{ width: "150px", marginLeft: "10px" }}>
+                  <option value={1}>No Max</option>
+                  <option value={0}>10</option>
+                </Form.Select>
+              </div>
             </Form.Group>
           </div>
           <div className={styles["filter-wrapper"]}>
@@ -1545,6 +1600,15 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
           </div>
         </div>
       )}
+      <div style={{ width: "100%", textAlign: "center"}}>
+        <div
+          onClick={onClickMoreFilters}
+          className={styles["btn-more-filters"]}
+          
+        >
+          <span style={{cursor: 'pointer'}}>{moreFilters ? "HIDE MORE FILTERS" : "MORE FILTERS"}</span>
+        </div>
+      </div>
       <div style={{ width: "100%", textAlign: "center" }}>
         <div
           onClick={onClickMoreFilters}
@@ -1642,12 +1706,12 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                   ? createPaginationPhone(
                       pageObj.pages,
                       pageObj.actualPage,
-                      getData
+                      getData,
                     )
                   : createPagination(
                       pageObj.pages,
                       pageObj.actualPage,
-                      getData
+                      getData,
                     )}
               </Pagination>
             </Suspense>

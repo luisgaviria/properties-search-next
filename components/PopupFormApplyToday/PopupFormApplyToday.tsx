@@ -12,7 +12,7 @@ const PopupFormApplyToday = () => {
     message: "",
   });
   const handleInput = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ): void => {
     setListYourHomeState((prevState) => {
       return {
@@ -31,7 +31,7 @@ const PopupFormApplyToday = () => {
             headers: {
               "Content-Type": "application/json",
             },
-          }
+          },
         );
         break;
       }

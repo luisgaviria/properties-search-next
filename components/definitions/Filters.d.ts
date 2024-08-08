@@ -24,7 +24,7 @@ export interface FormVisibleState {
 export interface FilterState {
   ListPriceFrom: number;
   ListPriceTo: number;
-  City: string;
+  City: string[];
   PropertyType: string[];
   PropertySubType: string[];
   NumberOfUnitsTotal: number | null;
@@ -32,4 +32,7 @@ export interface FilterState {
   BedroomsTotal: number;
   sortBy: string;
   order: string;
+  Basement: string[];
+  WaterfrontYN: boolean | null;
+  GarageYN: boolean | null;
 }
