@@ -29,6 +29,8 @@ async function getCityListings(city: any) {
   return { properties: res.properties, pages: res.pages };
 }
 
+export const maxDuration = 30;
+
 export default async function ExactCity() {
   const headersList = headers();
   const xInvokePath = headersList.get("x-pathname") as string;
