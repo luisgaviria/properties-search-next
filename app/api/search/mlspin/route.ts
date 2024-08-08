@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import qs from "qs";
+import qs, { ParsedQs } from "qs";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 import getSession from "@/utils/getSession";
@@ -46,6 +46,10 @@ interface Media {
   ShortDescription: null;
 }
 
+interface QueryObj {
+  [key: string]: any | undefined
+}
+
 const limit = 12;
 const noPagesLimit = 200;
 
@@ -83,7 +87,7 @@ export async function GET(
     const save = new Boolean(queryurl.save);
     delete queryurl.save;
     const page: number = Number(queryurl.page) - 1; //ignore;
-    const queryObj = {
+    const queryObj: QueryObj = {
       sortBy: queryurl.sortBy,
       order: queryurl.order,
       near: queryurl.near,
