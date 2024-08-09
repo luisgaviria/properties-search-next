@@ -9,6 +9,8 @@ import { Suspense } from "react";
 import Loading from "./loading";
 import { Property } from "@/components/definitions/Property";
 import { formatPrice } from "@/utils/formatPrice";
+import { Metadata } from "next";
+import { PropertyDetails } from "../components/definitions/PropertyDetails";
 
 interface latestResponse {
   message: string;
@@ -20,17 +22,70 @@ interface waterFrontResponse {
   waterFrontListings: Property[][];
 }
 
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: any;
+  searchParams: any;
+}): Promise<Metadata> {
+  const id = params.id;
+
+  const newListings = await getLatestListings();
+  const waterFrontListings = await getWaterFrontListings();
+  const totalListings = newListings?.length + waterFrontListings?.length;
+  const description = `Sell your home with confidence at Harmony Homes. Access free real-time MLS listings and expert advice to reach the right buyers quickly and efficiently.`;
+
+  return {
+    title: `Harmony Homes: Real-Time MLS Listings for Buyers and Sellers`,
+    description: description,
+    metadataBase: new URL(
+      process.env.VERCEL_URL
+        ? `https://www.bostonharmonyhomes.com`
+        : `http://localhost:3000`
+    ),
+    alternates: {
+      canonical: `/`,
+    },
+    openGraph: {
+      title: `Harmony Homes: Real-Time MLS Listings for Buyers and Sellers`,
+      description: description,
+      images: [{ url: newListings[0]?.[0]?.Media?.[0]?.MediaURL || "" }],
+      url: `/`,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Harmony Homes: Real-Time MLS Listings for Buyers and Sellers`,
+      description: description,
+      images: [{ url: newListings[0]?.[0]?.Media?.[0]?.MediaURL || "" }],
+    },
+  };
+}
+
 async function getLatestListings() {
   // url in env! should be solved in case of deployment!
   const res: latestResponse = await fetch(
-    `${process.env.NEXT_PUBLIC_URL_API && process.env.PORT ? `${process.env.NEXT_PUBLIC_URL_API}:${process.env.PORT || 3000}/api/search/mlspin/latest` : `https://properties-search-next.vercel.app/api/search/mlspin/latest`}`,
+    `${
+      process.env.NEXT_PUBLIC_URL_API && process.env.PORT
+        ? `${process.env.NEXT_PUBLIC_URL_API}:${
+            process.env.PORT || 3000
+          }/api/search/mlspin/latest`
+        : `https://properties-search-next.vercel.app/api/search/mlspin/latest`
+    }`
   ).then((data) => data.json());
   return res.listings;
 }
 
 async function getWaterFrontListings() {
   const res: waterFrontResponse = await fetch(
-    `${process.env.NEXT_PUBLIC_URL_API && process.env.PORT ? `${process.env.NEXT_PUBLIC_URL_API}:${process.env.PORT || 3000}/api/search/mlspin/waterFrontListings` : `https://properties-search-next.vercel.app/api/search/mlspin/waterFrontListings`}`,
+    `${
+      process.env.NEXT_PUBLIC_URL_API && process.env.PORT
+        ? `${process.env.NEXT_PUBLIC_URL_API}:${
+            process.env.PORT || 3000
+          }/api/search/mlspin/waterFrontListings`
+        : `https://properties-search-next.vercel.app/api/search/mlspin/waterFrontListings`
+    }`
   ).then((data) => data.json());
   return res.waterFrontListings;
 }
@@ -80,7 +135,7 @@ export default async function Home() {
           "@context": "https://schema.org",
           "@type": "RealEstateListing",
           "name": "Home Page",
-          "description": "There are ${newListings?.length + waterFrontListings?.length} properties available in the home page.",
+          "description": "Sell your home with confidence at Harmony Homes. Access free real-time MLS listings and expert advice to reach the right buyers quickly and efficiently.",
           "numberOfItems": ${newListings?.length + waterFrontListings?.length},
           "itemListElement": [
           ${newListings
@@ -94,11 +149,15 @@ export default async function Home() {
           "item": {
           "@type": "RealEstateListing",
           "name": "${generateTitle(tempProperty)}",
-          "image": "${tempProperty?.Media?.length && tempProperty.Media[0].MediaURL}",
+          "image": "${
+            tempProperty?.Media?.length && tempProperty.Media[0].MediaURL
+          }",
           "url": "${tempProperty.url}",
           "address": {
           "@type": "PostalAddress",
-          "streetAddress": "${tempProperty.StreetNumber} ${tempProperty.StreetName}",
+          "streetAddress": "${tempProperty.StreetNumber} ${
+                  tempProperty.StreetName
+                }",
           "addressLocality": "${tempProperty.City}",
           "addressRegion": "${tempProperty.StateOrProvince}",
           "addressCountry": "USA"
@@ -108,12 +167,17 @@ export default async function Home() {
           "numberOfBathrooms": "${tempProperty.BathroomsTotalDecimal}",
           "floorSize": {
           "@type": "QuantitativeValue",
-          "value": ${tempProperty.LivingArea !== undefined && tempProperty.LivingArea !== 0 ? `"${tempProperty.LivingArea.toLocaleString()}"` : null},
+          "value": ${
+            tempProperty.LivingArea !== undefined &&
+            tempProperty.LivingArea !== 0
+              ? `"${tempProperty.LivingArea.toLocaleString()}"`
+              : null
+          },
           "unitCode": "SQFT"
           }
           }
-          `,
-              ),
+          `
+              )
             )
             .join(",")}
           ]
