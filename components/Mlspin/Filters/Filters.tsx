@@ -39,16 +39,16 @@ import { createPaginationPhone } from "@/utils/createPaginationPhone";
 import PropertySearchList from "../PropertySearchList/PropertySearchList";
 import Loading from "./loading";
 
-const getCitiesOptions = (cities: any[]) =>{
+const getCitiesOptions = (cities: any[]) => {
   const options = [];
-  for (const city of cities){
+  for (const city of cities) {
     options.push({
       value: city,
       label: city.Name,
     });
   }
   return options;
-}
+};
 
 const formatPrice = (price: number): string => {
   return new Intl.NumberFormat("en-US", {
@@ -84,7 +84,7 @@ const filterAtom = atom<FilterState>({
   order: "desc",
   Basement: [],
   WaterfrontYN: null,
-  GarageYN: null
+  GarageYN: null,
 });
 
 filterAtom.debugLabel = "Filters";
@@ -163,7 +163,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     page_num: number,
     input: string,
     filters: any,
-    save = true,
+    save = true
   ) => {
     let query = "";
     const radiusVal = "1mi";
@@ -204,7 +204,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     if (save == true) {
       const res2: response = await fetch(
         `/api/search/mlspin?save=true${query}&page=${page_num}`,
-        { cache: "no-store" },
+        { cache: "no-store" }
       ).then((res) => res.json());
       setValue(input);
       setPageObj({ actualPage: page_num, pages: res2.pages });
@@ -213,7 +213,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     } else {
       const res2: response = await fetch(
         `/api/search/mlspin?${query}&page=${page_num}`,
-        { cache: "no-store" },
+        { cache: "no-store" }
       ).then((res) => res.json());
       setValue(input);
       setPageObj({ actualPage: page_num, pages: res2.pages });
@@ -239,7 +239,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
         (filter[key as keyof typeof filter] as string[]).length
       ) {
         query += query.length ? `&${key}=` : `${key}=`;
-        (filter[key as keyof typeof filter] as string[]).map((item: string) => { 
+        (filter[key as keyof typeof filter] as string[]).map((item: string) => {
           query += `${item},`;
         });
       } else if (filter[key as keyof typeof filter]) {
@@ -311,7 +311,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     query += "&save=true";
     const res2: response = await fetch(
       `/api/search/mlspin?${query}&page=${page_num}`,
-      { cache: "no-store" },
+      { cache: "no-store" }
     ).then((res) => res.json());
 
     setPageObj({ actualPage: page_num, pages: res2.pages });
@@ -352,7 +352,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
           (filter[key as keyof typeof filter] as string[]).map(
             (item: string) => {
               query += `${item},`;
-            },
+            }
           );
         } else if (filter[key as keyof typeof filter]) {
           if (
@@ -398,7 +398,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
         }
       });
       const res: mapResponse = await fetch(
-        `/api/search/mlspin/map?${query}&Lat=${center.lat}&Lng=${center.lng}`,
+        `/api/search/mlspin/map?${query}&Lat=${center.lat}&Lng=${center.lng}`
       ).then((res) => res.json());
       return res.properties;
     } catch (err) {
@@ -589,16 +589,19 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
 
   // Jotai state
 
-  const onChangeMultiSelect = (newValue: MultiValue<{ value: any; label: any; }>, actionMeta: ActionMeta<{ value: any; label: any; }>) => {
+  const onChangeMultiSelect = (
+    newValue: MultiValue<{ value: any; label: any }>,
+    actionMeta: ActionMeta<{ value: any; label: any }>
+  ) => {
     const cities: string[] = [];
-    for(const value of newValue){
+    for (const value of newValue) {
       cities.push(value.label);
-    }    
-    setFilter(prevState=>{
+    }
+    setFilter((prevState) => {
       return {
         ...prevState,
-        City: cities
-      }
+        City: cities,
+      };
     });
   };
   const onChangeSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -634,7 +637,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
 
   //Jotai
   const onChangePropertyTypeCheckbox = (
-    event: ChangeEvent<HTMLInputElement>,
+    event: ChangeEvent<HTMLInputElement>
   ) => {
     setFilter((prevFilter: FilterState) => {
       let PropertyTypes = Array.isArray(prevFilter.PropertyType)
@@ -680,29 +683,29 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     }));
   };
 
+  const onChangeGarageYNandWaterfrontYNCheckbox = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    setFilter((prevFilter: FilterState) => {
+      const { value, checked } = event.target;
 
-  const onChangeGarageYNandWaterfrontYNCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
-    setFilter((prevFilter: FilterState)=>{
-      const {value, checked} = event.target;
-    
-      if (checked){ 
+      if (checked) {
         return {
           ...prevFilter,
-          [value]: checked
-        }
-      }
-      else {
+          [value]: checked,
+        };
+      } else {
         return {
           ...prevFilter,
-          [value]: null
-        }
+          [value]: null,
+        };
       }
     });
-  }
+  };
 
   //Jotai
   const onChangePropertySubTypeCheckbox = (
-    event: ChangeEvent<HTMLInputElement>,
+    event: ChangeEvent<HTMLInputElement>
   ) => {
     setFilter((prevFilter: FilterState) => {
       const PropertySubTypes = prevFilter.PropertySubType || [];
@@ -790,7 +793,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                       value="Residential,Residential Income"
                       checked={
                         filter.PropertyType.indexOf(
-                          "Residential,Residential Income",
+                          "Residential,Residential Income"
                         ) > -1
                           ? true
                           : false
@@ -920,7 +923,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                     value="Single Family Residence"
                     checked={
                       filter.PropertySubType.indexOf(
-                        "Single Family Residence",
+                        "Single Family Residence"
                       ) > -1
                         ? true
                         : false
@@ -1249,22 +1252,22 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                     City Dropdown:
                   </Form.Label>
                   <MultiSelect
-                      isMulti
-                      name="cities"
-                      options={getCitiesOptions(cities)}
-                      className="basic-multi-select"
-                      classNamePrefix="select"
-                      closeMenuOnSelect={false}
-                      onChange={onChangeMultiSelect}
-                      isOptionDisabled={() => filter.City.length >= 5}
-                      value={filter.City.map(city => {
-                        return {
-                          value: city,
-                          label: city
-                        }
-                      })}
+                    isMulti
+                    name="cities"
+                    options={getCitiesOptions(cities)}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    closeMenuOnSelect={false}
+                    onChange={onChangeMultiSelect}
+                    isOptionDisabled={() => filter.City.length >= 5}
+                    value={filter.City.map((city) => {
+                      return {
+                        value: city,
+                        label: city,
+                      };
+                    })}
                   />
-                
+
                   {/* <Form.Select
                     value={filter.City}
                     name="City"
@@ -1474,26 +1477,25 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
               <div className={styles["baths-label"]}>
                 <Form.Label>Other Amenities</Form.Label>
               </div>
-              <Form.Check 
-                label="Basement" 
-                type="checkbox" 
+              <Form.Check
+                label="Basement"
+                type="checkbox"
                 value="Basement" // to be done
               />
-              <Form.Check 
-                label="Garage" 
-                type="checkbox" 
+              <Form.Check
+                label="Garage"
+                type="checkbox"
                 value="GarageYN"
                 checked={filter.GarageYN as boolean}
                 onChange={onChangeGarageYNandWaterfrontYNCheckbox}
               />
-              <Form.Check 
+              <Form.Check
                 label="Waterpool"
                 type="checkbox"
-                value="WaterfrontYN" 
+                value="WaterfrontYN"
                 checked={filter.WaterfrontYN as boolean}
                 onChange={onChangeGarageYNandWaterfrontYNCheckbox}
               />
-
             </Form.Group>
           </div>
           <div className={styles["filter-wrapper"]}>
@@ -1510,7 +1512,6 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
             />
             <Form.Group>
               <div className={styles["baths-label"]}>
-
                 <Form.Label>Interest rate:</Form.Label>
               </div>
               <Form.Select
@@ -1607,13 +1608,12 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
           </div>
         </div>
       )}
-      <div style={{ width: "100%", textAlign: "center"}}>
+      <div style={{ width: "100%", textAlign: "center" }}>
         <div
           onClick={onClickMoreFilters}
           className={styles["btn-more-filters"]}
-          
         >
-          <span style={{cursor: 'pointer'}}>{moreFilters ? "HIDE MORE FILTERS" : "MORE FILTERS"}</span>
+          {/* <span style={{cursor: 'pointer'}}>{moreFilters ? "HIDE MORE FILTERS" : "MORE FILTERS"}</span> */}
         </div>
       </div>
       <div style={{ width: "100%", textAlign: "center" }}>
@@ -1713,12 +1713,12 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                   ? createPaginationPhone(
                       pageObj.pages,
                       pageObj.actualPage,
-                      getData,
+                      getData
                     )
                   : createPagination(
                       pageObj.pages,
                       pageObj.actualPage,
-                      getData,
+                      getData
                     )}
               </Pagination>
             </Suspense>
