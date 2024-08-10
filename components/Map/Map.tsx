@@ -150,13 +150,12 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
             <a href="/search/${
               property.ListingId
             }" target="_blank" style="text-decoration:none;">
-            <div style="padding: 15px; max-width: 300px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); font-family: Arial, sans-serif;">
-            <div style="padding: 10px" class="marker">
-              <img style="width: 300px; height: 200px;" src="${imgUrl}"/>
-              <br/>
-              <div style="font-size: 16px; font-weight: 500; margin-bottom: 5px;">
-                $${property.ListPrice.toLocaleString()}
-              </div>
+      <div style="padding: 15px; max-width: 300px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); font-family: Arial, sans-serif;">
+        <div style="padding: 10px; border-radius: 5px;" class="marker">
+          <img style="width: 100%; height: 200px; object-fit: cover;" src="${imgUrl}" alt="Property"/>
+          <br/>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
               <div style="font-size: 16px; font-weight: 500; margin-bottom: 5px;">
                 ${property.StreetNumber} ${property.StreetName}
               </div>
@@ -164,8 +163,22 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
                 ${property.City}
               </div>
             </div>
+            <div style="text-align: right;">
+              <div style="font-size: 16px; font-weight: bold;">
+                $${property.ListPrice.toLocaleString()}
+              </div>
+              <div style="color: #555; font-size: 14px;">
+                ${
+                  property.LivingArea
+                    ? `${property.LivingArea.toLocaleString()} sqft`
+                    : ""
+                }
+              </div>
             </div>
-            </a>
+          </div>
+        </div>
+      </div>
+    </a>
           `,
           }),
         };
