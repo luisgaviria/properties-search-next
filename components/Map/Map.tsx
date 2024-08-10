@@ -149,7 +149,8 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
             content: `
             <a href="/search/${
               property.ListingId
-            }" target="_blank" style="text-decoration:none;"><div style="padding: 15px; paddig-top: 0;">
+            }" target="_blank" style="text-decoration:none;">
+            <div style="padding: 15px; max-width: 300px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); font-family: Arial, sans-serif;">
             <div style="padding: 10px" class="marker">
               <img style="width: 300px; height: 200px;" src="${imgUrl}"/>
               <br/>
