@@ -15,7 +15,6 @@ import magGlass from "../../../public/mag-glass.png";
 import { useRouter } from "next/navigation";
 
 import { Container } from "@/app/client-react-boostrap";
-import Script from "next/script";
 
 // Define Jotai atoms for state
 const activeButtonsAtom = atom<string[]>([]);

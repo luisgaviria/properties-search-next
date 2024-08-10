@@ -45,7 +45,7 @@ export default function PropertySearchTile({ data }: any) {
             data.Media.map((media: any, index: number) => {
               if (index < 9) {
                 // Log media object to inspect its properties
-                console.log("Media Object:", media);
+                // console.log("Media Object:", media);
 
                 // Determine image source with fallback
                 const imageSrc = media.MediaURL
