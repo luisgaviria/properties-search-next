@@ -245,7 +245,7 @@ export default function SinglePropertyBuy() {
               "@type": "RealEstateListing",
               "datePosted": "${state.OnMarketDate}",
               "about": {
-                "@type": "${state.PropertySubType || "Property"}",
+                "@type": "${state.PropertySubType.split("(")[1] || "Property"}",
                 "name": "${state.StreetNumber} ${state.StreetName}",
                 "address": {
                   "@type": "PostalAddress",
