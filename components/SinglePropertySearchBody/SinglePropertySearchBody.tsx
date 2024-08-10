@@ -246,7 +246,7 @@ export default function SinglePropertyBuy() {
               "datePosted": "${state.OnMarketDate}",
               "about": {
                 "@type": "${
-                  state.PropertySubType.replace(/[()]/g, "") || "Property"
+                  state.PropertySubType.replace(/[()/]/g, "") || "Property"
                 }",
                 "name": "${state.StreetNumber} ${state.StreetName}",
                 "address": {
