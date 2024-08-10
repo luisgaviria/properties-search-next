@@ -839,8 +839,9 @@
     display: block;
   }
 
-  @media (max-width: 768px) {
+  @media (min-width: 768px) {
     padding-top: 3rem;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(372px, 1fr));
+    grid-gap: 25px;
   }
 }
