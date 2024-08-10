@@ -156,7 +156,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
           <br/>
           <div style="display: flex; justify-content: space-between; align-items: flex-start;">
             <div>
-              <div style="font-size: 16px; font-weight: 500; margin-bottom: 5px; line-height: 1.5;">
+              <div style="font-size: 16px; font-weight: 500; line-height: 1.5;">
                 ${property.StreetNumber} ${property.StreetName}
               </div>
               <div style="color: #555; font-size: 16px; font-weight: 500; line-height: 1.5;">
