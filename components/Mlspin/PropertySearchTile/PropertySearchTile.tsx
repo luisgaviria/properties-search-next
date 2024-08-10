@@ -1,10 +1,12 @@
 import React from "react";
-import Link from "@/node_modules/next/link";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./PropertySearchTile.module.scss";
 import { Carousel } from "react-bootstrap";
 import Image from "next/image";
-// import { formatPrice } from "../../utils/formatPrice";
+
+let defaultImageURL = "/missing-image.webp";
+
 const formatPrice = (price: any) => {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -18,14 +20,6 @@ const loader = ({ src, width }: { src: string; width?: number }) => {
 };
 
 export default function PropertySearchTile({ data }: any) {
-  // const router = useRouter();
-  // const parentClick = () =>{
-  //   router.push("/search/"+data.ListingId);
-  // }
-  // const parentClick = () => {
-  //     navigate(`/buy/${data.ListingId}`);
-  //   };
-
   const childrenClick = (event: any) => {
     event.stopPropagation();
   };
@@ -38,52 +32,64 @@ export default function PropertySearchTile({ data }: any) {
     const isAll9s = characters.every((char) => char === "9");
     return isAll9s;
   }
+
   if (isAll9sString(data.LivingArea)) {
     return null;
   }
 
   return (
-    <div
-    // onClick={onClick}
-    >
+    <div>
       <div className={styles[`properties_grid_element_buy`]}>
-        <Carousel
-          variant="primary"
-          onClick={childrenClick}
-          interval={null}
-          // autoPlay={false}
-        >
-          {data.Media?.map((media: any, index: any) => {
-            if (index < 9) {
-              return (
-                <Carousel.Item
-                  style={{ cursor: "pointer" }}
-                  //   interval={null}
-                  //   autoPlay={false}
-                  // className={styles["img-wrap-buytile"]}
-                  key={index}
-                >
-                  <a href={`/search/${data.ListingId}`} target="_blank">
-                    {
+        <Carousel variant="primary" onClick={childrenClick} interval={null}>
+          {data.Media && data.Media.length > 0 ? (
+            data.Media.map((media: any, index: number) => {
+              if (index < 9) {
+                // Log media object to inspect its properties
+                console.log("Media Object:", media);
+
+                // Determine image source with fallback
+                const imageSrc = media.MediaURL
+                  ? media.MediaURL
+                  : defaultImageURL;
+
+                return (
+                  <Carousel.Item style={{ cursor: "pointer" }} key={index}>
+                    <a href={`/search/${data.ListingId}`} target="_blank">
                       <Image
                         loader={(props: any) =>
                           loader({ ...props, width: 500 })
-                        } // Example width
+                        }
                         className={styles["img-carousel-tile"]}
                         placeholder="blur"
-                        src={media.MediaURL}
+                        src={imageSrc}
                         blurDataURL="blur.jpg"
                         key={index}
                         alt="property main image"
                         width={50}
                         height={300}
                       />
-                    }
-                  </a>
-                </Carousel.Item>
-              );
-            }
-          })}
+                    </a>
+                  </Carousel.Item>
+                );
+              }
+            })
+          ) : (
+            // Display the default image when no media is available
+            <Carousel.Item style={{ cursor: "pointer" }}>
+              <a href={`/search/${data.ListingId}`} target="_blank">
+                <Image
+                  loader={(props: any) => loader({ ...props, width: 500 })}
+                  className={styles["img-carousel-tile"]}
+                  placeholder="blur"
+                  src={defaultImageURL}
+                  blurDataURL="blur.jpg"
+                  alt="property main image"
+                  width={50}
+                  height={300}
+                />
+              </a>
+            </Carousel.Item>
+          )}
         </Carousel>
 
         <div style={{ cursor: "pointer" }}>

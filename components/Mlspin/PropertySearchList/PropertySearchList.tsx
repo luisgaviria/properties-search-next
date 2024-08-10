@@ -39,6 +39,7 @@ export default function PropertySearchList({
 }: {
   properties: Property[];
 }) {
+  const defaultImageURL = "/missing-image.webp";
   return (
     <>
       <script type="application/ld+json">
@@ -62,6 +63,7 @@ export default function PropertySearchList({
         "item": {
         "@type": "RealEstateListing",
         "name": "${generateTitle(property)}",
+
         "url": "${property.url}",
         "address": {
         "@type": "PostalAddress",
