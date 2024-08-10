@@ -48,7 +48,9 @@ export default function PropertySearchList({
         "@context": "https://schema.org",
         "@type": "RealEstateListing",
         "name": "Home Page",
-        "description": "There are ${properties.length} properties available in the home page.",
+        "description": "There are ${
+          properties.length
+        } properties available in the home page.",
         "numberOfItems": ${properties.length},
         "itemListElement": [
         ${properties
@@ -60,7 +62,6 @@ export default function PropertySearchList({
         "item": {
         "@type": "RealEstateListing",
         "name": "${generateTitle(property)}",
-        "image": "${property.Media[0].MediaURL || ""}",
         "url": "${property.url}",
         "address": {
         "@type": "PostalAddress",
@@ -74,16 +75,20 @@ export default function PropertySearchList({
         "numberOfBathrooms": "${property.BathroomsTotalDecimal}",
         "floorSize": {
         "@type": "QuantitativeValue",
-        "value": ${property.LivingArea !== undefined && property.LivingArea !== 0 ? `"${property?.LivingArea?.toLocaleString()}"` : null},
+        "value": ${
+          property.LivingArea !== undefined && property.LivingArea !== 0
+            ? `"${property?.LivingArea?.toLocaleString()}"`
+            : null
+        },
         "unitCode": "SQFT"
         }
         }
-        `,
+        `
           )
           .join(",")}
         ]
       }
-      `,
+      `
         )}
       </script>
       {properties?.map((property: Property, index: number) => {
