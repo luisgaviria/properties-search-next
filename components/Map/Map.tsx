@@ -66,7 +66,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
               const infoWindow = new this.googleRef.InfoWindow({
                 content: `
                   <div style="max-width: 300px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); font-family: Arial, sans-serif;">
-                    <a href="/buy/${
+                    <a href="/search/${
                       property.ListingId
                     }" style="text-decoration: none; color: inherit;">
                       <div style="padding: 10px; border-radius: 5px;">
@@ -152,11 +152,11 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
               <br/>
               <a href="/search/${
                 property.ListingId
-              }" target="_blank" style="text-decoration:underline; color: blue"><div style="padding: 15px;">
-              <div style="font-size: 16px; font-weight: bold;">
+              }" target="_blank" style="text-decoration:none;"><div style="padding: 15px; paddig-top: 0;">
+              <div style="font-size: 16px; font-weight: 500;">
                 $${property.ListPrice.toLocaleString()}
               </div>
-              <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">
+              <div style="font-size: 16px; font-weight: 500; margin-bottom: 5px;">
                 ${property.StreetNumber} ${property.StreetName}
               </div>
               <div style="color: #555; font-size: 14px;">
