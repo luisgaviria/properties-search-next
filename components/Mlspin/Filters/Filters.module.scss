@@ -841,5 +841,6 @@
 
   @media (max-width: 768px) {
     padding-top: 3rem;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   }
 }
