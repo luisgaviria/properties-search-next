@@ -835,8 +835,9 @@
   // gap: 1px;
   // padding-bottom: 6rem;
 
-  @media (max-width: 380px) {
+  @media (max-width: 480px) {
     display: block;
+    padding-top: 3rem;
   }
 
   @media (min-width: 768px) {
