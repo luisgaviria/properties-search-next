@@ -252,7 +252,7 @@ export default function SinglePropertyBuy() {
                   "streetAddress": "${state.StreetNumber} ${state.StreetName}",
                   "addressLocality": "${state.City || "Unknown"}",
                   "addressRegion": "${state.StateOrProvince || "Unknown"}",
-                  "postalCode": "${state.PostalCode || "Unknown"}",
+                  "postalCode": "MA",
                   "addressCountry": "USA"
                 },
                 "numberOfRooms": ${state.RoomsTotal || 0},
@@ -269,7 +269,7 @@ export default function SinglePropertyBuy() {
                   "priceCurrency": "USD",
                   "price": "${state.ListPrice || 0}",
                   "availability": "https://schema.org/${
-                    state.MlsStatus || "InStock"
+                    state.MlsStatus || "Unknown"
                   }",
                   "url": "/search/${pathName.split("/search/")[1]}"
                 }
