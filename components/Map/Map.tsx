@@ -147,26 +147,23 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
           }),
           infoWindow: new this.googleRef.InfoWindow({
             content: `
-            <div style="max-width: 300px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); font-family: Arial, sans-serif;">
-                    <a href="/buy/${
-                      property.ListingId
-                    }" style="text-decoration: none; color: inherit;">
-                      <div style="padding: 10px; border-radius: 5px;">
-                        <img style="width: 100%; height: auto; border-bottom: 1px solid #ddd;" src="${imgUrl}" alt="Property" />
-                      </div>
-                      <div style="padding: 15px;">
-                        <div style="font-size: 16px; font-weight: bold;">
-                          $${property.ListPrice.toLocaleString()}
-                        </div>
-                        <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">
-                          ${property.StreetNumber} ${property.StreetName}
-                        </div>
-                        <div style="color: #555; font-size: 14px;">
-                          ${property.City}
-                        </div>
-                      </div>
-                    </a>
-                  </div>
+            <div style="padding: 10px" class="marker">
+              <img style="width: 300px; height: 200px;" src="${imgUrl}"/>
+              <br/>
+              <a href="/search/${
+                property.ListingId
+              }" target="_blank" style="text-decoration:underline; color: blue"><div style="padding: 15px;">
+              <div style="font-size: 16px; font-weight: bold;">
+                $${property.ListPrice.toLocaleString()}
+              </div>
+              <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">
+                ${property.StreetNumber} ${property.StreetName}
+              </div>
+              <div style="color: #555; font-size: 14px;">
+                ${property.City}
+              </div>
+            </div></a>
+            </div>
           `,
           }),
         };
