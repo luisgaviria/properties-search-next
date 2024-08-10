@@ -1627,11 +1627,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
 
       <SearchButton onClick={onClickSearchHomes} />
 
-      <div
-        className={
-          formVisible["map"] ? styles["search-container"] : "container"
-        }
-      >
+      <div className={formVisible["map"] ? styles["search-container"] : ""}>
         <div className={styles["properties-grid-filter"]}>
           {/* <div className="pagination-wrapper">
           <Pagination>{items}</Pagination>
