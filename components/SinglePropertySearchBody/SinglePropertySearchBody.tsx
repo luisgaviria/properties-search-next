@@ -229,41 +229,86 @@ export default function SinglePropertyBuy() {
     (url: any) => url && typeof url === "string"
   );
 
+  console.log("STATE:", state);
+
   return resolvedTheme ? (
     <>
       <script type="application/ld+json">
         {state.StreetNumber
           ? `
-      {
-        "@context": "https://schema.org",
-        "@type": "RealEstateListing",
-        "name": "${generateTitle(state)}",
-        "description": "${truncateStringWithEllipsis(
-          state.PublicRemarks ?? ""
-        )}",
-        "image": "${filteredImageUrls[0] || ""}",
-        "url": "/buy/${pathName.split("/search/")[1]}",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "${state.StreetNumber} ${state.StreetName}",
-          "addressLocality": "${state.City}",
-          "addressRegion": "${state.StateOrProvince}",
-          "postalCode": "",
-          "addressCountry": "USA"
-        },
-        "price": "${formatPrice(state.ListPrice)}",
-        "numberOfBedrooms": "${state.BedroomsTotal}",
-        "numberOfBathrooms": "${state.BathroomsTotalDecimal}",
-        "floorSize": {
-          "@type": "QuantitativeValue",
-          "value": ${
-            state.LivingArea !== undefined && state.LivingArea !== ""
-              ? `"${state.LivingArea?.toLocaleString()}"`
-              : null
-          },
-          "unitCode": "SQFT"
-        }
-      }
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "${generateTitle(state)}",
+            "url": "/search/${pathName.split("/search/")[1]}",
+            "mainEntity": {
+              "@type": "RealEstateListing",
+              "datePosted": "${state.OnMarketDate}",
+              "about": {
+                "@type": "${state.PropertySubType || "Property"}",
+                "name": "${state.StreetNumber} ${state.StreetName}",
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": "${state.StreetNumber} ${state.StreetName}",
+                  "addressLocality": "${state.City || "Unknown"}",
+                  "addressRegion": "${state.StateOrProvince || "Unknown"}",
+                  "postalCode": "${state.PostalCode || "Unknown"}",
+                  "addressCountry": "USA"
+                },
+                "numberOfRooms": ${state.RoomsTotal || 0},
+                "floorSize": {
+                  "@type": "QuantitativeValue",
+                  "value": ${state.LivingArea || 0},
+                  "unitText": "sqft"
+                },
+                "description": "${
+                  state.PublicRemarks || "No description available."
+                }",
+                "offers": {
+                  "@type": "Offer",
+                  "priceCurrency": "USD",
+                  "price": "${state.ListPrice || 0}",
+                  "availability": "https://schema.org/${
+                    state.MlsStatus || "InStock"
+                  }",
+                  "url": "/search/${pathName.split("/search/")[1]}"
+                }
+              }
+            },
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Listings",
+                  "item": "/search"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "${state.StreetNumber} ${state.StreetName}"
+                }
+              ]
+            },
+            "primaryImageOfPage": {
+              "@type": "ImageObject",
+              "url": "${state.Media[0] || "/images/default-image.jpg"}",
+              "description": "Primary image of the property at ${
+                state.StreetNumber
+              } ${state.StreetName}."
+            },
+            "datePublished": "${new Date().toISOString().split("T")[0]}",
+            "dateModified": "${new Date().toISOString().split("T")[0]}",
+            "isFamilyFriendly": true
+          }
+          
     `
           : null}
       </script>
