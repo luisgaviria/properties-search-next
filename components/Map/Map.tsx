@@ -150,7 +150,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
             <a href="/search/${
               property.ListingId
             }" target="_blank" style="text-decoration:none;">
-            <div style="padding: 15px; max-width: 300px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); font-family: Arial, sans-serif;">
+            <div style="padding: 15px; max-width: 400px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); font-family: Arial, sans-serif;">
               <div style="padding: 10px; border-radius: 5px;" class="marker">
                <img style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px;" src="${imgUrl}" alt="Property"/>
                <br/>
@@ -159,7 +159,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
                 <div style="font-size: 16px; font-weight: 500; margin-bottom: 5px;">
                 ${property.StreetNumber} ${property.StreetName}
                 </div>
-                <div style="color: #555; font-size: 14px;">
+                <div style="color: #555; font-size: 16px; font-weight: 500;">
                 ${property.City}
                  </div>
                </div>
@@ -167,7 +167,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
                <div style="font-size: 16px; font-weight: bold;">
                  $${property.ListPrice.toLocaleString()}
                </div>
-              <div style="color: #555; font-size: 14px;">
+              <div style="color: #555; font-size: 16px;">
                 ${
                   property.LivingArea
                     ? `${property.LivingArea.toLocaleString()} sqft`
