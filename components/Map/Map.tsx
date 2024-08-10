@@ -156,18 +156,18 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
           <br/>
           <div style="display: flex; justify-content: space-between; align-items: flex-start;">
             <div>
-              <div style="font-size: 16px; font-weight: 500; line-height: 1.5;">
+              <div style="font-size: 16px; font-weight: 500; line-height: 1.3;">
                 ${property.StreetNumber} ${property.StreetName}
               </div>
-              <div style="color: #555; font-size: 16px; font-weight: 500; line-height: 1.5;">
+              <div style="color: #555; font-size: 16px; font-weight: 500; line-height: 1.3;">
                 ${property.City}
               </div>
             </div>
             <div style="text-align: right;">
-              <div style="font-size: 16px; font-weight: bold; line-height: 1.5;">
+              <div style="font-size: 16px; font-weight: bold; line-height: 1.3;">
                 $${property.ListPrice.toLocaleString()}
               </div>
-              <div style="color: #555; font-size: 16px; line-height: 1.5;">
+              <div style="color: #555; font-size: 16px; line-height: 1.3;">
                 ${
                   property.LivingArea
                     ? `${property.LivingArea.toLocaleString()} sqft`
