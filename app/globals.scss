@@ -289,16 +289,16 @@ table .cell-green::before {
 }
 
 .css-1xc3v61-indicatorContainer {
-  color: #000;
+  color: #000 !important;
 }
 .css-1u9des2-indicatorSeparator {
-  background-color: #000;
+  background-color: #000 !important;
 }
 
 .css-1jqq78o-placeholder {
-  grid-area: 1 / 1 / 2 / 3;
-  color: #000;
-  margin-left: 2px;
-  margin-right: 2px;
-  box-sizing: border-box;
+  grid-area: 1 / 1 / 2 / 3 !important;
+  color: #000 !important;
+  margin-left: 2px !important;
+  margin-right: 2px !important;
+  box-sizing: border-box !important;
 }
