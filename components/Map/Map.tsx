@@ -147,13 +147,13 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
           }),
           infoWindow: new this.googleRef.InfoWindow({
             content: `
+            <a href="/search/${
+              property.ListingId
+            }" target="_blank" style="text-decoration:none;"><div style="padding: 15px; paddig-top: 0;">
             <div style="padding: 10px" class="marker">
               <img style="width: 300px; height: 200px;" src="${imgUrl}"/>
               <br/>
-              <a href="/search/${
-                property.ListingId
-              }" target="_blank" style="text-decoration:none;"><div style="padding: 15px; paddig-top: 0;">
-              <div style="font-size: 16px; font-weight: 500;">
+              <div style="font-size: 16px; font-weight: 500; margin-bottom: 5px;">
                 $${property.ListPrice.toLocaleString()}
               </div>
               <div style="font-size: 16px; font-weight: 500; margin-bottom: 5px;">
@@ -162,8 +162,9 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
               <div style="color: #555; font-size: 14px;">
                 ${property.City}
               </div>
-            </div></a>
             </div>
+            </div>
+            </a>
           `,
           }),
         };
