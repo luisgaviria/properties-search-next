@@ -78,7 +78,7 @@ export default function Form() {
     if (updatedActiveButtons.includes(option)) {
       // If active, remove it from the updatedActiveButtons array
       updatedActiveButtons = updatedActiveButtons.filter(
-        (name) => name !== option,
+        (name) => name !== option
       );
     } else {
       // If not active, add it to the updatedActiveButtons array
@@ -158,8 +158,8 @@ export default function Form() {
               }}
               className={`
                   ${styles["btn-search-banner"]} ${
-                    activeButtons.includes("Rent") ? styles["active"] : ""
-                  }`}
+                activeButtons.includes("Rent") ? styles["active"] : ""
+              }`}
             >
               <span>RENT</span>
             </div>

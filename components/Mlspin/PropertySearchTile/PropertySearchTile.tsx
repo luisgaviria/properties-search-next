@@ -13,8 +13,8 @@ const formatPrice = (price: any) => {
   }).format(price);
 };
 
-const loader = (props: { src: string }) => {
-  return `${props.src}`;
+const loader = ({ src, width }: { src: string; width?: number }) => {
+  return `${src}${width ? `?w=${width}` : ""}`;
 };
 
 export default function PropertySearchTile({ data }: any) {
@@ -61,13 +61,15 @@ export default function PropertySearchTile({ data }: any) {
                   //   interval={null}
                   //   autoPlay={false}
                   // className={styles["img-wrap-buytile"]}
+                  key={index}
                 >
                   <a href={`/search/${data.ListingId}`} target="_blank">
                     {
                       <Image
-                        // type="image/webp"
+                        loader={(props: any) =>
+                          loader({ ...props, width: 500 })
+                        } // Example width
                         className={styles["img-carousel-tile"]}
-                        loader={loader}
                         placeholder="blur"
                         src={media.MediaURL}
                         blurDataURL="blur.jpg"

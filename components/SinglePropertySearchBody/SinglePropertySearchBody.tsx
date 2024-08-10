@@ -116,8 +116,8 @@ export const StateAtom = atom({
 
 StateAtom.debugLabel = "PropertyDetails";
 
-const loader = (props: { src: string }) => {
-  return `${props.src}`;
+const loader = ({ src, width }: { src: string; width?: number }) => {
+  return `${src}${width ? `?w=${width}` : ""}`;
 };
 
 const generateTitle = (state: any) => {
@@ -184,7 +184,7 @@ export default function SinglePropertyBuy() {
       agentName: string;
       officeName: string;
     } = await fetch(`/api/search/mlspin/${id}`, { cache: "no-store" }).then(
-      (res) => res.json(),
+      (res) => res.json()
     );
     console.log(data);
     setZillowIds(data.zillowData);
@@ -226,7 +226,7 @@ export default function SinglePropertyBuy() {
 
   const imageUrls = state.Media?.map((img: any) => img.MediaURL) || [];
   const filteredImageUrls = imageUrls.filter(
-    (url: any) => url && typeof url === "string",
+    (url: any) => url && typeof url === "string"
   );
 
   return resolvedTheme ? (
@@ -239,7 +239,7 @@ export default function SinglePropertyBuy() {
         "@type": "RealEstateListing",
         "name": "${generateTitle(state)}",
         "description": "${truncateStringWithEllipsis(
-          state.PublicRemarks ?? "",
+          state.PublicRemarks ?? ""
         )}",
         "image": "${filteredImageUrls[0] || ""}",
         "url": "/buy/${pathName.split("/search/")[1]}",
@@ -294,7 +294,7 @@ export default function SinglePropertyBuy() {
             <Carousel.Item key={index}>
               <div className={styles["show-page-image"]}>
                 <Image
-                  loader={loader}
+                  loader={(props: any) => loader({ ...props, width: 0 })} // Example width
                   alt={`Property image carousel item ${index}`}
                   src={obj.MediaURL}
                   key={index}
