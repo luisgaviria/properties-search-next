@@ -46,7 +46,7 @@ interface Media {
 }
 
 interface QueryObj {
-  [key: string]: any | undefined
+  [key: string]: any | undefined;
 }
 
 const limit = 12;
@@ -74,11 +74,11 @@ const calculatePages = (total: number, pageLimit: number) => {
 // DAYS ON MARKET/ZILLOW! -> our date - ListingContractDate = days! -> one more filter function after api call to make equation!
 
 export const maxDuration = 30; // vercel stuff
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export async function GET(
   req: NextRequest,
-  res: NextResponse<SearchResponse>,
+  res: NextResponse<SearchResponse>
   // res: any
 ) {
   let searchInput: string = "";
@@ -97,7 +97,7 @@ export async function GET(
       NumberOfUnitsTotal: queryurl.NumberOfUnitsTotal,
       City: (queryurl.City as string)?.split(","), // City :
       ListPrice:
-        queryurl.ListPriceFrom || queryurl.ListPriceTo
+        queryurl?.ListPriceFrom || queryurl?.ListPriceTo
           ? {
               gte: queryurl.ListPriceFrom, //ListPrice.gte
               lte: queryurl.ListPriceTo, // ListPrice.lte
@@ -157,10 +157,10 @@ export async function GET(
     type queryType = keyof typeof queryObj;
     let query = "";
     for (const key of Object.keys(queryObj)) {
-      if (key === "City" && queryObj[key].indexOf("Any") > -1) {
-        // Skip adding this parameter to the query
-        continue;
-      }
+      // if (key === "City" && queryObj[key].indexOf("Any") > -1) {
+      //   // Skip adding this parameter to the query
+      //   continue;
+      // }
       if (
         key === "City" &&
         queryObj.near !== undefined &&
@@ -194,7 +194,7 @@ export async function GET(
     try {
       console.log(query);
       const response = await axios.get(
-        `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&offset=${toSkip}&limit=${limit}&StandardStatus=Active&IDXParticipationYN=true&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,NumberOfUnitsTotal,Latitude,Longitude,Basement${query}`,
+        `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&offset=${toSkip}&limit=${limit}&StandardStatus=Active&IDXParticipationYN=true&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,NumberOfUnitsTotal,Latitude,Longitude,Basement${query}`
       );
       searchInput = queryObj.near as string;
       const session = (await getSession()) as any;
@@ -207,7 +207,6 @@ export async function GET(
         keys.map((key) => {
           data[key] = queryurl[key];
         });
-
 
         delete data.radius;
         delete data.page;
