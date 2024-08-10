@@ -65,14 +65,26 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
 
               const infoWindow = new this.googleRef.InfoWindow({
                 content: `
-                <a href="/buy/${property.ListingId}">
-                  <img height="220px" src="${imgUrl}" alt="Property" />
-                  <br />
-                  <div>
-                    ${property.StreetNumber} ${property.StreetName} ${property.City}
+                  <div style="max-width: 300px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); font-family: Arial, sans-serif;">
+                    <a href="/buy/${property.ListingId}" style="text-decoration: none; color: inherit;">
+                      <div style="background-color: #f8f8f8; padding: 10px;">
+                        <img style="width: 100%; height: auto; border-bottom: 1px solid #ddd;" src="${imgUrl}" alt="Property" />
+                      </div>
+                      <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">
+                          ${property.ListPrice} ${property.ListPrice}
+                      </div>
+                      <div style="padding: 15px;">
+                        <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">
+                          ${property.StreetNumber} ${property.StreetName}
+                        </div>
+                        <div style="padding: 15px;">
+                        <div style="color: #555; font-size: 14px;">
+                          ${property.City}
+                        </div>
+                      </div>
+                    </a>
                   </div>
-                </a>
-              `,
+                `,
               });
 
               return infoWindow;
@@ -80,8 +92,8 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
               console.error("Error loading image:", error);
               return null; // Skip properties with loading errors
             }
-          },
-        ),
+          }
+        )
       );
 
       // Attach click listeners and handle clustering
@@ -91,7 +103,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
             if (loadedInfoWindows[i]) {
               loadedInfoWindows[i].open(
                 this.googleMapRef,
-                markerWithInfoWindow.marker,
+                markerWithInfoWindow.marker
               );
             }
           });
@@ -126,7 +138,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
     // Create markers and info windows when the map is loaded
     this.markersWithInfoWindows = (this.props.properties || []).map(
       (property) => {
-        console.log(property);
+        console.log("Property:", property);
         const imgUrl = property.Media?.[0]?.MediaURL;
         return {
           marker: new this.googleRef.Marker({
@@ -134,15 +146,29 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
           }),
           infoWindow: new this.googleRef.InfoWindow({
             content: `
-            <div style="padding: 10px" class="marker">
-              <img style="width: 300px; height: 200px;" src="${imgUrl}"/>
-              <br/>
-              <a href="/search/${property.ListingId}" target="_blank" style="text-decoration:underline; color: blue">${property.City}, ${property.StreetName}, ${property.StreetNumber}</a>
-            </div>
+            <div style="max-width: 300px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); font-family: Arial, sans-serif;">
+                    <a href="/buy/${property.ListingId}" style="text-decoration: none; color: inherit;">
+                      <div style="background-color: #f8f8f8; padding: 10px;">
+                        <img style="width: 100%; height: auto; border-bottom: 1px solid #ddd;" src="${imgUrl}" alt="Property" />
+                      </div>
+                      <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">
+                          ${property.ListPrice} ${property.ListPrice}
+                      </div>
+                      <div style="padding: 15px;">
+                        <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">
+                          ${property.StreetNumber} ${property.StreetName}
+                        </div>
+                        <div style="padding: 15px;">
+                        <div style="color: #555; font-size: 14px;">
+                          ${property.City}
+                        </div>
+                      </div>
+                    </a>
+                  </div>
           `,
           }),
         };
-      },
+      }
     );
 
     // Attach click listeners
@@ -151,7 +177,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
         if (markerWithInfoWindow.infoWindow) {
           markerWithInfoWindow.infoWindow.open(
             this.googleMapRef,
-            markerWithInfoWindow.marker,
+            markerWithInfoWindow.marker
           );
         }
       });
