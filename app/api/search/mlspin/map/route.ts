@@ -60,7 +60,7 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
     near: queryurl.near,
     radius: queryurl.radius,
     NumberOfUnitsTotal: queryurl.NumberOfUnitsTotal,
-    City: (queryurl.City as string)?.split(",") || "any", // Ensure this is an array
+    City: (queryurl.City as string)?.split(",") || [], // Ensure this is an array
     ListPrice:
       queryurl.ListPriceFrom || queryurl.ListPriceTo
         ? {
