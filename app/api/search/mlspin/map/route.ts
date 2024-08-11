@@ -60,7 +60,7 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
     near: queryurl.near,
     radius: queryurl.radius,
     NumberOfUnitsTotal: queryurl.NumberOfUnitsTotal,
-    City: (queryurl.City as string)?.split(",") || [], // Ensure this is an array
+    City: (queryurl.City as string)?.split(",") || ["any"], // Ensure this is an array
     ListPrice:
       queryurl.ListPriceFrom || queryurl.ListPriceTo
         ? {
@@ -121,11 +121,8 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
 
   let query = "";
   for (const key of Object.keys(queryObj)) {
-    // if (key === "City" && queryObj.near !== undefined && queryObj.near !== "") {
-    //   continue; // Skip adding City if 'near' is present
-    // }
-    if (key === "City" && (!queryObj[key] || queryObj[key].length === 0)) {
-      queryObj[key] = "any";
+    if (key === "City" && queryObj.near !== undefined && queryObj.near !== "") {
+      continue; // Skip adding City if 'near' is present
     }
     if (
       queryObj[key as queryType] != null &&
