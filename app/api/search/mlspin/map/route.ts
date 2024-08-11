@@ -124,6 +124,9 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
     // if (key === "City" && queryObj.near !== undefined && queryObj.near !== "") {
     //   continue; // Skip adding City if 'near' is present
     // }
+    if (key === "City" && (!queryObj[key] || queryObj[key].length === 0)) {
+      queryObj[key] = "any";
+    }
     if (
       queryObj[key as queryType] != null &&
       Array.isArray(queryObj[key as queryType])
