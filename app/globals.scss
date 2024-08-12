@@ -240,6 +240,11 @@ li a {
 .navbar-expand-md {
   min-height: 7vh !important;
 }
+.navbar-collapse {
+  @media (max-width: 480px) {
+    padding-bottom: 1rem;
+  }
+}
 
 //option 1
 // table .cell-green {
