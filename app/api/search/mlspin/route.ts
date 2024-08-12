@@ -168,12 +168,27 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
         delete queryObj.City;
         continue;
       }
+      if (key === "City" && queryObj[key as queryType]?.indexOf("Any") > -1 ){
+        delete queryObj.City;
+        continue; 
+      }
       if (Array.isArray(queryObj[key as queryType])) {
         // Apply normalization logic to PropertySubType specifically
         if (key === "PropertySubType") {
-          query += `&${key}.in=${queryObj[key as queryType]
-            .map(normalizeQuerySubType)
-            .join(",")}`;
+          if(queryObj[key as queryType].indexOf("4 family")> -1 && queryObj[key as queryType].indexOf("3 family")> -1){
+            query += `&NumberOfUnitsTotal.gte=3&NumberOfUnitsTotal.lte=4`;
+          }
+          else if (queryObj[key as queryType].indexOf("4 family") > -1){
+            query += `&NumberOfUnitsTotal=4`;
+          }
+          else if (queryObj[key as queryType].indexOf("3 family") > -1){
+            query += `&NumberOfUnitsTotal=3`;
+          }
+          else {
+            query += `&${key}.in=${queryObj[key as queryType]
+              .map(normalizeQuerySubType)
+              .join(",")}`;
+          }
         } else {
           query += `&${key}.in=${queryObj[key as queryType]}`;
         }
@@ -196,7 +211,7 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
     }
 
     const toSkip = page * limit;
-
+    console.log(query);
     try {
       const response = await axios.get(
         `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&offset=${toSkip}&limit=${limit}&StandardStatus=Active&IDXParticipationYN=true&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,NumberOfUnitsTotal,Latitude,Longitude,Basement${query}`
@@ -218,7 +233,7 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
         delete data.sortBy;
         delete data.order;
         delete data.NumberOfUnitsTotal;
-        if (queryObj.near && queryObj.City.indexOf("Any") >= -1) {
+        if (queryObj.near || queryObj.City.indexOf("Any") >= -1) {
           delete data.City;
         }
 

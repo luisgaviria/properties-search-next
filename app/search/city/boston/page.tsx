@@ -14,9 +14,9 @@ import Head from "next/head";
 //     }
 // }
 
-async function getCityListings(city: any) {
+async function getCityListing() {
   let query = "";
-  query += `City=${city}`;
+  query += `City=boston`; // ${city} -> previously!
   query += `&PropertyType=Residential,Residential Income`;
   query += "&save=true";
   const res: any = await fetch(
@@ -32,18 +32,12 @@ async function getCityListings(city: any) {
 export const maxDuration = 30;
 
 export default async function ExactCity() {
-  const headersList = headers();
-  const xInvokePath = headersList.get("x-pathname") as string;
-  console.log(xInvokePath);
   // on vercel it is not sending as a header x-invoke-path we need to create middleware to add one more header with request url
-  const data = await getCityListings(
-    xInvokePath.split("/city/")[1][0].toUpperCase() +
-      xInvokePath.split("/city/")[1].slice(1),
-  );
+  const data = await getCityListing();
   return (
     <>
       <Head>
-        <title>{`There are ${data.properties.length} for sale in ${xInvokePath.split("/city/")[1][0].toUpperCase() + xInvokePath.split("/city/")[1].slice(1)}`}</title>
+        <title>{`There are 12  for sale in Boston`}</title>
       </Head>
       <Filters cityData={data.properties} cityPages={data.pages} />
     </>

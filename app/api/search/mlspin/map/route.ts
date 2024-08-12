@@ -124,13 +124,34 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
     if (key === "City" && queryObj.near !== undefined && queryObj.near !== "") {
       continue; // Skip adding City if 'near' is present
     }
+      if (key === "City" && queryObj[key as queryType].indexOf("Any") > -1 ){
+        delete queryObj.City;
+        continue;
+      }
     if (
       queryObj[key as queryType] != null &&
       Array.isArray(queryObj[key as queryType])
     ) {
-      query += `&${key}.in=${(queryObj[key as queryType] as string[]).join(
-        ","
-      )}`;
+      if (key === "PropertySubType"){
+        if(queryObj[key as queryType].indexOf("4 Family")> -1 && queryObj[key as queryType].indexOf("3 Family")> -1){
+          query += `&NumberOfUnitsTotal.gte=3&NumberOfUnitsTotal.lte=4`;
+        }
+        else if (queryObj[key as queryType].indexOf("4 Family") > -1){
+          query += `&NumberOfUnitsTotal=4`;
+        }
+        else if (queryObj[key as queryType].indexOf("3 Family") > -1){
+          query += `&NumberOfUnitsTotal=3`;
+        }
+        else {
+          query += `&${key}.in=${queryObj[key as queryType]
+            .join(",")}`;
+        }
+      }
+      else {
+        query += `&${key}.in=${(queryObj[key as queryType] as string[]).join(
+          ","
+        )}`;
+      }
     } else if (
       typeof queryObj[key as queryType] == "object" &&
       queryObj[key as queryType]
@@ -148,6 +169,8 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
       }
     }
   }
+
+  console.log(query);
 
   if (!center.lat) {
     // Handle query without center coordinates
