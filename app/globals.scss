@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 footer {
-  padding-top: 6rem;
+  padding-top: 4rem;
 }
 a {
   color: inherit;
@@ -20,6 +20,8 @@ a {
 
 hr {
   opacity: 1 !important;
+  padding-bottom: 4rem;
+  margin-top: 3rem;
 }
 
 ul {
