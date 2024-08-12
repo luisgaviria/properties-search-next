@@ -54,7 +54,6 @@ const noPagesLimit = 200;
 
 const calculatePages = (total: number, pageLimit: number) => {
   let pages: number = Math.floor(total / pageLimit);
-  //   pages = parseInt(pages);
   const rest = total - pages * pageLimit;
   if (rest) {
     pages++;
@@ -62,25 +61,27 @@ const calculatePages = (total: number, pageLimit: number) => {
   return pages;
 };
 
-// MORE FILTERS
-// HOA -> AssociationFee -> added
-// PARKING SPACES -> ParkingTotal -> added
-// SQUAREFEET MINIMUM -> livingarea -> added
-// SQUAREFEET MAXIMUM -> added
-// LOTSIZE MINIMUM -> Lotsize squarefeet -> added
-// LOTSIZE MAXIMUM  -> added
-// BASEMENT  -> Basement array -> added
-// OTHER AMENITIES -> Cooling array, pollfeatures, waterfrontFeatures array  done?
-// DAYS ON MARKET/ZILLOW! -> our date - ListingContractDate = days! -> one more filter function after api call to make equation!
+// Helper function to normalize subproperty type
+const normalizeSubpropertyType = (input: string): string => {
+  return input.trim().toLowerCase();
+};
+
+// Function to handle variations in PropertySubType
+const normalizeQuerySubType = (subType: string) => {
+  const normalized = normalizeSubpropertyType(subType);
+  if (
+    normalized === "3 family" ||
+    normalized.includes("3 family - 3 units up/down")
+  ) {
+    return "3 family"; // Standardize to one format
+  }
+  return subType;
+};
 
 export const maxDuration = 30; // vercel stuff
 export const dynamic = "force-dynamic";
 
-export async function GET(
-  req: NextRequest,
-  res: NextResponse<SearchResponse>
-  // res: any
-) {
+export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
   let searchInput: string = "";
   if (req.method == "GET") {
     const __query__ = (req.url?.split("?") as string[])[1];
@@ -112,11 +113,13 @@ export async function GET(
         queryurl.BathroomsTotalDecimalFrom || queryurl.BathroomsTotalDecimalTo
           ? {
               gte: queryurl.BathroomsTotalDecimalFrom, // BathroomsTotalDecimal.gte
-              eq: queryurl.BathroomsTotalDecimalTo, // BathroomsTotalDecimal.lte
+              lte: queryurl.BathroomsTotalDecimalTo, // BathroomsTotalDecimal.lte
             }
           : null,
       PropertyType: (queryurl.PropertyType as string)?.split(","), // PropertyType.in
-      PropertySubType: (queryurl.PropertySubType as string)?.split(","),
+      PropertySubType: (queryurl.PropertySubType as string)
+        ?.split(",")
+        .map(normalizeSubpropertyType),
       AssociationFee: queryurl.AssociationFeeFrom
         ? {
             lt: queryurl.AssociationFeeFrom,
@@ -157,20 +160,23 @@ export async function GET(
     type queryType = keyof typeof queryObj;
     let query = "";
     for (const key of Object.keys(queryObj)) {
-      // if (key === "City" && queryObj[key].indexOf("Any") > -1) {
-      //   // Skip adding this parameter to the query
-      //   continue;
-      // }
       if (
         key === "City" &&
         queryObj.near !== undefined &&
-        queryObj.near !== "" // Skip "City" if "near" is present and not empty
+        queryObj.near !== ""
       ) {
         delete queryObj.City;
         continue;
       }
       if (Array.isArray(queryObj[key as queryType])) {
-        query += `&${key}.in=${queryObj[key as queryType]}`;
+        // Apply normalization logic to PropertySubType specifically
+        if (key === "PropertySubType") {
+          query += `&${key}.in=${queryObj[key as queryType]
+            .map(normalizeQuerySubType)
+            .join(",")}`;
+        } else {
+          query += `&${key}.in=${queryObj[key as queryType]}`;
+        }
       } else if (
         typeof queryObj[key as queryType] == "object" &&
         queryObj[key as queryType]
@@ -192,7 +198,6 @@ export async function GET(
     const toSkip = page * limit;
 
     try {
-      console.log(query);
       const response = await axios.get(
         `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&offset=${toSkip}&limit=${limit}&StandardStatus=Active&IDXParticipationYN=true&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,NumberOfUnitsTotal,Latitude,Longitude,Basement${query}`
       );
@@ -235,16 +240,17 @@ export async function GET(
           });
         }
       }
+      console.log("API Response:", response.data);
       const pages = calculatePages(response.data.total, limit);
       return NextResponse.json({
         properties: response.data.bundle,
         pages: pages,
-        message: "Succesfully get data",
+        message: "Successfully retrieved data",
       });
     } catch (err) {
       console.log(err);
       return NextResponse.json({
-        message: "error",
+        message: "Error retrieving data",
       });
     }
   }

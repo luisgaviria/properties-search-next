@@ -72,18 +72,18 @@ const NavBar = (props: any) => {
         ) : (
           <Navbar.Collapse className="justify-content-end mr-3">
             <Nav>
-              <Nav.Link
+              {/* <Nav.Link
                 className="text-gray-900 dark:text-white"
                 href="/auth/register"
               >
                 Register
-              </Nav.Link>
-              <Nav.Link
+              </Nav.Link> */}
+              {/* <Nav.Link
                 className="text-gray-900 dark:text-white mr4"
                 href="/auth/login"
               >
                 Login
-              </Nav.Link>
+              </Nav.Link> */}
             </Nav>
           </Navbar.Collapse>
         )}
