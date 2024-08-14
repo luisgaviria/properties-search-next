@@ -1,6 +1,5 @@
 // Import necessary modules and components
 import styles from "./page.module.scss";
-import Script from "next/script";
 import Banner from "@/components/Banner/Banner";
 import { Container } from "./client-react-boostrap";
 import ImageCards from "@/components/ImageCards/ImageCards";
@@ -80,56 +79,63 @@ export default async function Home() {
 
   return (
     <>
-      <Script
-        id="schema-ld"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "RealEstateListing",
-            name: "Home Page",
-            description:
-              "Sell your home with confidence at Harmony Homes. Access free real-time MLS listings and expert advice to reach the right buyers quickly and efficiently.",
-            numberOfItems: newListings?.length + waterFrontListings?.length,
-            itemListElement: newListings
-              .concat(waterFrontListings)
-              .map((property, index) =>
-                property.map((tempProperty, index) => ({
-                  "@type": "ListItem",
-                  position: index + 1,
-                  item: {
-                    "@type": "RealEstateListing",
-                    name: "generateTitle(tempProperty)",
-                    image:
-                      tempProperty?.Media?.length &&
-                      tempProperty.Media[0].MediaURL,
-                    url: tempProperty.url,
-                    address: {
-                      "@type": "PostalAddress",
-                      streetAddress: `${tempProperty.StreetNumber} ${tempProperty.StreetName}`,
-                      addressLocality: tempProperty.City,
-                      addressRegion: tempProperty.StateOrProvince,
-                      addressCountry: "USA",
-                    },
-                    price: formatPrice(tempProperty.ListPrice),
-                    numberOfBedrooms: tempProperty.BedroomsTotal,
-                    numberOfBathrooms: tempProperty.BathroomsTotalDecimal,
-                    floorSize: {
-                      "@type": "QuantitativeValue",
-                      value:
-                        tempProperty.LivingArea !== undefined &&
-                        tempProperty.LivingArea !== 0
-                          ? `${tempProperty.LivingArea.toLocaleString()}`
-                          : null,
-                      unitCode: "SQFT",
-                    },
-                  },
-                }))
+      <script type="application/ld+json">
+        {newListings?.length &&
+          waterFrontListings?.length &&
+          `
+        {
+          "@context": "https://schema.org",
+          "@type": "RealEstateListing",
+          "name": "Home Page",
+          "description": "Sell your home with confidence at Harmony Homes. Access free real-time MLS listings and expert advice to reach the right buyers quickly and efficiently.",
+          "numberOfItems": ${newListings?.length + waterFrontListings?.length},
+          "itemListElement": [
+          ${newListings
+            ?.concat(waterFrontListings)
+            ?.map((property, index) =>
+              property?.map(
+                (tempProperty, index) => `
+          {
+          "@type": "ListItem",
+          "position": ${index + 1},
+          "item": {
+          "@type": "RealEstateListing",
+          "name": "",
+          "image": "${
+            tempProperty?.Media?.length && tempProperty.Media[0].MediaURL
+          }",
+          "url": "${tempProperty.url}",
+          "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "${tempProperty.StreetNumber} ${
+                  tempProperty.StreetName
+                }",
+          "addressLocality": "${tempProperty.City}",
+          "addressRegion": "${tempProperty.StateOrProvince}",
+          "addressCountry": "USA"
+          },
+          "price": "${formatPrice(tempProperty.ListPrice)}",
+          "numberOfBedrooms": "${tempProperty.BedroomsTotal}",
+          "numberOfBathrooms": "${tempProperty.BathroomsTotalDecimal}",
+          "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": ${
+            tempProperty.LivingArea !== undefined &&
+            tempProperty.LivingArea !== 0
+              ? `"${tempProperty.LivingArea.toLocaleString()}"`
+              : null
+          },
+          "unitCode": "SQFT"
+          }
+          }
+          `
               )
-              .flat(),
-          }),
-        }}
-      />
+            )
+            .join(",")}
+          ]
+        }
+      `}
+      </script>
       <main className={styles.main}>
         <Banner />
 
