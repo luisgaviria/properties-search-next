@@ -22,9 +22,8 @@ const Banner = () => {
           <div className={styles["home-title-wrapper"]}>
             <h1>Harmony Homes</h1>
             <h2>Unlock the Door to Your Future Home</h2>
-            <Suspense fallback={<Loading />}>
-              <Form />
-            </Suspense>
+
+            <Form />
           </div>
         </Container>
       </div>

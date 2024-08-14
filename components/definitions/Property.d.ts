@@ -30,6 +30,6 @@ interface Media {
   ClassName: string;
   MediaCategory: string;
   MimeType: string;
-  MediaObjectID: string;
+  MediaObjectID: string | null;
   ShortDescription: string;
 }

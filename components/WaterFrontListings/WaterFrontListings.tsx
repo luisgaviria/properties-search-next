@@ -60,9 +60,9 @@ const WaterFrontListings = ({ listings }: { listings: Property[][] }) => {
       }
     >
       {listings.length
-        ? listings.map((page) => {
+        ? listings.map((page, index) => {
             return (
-              <Carousel.Item>
+              <Carousel.Item key={index + 1}>
                 <div className={styles["properties-new-container"]}>
                   <div className={styles["properties-grid-new-listing"]}>
                     {page.length

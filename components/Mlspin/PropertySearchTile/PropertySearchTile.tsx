@@ -41,55 +41,39 @@ export default function PropertySearchTile({ data }: any) {
     <div>
       <div className={styles[`properties_grid_element_buy`]}>
         <Carousel variant="primary" onClick={childrenClick} interval={null}>
-          {data.Media && data.Media.length > 0 ? (
-            data.Media.map((media: any, index: number) => {
-              if (index < 9) {
-                // Log media object to inspect its properties
-                // console.log("Media Object:", media);
+          {data.Media && data.Media.length > 0
+            ? data.Media.map((media: any, index: number) => {
+                if (index < 9) {
+                  // Log media object to inspect its properties
+                  // console.log("Media Object:", media);
 
-                // Determine image source with fallback
-                const imageSrc = media.MediaURL
-                  ? media.MediaURL
-                  : defaultImageURL;
+                  // Determine image source with fallback
+                  const imageSrc = media.MediaURL
+                    ? media.MediaURL
+                    : defaultImageURL;
 
-                return (
-                  <Carousel.Item style={{ cursor: "pointer" }} key={index}>
-                    <a href={`/search/${data.ListingId}`} target="_blank">
-                      <Image
-                        loader={(props: any) =>
-                          loader({ ...props, width: 500 })
-                        }
-                        className={styles["img-carousel-tile"]}
-                        placeholder="blur"
-                        src={imageSrc}
-                        blurDataURL="blur.jpg"
-                        key={index}
-                        alt="property main image"
-                        width={50}
-                        height={300}
-                      />
-                    </a>
-                  </Carousel.Item>
-                );
-              }
-            })
-          ) : (
-            // Display the default image when no media is available
-            <Carousel.Item style={{ cursor: "pointer" }}>
-              <a href={`/search/${data.ListingId}`} target="_blank">
-                <Image
-                  loader={(props: any) => loader({ ...props, width: 500 })}
-                  className={styles["img-carousel-tile"]}
-                  placeholder="blur"
-                  src={defaultImageURL}
-                  blurDataURL="blur.jpg"
-                  alt="property main image"
-                  width={50}
-                  height={300}
-                />
-              </a>
-            </Carousel.Item>
-          )}
+                  return (
+                    <Carousel.Item style={{ cursor: "pointer" }} key={index}>
+                      <a href={`/search/${data.ListingId}`}>
+                        <Image
+                          loader={(props: any) =>
+                            loader({ ...props, width: 500 })
+                          }
+                          className={styles["img-carousel-tile"]}
+                          placeholder="blur"
+                          src={imageSrc}
+                          blurDataURL="blur.jpg"
+                          key={index}
+                          alt="property main image"
+                          width={50}
+                          height={300}
+                        />
+                      </a>
+                    </Carousel.Item>
+                  );
+                }
+              })
+            : null}
         </Carousel>
 
         <div style={{ cursor: "pointer" }}>
