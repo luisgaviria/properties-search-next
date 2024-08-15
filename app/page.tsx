@@ -80,7 +80,20 @@ export default async function Home() {
 
   return (
     <>
+
+
       <main className={styles.main}>
+      <script type="application/ld+json">
+
+{`
+{
+  "@context": "https://schema.org",
+  "@type": "RealEstateListing",
+  "name": "Home Page",
+  "description": "Sell your home with confidence at Harmony Homes. Access free real-time MLS listings and expert advice to reach the right buyers quickly and efficiently.",
+}
+`}
+  </script>
         <Banner />
 
         <Container>
