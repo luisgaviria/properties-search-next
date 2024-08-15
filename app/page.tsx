@@ -75,6 +75,7 @@ export async function generateMetadata(): Promise<Metadata> {
 // Main server component
 export default async function Home() {
   const newListings = await getLatestListings();
+  console.log(newListings.length); 
   const waterFrontListings = await getWaterFrontListings();
 
   return (

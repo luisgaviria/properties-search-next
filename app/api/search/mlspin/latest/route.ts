@@ -57,7 +57,7 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
     );
     const listings = [];
     let temp = [];
-    for (let i = 0; i <= 60; i++) {
+    for (let i = 0; i <= 24; i++) {
       if (!(i % 12) && i) {
         listings.push(temp);
         temp = [];

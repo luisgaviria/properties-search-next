@@ -42,7 +42,7 @@ export default function PropertySearchTile({ data }: any) {
       <div className={styles[`properties_grid_element_buy`]}>
         <Carousel variant="primary" onClick={childrenClick} interval={null}>
           {data.Media && data.Media.length > 0
-            ? data.Media.map((media: any, index: number) => {
+            ? data.Media.slice(0,4).map((media: any, index: number) => {
                 if (index < 9) {
                   // Log media object to inspect its properties
                   // console.log("Media Object:", media);
