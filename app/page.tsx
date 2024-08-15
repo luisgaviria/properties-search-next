@@ -81,9 +81,8 @@ export default async function Home() {
   return (
     <>
       <script type="application/ld+json">
-        {newListings?.length &&
-          waterFrontListings?.length &&
-          `
+
+    {`
     {
       "@context": "https://schema.org",
       "@type": "RealEstateListing",
