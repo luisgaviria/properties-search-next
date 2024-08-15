@@ -75,25 +75,19 @@ export async function generateMetadata(): Promise<Metadata> {
 // Main server component
 export default async function Home() {
   const newListings = await getLatestListings();
-  console.log(newListings.length); 
   const waterFrontListings = await getWaterFrontListings();
-
+  const schema = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "RealEstateListing",
+    "name": "Home Page",
+    "description": "Sell your home with confidence at Harmony Homes. Access free real-time MLS listings and expert advice to reach the right buyers quickly and efficiently."
+  });
   return (
     <>
 
 
       <main className={styles.main}>
-      <script type="application/ld+json">
-
-{`
-{
-  "@context": "https://schema.org",
-  "@type": "RealEstateListing",
-  "name": "Home Page",
-  "description": "Sell your home with confidence at Harmony Homes. Access free real-time MLS listings and expert advice to reach the right buyers quickly and efficiently."
-}
-`}
-  </script>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: schema}}/>
         <Banner />
 
         <Container>
