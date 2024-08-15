@@ -39,7 +39,7 @@ const WaterFrontListings = ({ listings }: { listings: Property[][] }) => {
     <Carousel
       className="homeCarousel"
       controls={true}
-      touch
+      touch={false}
       interval={null}
       nextIcon={
         <Image

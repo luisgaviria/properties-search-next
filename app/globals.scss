@@ -199,6 +199,12 @@ li a {
   right: -50px;
   width: 0%;
 }
+@media (max-width: 767px) {
+  .homeCarousel {
+    touch-action: none !important;
+    user-select: none !important;
+  }
+}
 
 @media (max-width: 1700px) {
   .homeCarousel > .carousel-control-prev {
