@@ -85,12 +85,12 @@ export default function PropertySearchList({
         "unitCode": "SQFT"
         }
         }
-        `
+        `,
           )
           .join(",")}
         ]
       }
-      `
+      `,
         )}
       </script>
       {properties?.map((property: Property, index: number) => {

@@ -43,8 +43,6 @@
 //   );
 // }
 
-export default function Hello(){
-  return (
-    <h2>Currently in progress...</h2>
-  )
-};
+export default function Hello() {
+  return <h2>Currently in progress...</h2>;
+}

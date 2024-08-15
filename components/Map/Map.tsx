@@ -93,8 +93,8 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
               console.error("Error loading image:", error);
               return null; // Skip properties with loading errors
             }
-          }
-        )
+          },
+        ),
       );
 
       // Attach click listeners and handle clustering
@@ -104,7 +104,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
             if (loadedInfoWindows[i]) {
               loadedInfoWindows[i].open(
                 this.googleMapRef,
-                markerWithInfoWindow.marker
+                markerWithInfoWindow.marker,
               );
             }
           });
@@ -183,7 +183,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
           `,
           }),
         };
-      }
+      },
     );
 
     // Attach click listeners
@@ -192,7 +192,7 @@ class GoogleMapContainer extends Component<GoogleMapContainerProps> {
         if (markerWithInfoWindow.infoWindow) {
           markerWithInfoWindow.infoWindow.open(
             this.googleMapRef,
-            markerWithInfoWindow.marker
+            markerWithInfoWindow.marker,
           );
         }
       });

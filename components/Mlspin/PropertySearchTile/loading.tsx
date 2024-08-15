@@ -13,7 +13,7 @@ export default function Loading() {
     >
       <Spinner style={{ margin: "0 auto" }} animation="border" role="status">
         <span className="visually-hidden">Loading...</span>
-      </Spinner>                
+      </Spinner>
     </div>
   );
 }

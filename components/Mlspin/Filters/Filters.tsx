@@ -163,7 +163,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     page_num: number,
     input: string,
     filters: any,
-    save = true
+    save = true,
   ) => {
     let query = "";
     const radiusVal = "1mi";
@@ -204,7 +204,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     if (save == true) {
       const res2: response = await fetch(
         `/api/search/mlspin?save=true${query}&page=${page_num}`,
-        { cache: "no-store" }
+        { cache: "no-store" },
       ).then((res) => res.json());
       setValue(input);
       setPageObj({ actualPage: page_num, pages: res2.pages });
@@ -213,7 +213,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     } else {
       const res2: response = await fetch(
         `/api/search/mlspin?${query}&page=${page_num}`,
-        { cache: "no-store" }
+        { cache: "no-store" },
       ).then((res) => res.json());
       setValue(input);
       setPageObj({ actualPage: page_num, pages: res2.pages });
@@ -311,7 +311,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     query += "&save=true";
     const res2: response = await fetch(
       `/api/search/mlspin?${query}&page=${page_num}`,
-      { cache: "no-store" }
+      { cache: "no-store" },
     ).then((res) => res.json());
 
     setPageObj({ actualPage: page_num, pages: res2.pages });
@@ -352,7 +352,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
           (filter[key as keyof typeof filter] as string[]).map(
             (item: string) => {
               query += `${item},`;
-            }
+            },
           );
         } else if (filter[key as keyof typeof filter]) {
           if (
@@ -398,7 +398,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
         }
       });
       const res: mapResponse = await fetch(
-        `/api/search/mlspin/map?${query}&Lat=${center.lat}&Lng=${center.lng}`
+        `/api/search/mlspin/map?${query}&Lat=${center.lat}&Lng=${center.lng}`,
       ).then((res) => res.json());
       return res.properties;
     } catch (err) {
@@ -591,7 +591,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
 
   const onChangeMultiSelect = (
     newValue: MultiValue<{ value: any; label: any }>,
-    actionMeta: ActionMeta<{ value: any; label: any }>
+    actionMeta: ActionMeta<{ value: any; label: any }>,
   ) => {
     const cities: string[] = [];
     for (const value of newValue) {
@@ -637,7 +637,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
 
   //Jotai
   const onChangePropertyTypeCheckbox = (
-    event: ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement>,
   ) => {
     setFilter((prevFilter: FilterState) => {
       let PropertyTypes = Array.isArray(prevFilter.PropertyType)
@@ -684,7 +684,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
   };
 
   const onChangeGarageYNandWaterfrontYNCheckbox = (
-    event: ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement>,
   ) => {
     setFilter((prevFilter: FilterState) => {
       const { value, checked } = event.target;
@@ -705,7 +705,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
 
   //Jotai
   const onChangePropertySubTypeCheckbox = (
-    event: ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement>,
   ) => {
     setFilter((prevFilter: FilterState) => {
       const PropertySubTypes = prevFilter.PropertySubType || [];
@@ -793,7 +793,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                       value="Residential,Residential Income"
                       checked={
                         filter.PropertyType.indexOf(
-                          "Residential,Residential Income"
+                          "Residential,Residential Income",
                         ) > -1
                           ? true
                           : false
@@ -923,7 +923,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                     value="Single Family Residence"
                     checked={
                       filter.PropertySubType.indexOf(
-                        "Single Family Residence"
+                        "Single Family Residence",
                       ) > -1
                         ? true
                         : false
@@ -1709,12 +1709,12 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
                   ? createPaginationPhone(
                       pageObj.pages,
                       pageObj.actualPage,
-                      getData
+                      getData,
                     )
                   : createPagination(
                       pageObj.pages,
                       pageObj.actualPage,
-                      getData
+                      getData,
                     )}
               </Pagination>
             </Suspense>

@@ -35,12 +35,12 @@ export async function generateMetadata({
     process.env.VERCEL_URL
       ? `https://properties-search-next.vercel.app/api/search/mlspin/${id}`
       : `http://localhost:3000/api/search/mlspin/${id}`,
-    { cache: "no-store" }
+    { cache: "no-store" },
   ).then((res) => res.json());
 
   const imageUrls = data.property.Media?.map((img: any) => img.MediaURL) || [];
   const filteredImageUrls = imageUrls.filter(
-    (url: any) => url && typeof url === "string"
+    (url: any) => url && typeof url === "string",
   );
 
   // Generate the title dynamically
@@ -51,7 +51,7 @@ export async function generateMetadata({
         : null;
 
     return `House for Sale: ${data.property.UnparsedAddress} - ${formatPrice(
-      data.property.ListPrice
+      data.property.ListPrice,
     )} - ${livingArea !== null ? livingArea + " sqft" : ""}`;
   };
 
@@ -67,7 +67,7 @@ export async function generateMetadata({
     metadataBase: new URL(
       process.env.VERCEL_URL
         ? `https://www.bostonharmonyhomes.com/`
-        : `http://localhost:3000/`
+        : `http://localhost:3000/`,
     ),
     alternates: {
       canonical: `/search/${id}`,

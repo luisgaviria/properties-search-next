@@ -124,32 +124,30 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
     if (key === "City" && queryObj.near !== undefined && queryObj.near !== "") {
       continue; // Skip adding City if 'near' is present
     }
-      if (key === "City" && queryObj[key as queryType].indexOf("Any") > -1 ){
-        delete queryObj.City;
-        continue;
-      }
+    if (key === "City" && queryObj[key as queryType].indexOf("Any") > -1) {
+      delete queryObj.City;
+      continue;
+    }
     if (
       queryObj[key as queryType] != null &&
       Array.isArray(queryObj[key as queryType])
     ) {
-      if (key === "PropertySubType"){
-        if(queryObj[key as queryType].indexOf("4 Family")> -1 && queryObj[key as queryType].indexOf("3 Family")> -1){
+      if (key === "PropertySubType") {
+        if (
+          queryObj[key as queryType].indexOf("4 Family") > -1 &&
+          queryObj[key as queryType].indexOf("3 Family") > -1
+        ) {
           query += `&NumberOfUnitsTotal.gte=3&NumberOfUnitsTotal.lte=4`;
-        }
-        else if (queryObj[key as queryType].indexOf("4 Family") > -1){
+        } else if (queryObj[key as queryType].indexOf("4 Family") > -1) {
           query += `&NumberOfUnitsTotal=4`;
-        }
-        else if (queryObj[key as queryType].indexOf("3 Family") > -1){
+        } else if (queryObj[key as queryType].indexOf("3 Family") > -1) {
           query += `&NumberOfUnitsTotal=3`;
+        } else {
+          query += `&${key}.in=${queryObj[key as queryType].join(",")}`;
         }
-        else {
-          query += `&${key}.in=${queryObj[key as queryType]
-            .join(",")}`;
-        }
-      }
-      else {
+      } else {
         query += `&${key}.in=${(queryObj[key as queryType] as string[]).join(
-          ","
+          ",",
         )}`;
       }
     } else if (
@@ -176,7 +174,7 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
     // Handle query without center coordinates
     try {
       const response = await axios.get(
-        `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&limit=${noPagesLimit}&StandardStatus=Active&IDXParticipationYN=true&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,Latitude,Longitude${query}`
+        `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&limit=${noPagesLimit}&StandardStatus=Active&IDXParticipationYN=true&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,Latitude,Longitude${query}`,
       );
       return NextResponse.json({
         properties: response.data.bundle,
@@ -199,7 +197,7 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
         Array.isArray(queryObj[key as queryType])
       ) {
         query += `&${key}.in=${(queryObj[key as queryType] as string[]).join(
-          ","
+          ",",
         )}`;
       } else if (
         typeof queryObj[key as queryType] == "object" &&
@@ -221,7 +219,7 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
 
     try {
       const response = await axios.get(
-        `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&limit=${noPagesLimit}&StandardStatus=Active&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,Latitude,Longitude${query}&near=${center.lng},${center.lat}&radius=1mi`
+        `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&limit=${noPagesLimit}&StandardStatus=Active&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,Latitude,Longitude${query}&near=${center.lng},${center.lat}&radius=1mi`,
       );
       return NextResponse.json({
         properties: response.data.bundle,

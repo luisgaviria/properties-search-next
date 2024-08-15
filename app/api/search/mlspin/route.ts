@@ -168,23 +168,23 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
         delete queryObj.City;
         continue;
       }
-      if (key === "City" && queryObj[key as queryType]?.indexOf("Any") > -1 ){
+      if (key === "City" && queryObj[key as queryType]?.indexOf("Any") > -1) {
         delete queryObj.City;
-        continue; 
+        continue;
       }
       if (Array.isArray(queryObj[key as queryType])) {
         // Apply normalization logic to PropertySubType specifically
         if (key === "PropertySubType") {
-          if(queryObj[key as queryType].indexOf("4 family")> -1 && queryObj[key as queryType].indexOf("3 family")> -1){
+          if (
+            queryObj[key as queryType].indexOf("4 family") > -1 &&
+            queryObj[key as queryType].indexOf("3 family") > -1
+          ) {
             query += `&NumberOfUnitsTotal.gte=3&NumberOfUnitsTotal.lte=4`;
-          }
-          else if (queryObj[key as queryType].indexOf("4 family") > -1){
+          } else if (queryObj[key as queryType].indexOf("4 family") > -1) {
             query += `&NumberOfUnitsTotal=4`;
-          }
-          else if (queryObj[key as queryType].indexOf("3 family") > -1){
+          } else if (queryObj[key as queryType].indexOf("3 family") > -1) {
             query += `&NumberOfUnitsTotal=3`;
-          }
-          else {
+          } else {
             query += `&${key}.in=${queryObj[key as queryType]
               .map(normalizeQuerySubType)
               .join(",")}`;
@@ -214,7 +214,7 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
     console.log(query);
     try {
       const response = await axios.get(
-        `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&offset=${toSkip}&limit=${limit}&StandardStatus=Active&IDXParticipationYN=true&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,NumberOfUnitsTotal,Latitude,Longitude,Basement${query}`
+        `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&offset=${toSkip}&limit=${limit}&StandardStatus=Active&IDXParticipationYN=true&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,NumberOfUnitsTotal,Latitude,Longitude,Basement${query}`,
       );
       searchInput = queryObj.near as string;
       const session = (await getSession()) as any;

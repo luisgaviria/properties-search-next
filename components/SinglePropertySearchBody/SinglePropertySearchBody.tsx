@@ -184,7 +184,7 @@ export default function SinglePropertyBuy() {
       agentName: string;
       officeName: string;
     } = await fetch(`/api/search/mlspin/${id}`, { cache: "no-store" }).then(
-      (res) => res.json()
+      (res) => res.json(),
     );
     console.log(data);
     setZillowIds(data.zillowData);
@@ -226,7 +226,7 @@ export default function SinglePropertyBuy() {
 
   const imageUrls = state.Media?.map((img: any) => img.MediaURL) || [];
   const filteredImageUrls = imageUrls.filter(
-    (url: any) => url && typeof url === "string"
+    (url: any) => url && typeof url === "string",
   );
 
   console.log("STATE:", state);
