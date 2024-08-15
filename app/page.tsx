@@ -46,7 +46,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = `Sell your home with confidence at Harmony Homes. Access free real-time MLS listings and expert advice to reach the right buyers quickly and efficiently.`;
 
   return {
-    title: `Harmony Homes: Real-Time MLS Listings for Buyers and Sellers`,
+    title: `Real-Time MLS Listings for Buyers and Sellers`,
     description: description,
     metadataBase: new URL(
       process.env.VERCEL_URL
@@ -57,7 +57,7 @@ export async function generateMetadata(): Promise<Metadata> {
       canonical: `/`,
     },
     openGraph: {
-      title: `Harmony Homes: Real-Time MLS Listings for Buyers and Sellers`,
+      title: `Real-Time MLS Listings for Buyers and Sellers`,
       description: description,
       images: [{ url: newListings[0]?.[0]?.Media?.[0]?.MediaURL || "" }],
       url: `/`,
@@ -65,7 +65,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: `Harmony Homes: Real-Time MLS Listings for Buyers and Sellers`,
+      title: `Real-Time MLS Listings for Buyers and Sellers`,
       description: description,
       images: [{ url: newListings[0]?.[0]?.Media?.[0]?.MediaURL || "" }],
     },
