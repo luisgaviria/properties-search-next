@@ -83,56 +83,58 @@ export default async function Home() {
         {newListings?.length &&
           waterFrontListings?.length &&
           `
-        {
-          "@context": "https://schema.org",
-          "@type": "RealEstateListing",
-          "name": "Home Page",
-          "description": "Sell your home with confidence at Harmony Homes. Access free real-time MLS listings and expert advice to reach the right buyers quickly and efficiently.",
-          "numberOfItems": ${newListings?.length + waterFrontListings?.length},
-          "itemListElement": [
-          ${newListings
-            ?.concat(waterFrontListings)
-            ?.map((property, index) =>
-              property?.map(
+    {
+      "@context": "https://schema.org",
+      "@type": "RealEstateListing",
+      "name": "Home Page",
+      "description": "Sell your home with confidence at Harmony Homes. Access free real-time MLS listings and expert advice to reach the right buyers quickly and efficiently.",
+      "numberOfItems": ${newListings.length + waterFrontListings.length},
+      "itemListElement": [
+        ${newListings
+          .concat(waterFrontListings)
+          .map((propertyGroup, groupIndex) =>
+            propertyGroup
+              .map(
                 (tempProperty, index) => `
-          {
+        {
           "@type": "ListItem",
-          "position": ${index + 1},
+          "position": ${groupIndex * newListings.length + index + 1},
           "item": {
-          "@type": "RealEstateListing",
-          "name": "",
-          "url": "${tempProperty.url}",
-          "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "${tempProperty.StreetNumber} ${
+            "@type": "RealEstateListing",
+            "name": "",
+            "url": "${tempProperty.url}",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "${tempProperty.StreetNumber} ${
                   tempProperty.StreetName
                 }",
-          "addressLocality": "${tempProperty.City}",
-          "addressRegion": "${tempProperty.StateOrProvince}",
-          "addressCountry": "USA"
-          },
-          "price": "${formatPrice(tempProperty.ListPrice)}",
-          "numberOfBedrooms": "${tempProperty.BedroomsTotal}",
-          "numberOfBathrooms": "${tempProperty.BathroomsTotalDecimal}",
-          "floorSize": {
-          "@type": "QuantitativeValue",
-          "value": ${
-            tempProperty.LivingArea !== undefined &&
-            tempProperty.LivingArea !== 0
-              ? `"${tempProperty.LivingArea.toLocaleString()}"`
-              : null
-          },
-          "unitCode": "SQFT"
+              "addressLocality": "${tempProperty.City}",
+              "addressRegion": "${tempProperty.StateOrProvince}",
+              "addressCountry": "USA"
+            },
+            "price": "${formatPrice(tempProperty.ListPrice)}",
+            "numberOfBedrooms": "${tempProperty.BedroomsTotal}",
+            "numberOfBathrooms": "${tempProperty.BathroomsTotalDecimal}",
+            "floorSize": {
+              "@type": "QuantitativeValue",
+              "value": ${
+                tempProperty.LivingArea && tempProperty.LivingArea !== 0
+                  ? `"${tempProperty.LivingArea.toLocaleString()}"`
+                  : null
+              },
+              "unitCode": "SQFT"
+            }
           }
-          }
-          `
+        }`
               )
-            )
-            .join(",")}
-          ]
-        }
-      `}
+              .join(",")
+          )
+          .join(",")}
+      ]
+    }
+    `}
       </script>
+
       <main className={styles.main}>
         <Banner />
 
