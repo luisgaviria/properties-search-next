@@ -138,8 +138,6 @@ export default async function Home() {
               addressRegion: tempProperty.StateOrProvince,
               addressCountry: "USA",
             },
-            numberOfBedrooms: tempProperty.BedroomsTotal,
-            numberOfBathrooms: tempProperty.BathroomsTotalDecimal,
           },
         }))
       ),
