@@ -113,8 +113,7 @@ export default async function Home() {
         propertyGroup.map((tempProperty, index) => ({
           "@context": "https://schema.org",
           "@type": "Offer",
-          "@id": `${tempProperty.ListingId}`, // Unique ID for each offer
-          additionalType: tempProperty.url, // Dynamically add more fields as needed
+          "@id": `Offer${tempProperty.ListingId}`,
           price: formatPrice(tempProperty.ListPrice),
           priceCurrency: "USD",
           availability: "https://schema.org/InStock",
@@ -127,17 +126,30 @@ export default async function Home() {
             telephone: "+1-508-762-7639",
           },
           itemOffered: {
-            "@type": "RealEstateListing",
+            "@type": "House", // House schema added
             name:
               `${tempProperty.StreetNumber} ${tempProperty.StreetName}` || "",
             url: tempProperty.url,
-            availableAtOrFrom: {
+            address: {
               "@type": "PostalAddress",
               streetAddress: `${tempProperty.StreetNumber} ${tempProperty.StreetName}`,
               addressLocality: tempProperty.City,
               addressRegion: tempProperty.StateOrProvince,
               addressCountry: "USA",
             },
+            numberOfBedrooms: tempProperty.BedroomsTotal,
+            numberOfBathroomsTotal: tempProperty.BathroomsTotalDecimal,
+            floorSize: {
+              "@type": "QuantitativeValue",
+              value:
+                tempProperty.LivingArea && tempProperty.LivingArea !== 0
+                  ? tempProperty.LivingArea.toLocaleString()
+                  : null,
+              unitCode: "SQFT",
+            },
+            yearBuilt: tempProperty.YearBuilt || null,
+            petsAllowed: tempProperty.PetsAllowed || null,
+            // Add any other House-related properties here
           },
         }))
       ),
