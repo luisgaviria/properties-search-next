@@ -117,7 +117,6 @@ export default async function Home() {
           price: formatPrice(tempProperty.ListPrice),
           priceCurrency: "USD",
           availability: "https://schema.org/InStock",
-          itemCondition: "https://schema.org/NewCondition",
           businessFunction: "https://schema.org/SellAction",
           seller: {
             "@type": "RealEstateAgent",
