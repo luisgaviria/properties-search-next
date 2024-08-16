@@ -148,14 +148,18 @@ export default async function Home() {
       ),
   });
 
-  const combinedSchemas = `${schema}\n${schema_listing}`;
+  const listing_schema = `${schema_listing}`;
 
   return (
     <>
       <main className={styles.main}>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: combinedSchemas }}
+          dangerouslySetInnerHTML={{ __html: schema }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: listing_schema }}
         />
         <Banner />
 
