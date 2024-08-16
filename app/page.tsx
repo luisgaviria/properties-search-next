@@ -147,9 +147,6 @@ export default async function Home() {
                   : null,
               unitCode: "SQFT",
             },
-            yearBuilt: tempProperty.YearBuilt || null,
-            petsAllowed: tempProperty.PetsAllowed || null,
-            // Add any other House-related properties here
           },
         }))
       ),
