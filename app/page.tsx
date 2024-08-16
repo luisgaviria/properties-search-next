@@ -148,8 +148,6 @@ export default async function Home() {
       ),
   });
 
-  const listing_schema = `${schema_listing}`;
-
   return (
     <>
       <main className={styles.main}>
@@ -159,7 +157,7 @@ export default async function Home() {
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: listing_schema }}
+          dangerouslySetInnerHTML={{ __html: schema_listing }}
         />
         <Banner />
 
