@@ -101,11 +101,7 @@ export default async function Home() {
   const schema_listing = JSON.stringify({
     "@type": "RealEstateListing",
     "@id": "RealEstateListing", // Unique ID for the listing
-    name: "House for sale in ",
-    description:
-      "This stunning 4-bedroom waterfront house in Miami offers luxury living with breathtaking views of the ocean. Close to schools, parks, and shopping centers.",
-    url: "https://example.com/listing/beautiful-waterfront-house-miami",
-    datePosted: "2024-08-14T12:00:00Z",
+    name: "House for sale in Mass",
     offers: newListings
       .concat(waterFrontListings)
       .flatMap((propertyGroup, groupIndex) =>
@@ -121,9 +117,9 @@ export default async function Home() {
           businessFunction: "https://schema.org/SellAction",
           seller: {
             "@type": "RealEstateAgent",
-            name: "Miami Realty Co.",
-            url: "https://miamirealtyco.com",
-            telephone: "+1-305-555-0123",
+            name: "Boston Harmony Homes.",
+            url: "https://bostonharmonyhomes.com",
+            telephone: "+1-508-762-7639",
           },
           itemOffered: {
             "@type": "RealEstateListing",
