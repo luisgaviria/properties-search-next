@@ -76,6 +76,12 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Home() {
   const newListings = await getLatestListings();
   const waterFrontListings = await getWaterFrontListings();
+
+  newListings.map((propertyGroup: any, groupIndex: any) =>
+    propertyGroup.map((tempProperty: any, index: any) => {
+      console.log("TEMP:::", tempProperty);
+    })
+  );
   const schema = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
@@ -100,7 +106,6 @@ export default async function Home() {
 
   const schema_listing = JSON.stringify({
     "@type": "RealEstateListing",
-    "@id": "RealEstateListing", // Unique ID for the listing
     name: "House for sale in Mass",
     offers: newListings
       .concat(waterFrontListings)
@@ -108,7 +113,7 @@ export default async function Home() {
         propertyGroup.map((tempProperty, index) => ({
           "@context": "https://schema.org",
           "@type": "Offer",
-          "@id": `Offer${groupIndex * newListings.length + index + 1}`, // Unique ID for each offer
+          "@id": `${tempProperty.ListingId}`, // Unique ID for each offer
           additionalType: tempProperty.url, // Dynamically add more fields as needed
           price: formatPrice(tempProperty.ListPrice),
           priceCurrency: "USD",
@@ -126,7 +131,7 @@ export default async function Home() {
             name:
               `${tempProperty.StreetNumber} ${tempProperty.StreetName}` || "",
             url: tempProperty.url,
-            address: {
+            availableAtOrFrom: {
               "@type": "PostalAddress",
               streetAddress: `${tempProperty.StreetNumber} ${tempProperty.StreetName}`,
               addressLocality: tempProperty.City,
@@ -135,14 +140,6 @@ export default async function Home() {
             },
             numberOfBedrooms: tempProperty.BedroomsTotal,
             numberOfBathrooms: tempProperty.BathroomsTotalDecimal,
-            floorSize: {
-              "@type": "QuantitativeValue",
-              value:
-                tempProperty.LivingArea && tempProperty.LivingArea !== 0
-                  ? tempProperty.LivingArea.toLocaleString()
-                  : null,
-              unitCode: "SQFT",
-            },
           },
         }))
       ),
