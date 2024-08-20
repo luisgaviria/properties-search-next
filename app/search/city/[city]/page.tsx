@@ -46,7 +46,7 @@ export async function generateMetadata({
       description,
       images: [
         {
-          // url: 'https://www.bostonharmonyhomes.com/images/default-image.jpg', // Placeholder URL for now
+          url: "/logo.png", // Placeholder URL for now
           alt: `Real estate listings in ${
             city.charAt(0).toUpperCase() + city.slice(1)
           }`,
@@ -58,7 +58,7 @@ export async function generateMetadata({
       site: "@BostonHarmonyHomes", // Update with your Twitter handle
       title,
       description,
-      // image: "https://www.bostonharmonyhomes.com/images/default-image.jpg", // Placeholder URL for now
+      image: "/logo.png", // Placeholder URL for now
     },
   };
 }
