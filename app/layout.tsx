@@ -41,7 +41,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                 <Footer />
                 <Script
                   id="googlemaps"
-                  src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places,maps&loading=async`}
+                  src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places&loading=async`}
                   strategy="afterInteractive"
                   type="text/javascript"
                 />
