@@ -183,7 +183,7 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
           } else if (queryObj[key as queryType].indexOf("4 family") > -1) {
             query += `&NumberOfUnitsTotal=4`;
           } else if (queryObj[key as queryType].indexOf("3 family") > -1) {
-            query += `&NumberOfUnitsTotal=3`;
+            query += `&NumberOfUnitsTotal=3&PropertySubType.in=3 Family,3 Family - 3 Units Up/Down`;
           } else {
             query += `&${key}.in=${queryObj[key as queryType]
               .map(normalizeQuerySubType)
