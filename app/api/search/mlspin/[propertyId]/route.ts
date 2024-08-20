@@ -422,11 +422,12 @@ export async function GET(
     `https://api.bridgedataoutput.com/api/v2/mlspin/listings/${propertyId}?access_token=${process.env.API_ACCESS_TOKEN}`,
   );
 
-  console.log(response.data.bundle.UnitNumber);
+  console.log(response.data);
   const streetName = response.data.bundle.StreetName?.split(" ")[0];
+  const streetNumber = response.data.bundle.StreetNumber?.split("&")[0] // sometimes numbers go with & 
 
   const responseZillow = await axios.get(
-    `https://api.bridgedataoutput.com/api/v2/pub/parcels?access_token=${process.env.API_ACCESS_TOKEN}&limit=10&near=${response.data.bundle.Longitude + "," + response.data.bundle.Latitude}&address.house=${response.data.bundle.StreetNumber}&address.unit=${response.data.bundle.UnitNumber}&address.full.in=${streetName}&fields=id`,
+    `https://api.bridgedataoutput.com/api/v2/pub/parcels?access_token=${process.env.API_ACCESS_TOKEN}&limit=10&near=${response.data.bundle.Longitude + "," + response.data.bundle.Latitude}&address.house=${streetNumber}&address.unit=${response.data.bundle.UnitNumber}&address.full.in=${streetName}&fields=id`,
   );
 
   const responseAgent = await axios.get(
