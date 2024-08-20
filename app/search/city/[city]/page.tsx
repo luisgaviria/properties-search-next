@@ -39,6 +39,9 @@ export async function generateMetadata({
   return {
     title,
     description,
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
       type: "website",
       url,
@@ -60,6 +63,7 @@ export async function generateMetadata({
       description,
       image: "/logo.png", // Placeholder URL for now
     },
+    canonical: url,
   };
 }
 
