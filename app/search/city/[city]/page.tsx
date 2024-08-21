@@ -20,7 +20,7 @@ async function getCityListing(city: string) {
 function generatePropertySchema(properties: any[]) {
   return JSON.stringify({
     "@type": "RealEstateListing",
-    name: "Real estate listings",
+    name: "Real Estate Listings",
     offers: properties.map((tempProperty) => ({
       "@context": "https://schema.org",
       "@type": "Offer",
@@ -70,12 +70,12 @@ export async function generateMetadata({
   ).then((res) => res.json());
   const totalAmountOfProperties = data.pages * 12;
 
-  const title = `Boston Harmony Homes: ${totalAmountOfProperties} Properties for Sale in ${
+  const title = `${
     city.charAt(0).toUpperCase() + city.slice(1)
-  }`;
-  const description = `Explore ${totalAmountOfProperties} real estate listings in ${
+  }, MA Real Estate & Homes for Sale`;
+  const description = `Discover ${totalAmountOfProperties} real estate opportunities in ${
     city.charAt(0).toUpperCase() + city.slice(1)
-  } with Boston Harmony Homes. Buy or sell with market insights, detailed photos, and advanced filters.`;
+  }, MA with Boston Harmony Homes. Benefit from detailed photos, advanced filters, and expert market insights for buying or selling your property.`;
   const url = `https://www.bostonharmonyhomes.com/search/city/${city}`;
 
   return {
