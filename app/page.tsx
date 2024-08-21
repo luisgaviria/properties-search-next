@@ -43,10 +43,11 @@ async function getWaterFrontListings(): Promise<Property[][]> {
 export async function generateMetadata(): Promise<Metadata> {
   const newListings = await getLatestListings();
   const waterFrontListings = await getWaterFrontListings();
-  const description = `Sell your home with confidence at Harmony Homes. Access free real-time MLS listings and expert advice to reach the right buyers quickly and efficiently.`;
+  const description = `Sell your home fast with Boston Harmony Homes. Explore free real-time real estate listings and expert tips to connect with the right buyers efficiently.`;
+  const title = "Real Estate, Homes for Sale | Boston Harmony Homes";
 
   return {
-    title: `Real-Time MLS Listings for Buyers and Sellers`,
+    title: title,
     description: description,
     metadataBase: new URL(
       process.env.VERCEL_URL
@@ -57,7 +58,7 @@ export async function generateMetadata(): Promise<Metadata> {
       canonical: `/`,
     },
     openGraph: {
-      title: `Real-Time MLS Listings for Buyers and Sellers`,
+      title: title,
       description: description,
       images: [{ url: newListings[0]?.[0]?.Media?.[0]?.MediaURL || "" }],
       url: `/`,
@@ -65,7 +66,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: `Real-Time MLS Listings for Buyers and Sellers`,
+      title: title,
       description: description,
       images: [{ url: newListings[0]?.[0]?.Media?.[0]?.MediaURL || "" }],
     },
