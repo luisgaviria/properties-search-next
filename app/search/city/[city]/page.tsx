@@ -16,6 +16,48 @@ async function getCityListing(city: string) {
   return { properties: res.properties, pages: res.pages };
 }
 
+// Function to generate the property schema
+function generatePropertySchema(properties: any[]) {
+  return JSON.stringify({
+    "@type": "RealEstateListing",
+    name: "Real estate listings",
+    offers: properties.map((tempProperty) => ({
+      "@context": "https://schema.org",
+      "@type": "Offer",
+      "@id": `Offer${tempProperty.ListingId}`,
+      price: `${tempProperty.ListPrice.toLocaleString()}`,
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      businessFunction: "https://schema.org/SellAction",
+      seller: {
+        "@type": "RealEstateAgent",
+        name: "Boston Harmony Homes",
+        url: "https://bostonharmonyhomes.com",
+        telephone: "+1-508-762-7639",
+      },
+      itemOffered: {
+        "@type": "House",
+        name: `${tempProperty.StreetNumber}${tempProperty.StreetName}`,
+        url: tempProperty.url,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: `${tempProperty.StreetNumber}${tempProperty.StreetName}`,
+          addressLocality: tempProperty.City,
+          addressRegion: tempProperty.StateOrProvince,
+          addressCountry: "USA",
+        },
+        numberOfBedrooms: tempProperty.BedroomsTotal,
+        numberOfBathroomsTotal: tempProperty.BathroomsTotalDecimal,
+        floorSize: {
+          "@type": "QuantitativeValue",
+          value: tempProperty.LivingArea?.toLocaleString() || null,
+          unitCode: "SQFT",
+        },
+      },
+    })),
+  });
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -49,10 +91,7 @@ export async function generateMetadata({
       description,
       images: [
         {
-          url: "/logo.png", // Placeholder URL for now
-          alt: `Real estate listings in ${
-            city.charAt(0).toUpperCase() + city.slice(1)
-          }`,
+          url: "/logo.png", // Placeholder URL for nowalt: `Real estate listings in
         },
       ],
     },
@@ -87,8 +126,16 @@ export default async function CityPage({
   const city = params.city;
   const data = await getCityListing(city);
 
+  // Generate the schema for the property listings
+  const schema_listing = generatePropertySchema(data.properties);
+
   return (
     <>
+      {/* Injecting the schema as JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: schema_listing }}
+      />
       <Filters cityData={data.properties} cityPages={data.pages} />
     </>
   );
