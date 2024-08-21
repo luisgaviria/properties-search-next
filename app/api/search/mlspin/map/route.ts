@@ -49,6 +49,23 @@ interface QueryObj {
   [key: string]: any | undefined;
 }
 
+// Helper function to normalize subproperty type
+const normalizeSubpropertyType = (input: string): string => {
+  return input.trim().toLowerCase();
+};
+
+// Function to handle variations in PropertySubType
+const normalizeQuerySubType = (subType: string) => {
+  const normalized = normalizeSubpropertyType(subType);
+  if (
+    normalized === "3 family" ||
+    normalized.includes("3 family - 3 units up/down")
+  ) {
+    return "3 family"; // Standardize to one format
+  }
+  return subType;
+};
+
 export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
   const __query__ = (req.url?.split("?") as string[])[1];
   const queryurl = qs.parse(__query__);
@@ -81,7 +98,9 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
           }
         : null,
     PropertyType: (queryurl.PropertyType as string)?.split(","),
-    PropertySubType: (queryurl.PropertySubType as string)?.split(","),
+    PropertySubType: (queryurl.PropertySubType as string)
+      ?.split(",")
+      .map(normalizeQuerySubType),
     AssociationFee: queryurl.AssociationFeeFrom
       ? {
           lt: queryurl.AssociationFeeFrom,
@@ -143,11 +162,13 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
         } else if (queryObj[key as queryType].indexOf("3 Family") > -1) {
           query += `&NumberOfUnitsTotal=3`;
         } else {
-          query += `&${key}.in=${queryObj[key as queryType].join(",")}`;
+          query += `&${key}.in=${(queryObj[key as queryType] as string[]).join(
+            ","
+          )}`;
         }
       } else {
         query += `&${key}.in=${(queryObj[key as queryType] as string[]).join(
-          ",",
+          ","
         )}`;
       }
     } else if (
@@ -174,7 +195,7 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
     // Handle query without center coordinates
     try {
       const response = await axios.get(
-        `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&limit=${noPagesLimit}&StandardStatus=Active&IDXParticipationYN=true&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,Latitude,Longitude${query}`,
+        `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&limit=${noPagesLimit}&StandardStatus=Active&IDXParticipationYN=true&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,Latitude,Longitude${query}`
       );
       return NextResponse.json({
         properties: response.data.bundle,
@@ -187,17 +208,14 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
       });
     }
   } else {
-    // Handle query with center coordinates
-    delete queryObj?.City; // Remove City from the query if center coordinates are provided
-
-    let query = "";
+    // Handle query with center coordinatesdelete queryObj?.City; // Remove City from the query if center coordinates are providedlet query = "";
     for (const key of Object.keys(queryObj)) {
       if (
         queryObj[key as queryType] != null &&
         Array.isArray(queryObj[key as queryType])
       ) {
         query += `&${key}.in=${(queryObj[key as queryType] as string[]).join(
-          ",",
+          ","
         )}`;
       } else if (
         typeof queryObj[key as queryType] == "object" &&
@@ -219,7 +237,11 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
 
     try {
       const response = await axios.get(
-        `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${process.env.API_ACCESS_TOKEN}&limit=${noPagesLimit}&StandardStatus=Active&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,Latitude,Longitude${query}&near=${center.lng},${center.lat}&radius=1mi`,
+        `https://api.bridgedataoutput.com/api/v2/mlspin/listings?access_token=${
+          process.env.API_ACCESS_TOKEN
+        }&limit=${noPagesLimit}&StandardStatus=Active&fields=ListingId,Media,ListPrice,BedroomsTotal,BathroomsTotalDecimal,LivingArea,MLSAreaMajor,City,StateOrProvince,StreetNumber,StreetName,Latitude,Longitude${query}&near=${
+          center.lng
+        },${center.lat}&radius=${queryurl.radius || 5}`
       );
       return NextResponse.json({
         properties: response.data.bundle,
@@ -228,7 +250,7 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
     } catch (err) {
       console.error("\x1b[31m%s\x1b[0m", "Error in fetching data:", err);
       return NextResponse.json({
-        err: err,
+        message: "error",
       });
     }
   }
