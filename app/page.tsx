@@ -101,7 +101,7 @@ export default async function Home() {
     legalName: "Harmony Homes",
     priceRange: "$1-$200000000",
     sameAs: "Bostonharmonyhomes.com",
-    telephone: "5087627639",
+    telephone: "+1 508-762-7639",
     tourBookingPage: "bostonharmonyhomes.com/search",
   });
 

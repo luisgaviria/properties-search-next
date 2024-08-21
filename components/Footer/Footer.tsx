@@ -2,6 +2,7 @@
 import styles from "./Footer.module.scss";
 import React, { useState, useEffect } from "react";
 import Container from "@/node_modules/react-bootstrap/esm/Container";
+import Link from "@/node_modules/next/link";
 
 const Footer = () => {
   const [showFooter, setShowFooter] = useState(false);
@@ -57,14 +58,14 @@ const Footer = () => {
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href="https://www.facebook.com/profile.php?id=61564314644259"
                     className="text-gray-900 dark:text-white"
                     target="_blank"
                     rel="noreferrer noopener"
                   >
                     Facebook
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
