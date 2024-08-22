@@ -122,6 +122,27 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
   const { resolvedTheme } = useTheme();
   const [screenWidth, setScreenWidth] = useState(1000);
   const [moreFilters, setMoreFilters] = useState(false);
+
+  const resetAll = () => {
+    setFilter({
+      ListPriceFrom: 0,
+      ListPriceTo: 0,
+      City: [],
+      PropertyType: [],
+      PropertySubType: [],
+      NumberOfUnitsTotal: null,
+      BathroomsTotal: 0,
+      BedroomsTotal: 0,
+      sortBy: "ListPrice",
+      order: "desc",
+      Basement: [],
+      WaterfrontYN: null,
+      GarageYN: null,
+    });
+    setProperties([]);
+    setPageObj({ actualPage: 1, pages: 0 });
+  };
+
   const getDataCity = async (city: string) => {
     setFormVisible((prevState) => {
       return {
@@ -446,6 +467,7 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
     debounce: 300,
   });
   useEffect(() => {
+    resetAll();
     if (searchParams.get("near") && !searchFromHome) {
       console.log(searchParams.get("near"));
       const page = parseInt(searchParams.get("page") as string);

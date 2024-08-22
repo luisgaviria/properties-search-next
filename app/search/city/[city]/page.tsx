@@ -6,6 +6,8 @@ async function getCityListing(city: string) {
   query += `City=${city}`; // ${city} -> previously!
   query += `&PropertyType=Residential,Residential Income`;
   query += "&save=true";
+
+  await new Promise(r => setTimeout(r, 500));
   const res: any = await fetch(
     `https://www.bostonharmonyhomes.com/api/search/mlspin?${query}&page=1`,
     {

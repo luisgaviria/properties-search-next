@@ -14,7 +14,6 @@ const NavBar = (props: any) => {
   const handleLogOut = async () => {
     await signOut();
   };
-
   return (
     <Navbar
       className={styles["navbar-properties"]}

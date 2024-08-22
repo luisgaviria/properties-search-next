@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.bostonharmonyhomes.com
+
+# Sitemaps
+Sitemap: https://www.bostonharmonyhomes.com/sitemap.xml
