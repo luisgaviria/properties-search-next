@@ -42,6 +42,23 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                   `,
                 }}
               />
+              {/* Google Tag (gtag.js) */}
+              <Script
+                async
+                src="https://www.googletagmanager.com/gtag/js?id=G-Q0TTLQ7K8W"
+              />
+              <Script
+                id="gtag-config"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                  __html: `
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', 'G-Q0TTLQ7K8W');
+                  `,
+                }}
+              />
             </head>
             <body className={inter.className}>
               <noscript>
