@@ -34,28 +34,28 @@ function generatePropertySchema(properties: any[]) {
         "@type": "RealEstateAgent",
         name: "Boston Harmony Homes",
         url: "https://bostonharmonyhomes.com",
-        telephone: "+1-508-762-7639",
+        telephone: "+1-508-762-7639"
       },
       itemOffered: {
         "@type": "House",
-        name: `${tempProperty.StreetNumber}${tempProperty.StreetName}`,
+        name: `${tempProperty.StreetNumber} ${tempProperty.StreetName}`,
         url: tempProperty.url,
         address: {
           "@type": "PostalAddress",
-          streetAddress: `${tempProperty.StreetNumber}${tempProperty.StreetName}`,
+          streetAddress: `${tempProperty.StreetNumber} ${tempProperty.StreetName}`,
           addressLocality: tempProperty.City,
           addressRegion: tempProperty.StateOrProvince,
-          addressCountry: "USA",
+          addressCountry: "USA"
         },
         numberOfBedrooms: tempProperty.BedroomsTotal,
         numberOfBathroomsTotal: tempProperty.BathroomsTotalDecimal,
         floorSize: {
           "@type": "QuantitativeValue",
           value: tempProperty.LivingArea?.toLocaleString() || null,
-          unitCode: "SQFT",
-        },
-      },
-    })),
+          unitCode: "SQFT"
+        }
+      }
+    }))
   });
 }
 
@@ -78,7 +78,7 @@ const realEstateAgentSchema = JSON.stringify({
   priceRange: "$1-$200000000",
   sameAs: "Bostonharmonyhomes.com",
   telephone: "+1 508-762-7639",
-  tourBookingPage: "bostonharmonyhomes.com/search",
+  tourBookingPage: "bostonharmonyhomes.com/search"
 });
 
 export async function generateMetadata({
