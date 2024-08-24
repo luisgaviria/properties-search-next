@@ -161,12 +161,12 @@ export default async function CityPage({
         dangerouslySetInnerHTML={{ __html: realEstateAgentSchema }}
         strategy="afterInteractive"
       />
-      {/* <Script
+      <Script
         id="json-ld-agent"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: schema_listing }}
         strategy="afterInteractive"
-      /> */}
+      />
       <Filters cityData={data.properties} cityPages={data.pages} />
     </>
   );
