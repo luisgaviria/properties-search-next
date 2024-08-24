@@ -59,29 +59,27 @@ function generatePropertySchema(properties: any[]) {
   });
 }
 
-function generateRealEstateAgentSchema() {
-  return JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "RealEstateAgent",
-    "@id": "RealEstateAgent",
-    actionableFeedbackPolicy: "bostonharmonyhomes.com",
-    additionalType: "bostonharmonyhomes.com",
-    address: "62 Creshill Rd",
-    alternateName: "Boston Harmony Homes",
-    areaServed: "Greater Boston - Mass",
-    description:
-      "Sell your home with confidence at Harmony Homes. Access free real-time MLS listings and expert advice to reach the right buyers quickly and efficiently.",
-    email: "Luis.aptx@gmail.com",
-    foundingDate: "2024-07-15",
-    hasMap: "bostonharmonyhomes.com",
-    location: "Boston",
-    legalName: "Harmony Homes",
-    priceRange: "$1-$200000000",
-    sameAs: "Bostonharmonyhomes.com",
-    telephone: "+1 508-762-7639",
-    tourBookingPage: "bostonharmonyhomes.com/search",
-  });
-}
+const realEstateAgentSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "@id": "RealEstateAgent",
+  actionableFeedbackPolicy: "bostonharmonyhomes.com",
+  additionalType: "bostonharmonyhomes.com",
+  address: "62 Creshill Rd",
+  alternateName: "Boston Harmony Homes",
+  areaServed: "Greater Boston - Mass",
+  description:
+    "Sell your home with confidence at Harmony Homes. Access free real-time MLS listings and expert advice to reach the right buyers quickly and efficiently.",
+  email: "Luis.aptx@gmail.com",
+  foundingDate: "2024-07-15",
+  hasMap: "bostonharmonyhomes.com",
+  location: "Boston",
+  legalName: "Harmony Homes",
+  priceRange: "$1-$200000000",
+  sameAs: "Bostonharmonyhomes.com",
+  telephone: "+1 508-762-7639",
+  tourBookingPage: "bostonharmonyhomes.com/search",
+});
 
 export async function generateMetadata({
   params,
@@ -153,7 +151,6 @@ export default async function CityPage({
 
   // Generate the schema for the property listings
   const schema_listing = generatePropertySchema(data.properties);
-  const schemaAgent = generateRealEstateAgentSchema();
 
   return (
     <>
@@ -161,7 +158,7 @@ export default async function CityPage({
       <Script
         id="json-ld-agent"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: schemaAgent }}
+        dangerouslySetInnerHTML={{ __html: realEstateAgentSchema }}
         strategy="afterInteractive"
       />
       <Filters cityData={data.properties} cityPages={data.pages} />
