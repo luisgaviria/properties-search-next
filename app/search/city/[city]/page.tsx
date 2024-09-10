@@ -1,13 +1,12 @@
 import fs from "fs";
 import Filters from "@/components/Mlspin/Filters/Filters";
+import Script from "@/node_modules/next/script";
 
 async function getCityListing(city: string) {
   let query = "";
   query += `City=${city}`; // ${city} -> previously!
   query += `&PropertyType=Residential,Residential Income`;
   query += "&save=true";
-
-  await new Promise(r => setTimeout(r, 500));
   const res: any = await fetch(
     `https://www.bostonharmonyhomes.com/api/search/mlspin?${query}&page=1`,
     {
@@ -39,11 +38,11 @@ function generatePropertySchema(properties: any[]) {
       },
       itemOffered: {
         "@type": "House",
-        name: `${tempProperty.StreetNumber}${tempProperty.StreetName}`,
+        name: `${tempProperty.StreetNumber} ${tempProperty.StreetName}`,
         url: tempProperty.url,
         address: {
           "@type": "PostalAddress",
-          streetAddress: `${tempProperty.StreetNumber}${tempProperty.StreetName}`,
+          streetAddress: `${tempProperty.StreetNumber} ${tempProperty.StreetName}`,
           addressLocality: tempProperty.City,
           addressRegion: tempProperty.StateOrProvince,
           addressCountry: "USA",
@@ -59,6 +58,28 @@ function generatePropertySchema(properties: any[]) {
     })),
   });
 }
+
+const realEstateAgentSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "@id": "RealEstateAgent",
+  actionableFeedbackPolicy: "bostonharmonyhomes.com",
+  additionalType: "bostonharmonyhomes.com",
+  address: "62 Creshill Rd",
+  alternateName: "Boston Harmony Homes",
+  areaServed: "Greater Boston - Mass",
+  description:
+    "Sell your home with confidence at Harmony Homes. Access free real-time MLS listings and expert advice to reach the right buyers quickly and efficiently.",
+  email: "Luis.aptx@gmail.com",
+  foundingDate: "2024-07-15",
+  hasMap: "bostonharmonyhomes.com",
+  location: "Boston",
+  legalName: "Harmony Homes",
+  priceRange: "$1-$200000000",
+  sameAs: "Bostonharmonyhomes.com",
+  telephone: "+1 508-762-7639",
+  tourBookingPage: "bostonharmonyhomes.com/search",
+});
 
 export async function generateMetadata({
   params,
@@ -134,9 +155,17 @@ export default async function CityPage({
   return (
     <>
       {/* Injecting the schema as JSON-LD */}
-      <script
+      <Script
+        id="json-ld-agent"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: realEstateAgentSchema }}
+        strategy="afterInteractive"
+      />
+      <Script
+        id="json-ld-agent"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: schema_listing }}
+        strategy="afterInteractive"
       />
       <Filters cityData={data.properties} cityPages={data.pages} />
     </>

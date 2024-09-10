@@ -3,9 +3,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/Navbar/Navbar";
-import { headers } from "next/headers";
 import { ReactQueryProvider } from "./ReactQueryProvider";
-import Script from "@/node_modules/next/script";
+import Script from "next/script";
 import { Provider } from "./client-exports";
 import DevTools from "./client-exports-jotai";
 import { ReactNode } from "react";
@@ -15,6 +14,7 @@ import { ThemeProvider } from "@/components/ThemeProvider/ThemeProvider";
 export interface RootLayoutProps {
   children: ReactNode;
 }
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -29,7 +29,46 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       <Provider>
         <AuthProvider>
           <html lang="en">
+            <head>
+              {/* Google Tag Manager Script */}
+              <Script
+                id="gtag-init"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                  __html: `
+                    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                    })(window,document,'script','dataLayer','GTM-MJGXJ534');
+                  `,
+                }}
+              />
+              {/* Google Tag (gtag.js) */}
+              <Script
+                async
+                src="https://www.googletagmanager.com/gtag/js?id=G-Q0TTLQ7K8W"
+              />
+              <Script
+                id="gtag-config"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                  __html: `
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', 'G-Q0TTLQ7K8W');
+                  `,
+                }}
+              />
+            </head>
             <body className={inter.className}>
+              <noscript>
+                <iframe
+                  src="https://www.googletagmanager.com/ns.html?id=GTM-MJGXJ534"
+                  height="0"
+                  width="0"
+                  style={{ display: "none", visibility: "hidden" }}
+                />
+              </noscript>
               <ThemeProvider
                 attribute="class"
                 defaultTheme="system"
@@ -39,6 +78,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                 <NavBar />
                 {children}
                 <Footer />
+                {/* Google Maps Script */}
                 <Script
                   id="googlemaps"
                   src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places&loading=async`}
@@ -53,23 +93,3 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     </ReactQueryProvider>
   );
 }
-
-//@ts-ignore
-// export const getServerSideProps: GetServerSideProps = async (
-//   context: GetServerSidePropsContext
-// ) => {
-//   const session = await getSession({ req: context.req });
-
-//   if (session) {
-//     return {
-//       redirect: {
-//         destination: '/profile',
-//         permananet: false,
-//       },
-//     };
-//   }
-
-//   return {
-//     props: { session },
-//   };
-// };
