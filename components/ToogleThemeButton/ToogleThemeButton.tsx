@@ -8,6 +8,8 @@ const DarkModeToggle = () => {
   return (
     <button
       onClick={() => (theme == "dark" ? setTheme("light") : setTheme("dark"))}
+      id="theme"
+      aria-label="theme"
     >
       {theme === "light" ? <RiMoonLine /> : <RiSunLine />}
     </button>
