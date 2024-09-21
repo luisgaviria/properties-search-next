@@ -2,11 +2,13 @@ import fs from "fs";
 import Filters from "@/components/Mlspin/Filters/Filters";
 import Script from "@/node_modules/next/script";
 
-async function getCityListing(city: string) {
+async function getCityListing(city: string, propertySubType: string) {
   let query = "";
-  query += `City=${city}`; // ${city} -> previously!
+  query += `City=${city}`;
   query += `&PropertyType=Residential,Residential Income`;
-  query += "&save=true";
+  query += `&PropertySubType=${propertySubType}`;
+  query += `&save=true`;
+
   const res: any = await fetch(
     `https://www.bostonharmonyhomes.com/api/search/mlspin?${query}&page=1`,
     {
@@ -17,12 +19,11 @@ async function getCityListing(city: string) {
   return { properties: res.properties, pages: res.pages };
 }
 
-// Function to generate the property schema
 function generatePropertySchema(properties: any[]) {
   return JSON.stringify({
     "@type": "RealEstateListing",
     name: "Real Estate Listings",
-    offers: properties?.map((tempProperty) => ({
+    offers: properties.map((tempProperty) => ({
       "@context": "https://schema.org",
       "@type": "Offer",
       "@id": `Offer${tempProperty.ListingId}`,
@@ -129,32 +130,40 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams() {
-  const file = fs.readFileSync(
-    process.cwd() + "/data/massachusetsCities.json",
+export async function generateStaticParams({params: {city}}: {params: {city: string}}) {
+  const propertySubTypesFile = fs.readFileSync(
+    process.cwd() + "/data/propertySubTypes.json",
     "utf8"
   );
-  const data = JSON.parse(file);
+  const propertySubTypes = JSON.parse(propertySubTypesFile);
 
-  return data?.map((city: any) => ({
-    city: city.Name.toLowerCase(),
-  }));
+  const citiesFile = fs.readFileSync(
+  process.cwd() + "/data/massachusetsCities.json",
+  "utf8"
+  );
+  const dataCities = JSON.parse(citiesFile);
+
+
+  const paths = dataCities?.flatMap((city: any) => 
+    propertySubTypes.map((subType: string) => ({
+      city: city.Name.toLowerCase(),
+      propertySubType: subType
+    }))
+  );
+
+  return paths;
 }
 
-export default async function CityPage({
-  params,
-}: {
-  params: { city: string };
-}) {
+export default async function CityPropertySubTypePage({
+  params
+}: {params: {city: string; propertySubType: string}}) {
   const city = params.city;
-  const data = await getCityListing(city);
-
-  // Generate the schema for the property listings
+  const propertySubType = params.propertySubType;
+  const data = await getCityListing(city,propertySubType);
   const schema_listing = generatePropertySchema(data.properties);
 
   return (
     <>
-      {/* Injecting the schema as JSON-LD */}
       <Script
         id="json-ld-agent"
         type="application/ld+json"
@@ -169,5 +178,5 @@ export default async function CityPage({
       />
       <Filters cityData={data.properties} cityPages={data.pages} />
     </>
-  );
+  )
 }

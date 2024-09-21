@@ -255,7 +255,6 @@ export async function GET(req: NextRequest, res: NextResponse<SearchResponse>) {
           });
         }
       }
-      console.log("API Response:", response.data);
       const pages = calculatePages(response.data.total, limit);
       return NextResponse.json({
         properties: response.data.bundle,

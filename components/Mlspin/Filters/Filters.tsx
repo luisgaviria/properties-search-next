@@ -518,6 +518,21 @@ export default function Filters(params: { cityData: any; cityPages: number }) {
       }
 
       // getData(page);
+    } else if (window.location.href.split("/")[6]) {
+      const city = window.location.href.split("/")[5]; 
+      const propertySubType = window.location.href.split("/")[6];
+      console.log(propertySubType);
+      let modStr = city[0].toUpperCase() + city.slice(1);
+      const cityArr = [modStr];
+      const propertySubTypeArr = [String(propertySubType).replaceAll("%20"," ")];
+      setFilter((prevState)=> { 
+        return { 
+          ...prevState,
+          PropertySubType: propertySubTypeArr,
+          City: cityArr,
+          PropertyType: ["Residential,Residential Income"]
+        }
+      })
     } else if (window.location.href.split("/")[5]) {
       const city = window.location.href.split("/")[5];
       let modStr = city[0].toUpperCase() + city.slice(1);
