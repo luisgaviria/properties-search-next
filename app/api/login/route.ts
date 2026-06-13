@@ -9,7 +9,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
       username: "Test",
       password: "123456789",
     },
+    
   });
+  console.error('Error:' );
   return NextResponse.json({
     message: "Succesfully created User",
   });
